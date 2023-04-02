@@ -1,7 +1,7 @@
 # Predmetni projekat iz pretmeta USI
 
 Članovi tima:
-* Valentina Jevtić
-* Isidora Aleksić
-* Miloš Bojanić
-* Vasilije Marković
+* Valentina Jevtić - doktor
+* Isidora Aleksić - medicinska sestra
+* Miloš Bojanić - pacijent
+* Vasilije Marković - upravnik

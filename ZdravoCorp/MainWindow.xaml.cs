@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using System.Collections;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace ZdravoCorp
 {
@@ -20,9 +24,38 @@ namespace ZdravoCorp
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<User> users;
         public MainWindow()
         {
             InitializeComponent();
+            users = LoadUsers();
+        }
+
+        private List<User> LoadUsers()
+        {
+            var serializer = new JsonSerializer();
+            using StreamReader reader = new("./../../../data/users.json");
+            var json = reader.ReadToEnd();
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
+            return users;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var user in users)
+            {
+                if (tbUsername.Text == user.Username && pbPassword.Password == user.Password)
+                {
+                    return;
+                }
+            }
+            pbPassword.Password = "";
+            MessageBox.Show("Invalid username or password.");
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "username": "vasilije",
+    "password": "vasilije",
+    "type": "manager"
+  },
+  {
+    "username": "vanja",
+    "password": "vanja",
+    "type": "doctor"
+  },
+  {
+    "username": "isidora",
+    "password": "isidora",
+    "type": "nurse"
+  },
+  {
+    "username": "milos",
+    "password": "milos",
+    "type": "patient"
+  }
+]

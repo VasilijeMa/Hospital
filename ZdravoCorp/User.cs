@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +26,14 @@ namespace ZdravoCorp
             Username = username;
             Password = password;
             Type = type;
+        }
+        public static List<User> LoadUsers()
+        {
+            var serializer = new JsonSerializer();
+            using StreamReader reader = new("./../../../data/users.json");
+            var json = reader.ReadToEnd();
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
+            return users;
         }
 
         public override string ToString()

@@ -28,16 +28,7 @@ namespace ZdravoCorp
         public MainWindow()
         {
             InitializeComponent();
-            users = LoadUsers();
-        }
-
-        private List<User> LoadUsers()
-        {
-            var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/users.json");
-            var json = reader.ReadToEnd();
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
-            return users;
+            users = User.LoadUsers();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

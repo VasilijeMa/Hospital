@@ -10,9 +10,6 @@ namespace ZdravoCorp
 {
     internal class User
     {
-        //private string username;
-        //private string password;
-
         public string Username { get; set; }
 
         public string Password { get; set; }
@@ -27,7 +24,7 @@ namespace ZdravoCorp
             Password = password;
             Type = type;
         }
-        public static List<User> LoadUsers()
+        public static List<User> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/users.json");

@@ -10,20 +10,18 @@ namespace ZdravoCorp
 {
     class MedicalRecord
     {
-        private List<Anamnesis> anamneses;
-        public List<Anamnesis> GetAnamneses()
-        {
-            return anamneses;
-        }
-        public void SetAnamneses(List<Anamnesis> anamneses)
-        {
-            this.anamneses = anamneses; 
-        }
+        public int Id { get; set; }
+        public List<int> AnamnesesId { get; set; }
+        public double Height { get; set; }
+        public double Weight { get; set; }
         public MedicalRecord() { }
 
-        public MedicalRecord(List<Anamnesis> anamneses)
+        public MedicalRecord(int id, List<int> anamnesesId, double height, double weight)
         {
-            SetAnamneses(anamneses);
+            Id = id;
+            AnamnesesId = anamnesesId;
+            Height = height;
+            Weight = weight;
         }
     }
 }

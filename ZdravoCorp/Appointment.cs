@@ -8,30 +8,17 @@ namespace ZdravoCorp
 {
     class Appointment
     {
-        private Doctor doctor;
-        private Patient patient;
+        public int Id { get; set; }
         public TimeSlot TimeSlot { get; set; }
-        public Doctor GetDoctor() 
+        public int DoctorId { get; set; }
+        public int PatientId { get; set; }
+        public Appointment(int id, TimeSlot timeSlot, int doctorId, int patientId)
         {
-            return doctor;
-        }
-        public void SetDoctor(Doctor doctor)
-        {
-            this.doctor = doctor;
-        }
-        public Patient GetPatient()
-        {
-            return patient; 
-        }
-        public void SetPatient(Patient patient)
-        {
-            this.patient = patient;
-        }
-        public Appointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
-        {
+            Id = id;
             TimeSlot = timeSlot;
-            SetDoctor(doctor);
-            SetPatient(patient);
+            DoctorId = doctorId;
+            PatientId = patientId;
         }
+        public Appointment() { }
     }
 }

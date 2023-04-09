@@ -8,5 +8,8 @@ namespace ZdravoCorp
 {
     class Doctor
     {
+        public int Id { get; set; }
+
+        public Doctor() { }
     }
 }

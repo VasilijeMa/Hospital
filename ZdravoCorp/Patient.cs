@@ -8,11 +8,20 @@ namespace ZdravoCorp
 {
     class Patient
     {
-        private MedicalRecord MedicalRecord { get; set; }
-        public Patient(MedicalRecord medicalRecord)
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateOnly BirthDate { get; set; }
+        private int MedicalRecordId { get; set; }
+        public Patient(int id, string firstName, string lastName, DateOnly birthDate, int medicalRecordId)
         {
-            MedicalRecord = medicalRecord;
+            this.Id = id;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.BirthDate = birthDate;
+            this.MedicalRecordId = medicalRecordId;
         }
+        public Patient() { }
 
     }
 }

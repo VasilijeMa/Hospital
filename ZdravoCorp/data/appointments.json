@@ -1,0 +1,18 @@
+[
+  {
+    "TimeSlot":{
+      "start": "5/5/2023 10:10:10",
+      "duration": 15
+    }
+    "DoctorId": 1,
+    "PatientId": 1
+  },
+  {
+    "TimeSlot": {
+      "start": "5/5/2023 10:30:10",
+      "duration": 20
+    },
+    "DoctorId": 1,
+    "PatientId": 2
+  }
+]

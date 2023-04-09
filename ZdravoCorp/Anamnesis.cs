@@ -8,11 +8,17 @@ namespace ZdravoCorp
 {
     class Anamnesis
     {
-        public Appointment Appointment { get; set; }
-
-        public Anamnesis(Appointment appointment)
+        public int Id { get; set; }
+        public DateTime DateTime { get; set; }
+        public int AppointmentId { get; set; }
+        public string Observation { get; set; }
+        public Anamnesis() { }
+        public Anamnesis(int id, int appointmentId, DateTime dateTime, string observation)
         {
-            Appointment = appointment;
+            Id = id;
+            AppointmentId = appointmentId;
+            DateTime = dateTime;
+            Observation = observation;
         }
     }
 }

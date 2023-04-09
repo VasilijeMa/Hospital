@@ -28,7 +28,7 @@ namespace ZdravoCorp
         public MainWindow()
         {
             InitializeComponent();
-            users = User.LoadUsers();
+            users = User.LoadAll();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

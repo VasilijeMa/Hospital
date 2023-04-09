@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,10 @@ namespace ZdravoCorp
             this.appointments = appointments;
         }
 
+        public Schedule()
+        {
+            this.appointments = LoadAllAppointments();
+        }
         public Schedule(List<Appointment> appointments)
         {
             this.appointments = appointments;
@@ -26,18 +32,18 @@ namespace ZdravoCorp
 
         public void CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
-            Appointment appointment = new Appointment(timeSlot, doctor, patient);
+            Appointment appointment = new Appointment(1,timeSlot, doctor.Id, patient.Id);
             appointments.Add(appointment);
         }
 
         public bool IsAvailable(TimeSlot timeSlot, Doctor doctor)
         {
-            return appointments.Any(appointment => appointment.TimeSlot.OverlapWith(timeSlot) && doctor == appointment.GetDoctor());
+            return appointments.Any(appointment => appointment.TimeSlot.OverlapWith(timeSlot) && doctor.Id == appointment.DoctorId);
         }
 
         public bool IsAvailable(TimeSlot timeSlot, Patient patient)
         {
-            return appointments.Any(appointment => appointment.TimeSlot.OverlapWith(timeSlot) && patient == appointment.GetPatient());
+            return appointments.Any(appointment => appointment.TimeSlot.OverlapWith(timeSlot) && patient.Id == appointment.PatientId);
         }
 
         public void UpdateAppointment()
@@ -48,6 +54,15 @@ namespace ZdravoCorp
         public void CancelAppointment()
         {
 
+        }
+
+        public List<Appointment> LoadAllAppointments()
+        {
+            var serializer = new JsonSerializer();
+            using StreamReader reader = new("./../../../data/appointments.json");
+            var json = reader.ReadToEnd();
+            List<Appointment> appointments = JsonConvert.DeserializeObject<List<Appointment>>(json);
+            return appointments;
         }
     }
 }

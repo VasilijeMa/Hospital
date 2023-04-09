@@ -1,9 +1,12 @@
 [
   {
     "Id": 1,
-    "FirstName": "",
-    "LastName": "",
-    "BirthDate": "5/20/1990",
-    "MedicalRecordId": 1
+    "FirstName": "Patient1",
+    "LastName": "Patient1",
+    "BirthDate": "1990-05-20",
+    "MedicalRecordId": 1,
+    "usename": "milos",
+    "password": "milos",
+    "type": "patient"
   }
 ]

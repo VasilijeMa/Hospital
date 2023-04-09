@@ -29,6 +29,13 @@ namespace ZdravoCorp
         {
             InitializeComponent();
             users = User.LoadAll();
+            Singleton singleton = Singleton.Instance;
+            //string s = "";
+            //foreach (Patient p in singleton.patients) 
+            //{
+            //    s += p.ToString();
+            //}
+            //tbUsername.Text = s;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

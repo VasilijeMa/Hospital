@@ -1,0 +1,20 @@
+﻿<Window x:Class="ZdravoCorp.DoctorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp"
+        mc:Ignorable="d"
+        Title="DoctorWindow" Height="526" Width="920">
+    <ListBox HorizontalAlignment="Left" Height="466" Margin="10,27,0,0" VerticalAlignment="Top" Width="292" SelectionChanged="ListBox_SelectionChanged_1">
+        <ListBoxItem Content="Zakazivanje pregleda"></ListBoxItem>
+        <ListBoxItem Content="Pregled operacija i pregleda za jedan dan" Selected="ListBoxItem_Selected"></ListBoxItem>
+        <ListBoxItem Content="Pregled operacija i pregleda za naredna 3 dana"></ListBoxItem>
+        <ListBoxItem Content="Pretrazivanje pacijenata"></ListBoxItem>
+        <ListBoxItem Content="Slobodni dani"></ListBoxItem>
+        <ListBoxItem Content="Vizita"></ListBoxItem>
+    </ListBox>
+
+ 
+
+</Window>

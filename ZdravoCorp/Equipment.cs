@@ -2,12 +2,15 @@
 public enum EquipmentType { Examination, Surgery, Furniture, Hallway };
 public class Equipment
 {
-	
+	string Name;
 	EquipmentType Type;
-	bool IsInWarehouse;
-	public Equipment(bool isInWarehouse, int type)
+	public Equipment(int type, string name)
 	{
 		this.Type = (EquipmentType)type;
-		this.IsInWarehouse = isInWarehouse;
+		this.Name = name;
+	}
+	public string GetName()
+	{
+		return this.Name;
 	}
 }

@@ -1,0 +1,12 @@
+[
+  {
+    "Id": 1,
+    "FirstName": "Patient1",
+    "LastName": "Patient1",
+    "BirthDate": "1990-05-20",
+    "MedicalRecordId": 1,
+    "usename": "milos",
+    "password": "milos",
+    "type": "patient"
+  }
+]

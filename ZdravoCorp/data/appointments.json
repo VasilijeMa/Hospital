@@ -2,7 +2,7 @@
   {
     "Id": 1,
     "TimeSlot": {
-      "start": "05/29/2023 05:50",
+      "start": "2023-05-29T05:50:00",
       "duration": 15
     },
     "DoctorId": 1,
@@ -11,10 +11,37 @@
   {
     "Id": 2,
     "TimeSlot": {
-      "start": "05/29/2023 07:50",
+      "start": "2023-05-29T07:50:00",
       "duration": 20
     },
     "DoctorId": 2,
-    "PatientId": 2
+    "PatientId": 1
+  },
+  {
+    "Id": 3,
+    "TimeSlot": {
+      "start": "2023-05-29T06:00:00",
+      "duration": 15
+    },
+    "DoctorId": 2,
+    "PatientId": 1
+  },
+  {
+    "Id": 4,
+    "TimeSlot": {
+      "start": "2023-05-29T06:16:00",
+      "duration": 15
+    },
+    "DoctorId": 2,
+    "PatientId": 1
+  },
+  {
+    "Id": 5,
+    "TimeSlot": {
+      "start": "2023-05-29T06:32:00",
+      "duration": 15
+    },
+    "DoctorId": 2,
+    "PatientId": 1
   }
 ]

@@ -41,5 +41,10 @@ namespace ZdravoCorp
            // tbUsername.Text = app.Count.ToString();
         }
 
+        private void makeAppointmentClick(object sender, RoutedEventArgs e)
+        {
+            MakeAppointmentDoctor appointmentDoctor = new MakeAppointmentDoctor(doctor);
+            appointmentDoctor.Show();
+        }
     }
 }

@@ -19,7 +19,7 @@
                 <MenuItem Header="_For one day" />
                 <MenuItem Header="_For three days"/>
             </MenuItem>
-            <MenuItem Header="_Make appointment" IsCheckable="false" Foreground="Black" FontSize="16">
+            <MenuItem Header="_Make appointment" Click="makeAppointmentClick" IsCheckable="false" Foreground="Black" FontSize="16">
             </MenuItem>
             <MenuItem Header="_Free days" IsCheckable="false" Foreground="Black" FontSize="16">
             </MenuItem>

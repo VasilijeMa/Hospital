@@ -25,17 +25,13 @@ namespace ZdravoCorp
     public partial class MainWindow : Window
     {
         List<User> users;
+
         public MainWindow()
         {
             InitializeComponent();
             users = User.LoadAll();
             Singleton singleton = Singleton.Instance;
-            //string s = "";
-            //foreach (Patient p in singleton.patients) 
-            //{
-            //    s += p.ToString();
-            //}
-            //tbUsername.Text = s;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,16 +40,8 @@ namespace ZdravoCorp
             {
                 if (tbUsername.Text == user.Username && pbPassword.Password == user.Password)
                 {
-                    switch (user.Type)
-                    {
-                        case "patient":
-                            PatientWindow pw = new PatientWindow();
-                            pw.Show();
-                            this.Close();
-                            break;
-                        default:
-                            break;
-                    }
+                    User.DisplayWindow(user);
+                    this.Close();
                     return;
                 }
             }

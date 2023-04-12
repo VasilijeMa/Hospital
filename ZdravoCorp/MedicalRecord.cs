@@ -8,7 +8,7 @@ using System.Windows.Media.Media3D;
 
 namespace ZdravoCorp
 {
-    class MedicalRecord
+    public class MedicalRecord
     {
         public int Id { get; set; }
         public List<int> AnamnesesId { get; set; }

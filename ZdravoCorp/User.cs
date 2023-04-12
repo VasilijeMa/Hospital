@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    internal class User
+    public class User
     {
         public string Username { get; set; }
 
@@ -36,6 +36,40 @@ namespace ZdravoCorp
         public override string ToString()
         {
             return "Username: " + Username + " Password: " + Password + "Type: " + Type;
+        }
+
+        public static void DisplayWindow(User user)
+        {
+            switch (user.Type)
+            {
+                case "doctor":
+                    Doctor doctor = new Doctor();
+             
+                    foreach (Doctor oneDoctor in Singleton.Instance.doctors)
+                    {
+                        if (user.Username == oneDoctor.Username)
+                        {
+                            doctor = oneDoctor;
+                        }
+                    }
+
+                    DoctorWindow doctorWindow = new DoctorWindow(doctor);
+                    doctorWindow.Show();
+                    break;
+
+                case "nurse":
+                    // code block
+                    break;
+                case "manager":
+
+                    break;
+                case "patient":
+
+                    break;
+                default:
+                    // code block
+                    break;
+            }
         }
     }
 }

@@ -6,29 +6,11 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    class TimeSlot
+    public class TimeSlot
     {
-        private DateTime start;
-        private int duration;
+        public DateTime start { get; set; }
 
-        public DateTime Start()
-        {
-            return start;
-        }
-
-        public void Start(DateTime start)
-        {
-            this.start = start;
-        }
-
-        public void Duration(int duration)
-        {
-            this.duration = duration;
-        }
-        public int Duration()
-        {
-            return duration;
-        }
+        public int duration { get; set; }
 
         public TimeSlot()
         {

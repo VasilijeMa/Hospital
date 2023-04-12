@@ -44,7 +44,14 @@ namespace ZdravoCorp
 
         public bool IsAvailable(TimeSlot timeSlot, Patient patient)
         {
-            return appointments.Any(appointment => !appointment.TimeSlot.OverlapWith(timeSlot) && patient.Id == appointment.PatientId);
+            foreach (Appointment appointment in appointments)
+            {
+                if (patient.Id == appointment.PatientId && appointment.TimeSlot.OverlapWith(timeSlot))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public void UpdateAppointment()

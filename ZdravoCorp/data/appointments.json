@@ -43,5 +43,14 @@
     },
     "DoctorId": 2,
     "PatientId": 1
+  },
+  {
+    "Id": 6,
+    "TimeSlot": {
+      "start": "2023-05-29T08:25:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 1
   }
 ]

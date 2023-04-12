@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="PatientWindow" Height="450" Width="800" Icon="/icon.png">
+        Title="PatientWindow" Height="450" Width="800" Icon="/icon.png" WindowStartupLocation="CenterScreen">
     <Grid>
         <Menu>
             <MenuItem Header="Menu" FontSize="25">

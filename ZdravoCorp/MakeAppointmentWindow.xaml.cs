@@ -19,9 +19,18 @@ namespace ZdravoCorp
     /// </summary>
     public partial class MakeAppointmentWindow : Window
     {
-        public MakeAppointmentWindow()
+        public MakeAppointmentWindow(Patient patient)
         {
             InitializeComponent();
+            //List<MyObject> items = new List<MyObject>();
+            //myComboBox.ItemsSource = items;
+            //myComboBox.DisplayMemberPath = "Name";
+            //myComboBox.SelectedValuePath = "Id";
+            Singleton singleton = Singleton.Instance;
+            cmbDoctors.ItemsSource = singleton.doctors;
+            //cmbDoctors.DisplayMemberPath = "{FirstName} {LastName}";
+            cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
+            cmbDoctors.SelectedValuePath = "Id";
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

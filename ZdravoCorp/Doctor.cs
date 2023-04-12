@@ -14,9 +14,9 @@ namespace ZdravoCorp
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
-        public string Lastname { get; set; }
+        public string LastName { get; set; }
 
         public Specialization Specialization { get; set; }
 
@@ -25,8 +25,8 @@ namespace ZdravoCorp
         public Doctor(int id, string name, string lastname, Specialization specialization, string username, string password, string type) : base(username, password, type)
         {
             Id = id;
-            Name = name;
-            Lastname = lastname;
+            FirstName = name;
+            LastName = lastname;
             Specialization = specialization;
         }
 

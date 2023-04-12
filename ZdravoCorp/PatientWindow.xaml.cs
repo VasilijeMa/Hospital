@@ -19,14 +19,17 @@ namespace ZdravoCorp
     /// </summary>
     public partial class PatientWindow : Window
     {
-        public PatientWindow()
+        private Patient patient;
+        public PatientWindow(Patient patient)
         {
             InitializeComponent();
+            this.patient = patient;
         }
 
         private void miMake_Click(object sender, RoutedEventArgs e)
         {
-
+            MakeAppointmentWindow makeAppointmentWindow = new MakeAppointmentWindow(patient);
+            makeAppointmentWindow.Show();
         }
 
         private void miUpdate_Click(object sender, RoutedEventArgs e)
@@ -38,5 +41,6 @@ namespace ZdravoCorp
         {
 
         }
+
     }
 }

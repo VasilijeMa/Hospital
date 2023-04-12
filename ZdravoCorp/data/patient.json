@@ -5,7 +5,7 @@
     "LastName": "Patient1",
     "BirthDate": "1990-05-20",
     "MedicalRecordId": 1,
-    "Usename": "milos",
+    "Username": "milos",
     "Password": "milos",
     "Type": "patient"
   }

@@ -10,9 +10,9 @@
         <Menu>
             <MenuItem Header="Menu" FontSize="25">
                 <MenuItem Header="Appointment">
-                    <MenuItem Header="Make"></MenuItem>
-                    <MenuItem Header="Update"></MenuItem>
-                    <MenuItem Header="Close"></MenuItem>
+                    <MenuItem Header="Make" Name="miMake" Click="miMake_Click"></MenuItem>
+                    <MenuItem Header="Update" Click="miUpdate_Click"></MenuItem>
+                    <MenuItem Header="Close" Click="miClose_Click"></MenuItem>
                 </MenuItem>
             </MenuItem>
         </Menu>

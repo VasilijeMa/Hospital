@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    enum Specialization
+    public enum Specialization
     {
         GeneralPractice,
         Surgeon,

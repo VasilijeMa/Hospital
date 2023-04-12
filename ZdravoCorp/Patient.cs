@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    class Patient:User
+    public class Patient:User
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

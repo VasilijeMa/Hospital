@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    class TimeSlot
+    public class TimeSlot
     {
         public DateTime start { get; set; }
 

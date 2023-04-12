@@ -5,16 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="DoctorWindow" Height="526" Width="920">
-    <ListBox HorizontalAlignment="Left" Height="466" Margin="10,27,0,0" VerticalAlignment="Top" Width="292" SelectionChanged="ListBox_SelectionChanged_1">
-        <ListBoxItem Content="Zakazivanje pregleda"></ListBoxItem>
-        <ListBoxItem Content="Pregled operacija i pregleda za jedan dan" Selected="ListBoxItem_Selected"></ListBoxItem>
-        <ListBoxItem Content="Pregled operacija i pregleda za naredna 3 dana"></ListBoxItem>
-        <ListBoxItem Content="Pretrazivanje pacijenata"></ListBoxItem>
-        <ListBoxItem Content="Slobodni dani"></ListBoxItem>
-        <ListBoxItem Content="Vizita"></ListBoxItem>
-    </ListBox>
+        Title="DoctorWindow" WindowStartupLocation="CenterScreen" Height="526" Width="920">
 
- 
+    <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.51,0.487">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Name="menu1" Margin="2,0,2,0" BorderThickness="2" FontSize="16" Background="MintCream" >
+            <MenuItem Header="_View appointments">
+                <MenuItem Header="_For one day" />
+                <MenuItem Header="_For three days"/>
+            </MenuItem>
+            <MenuItem Header="_Make appointment" IsCheckable="false" Foreground="Black" FontSize="16">
+            </MenuItem>
+            <MenuItem Header="_Free days" IsCheckable="false" Foreground="Black" FontSize="16">
+            </MenuItem>
+
+        </Menu>
+
+        <StackPanel Grid.Row="2"  HorizontalAlignment="Left" Margin="163,0,0,0" VerticalAlignment="Center" Height="153" Width="180">
+            <Image Source="/data/user.png" Height="150" Width="150" />
+        </StackPanel>
+
+
+
+
+    </Grid>
+
+
 
 </Window>

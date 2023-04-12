@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    class Schedule
+    public class Schedule
     {
         /*private List<Appointment> appointments;
         public List<Appointment> GetAppointments()

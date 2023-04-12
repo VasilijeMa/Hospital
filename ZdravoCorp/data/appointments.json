@@ -1,5 +1,6 @@
 [
   {
+    "Id": 1,
     "TimeSlot": {
       "start": "05/29/2023 05:50",
       "duration": 15
@@ -8,11 +9,12 @@
     "PatientId": 1
   },
   {
+    "Id": 2,
     "TimeSlot": {
-      "start": "05/29/2023 05:50",
+      "start": "05/29/2023 07:50",
       "duration": 20
     },
-    "DoctorId": 1,
+    "DoctorId": 2,
     "PatientId": 2
   }
 ]

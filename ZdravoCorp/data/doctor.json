@@ -1,11 +1,20 @@
 [
   {
     "Id": 1,
-    "FirstName": "",
-    "LastName": "",
-    "Specialization": ""
+    "FirstName": "Lazar",
+    "LastName": "Lazarevic",
+    "Specialization": "Surgeon",
+    "Username": "vanja",
+    "Password": "vanja",
+    "Type": "doctor"
   },
   {
-
+    "Id": 2,
+    "FirstName": "Nikola",
+    "LastName": "Nikolic",
+    "Specialization": "Dentist",
+    "Username": "nikola",
+    "Password": "nikola",
+    "Type": "doctor"
   }
 ]

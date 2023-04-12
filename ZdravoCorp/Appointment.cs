@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    class Appointment
+    public class Appointment
     {
         public int Id { get; set; }
         public TimeSlot TimeSlot { get; set; }

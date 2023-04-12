@@ -8,18 +8,20 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    class Schedule
+    public class Schedule
     {
-        private List<Appointment> appointments;
-        private List<Appointment> GetAppointments()
+        /*private List<Appointment> appointments;
+        public List<Appointment> GetAppointments()
         {
             return appointments;
         }
 
-        private void SetAppointments(List<Appointment> appointments)
+        public void SetAppointments(List<Appointment> appointments)
         {
             this.appointments = appointments;
-        }
+        }*/
+
+        public List<Appointment> appointments { get; set; }
 
         public Schedule()
         {
@@ -29,6 +31,8 @@ namespace ZdravoCorp
         {
             this.appointments = appointments;
         }
+
+        //public Schedule() { }
 
         public void CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {

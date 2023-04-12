@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    class Singleton
+    public class Singleton
     {
         private static Singleton instance;
         public Schedule Schedule { get; set; }
+
+        public List<Doctor> doctors;
+
         public List<Patient> patients;
         public static Singleton Instance
         {
@@ -25,6 +28,7 @@ namespace ZdravoCorp
         private Singleton()
         {
             Schedule = new Schedule();
+            doctors = Doctor.LoadAll();
             patients = Patient.LoadAll();
         }
     }

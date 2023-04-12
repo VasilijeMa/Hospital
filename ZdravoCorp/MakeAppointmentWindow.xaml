@@ -17,9 +17,9 @@
     </Window.Resources>
     <Grid>
         <Label Content="Date: " HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <DatePicker HorizontalAlignment="Left" Margin="132,27,0,0" VerticalAlignment="Top" FontSize="25"/>
+        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="132,27,0,0" VerticalAlignment="Top" FontSize="25"/>
         <Label Content="Time: " HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <TextBox HorizontalAlignment="Left" Margin="132,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="214" FontSize="25"/>
+        <TextBox Name="tbTime" HorizontalAlignment="Left" Margin="132,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="214" FontSize="25"/>
         <Label Content="Doctor: " HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" FontSize="25"/>
         <ComboBox Name="cmbDoctors" HorizontalAlignment="Left" Margin="132,177,0,0" VerticalAlignment="Top" Width="214" FontSize="25"/>
         <Button Name="btnSubmit" Content="Sumbit" HorizontalAlignment="Left" Margin="22,267,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnSubmit_Click"/>

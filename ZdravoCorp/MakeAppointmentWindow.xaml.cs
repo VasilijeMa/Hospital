@@ -40,7 +40,20 @@ namespace ZdravoCorp
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-
+            if (tbTime.Text == "" || dpDate.SelectedDate == null || cmbDoctors.SelectedItem == null)
+            {
+                MessageBox.Show("Fill in all the fields");
+                return;
+            }
+            string pattern = @"^([01][0-9]|2[0-3]):[0-5][0-9]$";
+            if (System.Text.RegularExpressions.Regex.IsMatch(tbTime.Text, pattern))
+            {
+                MessageBox.Show("Time value is valid.");
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid time value in \"hh:mm\" format.");
+            }
         }
     }
 }

@@ -44,6 +44,16 @@ namespace ZdravoCorp
             {
                 if (tbUsername.Text == user.Username && pbPassword.Password == user.Password)
                 {
+                    switch (user.Type)
+                    {
+                        case "patient":
+                            PatientWindow pw = new PatientWindow();
+                            pw.Show();
+                            this.Close();
+                            break;
+                        default:
+                            break;
+                    }
                     return;
                 }
             }

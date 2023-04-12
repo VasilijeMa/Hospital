@@ -1,0 +1,21 @@
+﻿<Window x:Class="ZdravoCorp.PatientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp"
+        mc:Ignorable="d"
+        Title="PatientWindow" Height="450" Width="800" Icon="/icon.png">
+    <Grid>
+        <Menu>
+            <MenuItem Header="Menu" FontSize="25">
+                <MenuItem Header="Appointment">
+                    <MenuItem Header="Make"></MenuItem>
+                    <MenuItem Header="Update"></MenuItem>
+                    <MenuItem Header="Close"></MenuItem>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+    </Grid>
+</Window>

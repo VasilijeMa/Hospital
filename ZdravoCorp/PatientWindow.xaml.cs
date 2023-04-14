@@ -32,15 +32,10 @@ namespace ZdravoCorp
             makeAppointmentWindow.Show();
         }
 
-        private void miUpdate_Click(object sender, RoutedEventArgs e)
+        private void MyAppointments_Click(object sender, RoutedEventArgs e)
         {
-
+            MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient);
+            myAppointmentsWindow.Show();
         }
-
-        private void miClose_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 }

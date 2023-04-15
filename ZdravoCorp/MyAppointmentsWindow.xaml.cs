@@ -22,15 +22,17 @@ namespace ZdravoCorp
     {
         List<Appointment> appointments;
         Singleton singleton;
+        Patient patient;
         public MyAppointmentsWindow(Patient patient)
         {
             InitializeComponent();
+            this.patient = patient;
             singleton = Singleton.Instance;
-            appointments = singleton.Schedule.LoadAllAppointments();
-            LoadAppointmentsInDataGrid(patient);
+            appointments = singleton.Schedule.appointments;
+            LoadAppointmentsInDataGrid();
         }
 
-        private void LoadAppointmentsInDataGrid(Patient patient)
+        private void LoadAppointmentsInDataGrid()
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Id", typeof(int));
@@ -50,6 +52,10 @@ namespace ZdravoCorp
 
         private void dgAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (dgAppointments.SelectedItem == null)
+            {
+                return;
+            }
             if (((DataRowView)dgAppointments.SelectedItem).Row["IsCanceled"].Equals(true))
             {
                 btnCancel.IsEnabled = false;
@@ -66,6 +72,12 @@ namespace ZdravoCorp
             if (item == null)
             {
                 MessageBox.Show("Appointment is not selected.");
+                return;
+            }
+            Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["Id"]);
+            if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
+            {
+                MessageBox.Show("The selected appointment must not changed.");
                 return;
             }
             MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel the appointment?", "Congfirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -96,21 +108,22 @@ namespace ZdravoCorp
                 return;
             }
             int id = (int)item.Row["Id"];
-            Appointment appointment = GetAppointment(id);
+            Appointment appointment = singleton.Schedule.GetAppointment(id);
+            if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
+            {
+                MessageBox.Show("The selected appointment must not changed.");
+                return;
+            }
             UpdateWindow updateWindow = new UpdateWindow(appointment);
             updateWindow.ShowDialog();
+            dgAppointments.ItemsSource = null;
+            LoadAppointmentsInDataGrid();
         }
 
-        private Appointment GetAppointment(int id)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            foreach (var appointment in appointments)
-            {
-                if(appointment.Id == id)
-                {
-                    return appointment;
-                }
-            }
-            return null;
+            singleton.Schedule.WriteAllAppointmens();
         }
+
     }
 }

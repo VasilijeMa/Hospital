@@ -24,6 +24,7 @@ namespace ZdravoCorp
         {
             InitializeComponent();
             this.patient = patient;
+            lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
         }
 
         private void miMake_Click(object sender, RoutedEventArgs e)

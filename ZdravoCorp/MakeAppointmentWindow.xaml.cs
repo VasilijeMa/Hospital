@@ -30,6 +30,7 @@ namespace ZdravoCorp
             cmbDoctors.ItemsSource = singleton.doctors;
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
             cmbDoctors.SelectedValuePath = "Id";
+            dpDate.DisplayDateStart = DateTime.Now;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -44,6 +45,11 @@ namespace ZdravoCorp
                 return;
             }
             TimeSlot timeSlot = MakeTimeSlot();
+            if (timeSlot.start <= DateTime.Now)
+            {
+                MessageBox.Show("The selected date must not be in the past.");
+                return;
+            }
             if (!singleton.Schedule.IsAvailable(timeSlot, (Doctor)cmbDoctors.SelectedItem))
             {
                 MessageBox.Show("Doctor is not available at choosen date and time.");
@@ -73,7 +79,8 @@ namespace ZdravoCorp
             string pattern = @"^([01][0-9]|2[0-3]):[0-5][0-9]$";
             if (!System.Text.RegularExpressions.Regex.IsMatch(tbTime.Text, pattern))
             {
-                MessageBox.Show("Please enter a valid time value in \"hh:mm\" format.");
+                MessageBox.Show("Please enter a valid time value in \"HH:mm\" format.");
+                return false;
             }
             return true;
         }

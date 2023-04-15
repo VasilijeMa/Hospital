@@ -29,12 +29,12 @@ namespace ZdravoCorp
             if(this.start.Date == timeSlot.start.Date)
             {
                 bool isAtDifferentTime = start.TimeOfDay > timeSlot.start.AddMinutes(timeSlot.duration).TimeOfDay || start.AddMinutes(duration).TimeOfDay < timeSlot.start.TimeOfDay;
-                if (isAtDifferentTime)
+                if (!isAtDifferentTime)
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
     }
 }

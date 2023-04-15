@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace ZdravoCorp
         public Dictionary<string, Room> AllRooms;
         public List<FunctionalItem> AllFunctionalItems;
         public Warehouse AllStoredItems;
+        public Dictionary<string, EquipmentGridItem> EquipmentOrganization;
+        public ObservableCollection<EquipmentGridItem> EquipmentGridItems { get; set; }
         public FilterEquipment()
         {
             AllEquipment = Equipment.LoadAll();
@@ -30,10 +33,39 @@ namespace ZdravoCorp
             AllFunctionalItems = FunctionalItem.LoadAll();
             AllStoredItems = Warehouse.Load();
 
+            EquipmentOrganization = new Dictionary<string, EquipmentGridItem>();
+            EquipmentOrganization["Sus"] = new EquipmentGridItem("Sus", EquipmentType.Hallway);
+            EquipmentOrganization["Amogus"] = new EquipmentGridItem("Amogus", EquipmentType.Surgery);
+            EquipmentOrganization["BigChungus"] = new EquipmentGridItem("BigChungus", EquipmentType.Examination);
+
+            EquipmentGridItems = new ObservableCollection<EquipmentGridItem>();
+            foreach (EquipmentGridItem eq in EquipmentOrganization.Values)
+            {
+                EquipmentGridItems.Add(eq);
+            }
+
+            DataContext = this;
 
             InitializeComponent();
+
         }
 
+        void LoadQuantities(int byRoomType, int byEquipmentType, int byQuantity, int notInWarehouse, string searchInput)
+        {
+
+        }
+
+        private void FilterButtonClick(object sender, RoutedEventArgs e)
+        {
+            EquipmentOrganization.Clear();
+            EquipmentOrganization["Lol"] = new EquipmentGridItem("Lol", EquipmentType.Furniture);
+            EquipmentOrganization["HeheBoi"] = new EquipmentGridItem("HeheBoi", EquipmentType.Furniture);
+            EquipmentOrganization["Hah"] = new EquipmentGridItem("Hah", EquipmentType.Furniture);
+
+            EquipmentGridItems.Clear();
+            foreach (EquipmentGridItem eq in EquipmentOrganization.Values) EquipmentGridItems.Add(eq);
+
+        }
 
     }
 }

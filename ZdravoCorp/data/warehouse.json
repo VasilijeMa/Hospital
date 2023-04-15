@@ -1,0 +1,13 @@
+{
+  "Name": "Warehouse",
+  "Inventory": {
+    "Bed": 4,
+    "Wardrobe": 5,
+    "Chair": 2,
+    "Stethoscope": 3,
+    "IV": 4,
+    "Shelf": 7,
+    "Bandage": 10,
+    "Scalpel": 2
+  }
+}

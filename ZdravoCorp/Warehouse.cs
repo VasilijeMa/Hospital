@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 public class Warehouse:Infrastructure
 {
-    Dictionary<Equipment, int> Inventory;
-    public Warehouse(string name, Dictionary<Equipment, int> inventory) : base(name)
+    Dictionary<string, int> Inventory;
+    public Warehouse(string name, Dictionary<string, int> inventory) : base(name)
     {
         this.Inventory = inventory;
     }
 
-    void Add(Equipment equipment)
+    void Add(string equipment)
     {
         if (this.Inventory.ContainsKey(equipment))
         {
@@ -19,6 +21,14 @@ public class Warehouse:Infrastructure
         {
             this.Inventory.Add(equipment, 1);
         }
+    }
+    public static Warehouse Load()
+    {
+        var serializer = new JsonSerializer();
+        using StreamReader reader = new("./../../../data/warehouse.json");
+        var json = reader.ReadToEnd();
+        Warehouse warehouse = JsonConvert.DeserializeObject<Warehouse>(json);
+        return warehouse;
     }
 
 }

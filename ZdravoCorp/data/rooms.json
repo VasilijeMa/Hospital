@@ -1,0 +1,42 @@
+{
+  "Operating Theater 1": {
+    "Name": "Operating Theater 1",
+    "Type": 1
+  },
+  "Operating Theater 2": {
+    "Name": "Operating Theater 2",
+    "Type": 1
+  },
+  "Examination Room 1": {
+    "Name": "Examination Room 1",
+    "Type": 2
+  },
+  "Examination Room 2": {
+    "Name": "Examination Room 2",
+    "Type": 2
+  },
+  "Examination Room 3": {
+    "Name": "Examination Room 3",
+    "Type": 2
+  },
+  "Examination Room 4": {
+    "Name": "Examination Room 4",
+    "Type": 2
+  },
+  "Infirmary 1": {
+    "Name": "Infirmary 1",
+    "Type": 3
+  },
+  "Infirmary 2": {
+    "Name": "Infirmary 2",
+    "Type": 3
+  },
+  "Infirmary 3": {
+    "Name": "Infirmary 3",
+    "Type": 3
+  },
+  "Infirmary 4": {
+    "Name": "Infirmary 4",
+    "Type": 3
+  }
+}

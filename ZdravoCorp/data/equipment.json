@@ -1,0 +1,42 @@
+{
+  "Bed": {
+    "Name": "Bed",
+    "Type": 3
+  },
+  "Table": {
+    "Name": "Table",
+    "Type": 3
+  },
+  "Chair": {
+    "Name": "Chair",
+    "Type": 3
+  },
+  "Wardrobe": {
+    "Name": "Wardrobe",
+    "Type": 3
+  },
+  "Stethoscope": {
+    "Name": "Stethoscope",
+    "Type": 1
+  },
+  "Shelf": {
+    "Name": "Shelf",
+    "Type": 3
+  },
+  "IV": {
+    "Name": "IV",
+    "Type": 2
+  },
+  "Bench": {
+    "Name": "Bench",
+    "Type": 4
+  },
+  "Scalpel": {
+    "Name": "Scalpel",
+    "Type": 2
+  },
+  "Bandage": {
+    "Name": "Bandage",
+    "Type": 2
+  }
+}

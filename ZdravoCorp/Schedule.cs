@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ZdravoCorp
 {
@@ -21,8 +22,6 @@ namespace ZdravoCorp
             this.appointments = appointments;
         }
 
-        //public Schedule() { }
-
         public void CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
             int id = getLastId() + 1;
@@ -30,10 +29,11 @@ namespace ZdravoCorp
             appointments.Add(appointment);
         }
 
-        public bool IsAvailable(TimeSlot timeSlot, Doctor doctor)
+        public bool IsAvailable(TimeSlot timeSlot, Doctor doctor, int appointmentId=-1)
         {
             foreach(Appointment appointment in appointments)
             {
+                if(appointment.Id == appointmentId) continue;
                 if(doctor.Id == appointment.DoctorId && appointment.TimeSlot.OverlapWith(timeSlot))
                 {
                     return false;
@@ -54,14 +54,29 @@ namespace ZdravoCorp
             return true;
         }
 
-        public void UpdateAppointment()
+        public void UpdateAppointment(int appointmentId, TimeSlot timeSlot, int doctorId)
         {
-
+            foreach (var appointment in appointments)
+            {
+                if (appointment.Id == appointmentId)
+                {
+                    appointment.TimeSlot = timeSlot;
+                    appointment.DoctorId = doctorId;
+                    break;
+                }
+            }
         }
 
-        public void CancelAppointment()
+        public void CancelAppointment(int appointmentId)
         {
-
+            foreach (var appointment in appointments)
+            {
+                if(appointment.Id == appointmentId)
+                {
+                    appointment.IsCanceled = true;
+                    break;
+                }
+            }
         }
 
         public List<Appointment> LoadAllAppointments()
@@ -82,6 +97,18 @@ namespace ZdravoCorp
         public int getLastId()
         {
             return appointments.Max(appointment => appointment.Id);
+        }
+
+        public Appointment GetAppointment(int id)
+        {
+            foreach (var appointment in appointments)
+            {
+                if (appointment.Id == id)
+                {
+                    return appointment;
+                }
+            }
+            return null;
         }
     }
 }

@@ -24,23 +24,19 @@ namespace ZdravoCorp
         {
             InitializeComponent();
             this.patient = patient;
+            lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
         }
 
         private void miMake_Click(object sender, RoutedEventArgs e)
         {
             MakeAppointmentWindow makeAppointmentWindow = new MakeAppointmentWindow(patient);
-            makeAppointmentWindow.Show();
+            makeAppointmentWindow.ShowDialog();
         }
 
-        private void miUpdate_Click(object sender, RoutedEventArgs e)
+        private void MyAppointments_Click(object sender, RoutedEventArgs e)
         {
-
+            MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient);
+            myAppointmentsWindow.ShowDialog();
         }
-
-        private void miClose_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 }

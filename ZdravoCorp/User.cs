@@ -64,8 +64,6 @@ namespace ZdravoCorp
 
                     break;
                 case "patient":
-                    //Patient patient = new Patient();
-
                     foreach (Patient patient in Singleton.Instance.patients)
                     {
                         if (user.Username == patient.Username)

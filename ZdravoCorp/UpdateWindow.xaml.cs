@@ -15,22 +15,26 @@ using System.Windows.Shapes;
 namespace ZdravoCorp
 {
     /// <summary>
-    /// Interaction logic for MakeAppointmentWindow.xaml
+    /// Interaction logic for UpdateWindow.xaml
     /// </summary>
-    public partial class MakeAppointmentWindow : Window
+    public partial class UpdateWindow : Window
     {
         const int APPOINTMENT_DURATION = 15;
         Singleton singleton;
-        Patient patient;
-        public MakeAppointmentWindow(Patient patient)
+        Appointment appointment;
+        public UpdateWindow(Appointment appointment)
         {
             InitializeComponent();
-            this.patient = patient;
+            this.appointment = appointment;
             singleton = Singleton.Instance;
+            tbId.Text = appointment.Id.ToString();
+            dpDate.SelectedDate = appointment.TimeSlot.start.Date;
+            dpDate.DisplayDateStart = DateTime.Now;
+            tbTime.Text = appointment.TimeSlot.start.ToString("HH:mm");
             cmbDoctors.ItemsSource = singleton.doctors;
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
             cmbDoctors.SelectedValuePath = "Id";
-            dpDate.DisplayDateStart = DateTime.Now;
+            cmbDoctors.SelectedValue = appointment.DoctorId;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -40,6 +44,11 @@ namespace ZdravoCorp
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to update the appointment?", "Congfirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
             if (!inputValidation())
             {
                 return;
@@ -50,14 +59,14 @@ namespace ZdravoCorp
                 MessageBox.Show("The selected date must not be in the past.");
                 return;
             }
-            if (!singleton.Schedule.IsAvailable(timeSlot, (Doctor)cmbDoctors.SelectedItem))
+            if (!singleton.Schedule.IsAvailable(timeSlot, (Doctor)cmbDoctors.SelectedItem, appointment.Id))
             {
                 MessageBox.Show("Doctor is not available at choosen date and time.");
                 return;
             }
-            singleton.Schedule.CreateAppointment(timeSlot, (Doctor)cmbDoctors.SelectedItem, patient);
-            singleton.Schedule.WriteAllAppointmens();
-            MessageBox.Show("Appointment successfully created.");
+            singleton.Schedule.UpdateAppointment(appointment.Id, timeSlot, (int)cmbDoctors.SelectedValue);
+            MessageBox.Show("Appointment successfully updated.");
+            this.Close();
         }
 
         public TimeSlot MakeTimeSlot()
@@ -79,7 +88,7 @@ namespace ZdravoCorp
             string pattern = @"^([01][0-9]|2[0-3]):[0-5][0-9]$";
             if (!System.Text.RegularExpressions.Regex.IsMatch(tbTime.Text, pattern))
             {
-                MessageBox.Show("Please enter a valid time value in \"HH:mm\" format.");
+                MessageBox.Show("Please enter a valid time value in \"hh:mm\" format.");
                 return false;
             }
             return true;

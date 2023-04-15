@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="MyAppointmentsWindow" Height="450" Width="603">
+        Title="MyAppointmentsWindow" Height="450" Width="603" WindowStartupLocation="CenterScreen" Icon="/icon.png">
     <Grid>
-        <DataGrid x:Name="dgAppointments" IsReadOnly="True" MaxHeight="300" VerticalAlignment="Top" FontSize="25" SelectionChanged="dgAppointments_SelectionChanged"/>
-        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105"/>
+        <DataGrid x:Name="dgAppointments" IsReadOnly="True" MaxHeight="300" VerticalAlignment="Top" FontSize="25" SelectionChanged="dgAppointments_SelectionChanged" ItemsSource="{Binding Appointment}"></DataGrid>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnUpdate_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="120,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" RenderTransformOrigin="0.478,-1.299" Click="btnCancel_Click"/>
         <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="467,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnExit_Click"/>
 

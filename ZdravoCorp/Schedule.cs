@@ -21,8 +21,6 @@ namespace ZdravoCorp
             this.appointments = appointments;
         }
 
-        //public Schedule() { }
-
         public void CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
             int id = getLastId() + 1;
@@ -59,9 +57,16 @@ namespace ZdravoCorp
 
         }
 
-        public void CancelAppointment()
+        public void CancelAppointment(int appointmentId)
         {
-
+            foreach (var appointment in appointments)
+            {
+                if(appointment.Id == appointmentId)
+                {
+                    appointment.IsCanceled = true;
+                    break;
+                }
+            }
         }
 
         public List<Appointment> LoadAllAppointments()

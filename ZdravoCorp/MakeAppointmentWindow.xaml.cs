@@ -55,7 +55,8 @@ namespace ZdravoCorp
                 MessageBox.Show("Doctor is not available at choosen date and time.");
                 return;
             }
-            singleton.Schedule.CreateAppointment(timeSlot, (Doctor)cmbDoctors.SelectedItem, patient);
+            Appointment appointment = singleton.Schedule.CreateAppointment(timeSlot, (Doctor)cmbDoctors.SelectedItem, patient);
+            singleton.Log.AddElement(appointment, patient);
             singleton.Schedule.WriteAllAppointmens();
             MessageBox.Show("Appointment successfully created.");
         }

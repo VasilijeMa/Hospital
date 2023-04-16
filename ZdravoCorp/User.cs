@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Xml.Linq;
 
 namespace ZdravoCorp
 {
@@ -16,6 +18,8 @@ namespace ZdravoCorp
 
         public string Type { get; set; }
 
+        public bool isBlocked { get; set; }
+
         public User() { }
 
         public User(string username, string password, string type)
@@ -23,6 +27,7 @@ namespace ZdravoCorp
             Username = username;
             Password = password;
             Type = type;
+            isBlocked = false;
         }
         public static List<User> LoadAll()
         {
@@ -31,6 +36,11 @@ namespace ZdravoCorp
             var json = reader.ReadToEnd();
             List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
             return users;
+        }
+        public static void WriteAll(List<User> users)
+        {
+            string json = JsonConvert.SerializeObject(users, Formatting.Indented);
+            File.WriteAllText("./../../../data/users.json", json);
         }
 
         public override string ToString()
@@ -54,7 +64,7 @@ namespace ZdravoCorp
                     }
 
                     DoctorWindow doctorWindow = new DoctorWindow(doctor);
-                    doctorWindow.Show();
+                    doctorWindow.ShowDialog();
                     break;
 
                 case "nurse":
@@ -66,11 +76,15 @@ namespace ZdravoCorp
                 case "patient":
                     foreach (Patient patient in Singleton.Instance.patients)
                     {
-                        if (user.Username == patient.Username)
+                        if (user.Username == patient.Username )
                         {
-                            PatientWindow patientWindow = new PatientWindow(patient);
-                            patientWindow.Show();
-                            break;
+                            if (!patient.isBlocked)
+                            {
+                                PatientWindow patientWindow = new PatientWindow(patient);
+                                patientWindow.ShowDialog();
+                                break;
+                            }
+                            MessageBox.Show("Your account is blocked.");
                         }
                     }
                     break;

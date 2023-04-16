@@ -17,7 +17,7 @@
     },
     "DoctorId": 2,
     "PatientId": 1,
-    "IsCanceled": false
+    "IsCanceled": true
   },
   {
     "Id": 3,
@@ -27,7 +27,7 @@
     },
     "DoctorId": 2,
     "PatientId": 1,
-    "IsCanceled": false
+    "IsCanceled": true
   },
   {
     "Id": 4,
@@ -37,7 +37,7 @@
     },
     "DoctorId": 2,
     "PatientId": 1,
-    "IsCanceled": false
+    "IsCanceled": true
   },
   {
     "Id": 5,
@@ -47,7 +47,7 @@
     },
     "DoctorId": 2,
     "PatientId": 1,
-    "IsCanceled": false
+    "IsCanceled": true
   },
   {
     "Id": 6,
@@ -57,6 +57,6 @@
     },
     "DoctorId": 1,
     "PatientId": 1,
-    "IsCanceled": false
+    "IsCanceled": true
   }
 ]

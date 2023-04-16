@@ -12,7 +12,6 @@ namespace ZdravoCorp
     public class Schedule
     {
         public List<Appointment> appointments { get; set; }
-
         public Schedule()
         {
             this.appointments = LoadAllAppointments();
@@ -22,11 +21,12 @@ namespace ZdravoCorp
             this.appointments = appointments;
         }
 
-        public void CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
+        public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
             int id = getLastId() + 1;
             Appointment appointment = new Appointment(id ,timeSlot, doctor.Id, patient.Id);
             appointments.Add(appointment);
+            return appointment;
         }
 
         public bool IsAvailable(TimeSlot timeSlot, Doctor doctor, int appointmentId=-1)
@@ -54,7 +54,7 @@ namespace ZdravoCorp
             return true;
         }
 
-        public void UpdateAppointment(int appointmentId, TimeSlot timeSlot, int doctorId)
+        public Appointment UpdateAppointment(int appointmentId, TimeSlot timeSlot, int doctorId)
         {
             foreach (var appointment in appointments)
             {
@@ -62,21 +62,23 @@ namespace ZdravoCorp
                 {
                     appointment.TimeSlot = timeSlot;
                     appointment.DoctorId = doctorId;
-                    break;
+                    return appointment;
                 }
             }
+            return null;
         }
 
-        public void CancelAppointment(int appointmentId)
+        public Appointment CancelAppointment(int appointmentId)
         {
             foreach (var appointment in appointments)
             {
                 if(appointment.Id == appointmentId)
                 {
                     appointment.IsCanceled = true;
-                    break;
+                    return appointment;
                 }
             }
+            return null;
         }
 
         public List<Appointment> LoadAllAppointments()

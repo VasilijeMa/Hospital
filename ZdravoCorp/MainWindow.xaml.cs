@@ -25,12 +25,12 @@ namespace ZdravoCorp
     public partial class MainWindow : Window
     {
         List<User> users;
-
+        Singleton singleton;
         public MainWindow()
         {
             InitializeComponent();
             users = User.LoadAll();
-            Singleton singleton = Singleton.Instance;
+            singleton = Singleton.Instance;
 
         }
 
@@ -40,8 +40,12 @@ namespace ZdravoCorp
             {
                 if (tbUsername.Text == user.Username && pbPassword.Password == user.Password)
                 {
+                    this.Visibility = Visibility.Hidden;
                     User.DisplayWindow(user);
-                    this.Close();
+                    this.Visibility = Visibility.Visible;
+                    User.WriteAll(users);
+                    tbUsername.Text = "";
+                    pbPassword.Password = "";
                     return;
                 }
             }

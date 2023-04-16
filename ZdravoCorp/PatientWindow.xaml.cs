@@ -20,11 +20,13 @@ namespace ZdravoCorp
     public partial class PatientWindow : Window
     {
         private Patient patient;
+        Singleton singleton = Singleton.Instance;
         public PatientWindow(Patient patient)
         {
             InitializeComponent();
             this.patient = patient;
             lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
+            singleton.Log.Count(patient.Id);
         }
 
         private void miMake_Click(object sender, RoutedEventArgs e)
@@ -37,6 +39,10 @@ namespace ZdravoCorp
         {
             MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient);
             myAppointmentsWindow.ShowDialog();
+        }
+        private void miLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

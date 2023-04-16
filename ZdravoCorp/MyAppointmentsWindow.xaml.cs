@@ -86,6 +86,7 @@ namespace ZdravoCorp
                 ((DataRowView)dgAppointments.SelectedItem).Row["IsCanceled"] = true;
                 btnCancel.IsEnabled = false;
                 singleton.Schedule.CancelAppointment((int)((DataRowView)dgAppointments.SelectedItem).Row["Id"]);
+                singleton.Log.UpdateCancelElement(appointment, patient);
             }
         }
 
@@ -114,7 +115,7 @@ namespace ZdravoCorp
                 MessageBox.Show("The selected appointment must not changed.");
                 return;
             }
-            UpdateWindow updateWindow = new UpdateWindow(appointment);
+            UpdateWindow updateWindow = new UpdateWindow(appointment, patient);
             updateWindow.ShowDialog();
             dgAppointments.ItemsSource = null;
             LoadAppointmentsInDataGrid();

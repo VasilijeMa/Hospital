@@ -22,10 +22,12 @@ namespace ZdravoCorp
         const int APPOINTMENT_DURATION = 15;
         Singleton singleton;
         Appointment appointment;
-        public UpdateWindow(Appointment appointment)
+        Patient patient;
+        public UpdateWindow(Appointment appointment, Patient patient)
         {
             InitializeComponent();
             this.appointment = appointment;
+            this.patient = patient;
             singleton = Singleton.Instance;
             tbId.Text = appointment.Id.ToString();
             dpDate.SelectedDate = appointment.TimeSlot.start.Date;
@@ -65,6 +67,7 @@ namespace ZdravoCorp
                 return;
             }
             singleton.Schedule.UpdateAppointment(appointment.Id, timeSlot, (int)cmbDoctors.SelectedValue);
+            singleton.Log.UpdateCancelElement(appointment, patient);
             MessageBox.Show("Appointment successfully updated.");
             this.Close();
         }

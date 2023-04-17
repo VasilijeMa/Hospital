@@ -19,6 +19,7 @@ namespace ZdravoCorp
         public List<Nurse> nurses;
 
         public List<MedicalRecord> medicalRecords;
+        public List<User> users;
 
         public static Singleton Instance
         {
@@ -39,6 +40,7 @@ namespace ZdravoCorp
             patients = Patient.LoadAll();
             nurses = Nurse.LoadAll();
             medicalRecords = MedicalRecord.LoadAll();
+            users = User.LoadAll();
         }
     }
 }

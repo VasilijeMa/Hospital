@@ -127,7 +127,9 @@ namespace ZdravoCorp
 
                     Singleton.Instance.patients.Remove(selectedPatient);
                     Singleton.Instance.medicalRecords.Remove(selectedRecord);
+                    User.RemoveUser(selectedPatient.Username);
 
+                    User.WriteAll(Singleton.Instance.users);
                     selectedPatient.WriteAll(Singleton.Instance.patients);
                     selectedRecord.WriteAll(Singleton.Instance.medicalRecords);
 

@@ -15,7 +15,7 @@
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="343,85,0,0" VerticalAlignment="Top" Width="125" x:Name="ByQuantity" SelectedIndex="0" ItemsSource="{Binding ByQuantityOptions}"/>
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="468,85,0,0" VerticalAlignment="Top" Width="125" x:Name="NotInWarehouse" SelectedIndex="0" ItemsSource="{Binding NotInWarehouseOptions}"/>
 
-        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding EquipmentGridItems}" Height="150" Width="500" AutoGenerateColumns="False">
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" ItemsSource="{Binding EquipmentGridItems}" Height="150" Width="500" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding TypeOfEq}" Width="200"/>

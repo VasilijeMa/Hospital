@@ -1,58 +1,30 @@
 [
   {
     "Appointment": {
-      "Id": 1,
+      "Id": 24,
       "TimeSlot": {
-        "start": "2023-04-16T17:33:00",
-        "duration": 15
-      },
-      "DoctorId": 1,
-      "PatientId": 1,
-      "IsCanceled": false
-    },
-    "DateTime": "2023-04-16T22:23:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 7,
-      "TimeSlot": {
-        "start": "2023-05-29T18:00:00",
+        "start": "2023-04-25T12:41:00",
         "duration": 15
       },
       "DoctorId": 1,
       "PatientId": 1,
       "IsCanceled": true
     },
-    "DateTime": "2023-04-17T14:03:23.2756555+02:00",
+    "DateTime": "2023-04-17T22:37:49.0001541+02:00",
     "Type": "updateCancel"
   },
   {
     "Appointment": {
-      "Id": 4,
+      "Id": 24,
       "TimeSlot": {
-        "start": "2023-05-20T06:16:00",
+        "start": "2023-04-25T12:41:00",
         "duration": 15
       },
-      "DoctorId": 2,
+      "DoctorId": 1,
       "PatientId": 1,
-      "IsCanceled": false
+      "IsCanceled": true
     },
-    "DateTime": "2023-04-17T14:03:53.2250649+02:00",
+    "DateTime": "2023-04-17T22:37:56.5992183+02:00",
     "Type": "updateCancel"
-  },
-  {
-    "Appointment": {
-      "Id": 22,
-      "TimeSlot": {
-        "start": "2035-07-12T23:59:00",
-        "duration": 15
-      },
-      "DoctorId": 2,
-      "PatientId": 1,
-      "IsCanceled": false
-    },
-    "DateTime": "2023-04-17T14:04:34.9378661+02:00",
-    "Type": "make"
   }
 ]

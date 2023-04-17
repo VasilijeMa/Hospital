@@ -8,15 +8,5 @@
     "Username": "milos",
     "Password": "milos",
     "Type": "patient"
-  },
-  {
-    "Id": 2,
-    "FirstName": "Pera",
-    "LastName": "Peric",
-    "BirthDate": "1995-10-20",
-    "MedicalRecordId": 2,
-    "Username": "pera",
-    "Password": "pera",
-    "Type": "patient"
   }
 ]

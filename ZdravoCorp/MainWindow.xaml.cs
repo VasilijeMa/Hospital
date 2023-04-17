@@ -40,8 +40,11 @@ namespace ZdravoCorp
             {
                 if (tbUsername.Text == user.Username && pbPassword.Password == user.Password)
                 {
+                    this.Visibility = Visibility.Hidden;
                     User.DisplayWindow(user);
-                    this.Close();
+                    this.Visibility = Visibility.Visible;
+                    tbUsername.Text = "";
+                    pbPassword.Password = "";
                     return;
                 }
             }

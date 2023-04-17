@@ -38,5 +38,10 @@ namespace ZdravoCorp
             MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient);
             myAppointmentsWindow.ShowDialog();
         }
+
+        private void miLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

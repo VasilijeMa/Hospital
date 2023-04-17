@@ -1,52 +1,12 @@
 [
   {
     "Id": 1,
-    "FirstName": "Patient1",
-    "LastName": "Patient1",
+    "FirstName": "Milos",
+    "LastName": "Milosevic",
     "BirthDate": "1990-05-20",
     "MedicalRecordId": 1,
     "Username": "milos",
     "Password": "milos",
-    "Type": "patient"
-  },
-  {
-    "Id": 3,
-    "FirstName": "Milos",
-    "LastName": "Bojanic",
-    "BirthDate": "2002-06-06",
-    "MedicalRecordId": 3,
-    "Username": "bojanicmilos",
-    "Password": "bojanicjegenije",
-    "Type": "patient"
-  },
-  {
-    "Id": 2,
-    "FirstName": "Valentina",
-    "LastName": "Jevtic",
-    "BirthDate": "2002-10-09",
-    "MedicalRecordId": 2,
-    "Username": "vanjaje",
-    "Password": "vanjajenajlepsa",
-    "Type": "patient"
-  },
-  {
-    "Id": 0,
-    "FirstName": "Isidora",
-    "LastName": "Aleksic",
-    "BirthDate": "2002-08-06",
-    "MedicalRecordId": 0,
-    "Username": "isidoricaslatkicaaa",
-    "Password": "najlepsanasvetu",
-    "Type": "patient"
-  },
-  {
-    "Id": 4,
-    "FirstName": "nikola",
-    "LastName": "aleksic",
-    "BirthDate": "2000-03-09",
-    "MedicalRecordId": 4,
-    "Username": "nikolicaaaaaa",
-    "Password": "nikolajebog",
     "Type": "patient"
   }
 ]

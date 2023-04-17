@@ -22,29 +22,41 @@ namespace ZdravoCorp
     public partial class DoctorWindow : Window
     {
         private Doctor doctor { get; set; } 
+        private List<Appointment> appointments { get; set; }
 
         public DoctorWindow(Doctor doctor)
         {
             this.doctor = doctor;
-
             InitializeComponent();
-
-            var app = doctor.GetAllAppointments(DateTime.Parse("05/29/2023 05:50"), DateTime.Parse("05/29/2023 05:50"));
-
-            string s = "";
-
-            foreach (Appointment p in app)
-            {
-                s += p.ToString();
-            }
-
-           // tbUsername.Text = app.Count.ToString();
+            nameTxt.Text = doctor.FirstName;
+            lastNameTxt.Text = doctor.LastName;
+            idTxt.Text = doctor.Id.ToString();
         }
 
-        private void makeAppointmentClick(object sender, RoutedEventArgs e)
+        private void MakeAppointmentClick(object sender, RoutedEventArgs e)
         {
-            MakeAppointmentDoctor appointmentDoctor = new MakeAppointmentDoctor(doctor);
+            MakeAppointmentDoctor appointmentDoctor = new MakeAppointmentDoctor(doctor, false);
             appointmentDoctor.Show();
+        }
+
+        private void ViewOneDayAppointmentClick(object sender, RoutedEventArgs e)
+        {
+            this.appointments = doctor.GetAllAppointments(DateTime.Now, DateTime.Now);
+            ViewAppointment appointmentDoctor = new ViewAppointment(appointments, doctor, 1);
+            appointmentDoctor.Show();
+        }
+
+        private void ViewThreeDayAppointmentClick(object sender, RoutedEventArgs e)
+        {
+            DateTime endDate = DateTime.Now.AddDays(3);
+            this.appointments = doctor.GetAllAppointments(DateTime.Now, endDate);
+            ViewAppointment appointmentDoctor = new ViewAppointment(appointments, doctor, 3);
+            appointmentDoctor.Show();
+        }
+
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

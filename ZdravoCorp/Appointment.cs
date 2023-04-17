@@ -22,5 +22,6 @@ namespace ZdravoCorp
             IsCanceled = false;
         }
         public Appointment() { }
+
     }
 }

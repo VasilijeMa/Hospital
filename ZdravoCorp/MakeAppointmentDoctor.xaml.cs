@@ -65,6 +65,7 @@ namespace ZdravoCorp
             {
                 singleton.Schedule.UpdateAppointment(appointmentId, timeSlot, doctor.Id, (Patient)cmbPatients.SelectedItem);
                 MessageBox.Show("Appointment successfully updated.");
+                this.Close();
                 return;
             }
             else
@@ -72,6 +73,7 @@ namespace ZdravoCorp
                 singleton.Schedule.CreateAppointment(timeSlot, doctor, (Patient)cmbPatients.SelectedItem);
                 singleton.Schedule.WriteAllAppointmens();
                 MessageBox.Show("Appointment successfully created.");
+                this.Close();
             }
         }
 
@@ -95,6 +97,7 @@ namespace ZdravoCorp
             if (!System.Text.RegularExpressions.Regex.IsMatch(tbTime.Text, pattern))
             {
                 MessageBox.Show("Please enter a valid time value in \"hh:mm\" format.");
+                return false;
             }
             return true;
         }

@@ -111,7 +111,14 @@ namespace ZdravoCorp
 
         public int getLastId()
         {
-            return appointments.Max(appointment => appointment.Id);
+            try
+            {
+                return appointments.Max(appointment => appointment.Id);
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public Appointment GetAppointment(int id)

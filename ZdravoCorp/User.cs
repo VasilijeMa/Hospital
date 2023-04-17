@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -104,6 +105,18 @@ namespace ZdravoCorp
                 default:
                     // code block
                     break;
+            }
+        }
+
+        public static void RemoveUser(string username)
+        {
+            foreach(User user in Singleton.Instance.users)
+            {
+                if(username == user.Username)
+                {
+                    Singleton.Instance.users.Remove(user);
+                    return;
+                }
             }
         }
     }

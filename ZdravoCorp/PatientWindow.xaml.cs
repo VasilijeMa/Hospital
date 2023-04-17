@@ -26,6 +26,7 @@ namespace ZdravoCorp
             InitializeComponent();
             this.patient = patient;
             lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
+            singleton.Log = new Log();
             singleton.Log.Count(patient.Id);
         }
 

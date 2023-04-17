@@ -29,9 +29,8 @@ namespace ZdravoCorp
         public MainWindow()
         {
             InitializeComponent();
-            users = User.LoadAll();
             singleton = Singleton.Instance;
-
+            users = singleton.users;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

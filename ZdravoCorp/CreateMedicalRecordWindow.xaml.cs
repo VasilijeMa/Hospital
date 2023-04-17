@@ -91,6 +91,7 @@ namespace ZdravoCorp
         {
             foreach (Patient patient in Singleton.Instance.patients)
             {
+                if (selectedPatient != null && selectedPatient.Username == patient.Username) continue;
                 usernames.Add(patient.Username);
             }
             return usernames;
@@ -237,6 +238,7 @@ namespace ZdravoCorp
 
                     Singleton.Instance.patients.Remove(selectedPatient);
                     Singleton.Instance.medicalRecords.Remove(selectedRecord);
+                    User.RemoveUser(selectedPatient.Username);
                     newpatient.Id = selectedPatient.Id;
                     newpatient.MedicalRecordId = selectedPatient.MedicalRecordId;
                 }
@@ -251,7 +253,8 @@ namespace ZdravoCorp
                 newpatient.WriteAll(Singleton.Instance.patients);
                 Singleton.Instance.medicalRecords.Add(newMedicalRecord);
                 newMedicalRecord.WriteAll(Singleton.Instance.medicalRecords);
-
+                Singleton.Instance.users.Add(new User(newpatient.Username, newpatient.Password, "patient"));
+                User.WriteAll(Singleton.Instance.users);
 
                 MessageBox.Show("Operation successful. We saved your changes.", "Done", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 this.Close();

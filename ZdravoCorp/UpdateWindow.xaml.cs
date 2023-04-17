@@ -66,6 +66,11 @@ namespace ZdravoCorp
                 MessageBox.Show("Doctor is not available at choosen date and time.");
                 return;
             }
+            if (!singleton.Schedule.IsAvailable(timeSlot, patient, appointment.Id))
+            {
+                MessageBox.Show("Patient is not available at choosen date and time.");
+                return;
+            }
             singleton.Schedule.UpdateAppointment(appointment.Id, timeSlot, (int)cmbDoctors.SelectedValue);
             singleton.Log.UpdateCancelElement(appointment, patient);
             MessageBox.Show("Appointment successfully updated.");

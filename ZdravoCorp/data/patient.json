@@ -9,5 +9,27 @@
     "Username": "milos",
     "Password": "milos",
     "Type": "patient"
+  },
+  {
+    "Id": 2,
+    "FirstName": "Pera",
+    "LastName": "Peric",
+    "BirthDate": "1999-12-15",
+    "MedicalRecordId": 5,
+    "IsBlocked": false,
+    "Username": "pera123",
+    "Password": "pera123",
+    "Type": "patient"
+  },
+  {
+    "Id": 3,
+    "FirstName": "Ana",
+    "LastName": "Antic",
+    "BirthDate": "2002-09-17",
+    "MedicalRecordId": 6,
+    "IsBlocked": false,
+    "Username": "anica123",
+    "Password": "Ana123",
+    "Type": "patient"
   }
 ]

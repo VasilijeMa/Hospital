@@ -1,0 +1,35 @@
+﻿<Window x:Class="ZdravoCorp.DoctorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp"
+        mc:Ignorable="d"
+        Title="DoctorWindow" WindowStartupLocation="CenterScreen" Height="515" Width="917">
+    <Grid>
+        <Menu Name="menu1"  FontSize="18" Background="MintCream" Height="50" VerticalAlignment="Top">
+            <MenuItem FontSize="18"  Margin="12,10,2,0" Foreground="Black" Header="_View appointments">
+                <MenuItem Click="ViewOneDayAppointmentClick" Foreground="Black" Header="_For one day" />
+                <MenuItem Click="ViewThreeDayAppointmentClick" Foreground="Black" Header="_For three days"/>
+            </MenuItem>
+            <MenuItem Margin="10,10,2,0" Header="_Make appointment" Click="MakeAppointmentClick" IsCheckable="false" Foreground="Black" FontSize="18">
+            </MenuItem>
+            <MenuItem Margin="10,10,2,0" Header="_Free days" IsCheckable="false" Foreground="Black" FontSize="18">
+            </MenuItem>
+            <MenuItem Click="LogOutClick" Margin="365,10,2,0" Header="_Log out" IsCheckable="false" Foreground="Black" FontSize="18">
+            </MenuItem>
+        </Menu>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,109,0,0">
+            <Image Source="/user.png" Margin="140,0,0,0" Name="ImageViewer1" Height="250" Width="200" OpacityMask="Black" />
+        </StackPanel>
+        <TextBlock FontStyle="Italic"  FontSize="16" HorizontalAlignment="Left" Margin="410,173,0,0" TextWrapping="Wrap" Text="First name:" VerticalAlignment="Top" Width="80" />
+        <TextBlock FontStyle="Italic" FontSize="16" HorizontalAlignment="Left" Margin="410,209,0,0" TextWrapping="Wrap" Text="Last name:" VerticalAlignment="Top" Width="80"/>
+        <TextBlock FontStyle="Italic" FontSize="16" HorizontalAlignment="Left" Margin="410,244,0,0" TextWrapping="Wrap" Text="Id:" VerticalAlignment="Top" Width="80" />
+        <TextBlock FontSize="16" x:Name="nameTxt" HorizontalAlignment="Left" Margin="498,172,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBlock FontSize="16" x:Name="lastNameTxt" HorizontalAlignment="Left" Margin="500,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBlock FontSize="16"  x:Name="idTxt" HorizontalAlignment="Left" Margin="500,244,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+
+
+</Window>

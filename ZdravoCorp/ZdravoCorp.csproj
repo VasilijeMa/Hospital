@@ -5,10 +5,25 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <None Remove="icon.png" />
+    <None Remove="user.png" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icon.png" />
+    <Resource Include="user.png" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 
 </Project>

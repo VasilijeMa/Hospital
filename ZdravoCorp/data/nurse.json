@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Id": 1,
+    "FirstName": "NurseName",
+    "LastName": "NurseLastName",
+    "Username": "isidora",
+    "Password": "isidora",
+    "Type": "nurse"
+  }
+]

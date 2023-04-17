@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "Anamnesis": "anamnesis",
+    "Height": 182.2,
+    "Weight": 90.0
+  },
+  {
+    "Id": 3,
+    "Anamnesis": "bolesno pametan",
+    "Height": 190.0,
+    "Weight": 30.0
+  },
+  {
+    "Id": 2,
+    "Anamnesis": "bolesno najlepsa",
+    "Height": 180.0,
+    "Weight": 30.0
+  },
+  {
+    "Id": 0,
+    "Anamnesis": "mentalno obolela",
+    "Height": 170.0,
+    "Weight": 60.0
+  },
+  {
+    "Id": 4,
+    "Anamnesis": "bolesno najbolji",
+    "Height": 190.0,
+    "Weight": 110.0
+  }
+]

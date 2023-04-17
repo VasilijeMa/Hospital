@@ -18,5 +18,10 @@
     "username": "milos",
     "password": "milos",
     "type": "patient"
+  },
+  {
+    "username": "nikola",
+    "password": "nikola",
+    "type": "doctor"
   }
 ]

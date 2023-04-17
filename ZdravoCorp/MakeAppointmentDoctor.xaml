@@ -16,14 +16,16 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Label Content="Date: " HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="132,27,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <Label Content="Time: " HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <TextBox Name="tbTime" HorizontalAlignment="Left" Margin="132,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="214" FontSize="25"/>
-        <Label Content="Patient: " HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <ComboBox Name="cmbPatients" HorizontalAlignment="Left" Margin="132,177,0,0" VerticalAlignment="Top" Width="214" FontSize="25"/>
-        <Button Name="btnSubmit" Content="Sumbit" HorizontalAlignment="Left" Margin="44,267,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnSubmit_Click"/>
-        <Button Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="259,267,0,0" VerticalAlignment="Top" FontSize="25" Width="105" Height="52" Click="btnExit_Click"/>
-        <!--<toolkit:DateTimePicker Format="Time"/>-->
+        <Label Content="Date: " HorizontalAlignment="Left" Margin="37,38,0,0" VerticalAlignment="Top" FontSize="25"/>
+        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="169,40,0,0" VerticalAlignment="Top" FontSize="25"/>
+        <Label Content="Start time: " HorizontalAlignment="Left" Margin="33,105,0,0" VerticalAlignment="Top" FontSize="25"/>
+        <TextBox Name="tbTime" HorizontalAlignment="Left" Margin="169,111,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="214" FontSize="25"/>
+        <Label Content="Patient: " HorizontalAlignment="Left" Margin="33,243,0,0" VerticalAlignment="Top" FontSize="25"/>
+        <ComboBox Name="cmbPatients" HorizontalAlignment="Left" Margin="171,246,0,0" VerticalAlignment="Top" Width="214" FontSize="25"/>
+        <Button Name="btnSubmit" Content="Sumbit" HorizontalAlignment="Left" Margin="242,339,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnSubmit_Click"/>
+        <Button Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="422,339,0,0" VerticalAlignment="Top" FontSize="25" Width="104" Height="52" Click="btnExit_Click"/>
+        <Label Content="Duration: " HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="25" Margin="33,173,0,0"/>
+        <TextBox Name="tbDuration" HorizontalAlignment="Left" Margin="170,179,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="214" FontSize="25"/>
+
     </Grid>
 </Window>

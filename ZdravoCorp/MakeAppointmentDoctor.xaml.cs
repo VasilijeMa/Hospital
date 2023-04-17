@@ -21,16 +21,19 @@ namespace ZdravoCorp
     {
         Singleton singleton;
         Doctor doctor;
-        const int APPOINTMENT_DURATION = 15;
-
-        public MakeAppointmentDoctor(Doctor doctor)
+        bool update;
+        int appointmentId;
+        public MakeAppointmentDoctor(Doctor doctor, bool update=false, int appointentId=-1)
         {
             this.doctor = doctor;
+            this.appointmentId = appointentId;
             singleton = Singleton.Instance;
+            this.update = update;
             InitializeComponent();
             cmbPatients.ItemsSource = singleton.patients;
             cmbPatients.ItemTemplate = (DataTemplate)FindResource("patientTemplate");
             cmbPatients.SelectedValuePath = "Id";
+            dpDate.DisplayDateStart = DateTime.Now;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -46,20 +49,30 @@ namespace ZdravoCorp
             }
             TimeSlot timeSlot = MakeTimeSlot();
 
-            if (!singleton.Schedule.IsAvailable(timeSlot, (Patient)cmbPatients.SelectedItem))
-            {
-                MessageBox.Show("Patient is not available at choosen date and time.");
-                return;
-            }
-            if (!singleton.Schedule.IsAvailable(timeSlot, doctor))
+            if (!singleton.Schedule.IsAvailable(timeSlot, doctor, appointmentId))
             {
                 MessageBox.Show("You are not available at choosen date and time.");
                 return;
             }
 
-            singleton.Schedule.CreateAppointment(timeSlot, doctor, (Patient)cmbPatients.SelectedItem);
-            singleton.Schedule.WriteAllAppointmens();
-            MessageBox.Show("Appointment successfully created.");
+            if (!singleton.Schedule.IsAvailable(timeSlot, (Patient)cmbPatients.SelectedItem, appointmentId))
+            {
+                MessageBox.Show("Patient is not available at choosen date and time.");
+                return;
+            }
+
+            if (update)
+            {
+                singleton.Schedule.UpdateAppointment(appointmentId, timeSlot, doctor.Id, (Patient)cmbPatients.SelectedItem);
+                MessageBox.Show("Appointment successfully updated.");
+                return;
+            }
+            else
+            {
+                singleton.Schedule.CreateAppointment(timeSlot, doctor, (Patient)cmbPatients.SelectedItem);
+                singleton.Schedule.WriteAllAppointmens();
+                MessageBox.Show("Appointment successfully created.");
+            }
         }
 
         public TimeSlot MakeTimeSlot()
@@ -68,12 +81,12 @@ namespace ZdravoCorp
             int minutes = int.Parse(tbTime.Text.Split(":")[1]);
             DateTime dtValue = dpDate.SelectedDate.Value;
             DateTime dateTime = new DateTime(dtValue.Year, dtValue.Month, dtValue.Day, hour, minutes, 0);
-            return new TimeSlot(dateTime, APPOINTMENT_DURATION);
+            return new TimeSlot(dateTime, int.Parse(tbDuration.Text));
         }
 
         public bool inputValidation()
         {
-            if (tbTime.Text == "" || dpDate.SelectedDate == null || cmbPatients.SelectedItem == null)
+            if (tbDuration.Text == "" || tbTime.Text == "" || dpDate.SelectedDate == null || cmbPatients.SelectedItem == null)
             {
                 MessageBox.Show("Fill in all the fields");
                 return false;

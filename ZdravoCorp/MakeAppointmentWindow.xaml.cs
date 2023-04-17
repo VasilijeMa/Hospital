@@ -59,10 +59,7 @@ namespace ZdravoCorp
             singleton.Log.AddElement(appointment, patient);
             singleton.Schedule.WriteAllAppointmens();
             MessageBox.Show("Appointment successfully created.");
-            if (patient.IsBlocked)
-            {
-                this.Close();
-            }
+            this.Close();
         }
 
         public TimeSlot MakeTimeSlot()

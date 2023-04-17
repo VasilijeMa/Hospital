@@ -56,7 +56,7 @@ namespace ZdravoCorp
 
         private void LogOutClick(object sender, RoutedEventArgs e)
         {
-            
+            this.Close();
         }
     }
 }

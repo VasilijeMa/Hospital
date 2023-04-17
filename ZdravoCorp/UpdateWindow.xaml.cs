@@ -58,7 +58,7 @@ namespace ZdravoCorp
             TimeSlot timeSlot = MakeTimeSlot();
             if (timeSlot.start <= DateTime.Now)
             {
-                MessageBox.Show("The selected date must not be in the past.");
+                MessageBox.Show("The selected date cannot be in the past.");
                 return;
             }
             if (!singleton.Schedule.IsAvailable(timeSlot, (Doctor)cmbDoctors.SelectedItem, appointment.Id))

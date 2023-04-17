@@ -127,7 +127,7 @@ namespace ZdravoCorp
 
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
-                MessageBox.Show("The selected appointment must not changed.");
+                MessageBox.Show("The selected appointment cannot be changed.");
                 return;
             }
             else if (MessageBox.Show("Are you sure you want to cancel the appointment? ", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
@@ -138,7 +138,7 @@ namespace ZdravoCorp
             {
                 appointment.IsCanceled = true;
                 singleton.Schedule.CancelAppointment(appointment.Id);
-                MessageBox.Show("Appointment was successfully cancelled!");
+                MessageBox.Show("Appointment successfully cancelled!");
                 DataGridLoadAppointments();
             }
         }

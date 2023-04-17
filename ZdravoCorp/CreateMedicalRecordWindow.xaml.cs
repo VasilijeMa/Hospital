@@ -207,7 +207,7 @@ namespace ZdravoCorp
                     newpatient.Username = username.Text;
                     newpatient.Password = password.Text;    
                     newpatient.Type = "patient";
-                    
+                    newpatient.IsBlocked = false;
                     if (createoredit){
                         newpatient.Id = generatePatientId();
                         newpatient.MedicalRecordId = generateMedicalRecordId();

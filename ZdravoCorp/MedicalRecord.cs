@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
@@ -11,17 +13,32 @@ namespace ZdravoCorp
     public class MedicalRecord
     {
         public int Id { get; set; }
-        public List<int> AnamnesesId { get; set; }
+        public string Anamnesis { get; set; }
         public double Height { get; set; }
         public double Weight { get; set; }
         public MedicalRecord() { }
 
-        public MedicalRecord(int id, List<int> anamnesesId, double height, double weight)
+        public MedicalRecord(int id,string anamnesis, double height, double weight)
         {
             Id = id;
-            AnamnesesId = anamnesesId;
+            Anamnesis = anamnesis;
             Height = height;
             Weight = weight;
+        }
+
+        public void WriteAll(List<MedicalRecord> newlistofrecords)
+        {
+            string json = JsonConvert.SerializeObject(newlistofrecords, Formatting.Indented);
+            File.WriteAllText("./../../../data/medicalRecords.json", json);
+        }
+
+        public static List<MedicalRecord> LoadAll()
+        {
+            var serializer = new JsonSerializer();
+            using StreamReader reader = new("./../../../data/medicalRecords.json");
+            var json = reader.ReadToEnd();
+            List<MedicalRecord> records = JsonConvert.DeserializeObject<List<MedicalRecord>>(json);
+            return records;
         }
     }
 }

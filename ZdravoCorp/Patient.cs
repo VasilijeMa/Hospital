@@ -14,7 +14,7 @@ namespace ZdravoCorp
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateOnly BirthDate { get; set; }
-        private int MedicalRecordId { get; set; }
+        public int MedicalRecordId { get; set; }
         public Patient(int id, string firstName, string lastName, DateOnly birthDate, int medicalRecordId, string username, string password, string type):base(username, password, type)
         {
             this.Id = id;
@@ -32,6 +32,12 @@ namespace ZdravoCorp
             var json = reader.ReadToEnd();
             List<Patient> patients = JsonConvert.DeserializeObject<List<Patient>>(json);
             return patients;
+        }
+
+        public void WriteAll(List<Patient> newlistofpatients)
+        {
+            string json = JsonConvert.SerializeObject(newlistofpatients, Formatting.Indented);
+            File.WriteAllText("./../../../data/patient.json", json);
         }
 
         public override string ToString()

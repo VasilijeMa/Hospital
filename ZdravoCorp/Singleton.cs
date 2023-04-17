@@ -14,6 +14,11 @@ namespace ZdravoCorp
         public List<Doctor> doctors;
 
         public List<Patient> patients;
+
+        public List<Nurse> nurses;
+
+        public List<MedicalRecord> medicalRecords;
+
         public static Singleton Instance
         {
             get 
@@ -30,6 +35,8 @@ namespace ZdravoCorp
             Schedule = new Schedule();
             doctors = Doctor.LoadAll();
             patients = Patient.LoadAll();
+            nurses = Nurse.LoadAll();
+            medicalRecords = MedicalRecord.LoadAll();
         }
     }
 }

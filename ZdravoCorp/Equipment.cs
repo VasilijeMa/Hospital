@@ -13,25 +13,28 @@ public enum EquipmentType {
 public class Equipment
 {
 	string Name { get; set; }
-	EquipmentType Type { get; set; }
-    public Equipment(int type, string name)
+	EquipmentType TypeOfEq { get; set; }
+    public Equipment(int typeOfEq, string name)
 	{
-		this.Type = (EquipmentType)type;
+		this.TypeOfEq = (EquipmentType)typeOfEq;
 		this.Name = name;
 	}
 
-	public static Dictionary<string, Equipment> LoadAll()
+	public static List<Equipment> LoadAll()
 	{
 
         var serializer = new JsonSerializer();
         using StreamReader reader = new("./../../../data/equipment.json");
         var json = reader.ReadToEnd();
-        Dictionary<string, Equipment> allEquipment = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(json);
+        List<Equipment> allEquipment = JsonConvert.DeserializeObject<List<Equipment>>(json);
         return allEquipment;
     }
 
+	public EquipmentType GetTypeOfEq() { return this.TypeOfEq; }
+	public string GetName() { return this.Name; }
+
 	public string ToString()
 	{
-		return Name + " " + Type.ToString();
+		return Name + " " + TypeOfEq.ToString();
 	}
 }

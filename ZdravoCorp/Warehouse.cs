@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.AccessControl;
 
 public class Warehouse:Infrastructure
 {
-    Dictionary<string, int> Inventory;
+    private Dictionary<string, int> Inventory;
     public Warehouse(string name, Dictionary<string, int> inventory) : base(name)
     {
         this.Inventory = inventory;
@@ -22,6 +23,8 @@ public class Warehouse:Infrastructure
             this.Inventory.Add(equipment, 1);
         }
     }
+    
+    public Dictionary<string, int> GetInventory() { return Inventory; }
     public static Warehouse Load()
     {
         var serializer = new JsonSerializer();

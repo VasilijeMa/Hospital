@@ -1,22 +1,28 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
+using System.Reflection;
 using System.Windows.Documents;
 
 public enum RoomType {
-	OperatingTheatre = 1,
-	ExaminationRoom = 2,
-	Infirmary = 3,
-	WaitingRoom = 4
+    [Description("Operating Theatre")]
+    OperatingTheatre = 1,
+    [Description("Examination Room")]
+    ExaminationRoom = 2,
+    [Description("Infirmary")]
+    Infirmary = 3,
+    [Description("Waiting Room")]
+    WaitingRoom = 4
 }
 public class Room:Infrastructure
 {
-	private RoomType Type { get; set; }
-    public Room(int type, string name) : base(name)
+	private RoomType TypeOfRoom { get; set; }
+    public Room(int typeOfRoom, string name) : base(name)
 	{
-		this.Type = (RoomType)type;
+		this.TypeOfRoom = (RoomType)typeOfRoom;
 	}
 
     public static Dictionary<string, Room> LoadAll()
@@ -29,8 +35,18 @@ public class Room:Infrastructure
         return allRooms;
     }
 
+    public RoomType GetTypeOfRoom() { return TypeOfRoom; }
     public string ToString()
     {
-        return Name + " " + Type.ToString();
+        return Name + " " + TypeOfRoom.ToString();
+    }
+
+    public static string GetTypeDescription(Enum value)
+    {
+        FieldInfo field = value.GetType().GetField(value.ToString());
+
+        DescriptionAttribute attribute = field.GetCustomAttribute<DescriptionAttribute>();
+
+        return attribute == null ? value.ToString() : attribute.Description;
     }
 }

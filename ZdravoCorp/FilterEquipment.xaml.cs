@@ -20,52 +20,141 @@ namespace ZdravoCorp
     /// </summary>
     public partial class FilterEquipment : Window
     {
-        public Dictionary<string, Equipment> AllEquipment;
+        public List<Equipment> AllEquipment;
         public Dictionary<string, Room> AllRooms;
         public List<FunctionalItem> AllFunctionalItems;
         public Warehouse AllStoredItems;
         public Dictionary<string, EquipmentGridItem> EquipmentOrganization;
         public ObservableCollection<EquipmentGridItem> EquipmentGridItems { get; set; }
+
+        public List<string> ByRoomTypeOptions { get; set; }
+        public List<string> ByEquipmentTypeOptions { get; set; }
+        public List<string> ByQuantityOptions { get; set; }
+        public List<string> NotInWarehouseOptions { get; set; }
+
+        void refreshGrid()
+        {
+            EquipmentGridItems.Clear();
+            var sortedOrganization = (EquipmentOrganization.OrderByDescending(x => x.Value.Quantity)).ToDictionary(x => x.Key, x => x.Value); ;
+            foreach (EquipmentGridItem eq in sortedOrganization.Values) EquipmentGridItems.Add(eq);
+        }
         public FilterEquipment()
         {
+            DataContext = this;
+
+            ByRoomTypeOptions = new List<string>() { "All" };
+            foreach (RoomType rt in Enum.GetValues(typeof(RoomType)))
+            {
+                ByRoomTypeOptions.Add(Room.GetTypeDescription(rt));
+            }
+            ByRoomTypeOptions.Add("Warehouse");
+
+            ByEquipmentTypeOptions = new List<string>() { "All" };
+            foreach (EquipmentType et in Enum.GetValues(typeof(EquipmentType)))
+            {
+                ByEquipmentTypeOptions.Add(et.ToString());
+            }
+
+            ByQuantityOptions = new List<string>() { "All", "OutOfStock", "0-10", "10+" };
+
+            NotInWarehouseOptions = new List<string>() { "All", "NotInWarehouse" };
+
             AllEquipment = Equipment.LoadAll();
             AllRooms = Room.LoadAll();
             AllFunctionalItems = FunctionalItem.LoadAll();
             AllStoredItems = Warehouse.Load();
 
             EquipmentOrganization = new Dictionary<string, EquipmentGridItem>();
-            EquipmentOrganization["Sus"] = new EquipmentGridItem("Sus", EquipmentType.Hallway);
-            EquipmentOrganization["Amogus"] = new EquipmentGridItem("Amogus", EquipmentType.Surgery);
-            EquipmentOrganization["BigChungus"] = new EquipmentGridItem("BigChungus", EquipmentType.Examination);
-
             EquipmentGridItems = new ObservableCollection<EquipmentGridItem>();
-            foreach (EquipmentGridItem eq in EquipmentOrganization.Values)
-            {
-                EquipmentGridItems.Add(eq);
-            }
 
-            DataContext = this;
+            FilterGridItems(0, 0, 0, 0, 0, "");
+
 
             InitializeComponent();
 
         }
 
-        void LoadQuantities(int byRoomType, int byEquipmentType, int byQuantity, int notInWarehouse, string searchInput)
+        bool IsValidForInsert(Equipment eq, int byEquipmentType, int notInWarehouse)
+        {                                                                               //                                                                                //
+            return (byEquipmentType == 0 || byEquipmentType == (int)(eq.GetTypeOfEq())) && !(notInWarehouse == 1 && AllStoredItems.GetInventory().ContainsKey(eq.GetName()));
+        }                                                                               //                                                                                //
+
+        bool IsValidForIncrease(FunctionalItem fi, int byRoomType)
         {
+            return (byRoomType == 0 || byRoomType == (int)(AllRooms[fi.GetWhere()].GetTypeOfRoom()));
+        }
+
+        bool IsOfValidQuantity(EquipmentGridItem egi, int byQuantity)
+        {
+            return (byQuantity == 1 && egi.GetQuantity() == 0) || (byQuantity == 2 && egi.GetQuantity() <= 10) || (byQuantity == 3 && egi.GetQuantity() > 10);
+        }
+
+        bool IsSearchReturn(EquipmentGridItem egi, string Input) {
+            return true; //TODO
+        }
+        void FilterGridItems(int byRoomTypeLen, int byRoomType, int byEquipmentType, int byQuantity, int notInWarehouse, string searchInput)
+        {
+            EquipmentOrganization.Clear();
+            foreach (Equipment eq in AllEquipment)
+            {
+                if (IsValidForInsert(eq, byEquipmentType, notInWarehouse))
+                {
+                    EquipmentOrganization[eq.GetName()] = new EquipmentGridItem(eq.GetName(), eq.GetTypeOfEq());
+                }
+
+            }
+            if(byRoomType != byRoomTypeLen - 1) {
+                foreach (FunctionalItem fi in AllFunctionalItems)
+                {
+                    if (IsValidForIncrease(fi, byRoomType) && EquipmentOrganization.ContainsKey(fi.GetWhat()))
+                    {
+                        EquipmentOrganization[fi.GetWhat()].IncreaseQuantity(fi.GetAmount());
+                    }
+
+                }
+            }
+            
+            if (notInWarehouse == 0 && (byRoomType == 0 || byRoomType == byRoomTypeLen - 1))
+            {
+                foreach (string key in AllStoredItems.GetInventory().Keys)
+                {
+                    if (EquipmentOrganization.ContainsKey(key))
+                    {
+                        EquipmentOrganization[key].IncreaseQuantity(AllStoredItems.GetInventory()[key]);
+                    }
+                }
+            }
+            if (byQuantity != 0)
+            {
+                foreach (string key in EquipmentOrganization.Keys)
+                {
+                        if (!IsOfValidQuantity(EquipmentOrganization[key], byQuantity)) {
+                            EquipmentOrganization.Remove(key);
+                        }
+                }
+            }
+            if (string.IsNullOrEmpty(searchInput)) {
+                foreach (string key in EquipmentOrganization.Keys)
+                {
+                    if (!IsSearchReturn(EquipmentOrganization[key], searchInput))
+                    {
+                        EquipmentOrganization.Remove(key);
+                    }
+                }
+            }
+            refreshGrid();
+
 
         }
 
         private void FilterButtonClick(object sender, RoutedEventArgs e)
         {
-            EquipmentOrganization.Clear();
-            EquipmentOrganization["Lol"] = new EquipmentGridItem("Lol", EquipmentType.Furniture);
-            EquipmentOrganization["HeheBoi"] = new EquipmentGridItem("HeheBoi", EquipmentType.Furniture);
-            EquipmentOrganization["Hah"] = new EquipmentGridItem("Hah", EquipmentType.Furniture);
 
-            EquipmentGridItems.Clear();
-            foreach (EquipmentGridItem eq in EquipmentOrganization.Values) EquipmentGridItems.Add(eq);
+            FilterGridItems(ByRoomType.Items.Count, ByRoomType.SelectedIndex, ByEquipmentType.SelectedIndex, ByQuantity.SelectedIndex, NotInWarehouse.SelectedIndex, SearchBox.Text);
+            
 
         }
+
 
     }
 }

@@ -5,27 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="Medical Record" Height="650" Width="900" Icon="/icon.png">
+        Title="Medical Record" Height="650" Width="900" Icon="/icon.png" WindowStartupLocation="CenterScreen">
     <Grid Background="#FFC16565">
         <Label Content="Patient" HorizontalAlignment="Center" Height="28" Margin="0,12,0,0" VerticalAlignment="Top" Width="900" Background="White" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS"/>
-        <Label Content="First name: " HorizontalAlignment="Left" Height="33" Margin="77,60,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <Label Content="Last name: " HorizontalAlignment="Left" Height="33" Margin="77,110,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <Label Content="Birth date: " HorizontalAlignment="Left" Height="33" Margin="77,160,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <Label Content="Username: " HorizontalAlignment="Left" Height="33" Margin="77,210,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <Label Content="Password: " HorizontalAlignment="Left" Height="33" Margin="77,260,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <TextBox x:Name="firstname" HorizontalAlignment="Left" Margin="422,60,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="lastname" HorizontalAlignment="Left" Margin="422,110,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="birthdate" HorizontalAlignment="Left" Margin="422,160,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="username" HorizontalAlignment="Left" Margin="422,210,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="password" HorizontalAlignment="Left" Margin="422,260,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
+        <Label Content="First name: " HorizontalAlignment="Left" Height="33" Margin="67,60,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <Label Content="Last name: " HorizontalAlignment="Left" Height="33" Margin="67,110,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <Label Content="Birth date: " HorizontalAlignment="Left" Height="33" Margin="67,160,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <Label Content="Username: " HorizontalAlignment="Left" Height="33" Margin="67,210,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <Label Content="Password: " HorizontalAlignment="Left" Height="33" Margin="67,260,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <TextBox x:Name="firstname" HorizontalAlignment="Left" Margin="412,60,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="lastname" HorizontalAlignment="Left" Margin="412,110,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="birthdate" HorizontalAlignment="Left" Margin="412,160,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="username" HorizontalAlignment="Left" Margin="412,210,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="password" HorizontalAlignment="Left" Margin="412,260,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
         <Label Content="Medical record" HorizontalAlignment="Center" Height="28" Margin="0,330,0,0" VerticalAlignment="Top" Width="900" Background="White" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS"/>
-        <Label Content="Height: " HorizontalAlignment="Left" Height="33" Margin="77,380,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <Label Content="Weight: " HorizontalAlignment="Left" Height="33" Margin="77,430,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <Label Content="Anamnesis: " HorizontalAlignment="Left" Height="33" Margin="77,480,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <TextBox x:Name="height" HorizontalAlignment="Left" Margin="422,380,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="weight" HorizontalAlignment="Left" Margin="422,430,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="anamnesis" HorizontalAlignment="Left" Margin="422,480,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
-        <Button x:Name="confirm" Content="Submit" HorizontalAlignment="Left" Height="33" Margin="77,539,0,0" VerticalAlignment="Top" Width="354" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="confirm_Click"/>
-        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Height="33" Margin="500,539,0,0" VerticalAlignment="Top" Width="354" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="cancel_Click"/>
+        <Label Content="Height: " HorizontalAlignment="Left" Height="33" Margin="67,380,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <Label Content="Weight: " HorizontalAlignment="Left" Height="33" Margin="67,430,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <Label Content="Anamnesis: " HorizontalAlignment="Left" Height="33" Margin="67,480,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <TextBox x:Name="height" HorizontalAlignment="Left" Margin="412,380,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="weight" HorizontalAlignment="Left" Margin="412,430,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="anamnesis" HorizontalAlignment="Left" Margin="412,480,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="450" RenderTransformOrigin="0.5,0.5"/>
+        <Button x:Name="confirm" Content="Submit" HorizontalAlignment="Left" Height="33" Margin="67,539,0,0" VerticalAlignment="Top" Width="354" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="confirm_Click"/>
+        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Height="33" Margin="496,539,0,0" VerticalAlignment="Top" Width="354" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="cancel_Click"/>
     </Grid>
 </Window>

@@ -1,12 +1,22 @@
 [
   {
     "Id": 1,
-    "FirstName": "Patient1",
-    "LastName": "Patient1",
+    "FirstName": "Milos",
+    "LastName": "Milosevic",
     "BirthDate": "1990-05-20",
     "MedicalRecordId": 1,
     "Username": "milos",
     "Password": "milos",
+    "Type": "patient"
+  },
+  {
+    "Id": 2,
+    "FirstName": "Pera",
+    "LastName": "Peric",
+    "BirthDate": "1995-10-20",
+    "MedicalRecordId": 2,
+    "Username": "pera",
+    "Password": "pera",
     "Type": "patient"
   }
 ]

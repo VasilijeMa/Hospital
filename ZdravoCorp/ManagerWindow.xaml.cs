@@ -27,9 +27,11 @@ namespace ZdravoCorp
         private void FilterClick(object sender, RoutedEventArgs e)
         {
             FilterEquipment newWindow = new FilterEquipment();
-            newWindow.Show();
+            newWindow.ShowDialog();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) { }
+        private void LogOutClick(object sender, RoutedEventArgs e) {
+            this.Close();
+        }
     }
 }

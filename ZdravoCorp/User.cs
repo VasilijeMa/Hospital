@@ -77,6 +77,9 @@ namespace ZdravoCorp
                     break;
 
                 case "manager":
+                    ManagerWindow managerWindow = new ManagerWindow();
+                    managerWindow.ShowDialog();
+                    break;
 
                     break;
                 case "patient":

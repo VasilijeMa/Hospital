@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="ManagerWindow" Height="450" Width="800">
+        Title="ManagerWindow" Height="450" Width="800" Icon="/icon.png">
     <Grid>
         
         <Menu>
             <MenuItem Header="Filter Equipment" FontSize="16" Click="FilterClick">
             </MenuItem>
+            <MenuItem Header="LogOut" FontSize="16" Click="LogOutClick" Margin="540, 0, 0, 0"></MenuItem>
         </Menu>
     </Grid>
 </Window>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="FilterEquipment" Height="400" Width="700">
+        Title="FilterEquipment" Height="400" Width="700" Icon="/icon.png">
     <Window.Resources>
         <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
     </Window.Resources>
@@ -15,7 +15,7 @@
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="343,85,0,0" VerticalAlignment="Top" Width="125" x:Name="ByQuantity" SelectedIndex="0" ItemsSource="{Binding ByQuantityOptions}"/>
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="468,85,0,0" VerticalAlignment="Top" Width="125" x:Name="NotInWarehouse" SelectedIndex="0" ItemsSource="{Binding NotInWarehouseOptions}"/>
 
-        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding EquipmentGridItems}" Height="150" Width="500" AutoGenerateColumns="False">
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" ItemsSource="{Binding EquipmentGridItems}" Height="150" Width="500" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding TypeOfEq}" Width="200"/>

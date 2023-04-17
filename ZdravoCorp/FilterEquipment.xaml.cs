@@ -89,8 +89,43 @@ namespace ZdravoCorp
             return (byQuantity == 1 && egi.GetQuantity() == 0) || (byQuantity == 2 && egi.GetQuantity() <= 10) || (byQuantity == 3 && egi.GetQuantity() > 10);
         }
 
-        bool IsSearchReturn(EquipmentGridItem egi, string Input) {
-            return true; //TODO
+        bool IsSearchReturn(EquipmentGridItem egi, string searchInput) {
+            string upperInput = searchInput.ToUpper();
+            string upperName = egi.GetName().ToUpper();
+            string upperType = egi.GetTypeOfEq().ToUpper();
+            for(int i = 0; i<upperInput.Length; i++)
+            {
+                char c = upperInput[i];
+                if(c != ' ')
+                {
+                    bool exists = false;
+                    for (int j = 0; j < upperName.Length; j++)
+                    {
+                        if(upperName[j] == c){
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists)
+                    {
+                        for(int j = 0;j < upperType.Length; j++)
+                        {
+                            if (upperType[j] == c)
+                            {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists)
+                        {
+                            return false;
+                        }
+                    }
+
+
+                }
+            }
+            return true;
         }
         void FilterGridItems(int byRoomTypeLen, int byRoomType, int byEquipmentType, int byQuantity, int notInWarehouse, string searchInput)
         {
@@ -133,7 +168,7 @@ namespace ZdravoCorp
                         }
                 }
             }
-            if (string.IsNullOrEmpty(searchInput)) {
+            if (!string.IsNullOrEmpty(searchInput)) {
                 foreach (string key in EquipmentOrganization.Keys)
                 {
                     if (!IsSearchReturn(EquipmentOrganization[key], searchInput))

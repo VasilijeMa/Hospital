@@ -238,5 +238,15 @@
     "DoctorId": 2,
     "PatientId": 1,
     "IsCanceled": false
+  },
+  {
+    "Id": 23,
+    "TimeSlot": {
+      "start": "2023-04-27T10:10:00",
+      "duration": 22
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false
   }
 ]

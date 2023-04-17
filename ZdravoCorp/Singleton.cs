@@ -10,6 +10,7 @@ namespace ZdravoCorp
     {
         private static Singleton instance;
         public Schedule Schedule { get; set; }
+        public Log Log { get; set; }
 
         public List<Doctor> doctors;
 
@@ -33,6 +34,7 @@ namespace ZdravoCorp
         private Singleton()
         {
             Schedule = new Schedule();
+            Log = new Log();
             doctors = Doctor.LoadAll();
             patients = Patient.LoadAll();
             nurses = Nurse.LoadAll();

@@ -15,13 +15,15 @@ namespace ZdravoCorp
         public string LastName { get; set; }
         public DateOnly BirthDate { get; set; }
         public int MedicalRecordId { get; set; }
-        public Patient(int id, string firstName, string lastName, DateOnly birthDate, int medicalRecordId, string username, string password, string type):base(username, password, type)
+        public bool IsBlocked { get; set; }
+        public Patient(int id, string firstName, string lastName, DateOnly birthDate, int medicalRecordId, string username, string password, string type, bool isBlocked) :base(username, password, type)
         {
             this.Id = id;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.BirthDate = birthDate;
             this.MedicalRecordId = medicalRecordId;
+            this.IsBlocked = isBlocked;
         }
         public Patient():base() { }
 

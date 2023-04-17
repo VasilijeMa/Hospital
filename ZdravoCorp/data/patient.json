@@ -5,6 +5,7 @@
     "LastName": "Milosevic",
     "BirthDate": "1990-05-20",
     "MedicalRecordId": 1,
+    "IsBlocked": false,
     "Username": "milos",
     "Password": "milos",
     "Type": "patient"

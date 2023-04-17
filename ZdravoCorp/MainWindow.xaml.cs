@@ -25,12 +25,12 @@ namespace ZdravoCorp
     public partial class MainWindow : Window
     {
         List<User> users;
-
+        Singleton singleton;
         public MainWindow()
         {
             InitializeComponent();
             users = User.LoadAll();
-            Singleton singleton = Singleton.Instance;
+            singleton = Singleton.Instance;
 
         }
 

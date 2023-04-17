@@ -17,7 +17,7 @@
     },
     "DoctorId": 2,
     "PatientId": 1,
-    "IsCanceled": false
+    "IsCanceled": true
   },
   {
     "Id": 3,
@@ -203,6 +203,26 @@
     "Id": 21,
     "TimeSlot": {
       "start": "2023-04-17T07:20:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false
+  },
+  {
+    "Id": 7,
+    "TimeSlot": {
+      "start": "2023-04-28T11:11:00",
+      "duration": 15
+    },
+    "DoctorId": 2,
+    "PatientId": 1,
+    "IsCanceled": false
+  },
+  {
+    "Id": 8,
+    "TimeSlot": {
+      "start": "2023-04-30T12:12:00",
       "duration": 15
     },
     "DoctorId": 1,

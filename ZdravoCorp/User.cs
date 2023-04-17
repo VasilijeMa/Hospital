@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Xml.Linq;
 
 namespace ZdravoCorp
 {
@@ -15,6 +17,8 @@ namespace ZdravoCorp
         public string Password { get; set; }
 
         public string Type { get; set; }
+
+        public bool IsBlocked { get; set; }
 
         public User() { }
 
@@ -31,6 +35,11 @@ namespace ZdravoCorp
             var json = reader.ReadToEnd();
             List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
             return users;
+        }
+        public static void WriteAll(List<User> users)
+        {
+            string json = JsonConvert.SerializeObject(users, Formatting.Indented);
+            File.WriteAllText("./../../../data/users.json", json);
         }
 
         public override string ToString()
@@ -73,11 +82,19 @@ namespace ZdravoCorp
                 case "patient":
                     foreach (Patient patient in Singleton.Instance.patients)
                     {
-                        if (user.Username == patient.Username)
+                        if (user.Username == patient.Username )
                         {
-                            PatientWindow patientWindow = new PatientWindow(patient);
-                            patientWindow.ShowDialog();
-                            break;
+                            if (!patient.IsBlocked)
+                            {
+                                PatientWindow patientWindow = new PatientWindow(patient);
+                                patientWindow.ShowDialog();
+                                if (patient.IsBlocked)
+                                {
+                                    patient.WriteAll(Singleton.Instance.patients);
+                                }
+                                break;
+                            }
+                            MessageBox.Show("Your account is blocked.");
                         }
                     }
                     break;

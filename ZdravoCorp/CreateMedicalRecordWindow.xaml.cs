@@ -108,12 +108,12 @@ namespace ZdravoCorp
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
             }
-            if ((birthdate.Text.Length == 0) && validateDate(birthdate.Text))
+            if ((birthdate.Text.Length == 0) || !validateDate(birthdate.Text))
             {
                 MessageBox.Show("Invalid input.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
             }
-            if ((username.Text.Length == 0) && (!usedUsernames().Contains(username.Text)))
+            if ((username.Text.Length == 0) || (usedUsernames().Contains(username.Text)))
             {
                 MessageBox.Show("Invalid input.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;

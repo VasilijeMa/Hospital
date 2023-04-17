@@ -1,0 +1,43 @@
+[
+  {
+    "Name": "Bed",
+    "TypeOfEq": 3
+  },
+  {
+    "Name": "Table",
+    "TypeOfEq": 3
+  },
+  {
+    "Name": "Chair",
+    "TypeOfEq": 3
+  },
+  {
+    "Name": "Wardrobe",
+    "TypeOfEq": 3
+  },
+  {
+    "Name": "Stethoscope",
+    "TypeOfEq": 1
+  },
+  {
+    "Name": "Shelf",
+    "TypeOfEq": 3
+  },
+  {
+    "Name": "IV",
+    "TypeOfEq": 2
+  },
+  {
+    "Name": "Bench",
+    "TypeOfEq": 4
+  },
+  {
+    "Name": "Scalpel",
+    "TypeOfEq": 2
+  },
+  {
+    "Name": "Bandage",
+    "TypeOfEq": 2
+  }
+
+]

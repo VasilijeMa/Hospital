@@ -153,7 +153,28 @@ namespace ZdravoCorp
             }
 
             Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["AppointmentID"]);
-            int patiendId = appointment.PatientId;
+
+            int patientId = appointment.PatientId;
+            Patient selectedPatient = new Patient();
+
+            bool check = false;
+            foreach (Patient patient in singleton.patients)
+            {
+                if (patientId == patient.Id)
+                {
+                    check = true;
+                    selectedPatient = patient;
+                }
+            }
+
+            if (!check)
+            {
+                MessageBox.Show("The patient does not exist in the system");
+                return;
+            }
+
+            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, selectedPatient, true);
+            medicalRecord.ShowDialog();
         }
 
 

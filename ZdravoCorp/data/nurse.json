@@ -3,8 +3,8 @@
     "Id": 1,
     "FirstName": "NurseName",
     "LastName": "NurseLastName",
-    "usename": "isidora",
-    "password": "isidora",
-    "type": "nurse"
+    "Username": "isidora",
+    "Password": "isidora",
+    "Type": "nurse"
   }
 ]

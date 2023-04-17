@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="icon.png" />
+    <None Remove="user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,9 @@
 
   <ItemGroup>
     <Resource Include="icon.png" />
+    <Resource Include="user.png" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

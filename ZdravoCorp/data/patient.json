@@ -1,8 +1,8 @@
 [
   {
     "Id": 1,
-    "FirstName": "Patient1",
-    "LastName": "Patient1",
+    "FirstName": "Milos",
+    "LastName": "Milosevic",
     "BirthDate": "1990-05-20",
     "MedicalRecordId": 1,
     "IsBlocked": false,

@@ -67,8 +67,15 @@ namespace ZdravoCorp
                     break;
 
                 case "nurse":
-                    // code block
+                    foreach (Nurse nurse in Singleton.Instance.nurses) {
+                        if (user.Username == nurse.Username) {
+                            NurseWindow nurseWindow = new NurseWindow(nurse);
+                            nurseWindow.Show();
+                            break;
+                        }
+                    }
                     break;
+
                 case "manager":
 
                     break;

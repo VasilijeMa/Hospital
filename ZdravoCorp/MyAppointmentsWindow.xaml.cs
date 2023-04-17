@@ -87,6 +87,10 @@ namespace ZdravoCorp
                 btnCancel.IsEnabled = false;
                 singleton.Schedule.CancelAppointment((int)((DataRowView)dgAppointments.SelectedItem).Row["Id"]);
                 singleton.Log.UpdateCancelElement(appointment, patient);
+                if (patient.IsBlocked)
+                {
+                    this.Close();
+                }
             }
         }
 
@@ -119,6 +123,10 @@ namespace ZdravoCorp
             updateWindow.ShowDialog();
             dgAppointments.ItemsSource = null;
             LoadAppointmentsInDataGrid();
+            if (patient.IsBlocked)
+            {
+                this.Close();
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

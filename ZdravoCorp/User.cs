@@ -18,7 +18,7 @@ namespace ZdravoCorp
 
         public string Type { get; set; }
 
-        public bool isBlocked { get; set; }
+        public bool IsBlocked { get; set; }
 
         public User() { }
 
@@ -27,7 +27,6 @@ namespace ZdravoCorp
             Username = username;
             Password = password;
             Type = type;
-            isBlocked = false;
         }
         public static List<User> LoadAll()
         {
@@ -78,10 +77,14 @@ namespace ZdravoCorp
                     {
                         if (user.Username == patient.Username )
                         {
-                            if (!patient.isBlocked)
+                            if (!patient.IsBlocked)
                             {
                                 PatientWindow patientWindow = new PatientWindow(patient);
                                 patientWindow.ShowDialog();
+                                if (patient.IsBlocked)
+                                {
+                                    patient.WriteAll(Singleton.Instance.patients);
+                                }
                                 break;
                             }
                             MessageBox.Show("Your account is blocked.");

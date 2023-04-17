@@ -43,7 +43,6 @@ namespace ZdravoCorp
                     this.Visibility = Visibility.Hidden;
                     User.DisplayWindow(user);
                     this.Visibility = Visibility.Visible;
-                    User.WriteAll(users);
                     tbUsername.Text = "";
                     pbPassword.Password = "";
                     return;

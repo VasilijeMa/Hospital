@@ -33,12 +33,22 @@ namespace ZdravoCorp
         {
             MakeAppointmentWindow makeAppointmentWindow = new MakeAppointmentWindow(patient);
             makeAppointmentWindow.ShowDialog();
+            if (patient.IsBlocked)
+            {
+                MessageBox.Show("Your account is blocked.");
+                this.Close();
+            }
         }
 
         private void MyAppointments_Click(object sender, RoutedEventArgs e)
         {
             MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient);
             myAppointmentsWindow.ShowDialog();
+            if (patient.IsBlocked)
+            {
+                MessageBox.Show("Your account is blocked.");
+                this.Close();
+            }
         }
         private void miLogOut_Click(object sender, RoutedEventArgs e)
         {

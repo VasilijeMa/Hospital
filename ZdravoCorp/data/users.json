@@ -2,25 +2,21 @@
   {
     "Username": "vasilije",
     "Password": "vasilije",
-    "Type": "manager",
-    "isBlocked": false
+    "Type": "manager"
   },
   {
     "Username": "vanja",
     "Password": "vanja",
-    "Type": "doctor",
-    "isBlocked": false
+    "Type": "doctor"
   },
   {
     "Username": "isidora",
     "Password": "isidora",
-    "Type": "nurse",
-    "isBlocked": false
+    "Type": "nurse"
   },
   {
     "Username": "milos",
     "Password": "milos",
-    "Type": "patient",
-    "isBlocked": false
+    "Type": "patient"
   }
 ]

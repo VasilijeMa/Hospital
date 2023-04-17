@@ -84,11 +84,11 @@ namespace ZdravoCorp
         {
             if(MakeCounter > 8 || UpdateCancelCounter >= 5)
             {
-                patient.isBlocked = true;
+                patient.IsBlocked = true;
             }
             else
             {
-                patient.isBlocked = false;
+                patient.IsBlocked = false;
             }
 
         }

@@ -33,7 +33,7 @@ namespace ZdravoCorp
         {
             foreach(Appointment appointment in appointments)
             {
-                if(appointment.Id == appointmentId) continue;
+                if(appointment.Id == appointmentId || appointment.IsCanceled) continue;
                 if(doctor.Id == appointment.DoctorId && appointment.TimeSlot.OverlapWith(timeSlot))
                 {
                     return false;

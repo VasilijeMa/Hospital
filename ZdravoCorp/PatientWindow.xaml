@@ -13,6 +13,7 @@
                     <MenuItem Header="Make" Name="miMake" Click="miMake_Click"></MenuItem>
                     <MenuItem Header="My Appointments" Name="MyAppointment" Click="MyAppointments_Click" ></MenuItem>
                 </MenuItem>
+                <MenuItem Header="Log out" Name="miLogOut" Click="miLogOut_Click"/>
             </MenuItem>
         </Menu>
         <Label Name="lblWelcome" Content="" Margin="10,200,0,0" FontSize="25"/>

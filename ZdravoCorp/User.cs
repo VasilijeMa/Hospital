@@ -54,7 +54,7 @@ namespace ZdravoCorp
                     }
 
                     DoctorWindow doctorWindow = new DoctorWindow(doctor);
-                    doctorWindow.Show();
+                    doctorWindow.ShowDialog();
                     break;
 
                 case "nurse":
@@ -69,7 +69,7 @@ namespace ZdravoCorp
                         if (user.Username == patient.Username)
                         {
                             PatientWindow patientWindow = new PatientWindow(patient);
-                            patientWindow.Show();
+                            patientWindow.ShowDialog();
                             break;
                         }
                     }

@@ -35,7 +35,7 @@ namespace ZdravoCorp
 
             this.singleton = Singleton.Instance;
             this.doctor = doctor;
-            this.appointments = appointments;   
+            this.appointments = appointments;
             this.days = days;
             DataGridLoadAppointments();
         }
@@ -89,7 +89,7 @@ namespace ZdravoCorp
             }
 
             Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["AppointmentID"]);
-            
+
             if (appointment.IsCanceled)
             {
                 MessageBox.Show("Appointment is canceled.");
@@ -157,24 +157,17 @@ namespace ZdravoCorp
             int patientId = appointment.PatientId;
             Patient selectedPatient = new Patient();
 
-            bool check = false;
             foreach (Patient patient in singleton.patients)
             {
                 if (patientId == patient.Id)
                 {
-                    check = true;
                     selectedPatient = patient;
+                    CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, selectedPatient, true);
+                    medicalRecord.ShowDialog();
+                    return;
                 }
             }
-
-            if (!check)
-            {
-                MessageBox.Show("The patient does not exist in the system");
-                return;
-            }
-
-            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, selectedPatient, true);
-            medicalRecord.ShowDialog();
+            MessageBox.Show("The patient does not exist in the system");
         }
 
 

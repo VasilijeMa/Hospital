@@ -61,12 +61,13 @@ namespace ZdravoCorp
                 MessageBox.Show("The selected date cannot be in the past.");
                 return;
             }
-            if (!singleton.Schedule.IsAvailable(timeSlot, (Doctor)cmbDoctors.SelectedItem, appointment.Id))
+            Doctor doctor = (Doctor)cmbDoctors.SelectedItem;
+            if (!doctor.IsAvailable(timeSlot, appointment.Id))
             {
                 MessageBox.Show("Doctor is not available at choosen date and time.");
                 return;
             }
-            if (!singleton.Schedule.IsAvailable(timeSlot, patient, appointment.Id))
+            if (!patient.IsAvailable(timeSlot, appointment.Id))
             {
                 MessageBox.Show("Patient is not available at choosen date and time.");
                 return;

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="DoctorWindow" WindowStartupLocation="CenterScreen" Height="515" Width="917">
+        Title="DoctorWindow" WindowStartupLocation="CenterScreen" Height="515" Width="917" Closing="Window_Closing">
     <Grid>
         <Menu Name="menu1"  FontSize="18" Background="MintCream" Height="50" VerticalAlignment="Top">
             <MenuItem FontSize="18"  Margin="12,10,2,0" Foreground="Black" Header="_View appointments">

@@ -56,5 +56,14 @@ namespace ZdravoCorp
             this.Close();
         }
 
+        private void FreeAppointment_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            singleton.Schedule.WriteAllAppointmens();
+        }
     }
 }

@@ -24,46 +24,12 @@ namespace ZdravoCorp
         public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
             int id = getLastId() + 1;
-            Appointment appointment = new Appointment(id ,timeSlot, doctor.Id, patient.Id);
+            Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id);
             appointments.Add(appointment);
             return appointment;
         }
 
-        public bool IsAvailable(TimeSlot timeSlot, Doctor doctor, int appointmentId=-1)
-        {
-            foreach(Appointment appointment in appointments)
-            {
-                if(appointment.Id == appointmentId || appointment.IsCanceled) continue;
-                if(doctor.Id == appointment.DoctorId && appointment.TimeSlot.OverlapWith(timeSlot))
-                {
-                    if (!appointment.IsCanceled)
-                    {
-                        return false;
-                    }
-                    //return false;
-                }
-            }
-            return true;
-        }
-
-        public bool IsAvailable(TimeSlot timeSlot, Patient patient, int appointmentId = -1)
-        {
-            foreach (Appointment appointment in appointments)
-            {
-                if (appointment.Id == appointmentId) continue;
-                if (patient.Id == appointment.PatientId && appointment.TimeSlot.OverlapWith(timeSlot))
-                {
-                    if (!appointment.IsCanceled)
-                    {
-                        return false;
-                    }
-                    //return false;
-                }
-            }
-            return true;
-        }
-
-        public Appointment UpdateAppointment(int appointmentId, TimeSlot timeSlot, int doctorId, Patient patient=null)
+        public Appointment UpdateAppointment(int appointmentId, TimeSlot timeSlot, int doctorId, Patient patient = null)
         {
             foreach (var appointment in appointments)
             {
@@ -71,7 +37,7 @@ namespace ZdravoCorp
                 {
                     appointment.TimeSlot = timeSlot;
                     appointment.DoctorId = doctorId;
-                    if (patient!=null)
+                    if (patient != null)
                     {
                         appointment.PatientId = patient.Id;
                     }
@@ -85,7 +51,7 @@ namespace ZdravoCorp
         {
             foreach (var appointment in appointments)
             {
-                if(appointment.Id == appointmentId)
+                if (appointment.Id == appointmentId)
                 {
                     appointment.IsCanceled = true;
                     return appointment;
@@ -132,5 +98,32 @@ namespace ZdravoCorp
             }
             return null;
         }
+
+
+        //public bool IsAvailable(TimeSlot timeSlot, Doctor doctor, int appointmentId = -1)
+        //{
+        //    foreach (Appointment appointment in appointments)
+        //    {
+        //        if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
+        //        if (doctor.Id == appointment.DoctorId && appointment.TimeSlot.OverlapWith(timeSlot))
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
+
+        //public bool IsAvailable(TimeSlot timeSlot, Patient patient, int appointmentId = -1)
+        //{
+        //    foreach (Appointment appointment in appointments)
+        //    {
+        //        if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
+        //        if (patient.Id == appointment.PatientId && appointment.TimeSlot.OverlapWith(timeSlot))
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
     }
 }

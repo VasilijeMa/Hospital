@@ -49,13 +49,13 @@ namespace ZdravoCorp
             }
             TimeSlot timeSlot = MakeTimeSlot();
 
-            if (!singleton.Schedule.IsAvailable(timeSlot, doctor, appointmentId))
+            if (!doctor.IsAvailable(timeSlot, appointmentId))
             {
                 MessageBox.Show("You are not available at choosen date and time.");
                 return;
             }
-
-            if (!singleton.Schedule.IsAvailable(timeSlot, (Patient)cmbPatients.SelectedItem, appointmentId))
+            Patient patient = (Patient)cmbPatients.SelectedItem;
+            if (!patient.IsAvailable(timeSlot, appointmentId))
             {
                 MessageBox.Show("Patient is not available at choosen date and time.");
                 return;
@@ -71,7 +71,6 @@ namespace ZdravoCorp
             else
             {
                 singleton.Schedule.CreateAppointment(timeSlot, doctor, (Patient)cmbPatients.SelectedItem);
-                singleton.Schedule.WriteAllAppointmens();
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
             }

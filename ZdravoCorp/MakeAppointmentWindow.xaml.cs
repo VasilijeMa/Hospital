@@ -50,20 +50,19 @@ namespace ZdravoCorp
                 MessageBox.Show("The selected date cannot be in the past.");
                 return;
             }
-            if (!singleton.Schedule.IsAvailable(timeSlot, (Doctor)cmbDoctors.SelectedItem))
+            Doctor doctor = (Doctor)cmbDoctors.SelectedItem;
+            if (!doctor.IsAvailable(timeSlot))
             {
                 MessageBox.Show("Doctor is not available at choosen date and time.");
                 return;
             }
-
-            if (!singleton.Schedule.IsAvailable(timeSlot, patient))
+            if (!patient.IsAvailable(timeSlot))
             {
                 MessageBox.Show("Patient is not available at choosen date and time.");
                 return;
             }
             Appointment appointment = singleton.Schedule.CreateAppointment(timeSlot, (Doctor)cmbDoctors.SelectedItem, patient);
             singleton.Log.AddElement(appointment, patient);
-            singleton.Schedule.WriteAllAppointmens();
             MessageBox.Show("Appointment successfully created.");
             this.Close();
         }

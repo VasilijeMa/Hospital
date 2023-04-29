@@ -53,19 +53,17 @@ namespace ZdravoCorp
             switch (user.Type)
             {
                 case "doctor":
-                    Doctor doctor = new Doctor();
-             
-                    foreach (Doctor oneDoctor in Singleton.Instance.doctors)
+                    foreach (Doctor doctor in Singleton.Instance.doctors)
                     {
-                        if (user.Username == oneDoctor.Username)
+                        if (user.Username == doctor.Username)
                         {
-                            doctor = oneDoctor;
+                            DoctorWindow doctorWindow = new DoctorWindow(doctor);
+                            doctorWindow.ShowDialog();
+                            break;
                         }
                     }
-
-                    DoctorWindow doctorWindow = new DoctorWindow(doctor);
-                    doctorWindow.ShowDialog();
                     break;
+
 
                 case "nurse":
                     foreach (Nurse nurse in Singleton.Instance.nurses) {
@@ -80,8 +78,6 @@ namespace ZdravoCorp
                 case "manager":
                     ManagerWindow managerWindow = new ManagerWindow();
                     managerWindow.ShowDialog();
-                    break;
-
                     break;
                 case "patient":
                     foreach (Patient patient in Singleton.Instance.patients)

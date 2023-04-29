@@ -42,6 +42,19 @@ namespace ZdravoCorp
             File.WriteAllText("./../../../data/patient.json", json);
         }
 
+        public bool IsAvailable(TimeSlot timeSlot, int appointmentId = -1)
+        {
+            foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
+            {
+                if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
+                if (Id == appointment.PatientId && appointment.TimeSlot.OverlapWith(timeSlot))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public override string ToString()
         {
             return "Id: " + Id + ", FirstName: " + FirstName + ", LastName: " + LastName + "BirthDate: " + BirthDate.ToString();

@@ -12,9 +12,11 @@ namespace ZdravoCorp
     public class Schedule
     {
         public List<Appointment> appointments { get; set; }
+        public Dictionary<DateTime, List<Appointment>> dailyAppointments {  get; set; }
         public Schedule()
         {
             this.appointments = LoadAllAppointments();
+            CreateAppointmentMap();
         }
         public Schedule(List<Appointment> appointments)
         {
@@ -99,6 +101,22 @@ namespace ZdravoCorp
             return null;
         }
 
+        public void CreateAppointmentMap()
+        {
+            dailyAppointments = new Dictionary<DateTime, List<Appointment>>();
+            foreach(var appointment in appointments)
+            {
+                if(dailyAppointments.ContainsKey(appointment.TimeSlot.start.Date))
+                {
+                    dailyAppointments[appointment.TimeSlot.start.Date].Add(appointment);
+                }
+                else
+                {
+                    dailyAppointments.Add(appointment.TimeSlot.start.Date, new List<Appointment>());
+                    dailyAppointments[appointment.TimeSlot.start.Date].Add(appointment);
+                }
+            }
+        }
 
         //public bool IsAvailable(TimeSlot timeSlot, Doctor doctor, int appointmentId = -1)
         //{

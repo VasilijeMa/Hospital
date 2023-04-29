@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp
 {
-    internal class AppointmentRequest
+    public class AppointmentRequest
     {
-        int DoctorId { get; set; }
-        TimeOnly EarliestHour { get; set; }
-        TimeOnly LatestHour { get; set; }
-        DateTime LatestDate { get; set; }
-        Priority Priority { get; set; }
+        public int DoctorId { get; set; }
+        public TimeOnly EarliestHour { get; set; }
+        public TimeOnly LatestHour { get; set; }
+        public DateTime LatestDate { get; set; }
+        public Priority Priority { get; set; }
         public AppointmentRequest() { }
 
         public AppointmentRequest(int doctorId, TimeOnly earliestHour, TimeOnly latestHour, DateTime latestDate, Priority priority)

@@ -36,5 +36,32 @@ namespace ZdravoCorp
             }
             return false;
         }
+
+        public List<TimeSlot> Split(TimeSlot timeSlot)
+        {
+            //DA LI ODUZETI 1 KOD DURATION, UKLJUCITI POCETAK ILI KRAJ? 
+            List<TimeSlot> timeSlots = new List<TimeSlot>();
+            if(timeSlot.start > start && timeSlot.start.AddMinutes(timeSlot.duration) < start.AddMinutes(duration))
+            {
+                timeSlots.Add(new TimeSlot(start, (int)(timeSlot.start-start).TotalMinutes));
+                timeSlots.Add(new TimeSlot(timeSlot.start.AddMinutes(timeSlot.duration), (int)(start.AddMinutes(duration)-timeSlot.start.AddMinutes(timeSlot.duration)).TotalMinutes));
+            }
+            else if(timeSlot.start <= start)
+            {
+                if(timeSlot.start.AddMinutes(timeSlot.duration) < start.AddMinutes(duration))
+                {
+                    timeSlots.Add(new TimeSlot(timeSlot.start.AddMinutes(timeSlot.duration), (int)(start.AddMinutes(duration) - timeSlot.start.AddMinutes(timeSlot.duration)).TotalMinutes));
+                }
+                else
+                {
+                    timeSlots.Add(this);
+                }
+            }
+            else if(timeSlot.start < start.AddMinutes(duration))
+            {
+                timeSlots.Add(new TimeSlot(start, (int)(timeSlot.start - start).TotalMinutes));
+            }
+            return timeSlots;
+        }
     }
 }

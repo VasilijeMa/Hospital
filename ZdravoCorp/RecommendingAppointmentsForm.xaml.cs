@@ -63,6 +63,7 @@ namespace ZdravoCorp
             TimeOnly earliestTime = new TimeOnly(int.Parse(tbEHour.Text.Split(":")[0]), int.Parse(tbEHour.Text.Split(":")[1]));
             TimeOnly latestTime = new TimeOnly(int.Parse(tbLHour.Text.Split(":")[0]), int.Parse(tbLHour.Text.Split(":")[1]));
             AppointmentRequest appointmentRequest = new AppointmentRequest((int)cmbDoctors.SelectedValue, earliestTime, latestTime, date, priority);
+            singleton.Schedule.GetClosestTimeSlots(appointmentRequest);
         }
 
         public bool inputValidation()

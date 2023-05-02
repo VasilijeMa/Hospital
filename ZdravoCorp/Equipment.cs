@@ -14,10 +14,13 @@ public class Equipment
 {
 	string Name { get; set; }
 	EquipmentType TypeOfEq { get; set; }
-    public Equipment(int typeOfEq, string name)
+
+	bool Dynamic { get; set; }
+    public Equipment(int typeOfEq, string name, bool Dynamic)
 	{
 		this.TypeOfEq = (EquipmentType)typeOfEq;
 		this.Name = name;
+		this.Dynamic = Dynamic;
 	}
 
 	public static List<Equipment> LoadAll()
@@ -35,6 +38,11 @@ public class Equipment
 
 	public string ToString()
 	{
-		return Name + " " + TypeOfEq.ToString();
+		return Name + ", " + TypeOfEq.ToString() + ", Dynamic: " + Dynamic.ToString();
+	}
+
+	public bool IsDynamic()
+	{
+		return Dynamic;
 	}
 }

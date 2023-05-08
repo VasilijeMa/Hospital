@@ -72,6 +72,8 @@ namespace ZdravoCorp
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
             EquipmentGridItem eq = (EquipmentGridItem)((Button)e.Source).DataContext;
+            OrderDynamicEquipmentPopup newWindow = new OrderDynamicEquipmentPopup(eq.GetName());
+            newWindow.ShowDialog();
             //MessageBox.Show(eq.GetName() + " " + eq.GetQuantity().ToString());
         }
     }

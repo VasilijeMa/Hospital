@@ -22,7 +22,7 @@
   {
     "Where": "Examination Room 1",
     "What": "Stethoscope",
-    "Amount": 2
+    "Amount": 1
   },
   {
     "Where": "Examination Room 1",
@@ -57,7 +57,7 @@
   {
     "Where": "Examination Room 4",
     "What": "Stethoscope",
-    "Amount": 5
+    "Amount": 1
   },
   {
     "Where": "Infirmary 1",
@@ -67,7 +67,7 @@
   {
     "Where": "Infirmary 1",
     "What": "IV",
-    "Amount": 3
+    "Amount": 1
   },
   {
     "Where": "Infirmary 2",

@@ -11,8 +11,14 @@
         <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" ItemsSource="{Binding AllDepletingDynamicEquipment}" Height="150" Width="500" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding TypeOfEq}" Width="200"/>
-                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="90"/>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="200"/>
+                <DataGridTemplateColumn Header="Order" Width="90">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Order" Click="OrderButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

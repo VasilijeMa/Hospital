@@ -22,7 +22,7 @@
   {
     "Name": "Stethoscope",
     "TypeOfEq": 1,
-    "Dynamic": false
+    "Dynamic": true
   },
   {
     "Name": "Shelf",
@@ -32,7 +32,7 @@
   {
     "Name": "IV",
     "TypeOfEq": 2,
-    "Dynamic": false
+    "Dynamic": true
   },
   {
     "Name": "Bench",

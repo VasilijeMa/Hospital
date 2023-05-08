@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,6 +69,10 @@ namespace ZdravoCorp
             }
         }
 
-
+        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            EquipmentGridItem eq = (EquipmentGridItem)((Button)e.Source).DataContext;
+            //MessageBox.Show(eq.GetName() + " " + eq.GetQuantity().ToString());
+        }
     }
 }

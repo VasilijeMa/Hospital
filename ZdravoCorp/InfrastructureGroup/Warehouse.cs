@@ -8,33 +8,28 @@ namespace ZdravoCorp.InfrastructureGroup
 {
     public class Warehouse : Infrastructure
     {
+        [JsonProperty("inventory")]
         private Dictionary<string, int> Inventory;
         public Warehouse(string name, Dictionary<string, int> inventory) : base(name)
         {
             this.Inventory = inventory;
         }
 
-        void Add(string equipment)
+
+        public void Add(string equipment, int quantity)
         {
             if (this.Inventory.ContainsKey(equipment))
             {
-                this.Inventory[equipment]++;
+                this.Inventory[equipment]+=quantity;
             }
             else
             {
-                this.Inventory.Add(equipment, 1);
+                this.Inventory.Add(equipment, quantity);
             }
         }
 
         public Dictionary<string, int> GetInventory() { return Inventory; }
-        public static Warehouse Load()
-        {
-            var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/warehouse.json");
-            var json = reader.ReadToEnd();
-            Warehouse warehouse = JsonConvert.DeserializeObject<Warehouse>(json);
-            return warehouse;
-        }
+       
 
     }
 }

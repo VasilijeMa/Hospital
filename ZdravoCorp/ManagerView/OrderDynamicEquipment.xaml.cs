@@ -30,46 +30,25 @@ namespace ZdravoCorp.ManagerView
         {
             DataContext = this;
             AllDepletingDynamicEquipment = new ObservableCollection<EquipmentGridItem>();
-            LoadDepletingDynamicEquipment();
+
+            RefreshDataGrid();
+
             InitializeComponent();
         }
 
-        public void LoadDepletingDynamicEquipment()
+        public void RefreshDataGrid()
         {
-            List<Equipment> allEquipment = Equipment.LoadAll();
-            Dictionary<string, EquipmentGridItem> equipmentOrganization = new Dictionary<string, EquipmentGridItem>();
-            foreach (Equipment equipment in allEquipment)
-            {
-                if (equipment.IsDynamic())
-                {
-                    equipmentOrganization[equipment.GetName()] = new EquipmentGridItem(equipment.GetName(), equipment.GetTypeOfEq());
-                }
-            }
-            Warehouse warehouse = Warehouse.Load();
-            foreach (string itemName in warehouse.GetInventory().Keys)
-            {
-                if (equipmentOrganization.ContainsKey(itemName))
-                {
-                    equipmentOrganization[itemName].IncreaseQuantity(warehouse.GetInventory()[itemName]);
-                }
-            }
-
-            List<FunctionalItem> allFunctionalItems = FunctionalItem.LoadAll();
-            foreach (FunctionalItem item in allFunctionalItems)
-            {
-                if (equipmentOrganization.ContainsKey(item.GetWhat()))
-                {
-                    equipmentOrganization[item.GetWhat()].IncreaseQuantity(item.GetAmount());
-                }
-            }
+            Dictionary<string, EquipmentGridItem> equipmentOrganization = EquipmentRepository.LoadDynamic();
             AllDepletingDynamicEquipment.Clear();
             foreach (EquipmentGridItem item in equipmentOrganization.Values)
             {
-                if(item.GetQuantity() <= 5)
+                
+                if (item.GetQuantity() <= 5)
                 {
                     AllDepletingDynamicEquipment.Add(item);
                 }
             }
+
         }
 
         private void OrderButton_Click(object sender, RoutedEventArgs e)
@@ -77,7 +56,6 @@ namespace ZdravoCorp.ManagerView
             EquipmentGridItem eq = (EquipmentGridItem)((Button)e.Source).DataContext;
             OrderDynamicEquipmentPopup newWindow = new OrderDynamicEquipmentPopup(eq.GetName());
             newWindow.ShowDialog();
-            //MessageBox.Show(eq.GetName() + " " + eq.GetQuantity().ToString());
         }
     }
 }

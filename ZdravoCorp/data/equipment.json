@@ -42,7 +42,7 @@
   {
     "Name": "Scalpel",
     "TypeOfEq": 2,
-    "Dynamic": false
+    "Dynamic": true
   },
   {
     "Name": "Bandage",

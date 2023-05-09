@@ -22,26 +22,18 @@ namespace ZdravoCorp.EquipmentGroup
             return allRequests;
         }
 
-        public static List<DynamicEquipmentRequest> LoadActive()
-        {
-            List<DynamicEquipmentRequest> activeRequests = LoadAll();
-            foreach (DynamicEquipmentRequest item in activeRequests)
-            {
-                if (item.IsFinished()) {
-                    activeRequests.Remove(item);
-                }
-            }
-            return activeRequests;
-        }
-
-        public static void Add(DynamicEquipmentRequest request)
+        public static void Save(DynamicEquipmentRequest request)
         {
             List<DynamicEquipmentRequest> allRequests = LoadAll();
             allRequests.Add(request);
-            string json = JsonConvert.SerializeObject(allRequests, Formatting.Indented);
-
-            File.WriteAllText("./../../../data/dynamicEquipmentRequests.json", json);        
+            SaveAll(allRequests);   
         }
 
+        public static void SaveAll(List<DynamicEquipmentRequest> allRequests)
+        {
+            string json = JsonConvert.SerializeObject(allRequests, Formatting.Indented);
+
+            File.WriteAllText("./../../../data/dynamicEquipmentRequests.json", json);
+        }
     }
 }

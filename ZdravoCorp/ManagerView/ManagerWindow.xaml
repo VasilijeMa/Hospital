@@ -13,6 +13,8 @@
             </MenuItem>
             <MenuItem Header="Order Dynamic Equipment" FontSize="16" Click="OrderClick">
             </MenuItem>
+            <MenuItem Header="Transfer Static Equipment" FontSize="16" Click="StaticTransferClick">
+            </MenuItem>
             <MenuItem Header="LogOut" FontSize="16" Click="LogOutClick"></MenuItem>
         </Menu>
     </Grid>

@@ -27,16 +27,6 @@ namespace ZdravoCorp.InfrastructureGroup
             this.TypeOfRoom = (RoomType)typeOfRoom;
         }
 
-        public static Dictionary<string, Room> LoadAll()
-        {
-
-            var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/rooms.json");
-            var json = reader.ReadToEnd();
-            Dictionary<string, Room> allRooms = JsonConvert.DeserializeObject<Dictionary<string, Room>>(json);
-            return allRooms;
-        }
-
         public RoomType GetTypeOfRoom() { return TypeOfRoom; }
         public string ToString()
         {

@@ -39,5 +39,11 @@ namespace ZdravoCorp.ManagerView
             OrderDynamicEquipment newWindow = new OrderDynamicEquipment();
             newWindow.ShowDialog();
         }
+
+        private void StaticTransferClick(object sender, RoutedEventArgs e)
+        {
+            TransferStaticEquipment newWindow = new TransferStaticEquipment();
+            newWindow.ShowDialog();
+        }
     }
 }

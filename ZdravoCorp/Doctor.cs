@@ -38,7 +38,7 @@ namespace ZdravoCorp
             {
                 foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
                 {
-                    if (appointment.TimeSlot.start == startDate && appointment.DoctorId == this.Id)
+                    if (appointment.TimeSlot.start.Date == startDate && appointment.DoctorId == this.Id)
                     {
                         appointments.Add(appointment);
                     }
@@ -67,6 +67,22 @@ namespace ZdravoCorp
                 }
             }
             return true;
+        }
+
+        public bool isAlreadyExamined(int id)
+        {
+            foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
+            {
+                if (appointment.IsCanceled) continue;
+                if (appointment.PatientId == id && appointment.DoctorId == this.Id)
+                {
+                    if (appointment.TimeSlot.start < DateTime.Now)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

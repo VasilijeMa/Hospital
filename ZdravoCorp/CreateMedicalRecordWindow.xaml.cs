@@ -27,7 +27,6 @@ namespace ZdravoCorp
         bool doctorornurse;
         Patient patient;
         MedicalRecord selectedRecord;
-        int selectedIndex = 0;
 
         public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse)
         {
@@ -49,6 +48,7 @@ namespace ZdravoCorp
         private void LoadFields()
         {
             int recordId = patient.MedicalRecordId;
+
             foreach (MedicalRecord record in Singleton.Instance.medicalRecords)
             {
                 if (recordId == record.Id)
@@ -60,9 +60,6 @@ namespace ZdravoCorp
             height.Text = selectedRecord.Height.ToString();
             weight.Text = selectedRecord.Weight.ToString();
             anamnesis.Text = selectedRecord.Anamnesis;
-
-            //Singleton.Instance.patients.Remove(selectedPatient);
-            //Singleton.Instance.medicalRecords.Remove(selectedRecord);
         }
 
         private bool isNumeric(String number) 

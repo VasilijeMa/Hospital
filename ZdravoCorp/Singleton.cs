@@ -19,6 +19,7 @@ namespace ZdravoCorp
         public List<Nurse> nurses;
 
         public List<MedicalRecord> medicalRecords;
+
         public List<User> users;
 
         public static Singleton Instance

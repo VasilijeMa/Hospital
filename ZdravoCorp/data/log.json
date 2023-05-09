@@ -138,5 +138,19 @@
     },
     "DateTime": "2023-04-17T23:38:36.3259478+02:00",
     "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 14,
+      "TimeSlot": {
+        "start": "2023-05-28T12:00:00",
+        "duration": 15
+      },
+      "DoctorId": 2,
+      "PatientId": 1,
+      "IsCanceled": false
+    },
+    "DateTime": "2023-05-08T18:43:57.7035704+02:00",
+    "Type": "make"
   }
 ]

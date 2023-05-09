@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace ZdravoCorp
 {
@@ -55,9 +56,34 @@ namespace ZdravoCorp
             return true;
         }
 
+        public static Patient getById(int id)
+        {
+            foreach (Patient patient in Singleton.Instance.patients)
+            {
+                if (patient.Id == id)
+                {
+                    return patient;
+                }
+            }
+            return null;
+        }
+
+        public MedicalRecord getMedicalRecord()
+        {
+            foreach (MedicalRecord medicalRecord in Singleton.Instance.medicalRecords)
+            {
+                if (MedicalRecordId == medicalRecord.Id)
+                {
+                    return medicalRecord;
+                }
+            }
+            return null;
+        }
+
         public override string ToString()
         {
             return "Id: " + Id + ", FirstName: " + FirstName + ", LastName: " + LastName + "BirthDate: " + BirthDate.ToString();
         }
+
     }
 }

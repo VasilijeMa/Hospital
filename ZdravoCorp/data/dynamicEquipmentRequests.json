@@ -1,14 +1,20 @@
 [
   {
-    "itemName": "Stethoscope",
-    "itemQuantity": 4,
-    "orderDate": "2023-05-09T11:27:28.6847592+02:00",
-    "finished": false
+    "itemName": "Scalpel",
+    "itemQuantity": 2,
+    "orderDate": "2023-05-09T14:18:01.9338382+02:00",
+    "finished": true
   },
   {
     "itemName": "Bandage",
-    "itemQuantity": 4,
-    "orderDate": "2023-05-09T11:27:33.889817+02:00",
-    "finished": false
+    "itemQuantity": 3,
+    "orderDate": "2023-05-09T14:18:13.4947569+02:00",
+    "finished": true
+  },
+  {
+    "itemName": "Stethoscope",
+    "itemQuantity": 1,
+    "orderDate": "2023-05-09T14:18:39.8838373+02:00",
+    "finished": true
   }
 ]

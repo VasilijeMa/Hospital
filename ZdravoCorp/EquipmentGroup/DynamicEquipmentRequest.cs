@@ -44,6 +44,25 @@ namespace ZdravoCorp.EquipmentGroup
         {
             return Finished;
         }
+
+        public DateTime GetOrderDate()
+        {
+            return OrderDate;
+        }
+
+        public string GetItemName()
+        {
+            return ItemName;
+        }
+
+        public int GetItemQuantity()
+        {
+            return ItemQuantity;
+        }
+        public void Finish()
+        {
+            Finished = true;
+        }
     }
 }
 

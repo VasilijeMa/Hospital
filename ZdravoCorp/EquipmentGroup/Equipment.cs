@@ -26,16 +26,6 @@ namespace ZdravoCorp.EquipmentGroup
             this.Dynamic = Dynamic;
         }
 
-        public static List<Equipment> LoadAll()
-        {
-
-            var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/equipment.json");
-            var json = reader.ReadToEnd();
-            List<Equipment> allEquipment = JsonConvert.DeserializeObject<List<Equipment>>(json);
-            return allEquipment;
-        }
-
         public EquipmentType GetTypeOfEq() { return this.TypeOfEq; }
         public string GetName() { return this.Name; }
 

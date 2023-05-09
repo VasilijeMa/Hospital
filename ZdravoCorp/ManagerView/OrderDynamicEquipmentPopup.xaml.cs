@@ -33,7 +33,7 @@ namespace ZdravoCorp.ManagerView
         private void ConfirmOrderClick(object sender, RoutedEventArgs e)
         {
             DynamicEquipmentRequest request = new DynamicEquipmentRequest(ItemName, OrderQuantity.Value ?? 0);
-            DynamicEquipmentRequestRepository.Add(request);
+            DynamicEquipmentRequestRepository.Save(request);
             Close();
         }
     }

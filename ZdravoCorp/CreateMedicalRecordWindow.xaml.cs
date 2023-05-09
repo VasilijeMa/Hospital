@@ -142,5 +142,10 @@ namespace ZdravoCorp
             Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
             User.WriteAll(Singleton.Instance.users);
         }
+        public void addAnamnesisClick(object sender, RoutedEventArgs e)
+        {
+            AnamnesisView anamnesis = new AnamnesisView();
+            anamnesis.ShowDialog();
+        }
     }
 }

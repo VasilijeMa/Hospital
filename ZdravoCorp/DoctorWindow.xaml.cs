@@ -58,7 +58,7 @@ namespace ZdravoCorp
         private void DailyScheduleClick(object sender, RoutedEventArgs e)
         {
             this.appointments = doctor.GetAllAppointments(DateTime.Now.Date, DateTime.Now.Date);
-            DailyScheduleView dailySchedule = new DailyScheduleView(appointments, doctor);
+            DailyAppointmentView dailySchedule = new DailyAppointmentView(appointments, doctor);
             dailySchedule.ShowDialog();
         }
 

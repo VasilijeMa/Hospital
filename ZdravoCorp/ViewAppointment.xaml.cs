@@ -52,7 +52,8 @@ namespace ZdravoCorp
             dt.Columns.Add("IsCanceled", typeof(bool));
             foreach (Appointment appointment in this.appointments)
             {
-                dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(), appointment.TimeSlot.duration, appointment.DoctorId, appointment.PatientId, appointment.IsCanceled);
+                dt.Rows.Add(appointment.Id, 
+                            appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(), appointment.TimeSlot.duration, appointment.DoctorId, appointment.PatientId, appointment.IsCanceled);
             }
             this.dataGrid.ItemsSource = dt.DefaultView;
         }

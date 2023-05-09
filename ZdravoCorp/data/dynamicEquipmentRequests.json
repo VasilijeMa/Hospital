@@ -1,0 +1,14 @@
+[
+  {
+    "itemName": "Stethoscope",
+    "itemQuantity": 4,
+    "orderDate": "2023-05-09T11:27:28.6847592+02:00",
+    "finished": false
+  },
+  {
+    "itemName": "Bandage",
+    "itemQuantity": 4,
+    "orderDate": "2023-05-09T11:27:33.889817+02:00",
+    "finished": false
+  }
+]

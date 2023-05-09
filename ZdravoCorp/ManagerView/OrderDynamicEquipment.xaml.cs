@@ -13,9 +13,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZdravoCorp.EquipmentGroup;
+using ZdravoCorp.InfrastructureGroup;
 
-namespace ZdravoCorp
+namespace ZdravoCorp.ManagerView
 {
+    
     /// <summary>
     /// Interaction logic for OrderDynamicEquipment.xaml
     /// </summary>

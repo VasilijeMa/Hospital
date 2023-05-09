@@ -11,27 +11,30 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZdravoCorp.EquipmentGroup;
 
-namespace ZdravoCorp
+namespace ZdravoCorp.ManagerView
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
     public partial class OrderDynamicEquipmentPopup : Window
     {
-        string NameOfItem { get; set; }
+        string ItemName { get; set; }
 
 
-        public OrderDynamicEquipmentPopup(string nameOfItem)
+        public OrderDynamicEquipmentPopup(string itemName)
         {
-            NameOfItem = nameOfItem;
+            ItemName = itemName;
             InitializeComponent();
-            ItemNameLabel.Content = "Ordering " + NameOfItem;
+            ItemNameLabel.Content = "Ordering " + ItemName;
         }
 
         private void ConfirmOrderClick(object sender, RoutedEventArgs e)
         {
-            
+            DynamicEquipmentRequest request = new DynamicEquipmentRequest(ItemName, OrderQuantity.Value ?? 0);
+            DynamicEquipmentRequestRepository.Add(request);
+            Close();
         }
     }
 }

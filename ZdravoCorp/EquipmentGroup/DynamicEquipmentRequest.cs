@@ -1,0 +1,49 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
+
+namespace ZdravoCorp.EquipmentGroup
+{
+    public class DynamicEquipmentRequest
+    {
+        [JsonProperty("itemName")]
+        public string ItemName { get; set; }
+        [JsonProperty("itemQuantity")]
+        public int ItemQuantity { get; set; }
+        [JsonProperty("orderDate")]
+        public DateTime OrderDate { get; set; }
+        [JsonProperty("finished")]
+        public bool Finished { get; set; }
+
+        public DynamicEquipmentRequest(string itemName, int itemQuantity)
+        {
+            ItemName = itemName;
+            ItemQuantity = itemQuantity;
+            OrderDate = DateTime.Now;
+            Finished = false;
+        }
+
+        [JsonConstructor]
+        public DynamicEquipmentRequest(string itemName, int itemQuantity, string orderDate, bool finished)
+        {
+            ItemName = itemName;
+            ItemQuantity = itemQuantity;
+            OrderDate = DateTime.Parse(orderDate);
+            Finished = finished;
+        }
+        public string ToString()
+        {
+            return ItemName + " " + ItemQuantity + " " + OrderDate.ToString() + " " + Finished.ToString() ;
+        }
+
+        public bool IsFinished()
+        {
+            return Finished;
+        }
+    }
+}
+

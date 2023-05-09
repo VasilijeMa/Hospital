@@ -11,7 +11,9 @@
         <Menu>
             <MenuItem Header="Filter Equipment" FontSize="16" Click="FilterClick">
             </MenuItem>
-            <MenuItem Header="LogOut" FontSize="16" Click="LogOutClick" Margin="540, 0, 0, 0"></MenuItem>
+            <MenuItem Header="Order Dynamic Equipment" FontSize="16" Click="OrderClick">
+            </MenuItem>
+            <MenuItem Header="LogOut" FontSize="16" Click="LogOutClick"></MenuItem>
         </Menu>
     </Grid>
 </Window>

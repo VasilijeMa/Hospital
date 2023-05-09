@@ -4,10 +4,10 @@
     "Bed": 4,
     "Wardrobe": 5,
     "Chair": 2,
-    "Stethoscope": 3,
-    "IV": 4,
+    "Stethoscope": 1,
+    "IV": 1,
     "Shelf": 7,
-    "Bandage": 10,
+    "Bandage": 1,
     "Scalpel": 2
   }
 }

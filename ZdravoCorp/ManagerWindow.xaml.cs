@@ -33,5 +33,11 @@ namespace ZdravoCorp
         private void LogOutClick(object sender, RoutedEventArgs e) {
             this.Close();
         }
+
+        private void OrderClick(object sender, RoutedEventArgs e)
+        {
+            OrderDynamicEquipment newWindow = new OrderDynamicEquipment();
+            newWindow.ShowDialog();
+        }
     }
 }

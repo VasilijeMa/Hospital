@@ -13,9 +13,6 @@ namespace ZdravoCorp
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
         public bool IsCanceled { get; set; }
-        Anamnesis anamnesis  { get; set; }
-
-        private Examination examination;
 
         public Appointment(int id, TimeSlot timeSlot, int doctorId, int patientId)
         {

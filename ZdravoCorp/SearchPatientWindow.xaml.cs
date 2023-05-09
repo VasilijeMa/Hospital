@@ -58,6 +58,10 @@ namespace ZdravoCorp
 
         private void searchPatientFromId(object sender, RoutedEventArgs e)
         {
+            if (patientIdtext.Text == "")
+            {
+                MessageBox.Show("Please enter id to search.");
+            }
             int id = int.Parse(patientIdtext.Text);
             Patient searched = Patient.getById(id);    // jel treba ById ???
             displayMedicalRecord(searched);

@@ -12,8 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZdravoCorp.EquipmentGroup;
+using ZdravoCorp.InfrastructureGroup;
+using ZdravoCorp.ManagerView;
 
-namespace ZdravoCorp
+namespace ZdravoCorp.ManagerView
 {
     /// <summary>
     /// Interaction logic for FilterEquipment.xaml

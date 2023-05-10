@@ -24,6 +24,7 @@ namespace ZdravoCorp
     {
         Singleton singleton;
         Patient patient;
+        List<Appointment> recommendedAppointments;
         public RecommendingAppointmentsForm(Patient patient)
         {
             InitializeComponent();
@@ -34,7 +35,7 @@ namespace ZdravoCorp
             cmbDoctors.SelectedValuePath = "Id";
             dpLDate.DisplayDateStart = DateTime.Now;
         }
-        private void LoadAppointmentsInDataGrid(List<TimeSlot> timeSlots)
+        private void LoadAppointmentsInDataGrid(List<Appointment> appointments)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Id", typeof(int));
@@ -42,10 +43,9 @@ namespace ZdravoCorp
             dt.Columns.Add("Time", typeof(string));
             dt.Columns.Add("DoctorID", typeof(int));
             dt.Columns.Add("IsCanceled", typeof(bool));
-            foreach (TimeSlot timeSlot in timeSlots)
+            foreach (Appointment appointment in appointments)
             {
-                int appointmentId = singleton.Schedule.getLastId();
-                dt.Rows.Add(appointmentId, timeSlot.start.Date.ToString("yyyy-MM-dd"), timeSlot.start.TimeOfDay.ToString(), cmbDoctors.SelectedValue, false);
+                dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(@"hh\:mm"), appointment.DoctorId, false);
             }
             dgAppointments.ItemsSource = dt.DefaultView;
         }
@@ -62,7 +62,7 @@ namespace ZdravoCorp
                 return;
             }
             DateTime date = dpLDate.SelectedDate.Value;
-            if (date.Date < DateTime.Now.Date   )
+            if (date.Date < DateTime.Now.Date)
             {
                 MessageBox.Show("The selected date cannot be in the past.");
                 return;
@@ -71,9 +71,16 @@ namespace ZdravoCorp
             TimeOnly earliestTime = new TimeOnly(int.Parse(tbETime.Text.Split(":")[0]), int.Parse(tbETime.Text.Split(":")[1]));
             TimeOnly latestTime = new TimeOnly(int.Parse(tbLTime.Text.Split(":")[0]), int.Parse(tbLTime.Text.Split(":")[1]));
             AppointmentRequest appointmentRequest = new AppointmentRequest((Doctor)cmbDoctors.SelectedItem, earliestTime, latestTime, date, priority);
-            List<TimeSlot> timeSlots = singleton.Schedule.GetClosestTimeSlots(appointmentRequest);
+            recommendedAppointments = singleton.Schedule.GetAppointmentsByRequest(appointmentRequest, patient.Id);
             dgAppointments.ItemsSource = null;
-            LoadAppointmentsInDataGrid(timeSlots);
+            LoadAppointmentsInDataGrid(recommendedAppointments);
+            if (recommendedAppointments.Count() == 1)
+            {
+                //singleton.Schedule.CreateAppointment(recommendedAppointments[0]);
+                //singleton.Log.AddElement(recommendedAppointments[0], patient);
+                MessageBox.Show("Appointment successfully created.");
+                this.Close();
+            }
         }
 
         private Priority GetPriority()
@@ -100,6 +107,41 @@ namespace ZdravoCorp
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            if (dgAppointments.SelectedItem == null)
+            {
+                MessageBox.Show("Appointment is not selected.");
+                return;
+            }
+            int appointmentId = (int)((DataRowView)dgAppointments.SelectedItem).Row["Id"];
+            string date = (string)((DataRowView)dgAppointments.SelectedItem).Row["Date"];
+            string time = (string)((DataRowView)dgAppointments.SelectedItem).Row["Time"];
+            DateTime dateTime = new DateTime(int.Parse(date.Split("-")[0]), int.Parse(date.Split("-")[1]),
+                int.Parse(date.Split("-")[2]), int.Parse(time.Split(":")[0]), int.Parse(time.Split(":")[1]), 0);
+            TimeSlot appointmentTimeSlot = new TimeSlot(dateTime, 15);
+            int doctorId = (int)((DataRowView)dgAppointments.SelectedItem).Row["DoctorID"];
+            Appointment appointment = new Appointment(appointmentId, appointmentTimeSlot, doctorId, patient.Id);
+            //foreach(Appointment appointment in recommendedAppointments)
+            //{
+            //    if(appointment.Id == appointmentId)
+            //    {
+            //singleton.Schedule.CreateAppointment(appointment);
+            //singleton.Log.AddElement(appointment, patient);
+            MessageBox.Show("Appointment successfully created."); //scheduled
+            this.Close();
+            return;
+            //    }
+            //}
+            MessageBox.Show("UPS");
+        }
+
+        private void dgAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgAppointments.SelectedItem == null)
+            {
+                btnSubmit.IsEnabled = false;
+                return;
+            }
+            btnSubmit.IsEnabled = true;
 
         }
     }

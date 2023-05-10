@@ -47,13 +47,18 @@ namespace ZdravoCorp
             dt.Columns.Add("Date", typeof(string));
             dt.Columns.Add("Time", typeof(string));
             dt.Columns.Add("Duration", typeof(int));
-            dt.Columns.Add("DoctorID", typeof(int));
             dt.Columns.Add("PatientID", typeof(int));
+            dt.Columns.Add("RoomID", typeof(string));
             dt.Columns.Add("IsCanceled", typeof(bool));
             foreach (Appointment appointment in this.appointments)
             {
                 dt.Rows.Add(appointment.Id, 
-                            appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(), appointment.TimeSlot.duration, appointment.DoctorId, appointment.PatientId, appointment.IsCanceled);
+                            appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"),
+                            appointment.TimeSlot.start.TimeOfDay.ToString(),
+                            appointment.TimeSlot.duration, 
+                            appointment.PatientId,
+                            appointment.IdRoom,
+                            appointment.IsCanceled);
             }
             this.dataGrid.ItemsSource = dt.DefaultView;
         }

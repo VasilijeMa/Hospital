@@ -74,7 +74,7 @@ namespace ZdravoCorp
                 MessageBox.Show("You cannot access the medical record.");
                 return;
             }
-            CreateMedicalRecordWindow medicalRecordView = new CreateMedicalRecordWindow(false, patient, false,null);
+            CreateMedicalRecordWindow medicalRecordView = new CreateMedicalRecordWindow(false, patient, false, null, true);
             medicalRecordView.ShowDialog();
         }
     }

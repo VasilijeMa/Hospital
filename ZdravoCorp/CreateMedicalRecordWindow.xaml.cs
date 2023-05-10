@@ -27,12 +27,13 @@ namespace ZdravoCorp
         bool doctorornurse;
         Patient patient;
         MedicalRecord selectedRecord;
-
-        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse)
+        Appointment selectedAppointment;
+        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse,Appointment selectedAppointment)
         {
             InitializeComponent();
             this.createoredit = createoredit;
             this.patient = patient;
+            this.selectedAppointment = selectedAppointment;
             this.doctorornurse = doctorornurse;
             if (doctorornurse)
             {
@@ -119,6 +120,7 @@ namespace ZdravoCorp
             if (!createoredit)
             {
                 Singleton.Instance.medicalRecords.Remove(selectedRecord);
+           //     selectedRecord.WriteAll(Singleton.Instance.medicalRecords);
             }
             MedicalRecord newMedicalRecord = new MedicalRecord();
             newMedicalRecord.Height = double.Parse(height.Text);
@@ -128,23 +130,28 @@ namespace ZdravoCorp
             return newMedicalRecord;
         }
 
-        public void addToPatients(Patient newPatient) {
+        public void addToPatients(Patient newPatient)
+        { 
+            //
+            //
+           // newPatient.WriteAll(Singleton.Instance.patients);
             Singleton.Instance.patients.Add(newPatient);
             newPatient.WriteAll(Singleton.Instance.patients);
         }
 
-        public void addToMedicalRecords(MedicalRecord newMedicalRecord) {
+        public void addToMedicalRecords(MedicalRecord newMedicalRecord)
+        {
             Singleton.Instance.medicalRecords.Add(newMedicalRecord);
             newMedicalRecord.WriteAll(Singleton.Instance.medicalRecords);
         }
 
         public void addToUsers(Patient newPatient) {
             Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
-            User.WriteAll(Singleton.Instance.users);
+           // User.WriteAll(Singleton.Instance.users);
         }
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
         {
-            AnamnesisView anamnesis = new AnamnesisView();
+            AnamnesisView anamnesis = new AnamnesisView(selectedAppointment,false);
             anamnesis.ShowDialog();
         }
     }

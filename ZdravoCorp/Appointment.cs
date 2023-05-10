@@ -31,6 +31,16 @@ namespace ZdravoCorp
             //CreateMedicalRecordWindow medicalRecord = CreateMedicalRecordWindow();
         }*/
 
+        public Doctor getDoctor() {
+            foreach (Doctor doctor in Singleton.Instance.doctors)
+            {
+                if (doctor.Id == this.DoctorId)
+                {
+                    return doctor;
+                }
+            }
+            return null;
+        }
         public Patient getPatient()
         {
             foreach (Patient patient in Singleton.Instance.patients)

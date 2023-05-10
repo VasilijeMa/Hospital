@@ -134,7 +134,7 @@ namespace ZdravoCorp
             Appointment appointment = GetSelectedAppointment(item);
 
             Patient patient = appointment.getPatient();
-            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true);
+            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true,null);
             medicalRecord.ShowDialog();
 
 

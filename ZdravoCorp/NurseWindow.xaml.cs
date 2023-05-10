@@ -29,7 +29,13 @@ namespace ZdravoCorp
         private void CRUDpatients_Click(object sender, RoutedEventArgs e)
         {
             CrudPatientWindow crudPW = new CrudPatientWindow(nurse);
-            crudPW.Show();
+            crudPW.ShowDialog();
+        }
+
+        private void PatientAdmission_Click(object sender, RoutedEventArgs e)
+        {
+            PatientAdmissionWindow patientAdmissionWindow = new PatientAdmissionWindow();
+            patientAdmissionWindow.ShowDialog();
         }
     }
 }

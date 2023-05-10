@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -25,17 +26,25 @@ namespace ZdravoCorp
     {
         bool createoredit;
         bool doctorornurse;
+        bool startAppointment;
         Patient patient;
         MedicalRecord selectedRecord;
 
-        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse)
+        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse, bool startAppointment=false)
         {
             InitializeComponent();
             this.createoredit = createoredit;
             this.patient = patient;
             this.doctorornurse = doctorornurse;
+            this.startAppointment = startAppointment;
+
+            if (startAppointment)
+            {
+                addAnamnesis.Visibility = Visibility.Hidden;
+            }
             if (doctorornurse)
             {
+                addAnamnesis.Visibility = Visibility.Hidden;
                 confirm.Visibility = Visibility.Hidden;
                 cancel.Visibility = Visibility.Hidden;
             }
@@ -75,7 +84,7 @@ namespace ZdravoCorp
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
             }
-            if (!((isNumeric(height.Text)) && isNumeric(weight.Text))) 
+            if (!(isDouble(height.Text) && isDouble(weight.Text))) 
             {
                 MessageBox.Show("Weight and height should be numbers.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
@@ -111,7 +120,6 @@ namespace ZdravoCorp
                 addToMedicalRecords(medicalRecord);
                 MessageBox.Show("Operation successful. We saved your changes.", "Done", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 this.Close();
-
             }
         }
 
@@ -119,6 +127,7 @@ namespace ZdravoCorp
             if (!createoredit)
             {
                 Singleton.Instance.medicalRecords.Remove(selectedRecord);
+                selectedRecord.WriteAll(Singleton.Instance.medicalRecords);
             }
             MedicalRecord newMedicalRecord = new MedicalRecord();
             newMedicalRecord.Height = double.Parse(height.Text);
@@ -129,6 +138,11 @@ namespace ZdravoCorp
         }
 
         public void addToPatients(Patient newPatient) {
+            Singleton.Instance.patients.Remove(patient);
+            User.RemoveUser(patient.Username);
+            User.WriteAll(Singleton.Instance.users);
+
+            //newPatient.WriteAll(Singleton.Instance.patients);
             Singleton.Instance.patients.Add(newPatient);
             newPatient.WriteAll(Singleton.Instance.patients);
         }
@@ -146,6 +160,16 @@ namespace ZdravoCorp
         {
             AnamnesisView anamnesis = new AnamnesisView();
             anamnesis.ShowDialog();
+        }
+
+        public bool isDouble(string data)
+        {
+            double d;
+            if (Double.TryParse(data, out d))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

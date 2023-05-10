@@ -16,5 +16,14 @@
     "Username": "nikola",
     "Password": "nikola",
     "Type": "doctor"
+  },
+  {
+    "Id": 3,
+    "FirstName": "Nikolina",
+    "LastName": "Nikolic",
+    "Specialization": "Cardiologist",
+    "Username": "nina",
+    "Password": "nina",
+    "Type": "doctor"
   }
 ]

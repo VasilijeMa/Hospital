@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp
 {
@@ -13,14 +14,16 @@ namespace ZdravoCorp
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
         public bool IsCanceled { get; set; }
+        public string IdRoom { get; set; }
 
-        public Appointment(int id, TimeSlot timeSlot, int doctorId, int patientId)
+        public Appointment(int id, TimeSlot timeSlot, int doctorId, int patientId, string idRoom)
         {
             Id = id;
             TimeSlot = timeSlot;
             DoctorId = doctorId;
             PatientId = patientId;
             IsCanceled = false;
+            IdRoom = idRoom;
         }
 
         public Appointment() { }
@@ -53,6 +56,29 @@ namespace ZdravoCorp
                 return false;
             }
             return true;
+        }
+
+        public static String takeRoom(TimeSlot timeSlot)
+        {
+            Dictionary<String, Room> examinationRooms = Room.LoadAllExaminationRoom();
+            foreach (var room in examinationRooms)
+            {
+                bool check = true;
+                foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
+                {
+                    if (appointment.IsCanceled) continue;
+                    if (appointment.TimeSlot.OverlapWith(timeSlot) && appointment.IdRoom == room.Key)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+                if (check)
+                {
+                    return room.Key;
+                }
+            }
+            return "";
         }
     }
 }

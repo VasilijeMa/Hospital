@@ -56,6 +56,15 @@ namespace ZdravoCorp
             return doctors;
         }
 
+        public Doctor GetDoctor(int id)
+        {
+            foreach(Doctor doctor in Singleton.Instance.doctors)
+            {
+                if (doctor.Id == id) return doctor;
+            }
+            return null;
+        }
+
         public bool IsAvailable(TimeSlot timeSlot, int appointmentId = -1)
         {
             foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)

@@ -118,5 +118,35 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false
+  },
+  {
+    "Id": 13,
+    "TimeSlot": {
+      "start": "2023-05-10T19:00:00",
+      "duration": 295
+    },
+    "DoctorId": 1,
+    "PatientId": 3,
+    "IsCanceled": false
+  },
+  {
+    "Id": 13,
+    "TimeSlot": {
+      "start": "2023-05-11T00:00:00",
+      "duration": 600
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false
+  },
+  {
+    "Id": 14,
+    "TimeSlot": {
+      "start": "2023-05-11T10:10:00",
+      "duration": 55
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false
   }
 ]

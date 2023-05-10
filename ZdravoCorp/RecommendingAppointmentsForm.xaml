@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="RecommendingAppointmentsForm" Height="450" Width="484" Icon="/icon.png">
+        Title="RecommendingAppointmentsForm" Height="450" Width="1001" Icon="/icon.png" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate x:Key="doctorTemplate">
             <StackPanel Orientation="Horizontal">
@@ -16,18 +16,20 @@
     </Window.Resources>
     <Grid>
         <Label Content="Doctor: " HorizontalAlignment="Left" Margin="21,31,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <ComboBox Name="cmbDoctors" HorizontalAlignment="Left" Margin="212,33,0,0" VerticalAlignment="Top" Width="120" FontSize="25"/>
-        <Label Content="Earliest hour: " HorizontalAlignment="Left" Margin="21,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,0.543" FontSize="25"/>
-        <Label Content="Latest hour: " HorizontalAlignment="Left" Margin="21,130,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <TextBox Name="tbEHour" HorizontalAlignment="Left" Margin="212,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="25"/>
-        <TextBox Name="tbLHour" HorizontalAlignment="Left" Margin="212,138,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="25"/>
+        <ComboBox Name="cmbDoctors" HorizontalAlignment="Left" Margin="212,33,0,0" VerticalAlignment="Top" Width="218" FontSize="25"/>
+        <Label Content="Earliest time: " HorizontalAlignment="Left" Margin="21,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,0.543" FontSize="25"/>
+        <Label Content="Latest time: " HorizontalAlignment="Left" Margin="21,130,0,0" VerticalAlignment="Top" FontSize="25"/>
+        <TextBox Name="tbETime" HorizontalAlignment="Left" Margin="212,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218" FontSize="25"/>
+        <TextBox Name="tbLTime" HorizontalAlignment="Left" Margin="212,138,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218" FontSize="25"/>
         <Label Content="Latest date: " HorizontalAlignment="Left" Margin="21,183,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <DatePicker Name="dpLDate" HorizontalAlignment="Left" Margin="212,183,0,0" VerticalAlignment="Top" FontSize="25"/>
+        <DatePicker Name="dpLDate" HorizontalAlignment="Left" Margin="212,183,0,0" VerticalAlignment="Top" FontSize="25" Width="218"/>
         <RadioButton x:Name="rbDoctor" Content="Doctor" HorizontalAlignment="Left" Margin="212,243,0,0" VerticalAlignment="Top" FontSize="25"/>
         <RadioButton x:Name="rbTimeSlot" Content="Time slot" HorizontalAlignment="Left" Margin="212,276,0,0" VerticalAlignment="Top" FontSize="25"/>
         <Label Content="Priority: " HorizontalAlignment="Left" Margin="21,232,0,0" VerticalAlignment="Top" FontSize="25"/>
-        <Button x:Name="btnFind" Content="Find" HorizontalAlignment="Left" Margin="21,357,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnFind_Click"/>
-        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="329,357,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnExit_Click"/>
+        <Button x:Name="btnFind" Content="Find" HorizontalAlignment="Left" Margin="566,339,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnFind_Click"/>
+        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="863,339,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnExit_Click"/>
+        <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="716,339,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="104" IsEnabled="False" Click="btnSubmit_Click"/>
+        <DataGrid x:Name="dgAppointments" IsReadOnly="True" Margin="471,16,33,142"/>
 
     </Grid>
 </Window>

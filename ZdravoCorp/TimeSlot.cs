@@ -48,7 +48,7 @@ namespace ZdravoCorp
             }
             else if(timeSlot.start <= start)
             {
-                if(timeSlot.start.AddMinutes(timeSlot.duration) < start.AddMinutes(duration))
+                if(timeSlot.start.AddMinutes(timeSlot.duration) <= start.AddMinutes(duration))
                 {
                     timeSlots.Add(new TimeSlot(timeSlot.start.AddMinutes(timeSlot.duration), (int)(start.AddMinutes(duration) - timeSlot.start.AddMinutes(timeSlot.duration)).TotalMinutes));
                 }

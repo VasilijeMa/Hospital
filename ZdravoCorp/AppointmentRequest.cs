@@ -8,16 +8,16 @@ namespace ZdravoCorp
 {
     public class AppointmentRequest
     {
-        public int DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
         public TimeOnly EarliestHour { get; set; }
         public TimeOnly LatestHour { get; set; }
         public DateTime LatestDate { get; set; }
         public Priority Priority { get; set; }
         public AppointmentRequest() { }
 
-        public AppointmentRequest(int doctorId, TimeOnly earliestHour, TimeOnly latestHour, DateTime latestDate, Priority priority)
+        public AppointmentRequest(Doctor doctor, TimeOnly earliestHour, TimeOnly latestHour, DateTime latestDate, Priority priority)
         {
-            DoctorId = doctorId;
+            Doctor = doctor;
             EarliestHour = earliestHour;
             LatestHour = latestHour;
             LatestDate = latestDate;

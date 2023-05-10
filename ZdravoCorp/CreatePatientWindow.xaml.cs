@@ -187,8 +187,8 @@ namespace ZdravoCorp
             }
             else
             {
-                Singleton.Instance.patients.Remove(selectedPatient);
-                User.RemoveUser(selectedPatient.Username);
+               // Singleton.Instance.patients.Remove(selectedPatient);
+               // User.RemoveUser(selectedPatient.Username);
                 newpatient.Id = selectedPatient.Id;
                 newpatient.MedicalRecordId = selectedPatient.MedicalRecordId;
             }

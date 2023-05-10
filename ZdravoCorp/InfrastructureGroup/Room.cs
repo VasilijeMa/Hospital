@@ -36,6 +36,20 @@ namespace ZdravoCorp.InfrastructureGroup
             Dictionary<string, Room> allRooms = JsonConvert.DeserializeObject<Dictionary<string, Room>>(json);
             return allRooms;
         }
+        
+        public static Dictionary<string, Room> LoadAllExaminationRoom()
+        {
+            Dictionary<string, Room> examinationRooms = new Dictionary<string, Room>();
+            Dictionary<string, Room> allRooms = LoadAll();
+            foreach (var room in allRooms)
+            {
+                if (RoomType.ExaminationRoom.Equals(room.Value.TypeOfRoom))
+                {
+                    examinationRooms.Add(room.Key, room.Value);
+                }
+            }
+            return examinationRooms;
+        }
 
         public RoomType GetTypeOfRoom() { return TypeOfRoom; }
         public string ToString()

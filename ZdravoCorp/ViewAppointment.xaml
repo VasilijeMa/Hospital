@@ -5,20 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="ViewAppointment" Height="450" Width="793" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
-    <Window.Resources>
-        <DataTemplate x:Key="patientTemplate">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding FirstName}" Margin="5"/>
-                <TextBlock Text="{Binding LastName}" Margin="5"/>
-                <TextBlock Text="{Binding Id}" Margin="5"/>
-            </StackPanel>
-        </DataTemplate>
-    </Window.Resources>
+        Title="ViewAppointment" Height="450" Width="810" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
 
 
     <Grid>
-        <DataGrid ColumnWidth="110" RowHeight="20" ItemsSource="{Binding Appointment}" IsReadOnly="True" x:Name="dataGrid" Margin="0,62,0,91">
+        <DataGrid ColumnWidth="115" RowHeight="20" ItemsSource="{Binding Appointment}" IsReadOnly="True" x:Name="dataGrid" Margin="0,62,0,91">
         </DataGrid>
 
         <DatePicker Name="selectDay"  HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top"/>

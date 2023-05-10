@@ -1,0 +1,28 @@
+﻿<Window x:Class="ZdravoCorp.ManagerView.TransferStaticEquipmentPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.ManagerView"
+        mc:Ignorable="d"
+        Title="TransferStaticEquipmentPopup" Height="300" Width="500">
+    <Grid>
+        <Label x:Name="TransferDescription" Padding="0"  Content="Placeholder" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top" Height="112" FontSize="15" Width="180"/>
+        <Button Content="Transfer Equipment" FontSize="15" HorizontalAlignment="Left" Height="40" Margin="30,200,0,0" VerticalAlignment="Top" Width="150" Click="TransferClick"/>
+        <Label Content="Choose the date of transfer:" Padding="0" HorizontalAlignment="Left" Margin="215,179,0,0" VerticalAlignment="Top" Width="190"/>
+        <xctk:DateTimePicker AllowTextInput="False" x:Name="TransferDatePicker" HorizontalAlignment="Left" Margin="215,200,0,0" VerticalAlignment="Top" Padding="5" Height="40" Width="246" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
+        <DataGrid x:Name="TransferGrid" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" ItemsSource="{Binding AllQuantities}" Margin="215,30,10,116" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="180"/>
+                <DataGridTemplateColumn Header="Quantity" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <xctk:IntegerUpDown Value="{Binding SelectedQuantity, UpdateSourceTrigger=PropertyChanged}" AllowTextInput="False" Minimum="0" Maximum="{Binding MaxQuantity}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -19,6 +19,11 @@ namespace ZdravoCorp.EquipmentGroup
             
         }
 
+        public static void SaveStaticTransferRequest()
+        {
+
+        }
+
         public static void StaticTransferFromWarehouseToRoom(string RoomTo)
         {
 

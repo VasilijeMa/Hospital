@@ -1,0 +1,49 @@
+[
+  {
+    "finished": false,
+    "fromWarehouse": true,
+    "roomFrom": "Warehouse",
+    "roomTo": "Operating Theater 1",
+    "transferDate": "2023-05-11T21:48:07.179+02:00",
+    "itemsForTransfer": [
+      {
+        "name": "Bed",
+        "maxQuantity": 4,
+        "selectedQuantity": 1
+      }
+    ]
+  },
+  {
+    "finished": false,
+    "fromWarehouse": false,
+    "roomFrom": "Operating Theater 1",
+    "roomTo": "Infirmary 1",
+    "transferDate": "2023-05-12T21:48:39.387+02:00",
+    "itemsForTransfer": [
+      {
+        "name": "Bed",
+        "maxQuantity": 1,
+        "selectedQuantity": 1
+      }
+    ]
+  },
+  {
+    "finished": false,
+    "fromWarehouse": false,
+    "roomFrom": "Examination Room 3",
+    "roomTo": "Examination Room 1",
+    "transferDate": "2023-05-11T23:56:02.405+02:00",
+    "itemsForTransfer": [
+      {
+        "name": "Shelf",
+        "maxQuantity": 5,
+        "selectedQuantity": 2
+      },
+      {
+        "name": "Bench",
+        "maxQuantity": 3,
+        "selectedQuantity": 3
+      }
+    ]
+  }
+]

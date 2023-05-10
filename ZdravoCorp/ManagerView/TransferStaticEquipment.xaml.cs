@@ -56,9 +56,15 @@ namespace ZdravoCorp.ManagerView
                 string nameFrom = RoomFrom.SelectedItem.ToString();
                 string nameTo = RoomTo.SelectedItem.ToString();
                 
-                TransferEquipmentPopup newWindow = new TransferEquipmentPopup(false, indexFrom == 0, nameFrom, nameTo);
-                newWindow.ShowDialog();
-                
+                TransferStaticEquipmentPopup newWindow = new TransferStaticEquipmentPopup(indexFrom == 0, nameFrom, nameTo);
+                if (newWindow.NoItems)
+                {
+                    MessageBox.Show("There are no static items to transfer in this room!");
+                }
+                else
+                {
+                    newWindow.ShowDialog();
+                }
 
             }
         }

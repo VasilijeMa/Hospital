@@ -61,7 +61,7 @@ namespace ZdravoCorp.EquipmentGroup
             }
         }
 
-        public void LoadAllQuantities(ref Dictionary<string, EquipmentQuantity> equipmentOrganization)
+        public static void LoadAllQuantities(ref Dictionary<string, EquipmentQuantity> equipmentOrganization)
         {
 
             LoadQuantitiesFromWarehouse(ref equipmentOrganization);

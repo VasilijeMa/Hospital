@@ -39,6 +39,7 @@ namespace ZdravoCorp.ManagerView
         public void RefreshDataGrid()
         {
             Dictionary<string, EquipmentQuantity> equipmentOrganization = EquipmentRepository.LoadOnlyStaticOrDynamic(true);
+            EquipmentRepository.LoadAllQuantities(ref equipmentOrganization);
             AllDepletingDynamicEquipment.Clear();
             foreach (EquipmentQuantity item in equipmentOrganization.Values)
             {

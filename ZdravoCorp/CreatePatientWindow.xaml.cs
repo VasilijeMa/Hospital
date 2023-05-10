@@ -166,7 +166,7 @@ namespace ZdravoCorp
             if (isValid())
             {
                 Patient newpatient = CreatePatientObject();
-                CreateMedicalRecordWindow createMedicalRecordWindow = new CreateMedicalRecordWindow(createoredit, newpatient, doctorornurse);
+                CreateMedicalRecordWindow createMedicalRecordWindow = new CreateMedicalRecordWindow(createoredit, newpatient, doctorornurse,null);
                 createMedicalRecordWindow.ShowDialog();
                 this.Close();
             }

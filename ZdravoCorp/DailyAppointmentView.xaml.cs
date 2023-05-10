@@ -77,7 +77,7 @@ namespace ZdravoCorp
                 return;
             }
 
-            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, false);
+            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, false,selectedAppointment);
             medicalRecord.ShowDialog();
         }
     }

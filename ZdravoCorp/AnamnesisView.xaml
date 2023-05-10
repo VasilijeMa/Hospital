@@ -8,16 +8,16 @@
 Title="AnamnesisView" Height="400" Width="850" Icon="/icon.png" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,49,0,0" TextWrapping="Wrap" Text="Symptoms: " VerticalAlignment="Top" Width="163"/>
-        <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,93,0,0" TextWrapping="Wrap" Text="Allergens: " VerticalAlignment="Top" Width="163"/>
+        <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,93,0,0" TextWrapping="Wrap" Text="Allergies: " VerticalAlignment="Top" Width="163"/>
         <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,138,0,0" TextWrapping="Wrap" Text="Earlier illnesses: " VerticalAlignment="Top" Width="163"/>
         <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,179,0,0" TextWrapping="Wrap" Text="Doctor's observation: " VerticalAlignment="Top" Width="163" RenderTransformOrigin="0.5,0.5"/>
         <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,223,0,0" TextWrapping="Wrap" Text="Doctor's conclusion: " VerticalAlignment="Top" Width="163"/>
-        <TextBox HorizontalAlignment="Left" Margin="358,44,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
-        <TextBox HorizontalAlignment="Left" Margin="358,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
-        <TextBox HorizontalAlignment="Left" Margin="358,135,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
-        <TextBox HorizontalAlignment="Left" Margin="358,179,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
-        <TextBox HorizontalAlignment="Left" Margin="358,223,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="60" Width="260"/>
-        <Button Content="Submmit" HorizontalAlignment="Left" Margin="305,316,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="450,316,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
+        <TextBox Name="Symptoms" HorizontalAlignment="Left" Margin="358,44,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
+        <TextBox Name="Allergies" HorizontalAlignment="Left" Margin="358,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
+        <TextBox Name ="EarlierIllness" HorizontalAlignment="Left" Margin="358,135,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
+        <TextBox Name="DoctorObservation" HorizontalAlignment="Left" Margin="358,179,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
+        <TextBox Name="DoctorConclusion" HorizontalAlignment="Left" Margin="358,223,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="60" Width="260"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="305,318,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="SubmitClick"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="450,318,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="CancelClick"/>
     </Grid>
 </Window>

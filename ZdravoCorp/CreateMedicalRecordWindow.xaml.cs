@@ -29,12 +29,15 @@ namespace ZdravoCorp
         bool startAppointment;
         Patient patient;
         MedicalRecord selectedRecord;
+        Appointment selectedAppointment;
 
-        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse, bool startAppointment=false)
+
+        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse, Appointment selectedAppointment=null, bool startAppointment=false)
         {
             InitializeComponent();
             this.createoredit = createoredit;
             this.patient = patient;
+            this.selectedAppointment = selectedAppointment;
             this.doctorornurse = doctorornurse;
             this.startAppointment = startAppointment;
 
@@ -147,18 +150,19 @@ namespace ZdravoCorp
             newPatient.WriteAll(Singleton.Instance.patients);
         }
 
-        public void addToMedicalRecords(MedicalRecord newMedicalRecord) {
+        public void addToMedicalRecords(MedicalRecord newMedicalRecord)
+        {
             Singleton.Instance.medicalRecords.Add(newMedicalRecord);
             newMedicalRecord.WriteAll(Singleton.Instance.medicalRecords);
         }
 
         public void addToUsers(Patient newPatient) {
             Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
-            User.WriteAll(Singleton.Instance.users);
+           // User.WriteAll(Singleton.Instance.users);
         }
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
         {
-            AnamnesisView anamnesis = new AnamnesisView();
+            AnamnesisView anamnesis = new AnamnesisView(selectedAppointment,false);
             anamnesis.ShowDialog();
         }
 

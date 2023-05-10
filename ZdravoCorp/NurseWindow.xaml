@@ -8,5 +8,6 @@
         Title="Nurse" Height="590" Width="900" WindowStartupLocation="CenterScreen" Icon="/icon.png">
     <Grid Background="#FFFFA7A7">
         <Button x:Name="CRUDpatients" Content="CRUD patient" HorizontalAlignment="Left" Height="80" Margin="92,50,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="CRUDpatients_Click" />
+        <Button x:Name="PatientAdmission" Content="Admission of patients" HorizontalAlignment="Left" Height="80" Margin="92,150,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="PatientAdmission_Click"  />
     </Grid>
 </Window>

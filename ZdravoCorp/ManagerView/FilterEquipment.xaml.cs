@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ZdravoCorp.EquipmentGroup;
 using ZdravoCorp.InfrastructureGroup;
-using ZdravoCorp.ManagerView;
 
 namespace ZdravoCorp.ManagerView
 {
@@ -27,8 +26,8 @@ namespace ZdravoCorp.ManagerView
         public Dictionary<string, Room> AllRooms;
         public List<FunctionalItem> AllFunctionalItems;
         public Warehouse AllStoredItems;
-        public Dictionary<string, EquipmentGridItem> EquipmentOrganization;
-        public ObservableCollection<EquipmentGridItem> EquipmentGridItems { get; set; }
+        public Dictionary<string, EquipmentQuantity> EquipmentOrganization;
+        public ObservableCollection<EquipmentQuantity> EquipmentGridItems { get; set; }
 
         public List<string> ByRoomTypeOptions { get; set; }
         public List<string> ByEquipmentTypeOptions { get; set; }
@@ -39,7 +38,7 @@ namespace ZdravoCorp.ManagerView
         {
             EquipmentGridItems.Clear();
             var sortedOrganization = (EquipmentOrganization.OrderByDescending(x => x.Value.Quantity)).ToDictionary(x => x.Key, x => x.Value); ;
-            foreach (EquipmentGridItem eq in sortedOrganization.Values) EquipmentGridItems.Add(eq);
+            foreach (EquipmentQuantity eq in sortedOrganization.Values) EquipmentGridItems.Add(eq);
         }
         public FilterEquipment()
         {
@@ -67,8 +66,8 @@ namespace ZdravoCorp.ManagerView
             AllFunctionalItems = FunctionalItem.LoadAll();
             AllStoredItems = WarehouseRepository.Load();
 
-            EquipmentOrganization = new Dictionary<string, EquipmentGridItem>();
-            EquipmentGridItems = new ObservableCollection<EquipmentGridItem>();
+            EquipmentOrganization = new Dictionary<string, EquipmentQuantity>();
+            EquipmentGridItems = new ObservableCollection<EquipmentQuantity>();
 
             FilterGridItems(0, 0, 0, 0, 0, "");
 
@@ -87,12 +86,12 @@ namespace ZdravoCorp.ManagerView
             return (byRoomType == 0 || byRoomType == (int)(AllRooms[fi.GetWhere()].GetTypeOfRoom()));
         }
 
-        bool IsOfValidQuantity(EquipmentGridItem egi, int byQuantity)
+        bool IsOfValidQuantity(EquipmentQuantity egi, int byQuantity)
         {
             return (byQuantity == 1 && egi.GetQuantity() == 0) || (byQuantity == 2 && egi.GetQuantity() <= 10) || (byQuantity == 3 && egi.GetQuantity() > 10);
         }
 
-        bool IsSearchReturn(EquipmentGridItem egi, string searchInput) {
+        bool IsSearchReturn(EquipmentQuantity egi, string searchInput) {
             string upperInput = searchInput.ToUpper();
             string upperName = egi.GetName().ToUpper();
             string upperType = egi.GetTypeOfEq().ToUpper();
@@ -137,7 +136,7 @@ namespace ZdravoCorp.ManagerView
             {
                 if (IsValidForInsert(eq, byEquipmentType, notInWarehouse))
                 {
-                    EquipmentOrganization[eq.GetName()] = new EquipmentGridItem(eq.GetName(), eq.GetTypeOfEq());
+                    EquipmentOrganization[eq.GetName()] = new EquipmentQuantity(eq.GetName(), eq.GetTypeOfEq());
                 }
 
             }

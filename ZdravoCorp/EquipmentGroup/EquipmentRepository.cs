@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.InfrastructureGroup;
-using ZdravoCorp.ManagerView;
 
 namespace ZdravoCorp.EquipmentGroup
 {
@@ -17,25 +16,41 @@ namespace ZdravoCorp.EquipmentGroup
 
         public static List<Equipment> LoadAll()
         {
-
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/equipment.json");
             var json = reader.ReadToEnd();
             List<Equipment> allEquipment = JsonConvert.DeserializeObject<List<Equipment>>(json);
             return allEquipment;
         }
-
-        public static Dictionary<string, EquipmentGridItem> LoadDynamic()
+        public static Dictionary<string, EquipmentQuantity> LoadOnlyStaticOrDynamic(bool onlyDynamic)
         {
             List<Equipment> allEquipment = LoadAll();
-            Dictionary<string, EquipmentGridItem> equipmentOrganization = new Dictionary<string, EquipmentGridItem>();
+            Dictionary<string, EquipmentQuantity> equipmentOrganization = new Dictionary<string, EquipmentQuantity>();
             foreach (Equipment equipment in allEquipment)
             {
-                if (equipment.IsDynamic())
+                if (equipment.IsDynamic() == onlyDynamic)
                 {
-                    equipmentOrganization[equipment.GetName()] = new EquipmentGridItem(equipment.GetName(), equipment.GetTypeOfEq());
+                    equipmentOrganization[equipment.GetName()] = new EquipmentQuantity(equipment.GetName(), equipment.GetTypeOfEq());
                 }
             }
+            
+            return equipmentOrganization;
+        }
+
+        public static void LoadQuantitiesFromRoom(ref Dictionary<string, EquipmentQuantity> equipmentOrganization, string roomName)
+        {
+            List<FunctionalItem> allFunctionalItems = FunctionalItem.LoadAll();
+            foreach (FunctionalItem item in allFunctionalItems)
+            {
+                if (equipmentOrganization.ContainsKey(item.GetWhat()) && item.GetWhere() == roomName)
+                {
+                    equipmentOrganization[item.GetWhat()].IncreaseQuantity(item.GetAmount());
+                }
+            }
+        }
+
+        public static void LoadQuantitiesFromWarehouse(ref Dictionary<string, EquipmentQuantity> equipmentOrganization)
+        {
             Warehouse warehouse = WarehouseRepository.Load();
             foreach (string itemName in warehouse.GetInventory().Keys)
             {
@@ -44,6 +59,12 @@ namespace ZdravoCorp.EquipmentGroup
                     equipmentOrganization[itemName].IncreaseQuantity(warehouse.GetInventory()[itemName]);
                 }
             }
+        }
+
+        public void LoadAllQuantities(ref Dictionary<string, EquipmentQuantity> equipmentOrganization)
+        {
+
+            LoadQuantitiesFromWarehouse(ref equipmentOrganization);
 
             List<FunctionalItem> allFunctionalItems = FunctionalItem.LoadAll();
             foreach (FunctionalItem item in allFunctionalItems)
@@ -53,7 +74,6 @@ namespace ZdravoCorp.EquipmentGroup
                     equipmentOrganization[item.GetWhat()].IncreaseQuantity(item.GetAmount());
                 }
             }
-            return equipmentOrganization;
         }
     }
 }

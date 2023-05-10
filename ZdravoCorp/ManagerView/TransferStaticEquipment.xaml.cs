@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZdravoCorp.EquipmentGroup;
 using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.ManagerView
@@ -42,9 +43,23 @@ namespace ZdravoCorp.ManagerView
 
         private void ChooseItemsClick(object sender, RoutedEventArgs e)
         {
-            if(RoomFrom.SelectedIndex-1 == RoomTo.SelectedIndex)
+            int indexFrom = RoomFrom.SelectedIndex;
+            int indexTo = RoomTo.SelectedIndex;
+
+            if (indexFrom-1 == indexTo)
             {
                 MessageBox.Show("You cannot transfer items inside one room.");
+            }
+            else
+            {
+                
+                string nameFrom = RoomFrom.SelectedItem.ToString();
+                string nameTo = RoomTo.SelectedItem.ToString();
+                
+                TransferEquipmentPopup newWindow = new TransferEquipmentPopup(false, indexFrom == 0, nameFrom, nameTo);
+                newWindow.ShowDialog();
+                
+
             }
         }
     }

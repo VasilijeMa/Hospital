@@ -30,6 +30,21 @@ namespace ZdravoCorp
             singleton = Singleton.Instance;
             anamneses = singleton.anamnesis;
             LoadAppointmentsInDataGrid();
+            LoadMedicalRecordInToxtBox();
+        }
+
+        private void LoadMedicalRecordInToxtBox()
+        {
+            MedicalRecord medicalRecord = patient.getMedicalRecord();
+            tbAllergens.Text = ListToString(medicalRecord.Allergens);
+            tbEarlierIllnesses.Text = ListToString(medicalRecord.EarlierIllnesses);
+            tbHeight.Text = medicalRecord.Height.ToString();
+            tbWeight.Text = medicalRecord.Weight.ToString();
+        }
+
+        private string ListToString(List<string> strings)
+        {
+            return string.Join(",", strings);
         }
 
         private void LoadAppointmentsInDataGrid()
@@ -45,7 +60,7 @@ namespace ZdravoCorp
                     if (appointment.TimeSlot.start.Date > DateTime.Now.Date) continue;
                     dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"),
                         appointment.TimeSlot.start.TimeOfDay.ToString(@"hh\:mm"), doctor.FirstName + " " + doctor.LastName,
-                        doctor.Specialization.ToString(), appointment.IsCanceled, anamnesis.DoctorsObservation + "\n" + anamnesis.DoctorsConclusion);
+                        doctor.Specialization.ToString(), anamnesis.DoctorsObservation + "\n" + anamnesis.DoctorsConclusion);
                 }
             }
             dgAppointments.ItemsSource = dt.DefaultView;
@@ -59,7 +74,6 @@ namespace ZdravoCorp
             dt.Columns.Add("Time", typeof(string));
             dt.Columns.Add("DoctorName", typeof(string));
             dt.Columns.Add("DoctorSpetialization", typeof(string));
-            dt.Columns.Add("IsCanceled", typeof(bool));
             dt.Columns.Add("Anamnesis", typeof(string));
             return dt;
         }

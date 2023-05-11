@@ -28,7 +28,7 @@ namespace ZdravoCorp
             InitializeComponent();
             this.selectedAppointment = selectedAppointment;
             this.role = role;
-            setWindow(role);
+            setWindow();
         }
 
         private void setWindow()

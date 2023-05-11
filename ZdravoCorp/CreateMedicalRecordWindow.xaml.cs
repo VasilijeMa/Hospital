@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -71,7 +73,15 @@ namespace ZdravoCorp
             }
             height.Text = selectedRecord.Height.ToString();
             weight.Text = selectedRecord.Weight.ToString();
-            anamnesis.Text = selectedRecord.Anamnesis;
+            foreach (string oneAnamnesis in selectedRecord.EarlierIllnesses)
+            {
+                anamnesis.Text += oneAnamnesis + ", ";
+            }
+            foreach (string oneAllergen in selectedRecord.Allergens)
+            {
+                allergen.Text += oneAllergen + ", ";
+            }
+
         }
 
         private bool isNumeric(String number) 
@@ -135,17 +145,22 @@ namespace ZdravoCorp
             MedicalRecord newMedicalRecord = new MedicalRecord();
             newMedicalRecord.Height = double.Parse(height.Text);
             newMedicalRecord.Weight = double.Parse(weight.Text);
-            newMedicalRecord.Anamnesis = anamnesis.Text;
+            newMedicalRecord.EarlierIllnesses.Add(anamnesis.Text);
+            newMedicalRecord.Allergens.Add(allergen.Text);
             newMedicalRecord.Id = patient.MedicalRecordId;
             return newMedicalRecord;
         }
 
-        public void addToPatients(Patient newPatient) {
-            Singleton.Instance.patients.Remove(patient);
-            User.RemoveUser(patient.Username);
-            User.WriteAll(Singleton.Instance.users);
+        public void addToPatients(Patient newPatient)
+        {
+            if (!createoredit)
+            {
+                Singleton.Instance.patients.Remove(patient);
+                patient.WriteAll(Singleton.Instance.patients);
+                User.RemoveUser(patient.Username);
+                User.WriteAll(Singleton.Instance.users);
+            }
 
-            //newPatient.WriteAll(Singleton.Instance.patients);
             Singleton.Instance.patients.Add(newPatient);
             newPatient.WriteAll(Singleton.Instance.patients);
         }
@@ -158,12 +173,19 @@ namespace ZdravoCorp
 
         public void addToUsers(Patient newPatient) {
             Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
-           // User.WriteAll(Singleton.Instance.users);
+            User.WriteAll(Singleton.Instance.users);
         }
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
         {
-            AnamnesisView anamnesis = new AnamnesisView(selectedAppointment,false);
-            anamnesis.ShowDialog();
+            Anamnesis findAnamnesis = findAnamnesisById(selectedAppointment);
+            if (findAnamnesis == null)
+            {
+                MessageBox.Show("The patient must first check in with the nurse.");
+                return;
+            }
+            AnamnesisView view = new AnamnesisView(selectedAppointment, false);
+            view.ShowDialog();
+            LoadFields();
         }
 
         public bool isDouble(string data)
@@ -174,6 +196,18 @@ namespace ZdravoCorp
                 return true;
             }
             return false;
+        }
+
+        public Anamnesis findAnamnesisById(Appointment selectedAppointment)
+        {
+            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
+            {
+                if (anamnesis.AppointmentId == selectedAppointment.Id)
+                {
+                    return anamnesis;
+                }
+            }
+            return null;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace ZdravoCorp
             this.appointments = LoadAllAppointments();
             this.todaysAppointments = GetTodaysAppontments();
         }
+
         public Schedule(List<Appointment> appointments)
         {
             this.appointments = appointments;

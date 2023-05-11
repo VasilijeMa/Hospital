@@ -47,6 +47,7 @@ namespace ZdravoCorp
             }
             return appointments;
         }
+
         public static List<Doctor> LoadAll()
         {
             var serializer = new JsonSerializer();

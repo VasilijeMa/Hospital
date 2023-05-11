@@ -10,7 +10,7 @@
         <Label Content="Medical record" HorizontalAlignment="Center" Height="28" Margin="0,30,0,0" VerticalAlignment="Top" Width="900" Background="White" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS"/>
         <Label Content="Height: " HorizontalAlignment="Left" Height="33" Margin="57,84,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
         <Label Content="Weight: " HorizontalAlignment="Left" Height="33" Margin="57,134,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <Label Content="Case record: " HorizontalAlignment="Left" Height="33" Margin="57,184,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <Label Content="Earlier illnesses: " HorizontalAlignment="Left" Height="33" Margin="57,184,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
         <TextBox x:Name="height" HorizontalAlignment="Left" Margin="402,84,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>
         <TextBox x:Name="weight" HorizontalAlignment="Left" Margin="402,134,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>
         <TextBox x:Name="anamnesis" HorizontalAlignment="Left" Margin="402,184,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>

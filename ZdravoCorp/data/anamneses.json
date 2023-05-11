@@ -16,5 +16,23 @@
     "EarlierIllness": "nista",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 26,
+    "PatientId": 3,
+    "Symptoms": "bol u glavi",
+    "Alergies": "polen",
+    "EarlierIllness": "migrena",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 31,
+    "PatientId": 3,
+    "Symptoms": "bol u glavi",
+    "Alergies": "prasina",
+    "EarlierIllness": "povisen krvni pritisak",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
   }
 ]

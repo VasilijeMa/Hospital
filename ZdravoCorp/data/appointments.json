@@ -251,5 +251,71 @@
     "PatientId": 2,
     "IsCanceled": false,
     "IdRoom": "Examination Room 1"
+  },
+  {
+    "Id": 26,
+    "TimeSlot": {
+      "start": "2023-05-10T20:00:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 3,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1"
+  },
+  {
+    "Id": 27,
+    "TimeSlot": {
+      "start": "2023-05-11T00:40:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 3,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1"
+  },
+  {
+    "Id": 28,
+    "TimeSlot": {
+      "start": "2023-05-11T01:25:00",
+      "duration": 30
+    },
+    "DoctorId": 1,
+    "PatientId": 3,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1"
+  },
+  {
+    "Id": 29,
+    "TimeSlot": {
+      "start": "2023-05-11T02:05:00",
+      "duration": 30
+    },
+    "DoctorId": 1,
+    "PatientId": 3,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1"
+  },
+  {
+    "Id": 30,
+    "TimeSlot": {
+      "start": "2023-05-11T03:00:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1"
+  },
+  {
+    "Id": 31,
+    "TimeSlot": {
+      "start": "2023-05-11T02:40:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 3,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1"
   }
 ]

@@ -37,5 +37,12 @@ namespace ZdravoCorp
             PatientAdmissionWindow patientAdmissionWindow = new PatientAdmissionWindow();
             patientAdmissionWindow.ShowDialog();
         }
+
+        private void Emergency_Click(object sender, RoutedEventArgs e)
+        {
+            EmergencyOperationOrExamination emergencyOperationOrExamination = new EmergencyOperationOrExamination();
+            emergencyOperationOrExamination.ShowDialog();
+        }
+
     }
 }

@@ -34,7 +34,7 @@ namespace ZdravoCorp
         Appointment selectedAppointment;
 
 
-        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse, Appointment selectedAppointment=null, bool startAppointment=false)
+        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse, Appointment selectedAppointment = null, bool startAppointment = false)
         {
             InitializeComponent();
             this.createoredit = createoredit;
@@ -84,13 +84,6 @@ namespace ZdravoCorp
             
         }
 
-        /*private bool isNumeric(String number) 
-        {
-            int n;
-            bool isNumeric = int.TryParse(number, out n);
-            return isNumeric;
-        }*/
-
         private bool isValid()
         {
             if ((height.Text.Length == 0) || (weight.Text.Length == 0) || (anamnesis.Text.Length == 0))
@@ -98,7 +91,7 @@ namespace ZdravoCorp
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
             }
-            if (!(isDouble(height.Text) && isDouble(weight.Text))) 
+            if (!(isDouble(height.Text) && isDouble(weight.Text)))
             {
                 MessageBox.Show("Weight and height should be numbers.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
@@ -137,7 +130,8 @@ namespace ZdravoCorp
             }
         }
 
-        public MedicalRecord createMedicalRecordObject() {
+        public MedicalRecord createMedicalRecordObject()
+        {
             if (!createoredit)
             {
                 Singleton.Instance.medicalRecords.Remove(selectedRecord);
@@ -172,22 +166,31 @@ namespace ZdravoCorp
             newMedicalRecord.WriteAll(Singleton.Instance.medicalRecords);
         }
 
-        public void addToUsers(Patient newPatient) {
+        public void addToUsers(Patient newPatient)
+        {
             Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
             User.WriteAll(Singleton.Instance.users);
         }
 
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
         {
-            Anamnesis findAnamnesis = findAnamnesisById(selectedAppointment);
-            if (findAnamnesis == null)
+            AnamnesisView anamnesis;
+            if (doctorornurse)
             {
-                MessageBox.Show("The patient must first check in with the nurse.");
-                return;
+                Anamnesis findAnamnesis = findAnamnesisById(selectedAppointment);
+                if (findAnamnesis == null)
+                {
+                    MessageBox.Show("The patient must first check in with the nurse.");
+                    return;
+                }
+                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Doctor);
             }
-            AnamnesisView view = new AnamnesisView(selectedAppointment, false);
-            view.ShowDialog();
-            //LoadFields();
+            else
+            {
+                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Nurse);
+            }
+            anamnesis.ShowDialog();
+
         }
 
         public bool isDouble(string data)

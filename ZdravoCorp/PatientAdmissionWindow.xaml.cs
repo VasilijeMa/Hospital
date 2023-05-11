@@ -75,9 +75,8 @@ namespace ZdravoCorp
                 MessageBox.Show("You cannot start a appointment.");
                 return;
             }
-            //isAlreadyExsist(selectedAppointment.Id);
 
-            AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,true);
+            AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,ConfigRoles.Nurse);
             anamnesisView.ShowDialog();
         }
 

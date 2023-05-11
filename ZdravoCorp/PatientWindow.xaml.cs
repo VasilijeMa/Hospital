@@ -56,9 +56,15 @@ namespace ZdravoCorp
             this.Close();
         }
 
-        private void FreeAppointment_Click(object sender, RoutedEventArgs e)
+        private void RecommendingAppointment_Click(object sender, RoutedEventArgs e)
         {
-
+            RecommendingAppointmentsForm recommendingAppointmentsForm = new RecommendingAppointmentsForm(patient);
+            recommendingAppointmentsForm.ShowDialog();
+            if (patient.IsBlocked)
+            {
+                MessageBox.Show("Your account is blocked.");
+                this.Close();
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

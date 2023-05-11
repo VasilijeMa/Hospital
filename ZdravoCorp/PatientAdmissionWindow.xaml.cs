@@ -68,9 +68,27 @@ namespace ZdravoCorp
                 MessageBox.Show("You must select the appointment first to add an anamnesis.", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
                 return;
             }
-            Appointment selectedAppointment = Singleton.Instance.Schedule.todaysAppointments[selectedIndex]; 
+
+            Appointment selectedAppointment = Singleton.Instance.Schedule.todaysAppointments[selectedIndex];
+            if (!selectedAppointment.isAbleToStart())
+            {
+                MessageBox.Show("You cannot start a appointment.");
+                return;
+            }
+
             AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,ConfigRoles.Nurse);
             anamnesisView.ShowDialog();
         }
+
+        /*private void isAlreadyExsist(int appointmentId)
+        {
+            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
+            {
+                if (anamnesis.AppointmentId == appointmentId)
+                {
+                    MessageBox.Show("There is already an anamnesis in this appointemnt.");
+                }
+            }
+        }*/
     }
 }

@@ -3,8 +3,6 @@
     "AppointmentId": 1,
     "PatientId": 1,
     "Symptoms": "kasalj",
-    "Alergies": "polen",
-    "EarlierIllness": "astma",
     "DoctorsObservation": "Upaljeno grlo",
     "DoctorsConclusion": "Neki sprej"
   },
@@ -12,8 +10,6 @@
     "AppointmentId": 2,
     "PatientId": 1,
     "Symptoms": "nista",
-    "Alergies": "nista",
-    "EarlierIllness": "nista",
     "DoctorsObservation": "Nema vidljivih simptoma",
     "DoctorsConclusion": "Odmor"
   }

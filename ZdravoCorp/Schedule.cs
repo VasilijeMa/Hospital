@@ -6,15 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
 {
     public class Schedule
     {
+        public List<Appointment> todaysAppointments { get; set; } 
         public List<Appointment> appointments { get; set; }
         public Schedule()
         {
             this.appointments = LoadAllAppointments();
+            this.todaysAppointments = GetTodaysAppontments();
         }
         public Schedule(List<Appointment> appointments)
         {
@@ -23,8 +27,15 @@ namespace ZdravoCorp
 
         public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
+            string roomId = Appointment.takeRoom(timeSlot);
+            if (roomId == "")
+            {
+                MessageBox.Show("All rooms are full.");
+                return null;
+            }
+
             int id = getLastId() + 1;
-            Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id);
+            Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id, roomId);
             appointments.Add(appointment);
             return appointment;
         }
@@ -99,7 +110,23 @@ namespace ZdravoCorp
             return null;
         }
 
-
+        public List<Appointment> GetTodaysAppontments() {
+            List<Appointment> todayAppointments = new List<Appointment>();
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.IsCanceled == false)
+                {
+                    if ((appointment.TimeSlot.start.ToShortDateString() == DateTime.Now.ToShortDateString()))
+                    {
+                        if (appointment.TimeSlot.start > DateTime.Now)
+                        {
+                            todayAppointments.Add(appointment);
+                        }
+                    }
+                }
+            }
+            return todayAppointments;
+        }
         //public bool IsAvailable(TimeSlot timeSlot, Doctor doctor, int appointmentId = -1)
         //{
         //    foreach (Appointment appointment in appointments)

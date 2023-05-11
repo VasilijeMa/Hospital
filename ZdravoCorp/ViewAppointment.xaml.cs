@@ -47,12 +47,18 @@ namespace ZdravoCorp
             dt.Columns.Add("Date", typeof(string));
             dt.Columns.Add("Time", typeof(string));
             dt.Columns.Add("Duration", typeof(int));
-            dt.Columns.Add("DoctorID", typeof(int));
             dt.Columns.Add("PatientID", typeof(int));
+            dt.Columns.Add("RoomID", typeof(string));
             dt.Columns.Add("IsCanceled", typeof(bool));
             foreach (Appointment appointment in this.appointments)
             {
-                dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(), appointment.TimeSlot.duration, appointment.DoctorId, appointment.PatientId, appointment.IsCanceled);
+                dt.Rows.Add(appointment.Id, 
+                            appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"),
+                            appointment.TimeSlot.start.TimeOfDay.ToString(),
+                            appointment.TimeSlot.duration, 
+                            appointment.PatientId,
+                            appointment.IdRoom,
+                            appointment.IsCanceled);
             }
             this.dataGrid.ItemsSource = dt.DefaultView;
         }
@@ -82,13 +88,7 @@ namespace ZdravoCorp
         private void update_Click(object sender, RoutedEventArgs e)
         {
             DataRowView item = dataGrid.SelectedItem as DataRowView;
-            if (item == null)
-            {
-                MessageBox.Show("Appointment is not selected.");
-                return;
-            }
-
-            Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["AppointmentID"]);
+            Appointment appointment = GetSelectedAppointment(item);
 
             if (appointment.IsCanceled)
             {
@@ -112,29 +112,19 @@ namespace ZdravoCorp
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
             DataRowView item = dataGrid.SelectedItem as DataRowView;
-            if (item == null)
-            {
-                MessageBox.Show("Appointment is not selected.");
-                return;
-            }
-            if ((bool)item.Row["IsCanceled"])
+            Appointment appointment = GetSelectedAppointment(item);
+
+            if (appointment.IsCanceled)
             {
                 MessageBox.Show("The appointment has already been cancelled.");
                 return;
             }
-
-            Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["AppointmentID"]);
-
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
                 MessageBox.Show("The selected appointment cannot be changed.");
                 return;
             }
-            else if (MessageBox.Show("Are you sure you want to cancel the appointment? ", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-            {
-                return;
-            }
-            else
+            if (MessageBox.Show("Are you sure you want to cancel the appointment? ", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 appointment.IsCanceled = true;
                 singleton.Schedule.CancelAppointment(appointment.Id);
@@ -146,30 +136,36 @@ namespace ZdravoCorp
         private void medicalRecord_Click(object sender, RoutedEventArgs e)
         {
             DataRowView item = dataGrid.SelectedItem as DataRowView;
-            if (item == null)
+            Appointment appointment = GetSelectedAppointment(item);
+
+            Patient patient = appointment.getPatient();
+            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true,null);
+            medicalRecord.ShowDialog();
+
+
+            /*foreach (Patient patient in singleton.patients)
             {
-                MessageBox.Show("Appointment is not selected.");
-                return;
-            }
-
-            Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["AppointmentID"]);
-
-            int patientId = appointment.PatientId;
-            Patient selectedPatient = new Patient();
-
-            foreach (Patient patient in singleton.patients)
-            {
-                if (patientId == patient.Id)
+                if (appointment.PatientId == patient.Id)
                 {
-                    selectedPatient = patient;
-                    CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, selectedPatient, true);
+                    CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true);
                     medicalRecord.ShowDialog();
                     return;
                 }
-            }
-            MessageBox.Show("The patient does not exist in the system");
+             }*/
+            //MessageBox.Show("The patient does not exist in the system");
         }
 
+        private Appointment GetSelectedAppointment(DataRowView item)
+        {
+            if (item == null)
+            {
+                MessageBox.Show("Appointment is not selected.");
+                return null;
+            }
+            Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["AppointmentID"]);
+
+            return appointment;
+        }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

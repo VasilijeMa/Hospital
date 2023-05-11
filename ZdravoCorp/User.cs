@@ -70,7 +70,7 @@ namespace ZdravoCorp
                     foreach (Nurse nurse in Singleton.Instance.nurses) {
                         if (user.Username == nurse.Username) {
                             NurseWindow nurseWindow = new NurseWindow(nurse);
-                            nurseWindow.Show();
+                            nurseWindow.ShowDialog();
                             break;
                         }
                     }

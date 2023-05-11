@@ -26,6 +26,20 @@ namespace ZdravoCorp.InfrastructureGroup
         {
             this.TypeOfRoom = (RoomType)typeOfRoom;
         }
+        
+        public static Dictionary<string, Room> LoadAllExaminationRoom()
+        {
+            Dictionary<string, Room> examinationRooms = new Dictionary<string, Room>();
+            Dictionary<string, Room> allRooms = RoomRepository.LoadAll();
+            foreach (var room in allRooms)
+            {
+                if (RoomType.ExaminationRoom.Equals(room.Value.TypeOfRoom))
+                {
+                    examinationRooms.Add(room.Key, room.Value);
+                }
+            }
+            return examinationRooms;
+        }
 
         public RoomType GetTypeOfRoom() { return TypeOfRoom; }
         public string ToString()

@@ -1,0 +1,30 @@
+﻿<Window x:Class="ZdravoCorp.DailyAppointmentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp"
+        mc:Ignorable="d"
+                Title="DailySchedule" WindowStartupLocation="CenterScreen" Height="450" Width="793">
+
+
+    <Window.Resources>
+        <DataTemplate x:Key="patientTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding FirstName}" Margin="5"/>
+                <TextBlock Text="{Binding LastName}" Margin="5"/>
+                <TextBlock Text="{Binding Id}" Margin="5"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+
+    <Grid>
+        <DataGrid ColumnWidth="110" RowHeight="20" ItemsSource="{Binding Appointment}" IsReadOnly="True" x:Name="dataGrid" Margin="0,62,0,91">
+        </DataGrid>
+
+        <Button Click="startAppointmentClick" Content="Start appointment" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="327,362,0,0"/>
+        <TextBox HorizontalAlignment="Left" Margin="317,25,0,0" TextWrapping="Wrap" Text=" All appointments for today" VerticalAlignment="Top" Width="155"/>
+
+    </Grid>
+</Window>

@@ -1,3 +1,20 @@
 [
- 
+  {
+    "AppointmentId": 1,
+    "PatientId": 1,
+    "Symptoms": "kasalj",
+    "Alergies": "polen",
+    "EarlierIllness": "astma",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 1,
+    "PatientId": 1,
+    "Symptoms": "nista",
+    "Alergies": "nista",
+    "EarlierIllness": "nista",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  }
 ]

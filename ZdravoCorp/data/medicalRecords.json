@@ -1,11 +1,5 @@
 [
   {
-    "Id": 1,
-    "Anamnesis": "anamnesis",
-    "Height": 182.2,
-    "Weight": 90.0
-  },
-  {
     "Id": 2,
     "Anamnesis": "bol u grlu",
     "Height": 186.0,
@@ -24,15 +18,27 @@
     "Weight": 80.0
   },
   {
-    "Id": 5,
-    "Anamnesis": "bol u grlu",
-    "Height": 190.0,
-    "Weight": 80.0
-  },
-  {
     "Id": 6,
     "Anamnesis": "svakodnevna migrena",
     "Height": 175.0,
     "Weight": 60.0
+  },
+  {
+    "Id": 7,
+    "Anamnesis": "bol u grlu",
+    "Height": 80.0,
+    "Weight": 179.0
+  },
+  {
+    "Id": 1,
+    "Anamnesis": "anamnesis",
+    "Height": 187.5,
+    "Weight": 95.0
+  },
+  {
+    "Id": 5,
+    "Anamnesis": "bol u grlu",
+    "Height": 190.5,
+    "Weight": 100.0
   }
 ]

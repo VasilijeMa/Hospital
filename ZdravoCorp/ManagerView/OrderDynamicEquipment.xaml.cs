@@ -18,18 +18,18 @@ using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.ManagerView
 {
-    
+
     /// <summary>
     /// Interaction logic for OrderDynamicEquipment.xaml
     /// </summary>
     public partial class OrderDynamicEquipment : Window
     {
-        public ObservableCollection<EquipmentGridItem> AllDepletingDynamicEquipment { get; set; }
+        public ObservableCollection<EquipmentQuantity> AllDepletingDynamicEquipment { get; set; }
 
         public OrderDynamicEquipment()
         {
             DataContext = this;
-            AllDepletingDynamicEquipment = new ObservableCollection<EquipmentGridItem>();
+            AllDepletingDynamicEquipment = new ObservableCollection<EquipmentQuantity>();
 
             RefreshDataGrid();
 
@@ -38,9 +38,10 @@ namespace ZdravoCorp.ManagerView
 
         public void RefreshDataGrid()
         {
-            Dictionary<string, EquipmentGridItem> equipmentOrganization = EquipmentRepository.LoadDynamic();
+            Dictionary<string, EquipmentQuantity> equipmentOrganization = EquipmentRepository.LoadOnlyStaticOrDynamic(true);
+            EquipmentRepository.LoadAllQuantities(ref equipmentOrganization);
             AllDepletingDynamicEquipment.Clear();
-            foreach (EquipmentGridItem item in equipmentOrganization.Values)
+            foreach (EquipmentQuantity item in equipmentOrganization.Values)
             {
                 
                 if (item.GetQuantity() <= 5)
@@ -53,7 +54,7 @@ namespace ZdravoCorp.ManagerView
 
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
-            EquipmentGridItem eq = (EquipmentGridItem)((Button)e.Source).DataContext;
+            EquipmentQuantity eq = (EquipmentQuantity)((Button)e.Source).DataContext;
             OrderDynamicEquipmentPopup newWindow = new OrderDynamicEquipmentPopup(eq.GetName());
             newWindow.ShowDialog();
         }

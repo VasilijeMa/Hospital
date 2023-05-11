@@ -1,0 +1,21 @@
+[
+  {
+    "finished": true,
+    "fromWarehouse": true,
+    "roomFrom": "Warehouse",
+    "roomTo": "Operating Theater 1",
+    "transferDate": "2023-05-11T02:02:00.5+02:00",
+    "itemsForTransfer": [
+      {
+        "name": "Bed",
+        "maxQuantity": 4,
+        "selectedQuantity": 2
+      },
+      {
+        "name": "Wardrobe",
+        "maxQuantity": 5,
+        "selectedQuantity": 3
+      }
+    ]
+  }
+]

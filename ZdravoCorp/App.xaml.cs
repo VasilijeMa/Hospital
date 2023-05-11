@@ -18,21 +18,24 @@ namespace ZdravoCorp
     /// </summary>
     public partial class App : Application
     {
-        private Timer DynamicEquipmentUpdater;
+        private Timer DynamicEquipmentAdder;
+        private Timer StaticEquipmentMover;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            DynamicEquipmentUpdater = new Timer(UpdateDynamicEquipment, null, TimeSpan.Zero, TimeSpan.FromMinutes(5)); // Thread timer
+            DynamicEquipmentAdder = new Timer(AddDynamicEquipment, null, TimeSpan.Zero, TimeSpan.FromMinutes(5)); // Thread timers
+            StaticEquipmentMover = new Timer(MoveStaticEquipment, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
-            DynamicEquipmentUpdater.Dispose();
+            DynamicEquipmentAdder.Dispose();
+            StaticEquipmentMover.Dispose();
         }
 
-        private void UpdateDynamicEquipment(object state)
+        private void AddDynamicEquipment(object state)
         {
             bool anyRequestsChanged = false;
             Warehouse warehouse = WarehouseRepository.Load();
@@ -74,6 +77,115 @@ namespace ZdravoCorp
                     });
                 }
 
+            }
+        }
+
+        private void MoveStaticEquipment(object state)
+        {
+            bool anyRequestsChanged = false;
+            DateTime now = DateTime.Now;
+
+            Warehouse warehouse = WarehouseRepository.Load();
+            Dictionary<string, int> inventory = warehouse.GetInventory();
+
+            List<FunctionalItem> functionalItems = FunctionalItemRepository.LoadAll();
+            List<StaticEquipmentTransferRequest> allRequests = StaticEquipmentTransferRequestRepository.LoadAll();
+            foreach(StaticEquipmentTransferRequest request in allRequests)
+            {
+                if (!request.IsFinished() && request.GetTransferDate() <= now)
+                {
+                    string roomFrom = request.GetRoomFrom();
+                    string roomTo = request.GetRoomTo();
+
+                    foreach (AlteredEquipmentQuantity equipmentQuantity in request.GetItemsForTransfer())
+                    {
+
+                        string equipmentName = equipmentQuantity.GetName();
+                        int transferAmount = equipmentQuantity.GetSelectedQuantity();
+
+
+                        int howManyMoved = 0;
+
+                        if (request.IsFromWarehouse())
+                        {
+                            if (inventory.ContainsKey(equipmentName))
+                            {
+                                if (inventory[equipmentName] >= transferAmount)
+                                {
+                                    howManyMoved = transferAmount;
+                                    inventory[equipmentName] -= howManyMoved;
+                                    if (inventory[equipmentName]==0)
+                                    {
+                                        inventory.Remove(equipmentName);
+                                    }
+                                    request.Finish();
+                                }
+                                else
+                                {
+                                    howManyMoved = inventory[equipmentName];
+                                    equipmentQuantity.SetSelectedQuantity(transferAmount-howManyMoved);
+                                    inventory.Remove(equipmentName);
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            foreach (FunctionalItem item in functionalItems)
+                            {
+                                if (item.GetWhere() == roomFrom && item.GetWhat() == equipmentName)
+                                {
+                                    if (item.GetAmount() >= transferAmount)
+                                    {
+                                        howManyMoved = transferAmount;
+                                        item.SetAmount(item.GetAmount() - howManyMoved);
+                                        if (item.GetAmount() == 0)
+                                        {
+                                            functionalItems.Remove(item);
+                                        }
+                                        request.Finish();
+                                    }
+                                    else
+                                    {
+                                        howManyMoved = item.GetAmount();
+                                        equipmentQuantity.SetSelectedQuantity(transferAmount-howManyMoved);
+                                        functionalItems.Remove(item);
+                                    }
+                                    break;
+                                }
+                            }
+
+                        }
+                        if(howManyMoved > 0)
+                        {
+                            bool found = false;
+
+                            foreach (FunctionalItem item in functionalItems)
+                            {
+                                if (item.GetWhere() == roomTo && item.GetWhat() == equipmentName)
+                                {
+                                    found = true;
+                                    item.SetAmount(item.GetAmount() + howManyMoved);
+                                }
+                                break;
+                            }
+                            if (!found)
+                            {
+                                functionalItems.Add(new FunctionalItem(roomTo, equipmentName, howManyMoved));
+                            }
+
+                            anyRequestsChanged = true;
+                        }
+                        
+                    }
+                }
+                
+            }
+            if (anyRequestsChanged)
+            {
+                StaticEquipmentTransferRequestRepository.SaveAll(allRequests);
+                FunctionalItemRepository.SaveAll(functionalItems);
+                WarehouseRepository.Save(warehouse);
             }
         }
     }

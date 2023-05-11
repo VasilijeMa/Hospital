@@ -1,21 +1,20 @@
 ﻿using System;
-using ZdravoCorp.EquipmentGroup;
 
-namespace ZdravoCorp.ManagerView
+namespace ZdravoCorp.EquipmentGroup
 {
-    public class EquipmentGridItem
+    public class EquipmentQuantity
     {
         public string Name { get; set; }
         public string TypeOfEq { get; set; }
         public int Quantity { get; set; }
-        public EquipmentGridItem(string name, EquipmentType type)
+        public EquipmentQuantity(string name, EquipmentType type)
         {
             Name = name;
             TypeOfEq = type.ToString();
             Quantity = 0;
         }
 
-        public EquipmentGridItem(string name, string typeOfEq, int quantity)
+        public EquipmentQuantity(string name, string typeOfEq, int quantity)
         {
             Name = name;
             TypeOfEq = typeOfEq;

@@ -12,5 +12,7 @@ namespace ZdravoCorp.InfrastructureGroup
         {
             this.Name = name;
         }
+
+        public string GetName() { return this.Name; }
     }
 }

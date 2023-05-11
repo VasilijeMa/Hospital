@@ -1,20 +1,2 @@
 [
-  {
-    "itemName": "Scalpel",
-    "itemQuantity": 2,
-    "orderDate": "2023-05-09T14:18:01.9338382+02:00",
-    "finished": true
-  },
-  {
-    "itemName": "Bandage",
-    "itemQuantity": 3,
-    "orderDate": "2023-05-09T14:18:13.4947569+02:00",
-    "finished": true
-  },
-  {
-    "itemName": "Stethoscope",
-    "itemQuantity": 1,
-    "orderDate": "2023-05-09T14:18:39.8838373+02:00",
-    "finished": true
-  }
 ]

@@ -2,7 +2,7 @@
   {
     "Where": "Operating Theater 1",
     "What": "Bed",
-    "Amount": 1
+    "Amount": 3
   },
   {
     "Where": "Operating Theater 1",
@@ -98,5 +98,10 @@
     "Where": "Infirmary 4",
     "What": "IV",
     "Amount": 4
+  },
+  {
+    "Where": "Operating Theater 1",
+    "What": "Wardrobe",
+    "Amount": 3
   }
 ]

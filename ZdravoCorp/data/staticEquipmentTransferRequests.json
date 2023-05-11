@@ -17,5 +17,24 @@
         "selectedQuantity": 3
       }
     ]
+  },
+  {
+    "finished": true,
+    "fromWarehouse": true,
+    "roomFrom": "Warehouse",
+    "roomTo": "Operating Theater 1",
+    "transferDate": "2023-05-11T13:41:59.889+02:00",
+    "itemsForTransfer": [
+      {
+        "name": "Bed",
+        "maxQuantity": 2,
+        "selectedQuantity": 2
+      },
+      {
+        "name": "Shelf",
+        "maxQuantity": 7,
+        "selectedQuantity": 3
+      }
+    ]
   }
 ]

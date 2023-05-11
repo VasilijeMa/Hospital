@@ -30,10 +30,6 @@ namespace ZdravoCorp.ManagerView
             newWindow.ShowDialog();
         }
 
-        private void LogOutClick(object sender, RoutedEventArgs e) {
-            this.Close();
-        }
-
         private void OrderClick(object sender, RoutedEventArgs e)
         {
             OrderDynamicEquipment newWindow = new OrderDynamicEquipment();
@@ -44,6 +40,16 @@ namespace ZdravoCorp.ManagerView
         {
             TransferStaticEquipment newWindow = new TransferStaticEquipment();
             newWindow.ShowDialog();
+        }
+
+        private void DynamicTransferClick(object sender, RoutedEventArgs e)
+        {
+            TransferDynamicEquipment newWindow = new TransferDynamicEquipment();
+            newWindow.ShowDialog();
+        }
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

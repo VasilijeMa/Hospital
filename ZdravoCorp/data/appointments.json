@@ -112,60 +112,30 @@
   {
     "Id": 12,
     "TimeSlot": {
-      "start": "2023-04-22T16:15:00",
-      "duration": 15
-    },
-    "DoctorId": 1,
-    "PatientId": 3,
-    "IsCanceled": false
-  },
-  {
-    "Id": 13,
-    "TimeSlot": {
-      "start": "2023-05-11T19:00:00",
-      "duration": 295
-    },
-    "DoctorId": 1,
-    "PatientId": 3,
-    "IsCanceled": false
-  },
-  {
-    "Id": 13,
-    "TimeSlot": {
-      "start": "2023-05-12T00:00:00",
-      "duration": 600
+      "start": "2023-05-11T23:27:50.7281739+02:00",
+      "duration": 120
     },
     "DoctorId": 1,
     "PatientId": 1,
+    "IsCanceled": false
+  },
+  {
+    "Id": 13,
+    "TimeSlot": {
+      "start": "2023-05-11T23:27:50.7281739+02:00",
+      "duration": 120
+    },
+    "DoctorId": 2,
+    "PatientId": 2,
     "IsCanceled": false
   },
   {
     "Id": 14,
     "TimeSlot": {
-      "start": "2023-05-12T10:10:00",
-      "duration": 55
+      "start": "2023-05-12T02:00:00",
+      "duration": 15
     },
     "DoctorId": 1,
-    "PatientId": 1,
-    "IsCanceled": false
-  },
-  {
-    "Id": 15,
-    "TimeSlot": {
-      "start": "2023-05-12T11:19:00",
-      "duration": 760
-    },
-    "DoctorId": 1,
-    "PatientId": 1,
-    "IsCanceled": false
-  },
-  {
-    "Id": 16,
-    "TimeSlot": {
-      "start": "2023-05-11T21:14:00",
-      "duration": 760
-    },
-    "DoctorId": 2,
     "PatientId": 1,
     "IsCanceled": false
   }

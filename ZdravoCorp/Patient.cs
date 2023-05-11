@@ -55,6 +55,18 @@ namespace ZdravoCorp
             return true;
         }
 
+        public static Patient getById(int id)
+        {
+            foreach (Patient patient in Singleton.Instance.patients)
+            {
+                if (patient.Id == id)
+                {
+                    return patient;
+                }
+            }
+            return null;
+        }
+
         public override string ToString()
         {
             return "Id: " + Id + ", FirstName: " + FirstName + ", LastName: " + LastName + "BirthDate: " + BirthDate.ToString();

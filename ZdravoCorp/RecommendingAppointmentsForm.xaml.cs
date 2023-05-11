@@ -37,17 +37,23 @@ namespace ZdravoCorp
         }
         private void LoadAppointmentsInDataGrid(List<Appointment> appointments)
         {
+            DataTable dt = LoadColumns();
+            foreach (Appointment appointment in appointments)
+            {
+                dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(@"hh\:mm"), appointment.DoctorId, false);
+            }
+            dgAppointments.ItemsSource = dt.DefaultView;
+        }
+
+        private static DataTable LoadColumns()
+        {
             DataTable dt = new DataTable();
             dt.Columns.Add("Id", typeof(int));
             dt.Columns.Add("Date", typeof(string));
             dt.Columns.Add("Time", typeof(string));
             dt.Columns.Add("DoctorID", typeof(int));
             dt.Columns.Add("IsCanceled", typeof(bool));
-            foreach (Appointment appointment in appointments)
-            {
-                dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(@"hh\:mm"), appointment.DoctorId, false);
-            }
-            dgAppointments.ItemsSource = dt.DefaultView;
+            return dt;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -65,8 +71,8 @@ namespace ZdravoCorp
             LoadAppointmentsInDataGrid(recommendedAppointments);
             if (recommendedAppointments.Count() == 1)
             {
-                //singleton.Schedule.CreateAppointment(recommendedAppointments[0]);
-                //singleton.Log.AddElement(recommendedAppointments[0], patient);
+                singleton.Schedule.CreateAppointment(recommendedAppointments[0]);
+                singleton.Log.AddElement(recommendedAppointments[0], patient);
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
             }
@@ -116,9 +122,9 @@ namespace ZdravoCorp
                 return;
             }
             Appointment appointment = GetAppointmentFromSelectedRow();
-            //singleton.Schedule.CreateAppointment(appointment);
-            //singleton.Log.AddElement(appointment, patient);
-            MessageBox.Show("Appointment successfully created."); //scheduled
+            singleton.Schedule.CreateAppointment(appointment);
+            singleton.Log.AddElement(appointment, patient);
+            MessageBox.Show("Appointment successfully created.");
             this.Close();
             return;
         }

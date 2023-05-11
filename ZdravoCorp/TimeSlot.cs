@@ -26,20 +26,16 @@ namespace ZdravoCorp
 
         public bool OverlapWith(TimeSlot timeSlot)
         {
-            //if(this.start.Date == timeSlot.start.Date)
-            //{
-            bool isAtDifferentTime = start/*.TimeOfDay */> timeSlot.start.AddMinutes(timeSlot.duration)/*.TimeOfDay*/ || start.AddMinutes(duration)/*.TimeOfDay*/ < timeSlot.start/*.TimeOfDay*/;
+            bool isAtDifferentTime = start> timeSlot.start.AddMinutes(timeSlot.duration) || start.AddMinutes(duration) < timeSlot.start;
             if (!isAtDifferentTime)
             {
                 return true;
             }
-            //}
             return false;
         }
 
         public List<TimeSlot> Split(TimeSlot timeSlot)
         {
-            //DA LI ODUZETI 1 KOD DURATION, UKLJUCITI POCETAK ILI KRAJ? 
             List<TimeSlot> timeSlots = new List<TimeSlot>();
             if (timeSlot.start > start && timeSlot.start.AddMinutes(timeSlot.duration) < start.AddMinutes(duration))
             {

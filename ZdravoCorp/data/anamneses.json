@@ -1,19 +1,5 @@
 [
   {
-    "AppointmentId": 1,
-    "PatientId": 1,
-    "Symptoms": "kasalj",
-    "DoctorsObservation": "",
-    "DoctorsConclusion": ""
-  },
-  {
-    "AppointmentId": 1,
-    "PatientId": 1,
-    "Symptoms": "nista",
-    "DoctorsObservation": "",
-    "DoctorsConclusion": ""
-  },
-  {
     "AppointmentId": 26,
     "PatientId": 3,
     "Symptoms": "bol u glavi",

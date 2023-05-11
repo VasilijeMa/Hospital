@@ -31,7 +31,6 @@ namespace ZdravoCorp
         MedicalRecord selectedRecord;
         Appointment selectedAppointment;
 
-        // (ConfigOperation operation, Patient patient, Appointment selectedAppointmen=null)
         public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment=null, bool update=false)
         {
             InitializeComponent();
@@ -114,7 +113,7 @@ namespace ZdravoCorp
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
             }
-            if (!(isDouble(height.Text) && isDouble(weight.Text))) 
+            if (!(isDouble(height.Text) && isDouble(weight.Text)))
             {
                 MessageBox.Show("Weight and height should be numbers.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
@@ -196,7 +195,8 @@ namespace ZdravoCorp
             newMedicalRecord.WriteAll(Singleton.Instance.medicalRecords);
         }
 
-        public void addToUsers(Patient newPatient) {
+        public void addToUsers(Patient newPatient)
+        {
             Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
             User.WriteAll(Singleton.Instance.users);
         }
@@ -212,16 +212,13 @@ namespace ZdravoCorp
                     MessageBox.Show("The patient must first check in with the nurse.");
                     return;
                 }
-                anamnesis = new AnamnesisView(selectedAppointment, false);
+                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Doctor);
             }
             else
             {
-                anamnesis = new AnamnesisView(selectedAppointment, true);
+                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Nurse);
             }
             anamnesis.ShowDialog();
-
-            //AnamnesisView view = new AnamnesisView(selectedAppointment, false);
-            //view.ShowDialog();
         }
 
         public bool isDouble(string data)

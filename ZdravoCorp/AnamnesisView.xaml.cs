@@ -20,28 +20,38 @@ namespace ZdravoCorp
     public partial class AnamnesisView : Window
     {
         private Appointment selectedAppointment;
-        private bool isNurse;
+        private ConfigRoles role;
         private Anamnesis anamnesis;
-        public AnamnesisView(Appointment selectedAppointment,bool isNurse)
+        public AnamnesisView(Appointment selectedAppointment, ConfigRoles role)
         {
 
             InitializeComponent();
             this.selectedAppointment = selectedAppointment;
-            this.isNurse = isNurse;
+            this.role = role;
             setWindow();
         }
 
         private void setWindow()
         {
-            if (isNurse)
+            if (role == ConfigRoles.Nurse)
             {
                 DoctorConclusion.IsReadOnly = true;
                 DoctorObservation.IsReadOnly = true;
             }
+            else if (role == ConfigRoles.Doctor)
+            {
+                this.anamnesis = findAnamnesisById(selectedAppointment);
+                Symptoms.Text = anamnesis.Symptoms;
+                Symptoms.IsReadOnly = true;
+            }
             else
             {
                 Symptoms.IsReadOnly = true;
-                this.anamnesis = findAnamnesisById(selectedAppointment);
+                DoctorObservation.IsReadOnly= true;
+                DoctorConclusion.IsReadOnly = true;
+                btnCancel.Visibility = Visibility.Hidden;
+                btnSubmit.Visibility = Visibility.Hidden;
+                anamnesis = findAnamnesisById(selectedAppointment);
                 LoadFields(anamnesis);
             }
         }
@@ -49,7 +59,7 @@ namespace ZdravoCorp
         private void SubmitClick(object sender, RoutedEventArgs e)
         {
             if (isValid()) {
-                if (isNurse)
+                if (role == ConfigRoles.Nurse)
                 {
                     createAnamnesisObject();
                 }
@@ -74,10 +84,12 @@ namespace ZdravoCorp
 
         private void LoadFields(Anamnesis anamnesis) {
             Symptoms.Text = anamnesis.Symptoms;
+            DoctorObservation.Text = anamnesis.DoctorsObservation.ToString();
+            DoctorConclusion.Text = anamnesis.DoctorsConclusion.ToString();
         }
 
         private bool isValid() {
-            if (isNurse)
+            if (role == ConfigRoles.Nurse)
             {
                 return isValidForNurseInput();
             }
@@ -87,7 +99,7 @@ namespace ZdravoCorp
         }
 
         private bool isValidForNurseInput() {
-            if ((Symptoms.Text.Length == 0))
+            if (Symptoms.Text.Length == 0)
             {
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
@@ -143,8 +155,6 @@ namespace ZdravoCorp
         {
             Patient patient = getPatient();
             MedicalRecord medicalRecord = patient.getMedicalRecord();
-            medicalRecord.EarlierIllnesses.Add(EarlierIllness.Text);
-            medicalRecord.Allergens.Add(Allergies.Text);
             medicalRecord.WriteAll(Singleton.Instance.medicalRecords);
         }*/
 

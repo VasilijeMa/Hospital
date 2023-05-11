@@ -1,13 +1,13 @@
 [
   {
-    "AppointmentId": 46,
+    "AppointmentId": 30,
     "PatientId": 2,
     "Symptoms": "bolll",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
   },
   {
-    "AppointmentId": 48,
+    "AppointmentId": 30,
     "PatientId": 2,
     "Symptoms": "bol",
     "DoctorsObservation": "fwffw",

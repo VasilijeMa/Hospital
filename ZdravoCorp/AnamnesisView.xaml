@@ -6,14 +6,15 @@
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
 Title="AnamnesisView" Height="400" Width="850" Icon="/icon.png" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,49,0,0" TextWrapping="Wrap" Text="Symptoms: " VerticalAlignment="Top" Width="163"/>
-        <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,179,0,0" TextWrapping="Wrap" Text="Doctor's observation: " VerticalAlignment="Top" Width="163" RenderTransformOrigin="0.5,0.5"/>
-        <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,223,0,0" TextWrapping="Wrap" Text="Doctor's conclusion: " VerticalAlignment="Top" Width="163"/>
-        <TextBox Name="Symptoms" HorizontalAlignment="Left" Margin="358,44,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
-        <TextBox Name="DoctorObservation" HorizontalAlignment="Left" Margin="358,179,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
-        <TextBox Name="DoctorConclusion" HorizontalAlignment="Left" Margin="358,223,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="60" Width="260"/>
-        <Button Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="305,318,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="SubmitClick"/>
-        <Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="450,318,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="CancelClick"/>
+    <Grid >
+        <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,95,0,0" TextWrapping="Wrap" Text="Symptoms: " VerticalAlignment="Top" Width="163"/>
+        <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,136,0,0" TextWrapping="Wrap" Text="Doctor's observation: " VerticalAlignment="Top" Width="163" RenderTransformOrigin="0.5,0.5"/>
+        <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="184,207,0,0" TextWrapping="Wrap" Text="Doctor's conclusion: " VerticalAlignment="Top" Width="163"/>
+        <TextBox Name="Symptoms" HorizontalAlignment="Left" Margin="358,90,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="260"/>
+        <TextBox Name="DoctorObservation" HorizontalAlignment="Left" Margin="358,135,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="57" Width="260"/>
+        <TextBox Name="DoctorConclusion" HorizontalAlignment="Left" Margin="358,207,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="60" Width="260"/>
+        <Button Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="223,308,0,0" VerticalAlignment="Top" Width="100" Height="33" Click="SubmitClick"/>
+        <Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="367,308,0,0" VerticalAlignment="Top" Width="100" Height="33" Click="CancelClick"/>
+        <Button Click="useUpDynamicEquipment" Content="Update equipment" HorizontalAlignment="Left" Margin="507,305,0,0" VerticalAlignment="Top" Width="106" Height="33"/>
     </Grid>
 </Window>

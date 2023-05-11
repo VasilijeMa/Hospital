@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace ZdravoCorp
 {
-    /// <summary>
-    /// Interaction logic for DailyAppointmentView.xaml
-    /// </summary>
+
     public partial class DailyAppointmentView : Window
     {
         private List<Appointment> appointments;
@@ -30,19 +28,12 @@ namespace ZdravoCorp
             this.singleton = Singleton.Instance;
             this.doctor = doctor;
             this.appointments = appointments;
-            loadDataGrid();
+            LoadDataGrid();
         }
 
-        private void loadDataGrid()
+        private void LoadDataGrid()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("AppointmentID", typeof(int));
-            dt.Columns.Add("Date", typeof(string));
-            dt.Columns.Add("Time", typeof(string));
-            dt.Columns.Add("Duration", typeof(int));
-            dt.Columns.Add("DoctorID", typeof(int));
-            dt.Columns.Add("PatientID", typeof(int));
-            dt.Columns.Add("IsCanceled", typeof(bool));
+            DataTable dt = AddColumns();
             foreach (Appointment appointment in this.appointments)
             {
                 dt.Rows.Add(
@@ -58,7 +49,20 @@ namespace ZdravoCorp
             this.dataGrid.ItemsSource = dt.DefaultView;
         }
 
-        private void startAppointmentClick(object sender, RoutedEventArgs e)
+        private static DataTable AddColumns()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("AppointmentID", typeof(int));
+            dt.Columns.Add("Date", typeof(string));
+            dt.Columns.Add("Time", typeof(string));
+            dt.Columns.Add("Duration", typeof(int));
+            dt.Columns.Add("DoctorID", typeof(int));
+            dt.Columns.Add("PatientID", typeof(int));
+            dt.Columns.Add("IsCanceled", typeof(bool));
+            return dt;
+        }
+
+        private void StartAppointmentClick(object sender, RoutedEventArgs e)
         {
             DataRowView item = dataGrid.SelectedItem as DataRowView;
             if (item == null)
@@ -68,16 +72,16 @@ namespace ZdravoCorp
             }
 
             int id = (int)item.Row["AppointmentId"];
-            Appointment selectedAppointment = singleton.Schedule.GetAppointment(id);   // ili samo appointment ?
+            Appointment selectedAppointment = singleton.Schedule.GetAppointment(id);
             Patient patient = selectedAppointment.getPatient();
 
-            if (!selectedAppointment.isAbleToStart())
+            if (!selectedAppointment.IsAbleToStart())
             {
                 MessageBox.Show("You cannot start a appointment.");
                 return;
             }
 
-            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, false,selectedAppointment);
+            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true, selectedAppointment);
             medicalRecord.ShowDialog();
         }
     }

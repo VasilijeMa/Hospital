@@ -22,7 +22,7 @@ namespace ZdravoCorp
         private Appointment selectedAppointment;
         private ConfigRoles role;
         private Anamnesis anamnesis;
-        public AnamnesisView(Appointment selectedAppointment,ConfigRoles role)
+        public AnamnesisView(Appointment selectedAppointment, ConfigRoles role)
         {
 
             InitializeComponent();
@@ -40,6 +40,7 @@ namespace ZdravoCorp
             }
             else if (role == ConfigRoles.Doctor)
             {
+                this.anamnesis = findAnamnesisById(selectedAppointment);
                 Symptoms.Text = anamnesis.Symptoms;
                 Symptoms.IsReadOnly = true;
             }
@@ -57,28 +58,18 @@ namespace ZdravoCorp
 
         private void SubmitClick(object sender, RoutedEventArgs e)
         {
-            /*if (isAlreadyExsist(selectedAppointment.Id))
-            {
-                MessageBox.Show("USLO");
-                return;
-            }*/
-
             if (isValid()) {
                 if (role == ConfigRoles.Nurse)
                 {
                     createAnamnesisObject();
-                    MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 }
                 else {
-                    //Singleton.Instance.anamnesis.Remove(anamnesis);
-                    //anamnesis.WriteAll(Singleton.Instance.anamnesis);
                     anamnesis.DoctorsConclusion = DoctorConclusion.Text;
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
-                    //Singleton.Instance.anamnesis.Add(anamnesis);
-                    //anamnesis.WriteAll(Singleton.Instance.anamnesis);
                     anamnesis.WriteAll(Singleton.Instance.anamnesis);
-                    MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 }
+                MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
+                this.Close();
             }
         }
 
@@ -160,12 +151,12 @@ namespace ZdravoCorp
         }
 
 
-        private void refreshMedicalRecord()
+        /*private void refreshMedicalRecord()
         {
             Patient patient = getPatient();
             MedicalRecord medicalRecord = patient.getMedicalRecord();
             medicalRecord.WriteAll(Singleton.Instance.medicalRecords);
-        }
+        }*/
 
         private void createAnamnesisObject()
         {
@@ -180,6 +171,11 @@ namespace ZdravoCorp
             anamnesis.WriteAll(Singleton.Instance.anamnesis);
         }
 
+        private void useUpDynamicEquipment(object sender, RoutedEventArgs e)
+        {
+            EquipmentUsedByDoctor used = new EquipmentUsedByDoctor(selectedAppointment);
+            used.ShowDialog();
+        }
 
     }
 }

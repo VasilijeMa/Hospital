@@ -65,7 +65,6 @@ namespace ZdravoCorp
                     }
                     break;
 
-
                 case "nurse":
                     foreach (Nurse nurse in Singleton.Instance.nurses) {
                         if (user.Username == nurse.Username) {
@@ -100,7 +99,6 @@ namespace ZdravoCorp
                     }
                     break;
                 default:
-                    // code block
                     break;
             }
         }

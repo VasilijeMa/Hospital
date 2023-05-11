@@ -1,16 +1,86 @@
 [
   {
-    "AppointmentId": 1,
-    "PatientId": 1,
-    "Symptoms": "kasalj",
-    "DoctorsObservation": "Upaljeno grlo",
-    "DoctorsConclusion": "Neki sprej"
+    "AppointmentId": 26,
+    "PatientId": 3,
+    "Symptoms": "bol u glavi",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
   },
   {
-    "AppointmentId": 2,
+    "AppointmentId": 31,
+    "PatientId": 3,
+    "Symptoms": "bol u glavi",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 32,
+    "PatientId": 2,
+    "Symptoms": "bol u zadnjem delu glave",
+    "DoctorsObservation": "pojacana migrena",
+    "DoctorsConclusion": "potrebni lekovi za migrenu"
+  },
+  {
+    "AppointmentId": 33,
     "PatientId": 1,
-    "Symptoms": "nista",
-    "DoctorsObservation": "Nema vidljivih simptoma",
-    "DoctorsConclusion": "Odmor"
+    "Symptoms": "nist",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 34,
+    "PatientId": 3,
+    "Symptoms": "bol",
+    "DoctorsObservation": "migrena",
+    "DoctorsConclusion": "lekovi"
+  },
+  {
+    "AppointmentId": 35,
+    "PatientId": 2,
+    "Symptoms": "temperatura",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 36,
+    "PatientId": 3,
+    "Symptoms": "nistaa",
+    "DoctorsObservation": "nista",
+    "DoctorsConclusion": "nista"
+  },
+  {
+    "AppointmentId": 37,
+    "PatientId": 1,
+    "Symptoms": "nistaaaaa",
+    "DoctorsObservation": "nis",
+    "DoctorsConclusion": "nis"
+  },
+  {
+    "AppointmentId": 38,
+    "PatientId": 1,
+    "Symptoms": "kasalj",
+    "DoctorsObservation": "crveno grlo",
+    "DoctorsConclusion": "antibiotik"
+  },
+  {
+    "AppointmentId": 40,
+    "PatientId": 2,
+    "Symptoms": "bol u grlu, temperatura",
+    "DoctorsObservation": "upaljeno grlo",
+    "DoctorsConclusion": "antibiotik"
+  },
+  {
+    "AppointmentId": 41,
+    "PatientId": 3,
+    "Symptoms": "bol",
+    "DoctorsObservation": "bool",
+    "DoctorsConclusion": "bool"
+  },
+  {
+    "AppointmentId": 44,
+    "PatientId": 3,
+    "Symptoms": "bol u grlu",
+    "DoctorsObservation": "crveno grlo",
+    "DoctorsConclusion": "lek"
   }
 ]

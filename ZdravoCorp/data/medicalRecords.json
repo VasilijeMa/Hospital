@@ -1,55 +1,13 @@
 [
   {
-    "Id": 2,
-    "EarlierIllnesses": [
-      "bol u grlu"
-    ],
-    "Allergens": [
-      "polen"
-    ],
-    "Height": 186.0,
-    "Weight": 80.0
-  },
-  {
-    "Id": 3,
-    "EarlierIllnesses": [
-      "svakodnevne migrene"
-    ],
-    "Allergens": [
-      "polen"
-    ],
-    "Height": 170.0,
-    "Weight": 62.0
-  },
-  {
-    "Id": 4,
-    "EarlierIllnesses": [
-      "bol u grlu"
-    ],
-    "Allergens": [
-      "polen"
-    ],
-    "Height": 190.0,
-    "Weight": 80.0
-  },
-  {
-    "Id": 6,
-    "EarlierIllnesses": [
-      "svakodnevna migrena"
-    ],
-    "Allergens": [
-      "polen"
-    ],
-    "Height": 175.0,
-    "Weight": 60.0
-  },
-  {
     "Id": 7,
     "EarlierIllnesses": [
-      "bol u grlu"
+      "bol u grlu",
+      "upala pluca"
     ],
     "Allergens": [
-      "polen"
+      "polen",
+      "prasina"
     ],
     "Height": 80.0,
     "Weight": 179.0
@@ -57,10 +15,17 @@
   {
     "Id": 1,
     "EarlierIllnesses": [
-      "anamnesis","aaa"
+      "anamnesis",
+      "nist",
+      "nis",
+      "ambrozija",
+      "vanja",
+      "vanjaaa"
     ],
     "Allergens": [
-      "polen"
+      "polen",
+      "nist",
+      ""
     ],
     "Height": 187.5,
     "Weight": 95.0
@@ -69,13 +34,27 @@
     "Id": 5,
     "EarlierIllnesses": [
       "bol u grlu",
-      "migrena"
+      "migrena",
+      "visok pritisak"
     ],
     "Allergens": [
       "polen",
       "prasina"
     ],
     "Height": 190.5,
-    "Weight": 100.0
+    "Weight": 105.0
+  },
+  {
+    "Id": 6,
+    "EarlierIllnesses": [
+      "svakodnevne migrene",
+      "nistaa"
+    ],
+    "Allergens": [
+      "polen",
+      "ambrozija"
+    ],
+    "Height": 170.0,
+    "Weight": 70.0
   }
 ]

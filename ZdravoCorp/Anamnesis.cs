@@ -17,8 +17,9 @@ namespace ZdravoCorp
 
         public string DoctorsConclusion { get; set; }
         public Anamnesis() { }
+
         public Anamnesis(int appointmentId, int patientId, string symptoms,
-            string doctorsObservation,string doctorsConclusion )
+            string doctorsObservation, string doctorsConclusion)
         {
             this.AppointmentId = appointmentId;
             this.PatientId = patientId;

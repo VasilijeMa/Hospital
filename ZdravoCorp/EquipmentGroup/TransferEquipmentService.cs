@@ -114,8 +114,8 @@ namespace ZdravoCorp.EquipmentGroup
                 {
                     found = true;
                     item.SetAmount(item.GetAmount() + howManyMoved);
+                    break;
                 }
-                break;
             }
             if (!found)
             {

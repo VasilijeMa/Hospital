@@ -71,6 +71,21 @@ namespace ZdravoCorp.ManagerView
             if (wasSaveSuccessful)
             {
                 MessageBox.Show("Items transferred successfully.");
+
+                IEnumerable<TransferDynamicEquipment> windowsForUpdate = null;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    windowsForUpdate = Application.Current.Windows.OfType<TransferDynamicEquipment>();
+                });
+
+                foreach (TransferDynamicEquipment window in windowsForUpdate)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        window.RefreshDataGrid();
+                    });
+                }
+
                 Close();
             }
             else

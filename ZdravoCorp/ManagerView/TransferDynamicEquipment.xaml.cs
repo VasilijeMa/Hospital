@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZdravoCorp.EquipmentGroup;
 using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.ManagerView
@@ -22,12 +24,17 @@ namespace ZdravoCorp.ManagerView
     {
         public List<string> FromOptions { get; set; }
         public List<string> ToOptions { get; set; }
+
+        public ObservableCollection<FunctionalItem> RoomsShortOfEquipment { get; set; }
         public TransferDynamicEquipment()
         {
             DataContext = this;
 
             Dictionary<string, Room> rooms = RoomRepository.LoadAll();
             Warehouse warehouse = WarehouseRepository.Load();
+
+            RoomsShortOfEquipment = new ObservableCollection<FunctionalItem>();
+            RefreshDataGrid();
 
             FromOptions = new List<string>() { warehouse.GetName() };
             ToOptions = new List<string>();
@@ -39,6 +46,20 @@ namespace ZdravoCorp.ManagerView
             }
 
             InitializeComponent();
+        }
+
+        public void RefreshDataGrid()
+        {
+            RoomsShortOfEquipment.Clear();
+            List<FunctionalItem> allCombinations = FunctionalItemRepository.LoadDynamicWithHidden();
+
+            foreach(FunctionalItem item in allCombinations)
+            {
+                if (item.GetAmount() < 5)
+                {
+                    RoomsShortOfEquipment.Add(item);
+                }
+            }
         }
 
         private void ChooseItemsClick(object sender, RoutedEventArgs e)

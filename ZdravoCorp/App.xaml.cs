@@ -24,7 +24,7 @@ namespace ZdravoCorp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            DynamicEquipmentAdder = new Timer(EquipmentService.AddDynamicEquipment, null, TimeSpan.Zero, TimeSpan.FromMinutes(5)); // Thread timers
+            DynamicEquipmentAdder = new Timer(AddAndUpdateDynamicEquipment, null, TimeSpan.Zero, TimeSpan.FromMinutes(5)); // Thread timers
             StaticEquipmentMover = new Timer(TransferEquipmentService.MoveAllStaticEquipment, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
         }
 
@@ -34,5 +34,29 @@ namespace ZdravoCorp
             DynamicEquipmentAdder.Dispose();
             StaticEquipmentMover.Dispose();
         }
+
+        private void AddAndUpdateDynamicEquipment(object state)
+        {
+            bool anyRequestsChanged = EquipmentService.AddDynamicEquipment();
+
+            if (anyRequestsChanged)
+            {
+                IEnumerable<OrderDynamicEquipment> windowsForUpdate = null;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    windowsForUpdate = Application.Current.Windows.OfType<OrderDynamicEquipment>();
+                });
+
+                foreach (OrderDynamicEquipment window in windowsForUpdate)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        window.RefreshDataGrid();
+                    });
+                }
+            }
+        }
+
+        
     }
 }

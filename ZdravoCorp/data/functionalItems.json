@@ -5,11 +5,6 @@
     "Amount": 3
   },
   {
-    "Where": "Operating Theater 1",
-    "What": "Scalpel",
-    "Amount": 2
-  },
-  {
     "Where": "Operating Theater 2",
     "What": "Shelf",
     "Amount": 5
@@ -103,5 +98,10 @@
     "Where": "Operating Theater 1",
     "What": "Wardrobe",
     "Amount": 3
+  },
+  {
+    "Where": "Operating Theater 2",
+    "What": "Scalpel",
+    "Amount": 2
   }
 ]

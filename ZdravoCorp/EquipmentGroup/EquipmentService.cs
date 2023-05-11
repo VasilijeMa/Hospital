@@ -11,7 +11,7 @@ namespace ZdravoCorp.EquipmentGroup
 {
     public class EquipmentService
     {
-        public static void AddDynamicEquipment(object state)
+        public static bool AddDynamicEquipment()
         {
             bool anyRequestsChanged = false;
             Warehouse warehouse = WarehouseRepository.Load();
@@ -41,21 +41,9 @@ namespace ZdravoCorp.EquipmentGroup
                 WarehouseRepository.Save(warehouse);
                 DynamicEquipmentRequestRepository.SaveAll(allRequests);
 
-                IEnumerable<OrderDynamicEquipment> windowsForUpdate = null;
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    windowsForUpdate = Application.Current.Windows.OfType<OrderDynamicEquipment>();
-                });
-
-                foreach (OrderDynamicEquipment window in windowsForUpdate)
-                {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        window.RefreshDataGrid();
-                    });
-                }
-
             }
+
+            return anyRequestsChanged;
         }
     }
 }

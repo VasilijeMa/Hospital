@@ -10,9 +10,46 @@
         <ComboBox x:Name="RoomFrom" HorizontalAlignment="Left" Margin="80,100,0,0" FontSize="15" SelectedIndex="0" Padding="5 5 0 0" VerticalAlignment="Top" Width="200" Height="30" ItemsSource="{Binding FromOptions}"/>
 
         <ComboBox x:Name="RoomTo" HorizontalAlignment="Left" Margin="500, 100, 0, 0" FontSize="15" SelectedIndex="0" Padding="5 5 0 0" VerticalAlignment="Top" Width="200" Height="30" ItemsSource="{Binding ToOptions}"/>
-        <Button FontSize="25" Content="Choose Items" HorizontalAlignment="Left" Margin="300,300,0,0" VerticalAlignment="Top" Height="50" Width="200" Click="ChooseItemsClick"/>
+        <Button FontSize="25" Content="Choose Items" HorizontalAlignment="Left" Margin="573,322,0,0" VerticalAlignment="Top" Height="50" Width="177" Click="ChooseItemsClick"/>
         <Label Content="From:" FontSize="15" Padding="0" HorizontalAlignment="Left" Margin="80,70,0,0" VerticalAlignment="Top" Height="30" Width="200"/>
         <Label Content="To:" FontSize="15" Padding="0" HorizontalAlignment="Left" Margin="500,70,0,0" VerticalAlignment="Top" Height="30" Width="200"/>
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" AutoGenerateColumns="False" ItemsSource="{Binding RoomsShortOfEquipment}" Margin="80,175,265,62">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room" Binding="{Binding Where}" Width="180">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Amount}" Value="0">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Equipment" Binding="{Binding What}" Width="180">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Amount}" Value="0">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="70">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Amount}" Value="0">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

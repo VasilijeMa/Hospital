@@ -57,7 +57,6 @@ namespace ZdravoCorp
                         dt.AcceptChanges();
             }
             datagrid.DataContext = dt.DefaultView;
-
         }
 
         private void AddAnamnesis_Click(object sender, RoutedEventArgs e)
@@ -70,26 +69,16 @@ namespace ZdravoCorp
             }
 
             Appointment selectedAppointment = Singleton.Instance.Schedule.todaysAppointments[selectedIndex];
-            if (!selectedAppointment.isAbleToStart())
+            if (!selectedAppointment.IsAbleToStart())
             {
                 MessageBox.Show("You cannot start a appointment.");
                 return;
             }
             //isAlreadyExsist(selectedAppointment.Id);
-
-            AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,true);
-            anamnesisView.ShowDialog();
+            Patient patient = selectedAppointment.getPatient();
+            CreateMedicalRecordWindow medicalRecordWindow = new CreateMedicalRecordWindow(false, patient,false,selectedAppointment);
+            //AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,true);
+            medicalRecordWindow.ShowDialog();
         }
-
-        /*private void isAlreadyExsist(int appointmentId)
-        {
-            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
-            {
-                if (anamnesis.AppointmentId == appointmentId)
-                {
-                    MessageBox.Show("There is already an anamnesis in this appointemnt.");
-                }
-            }
-        }*/
     }
 }

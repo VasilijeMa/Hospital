@@ -18,8 +18,10 @@ namespace ZdravoCorp
         public double Height { get; set; }
         public double Weight { get; set; }
 
-
-        public MedicalRecord() { }
+        public MedicalRecord() {
+            Allergens = new List<string>();
+            EarlierIllnesses = new List<string>();
+        }
 
         public MedicalRecord(int id, List<string> earlierIllnesses, List<string> allergens, double height, double weight)
         {

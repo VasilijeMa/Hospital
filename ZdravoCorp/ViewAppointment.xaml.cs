@@ -42,6 +42,22 @@ namespace ZdravoCorp
 
         private void DataGridLoadAppointments()
         {
+            DataTable dt = AddColumns();
+            foreach (Appointment appointment in this.appointments)
+            {
+                dt.Rows.Add(appointment.Id,
+                            appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"),
+                            appointment.TimeSlot.start.TimeOfDay.ToString(),
+                            appointment.TimeSlot.duration,
+                            appointment.PatientId,
+                            appointment.IdRoom,
+                            appointment.IsCanceled);
+            }
+            this.dataGrid.ItemsSource = dt.DefaultView;
+        }
+
+        private static DataTable AddColumns()
+        {
             DataTable dt = new DataTable();
             dt.Columns.Add("AppointmentID", typeof(int));
             dt.Columns.Add("Date", typeof(string));
@@ -50,17 +66,7 @@ namespace ZdravoCorp
             dt.Columns.Add("PatientID", typeof(int));
             dt.Columns.Add("RoomID", typeof(string));
             dt.Columns.Add("IsCanceled", typeof(bool));
-            foreach (Appointment appointment in this.appointments)
-            {
-                dt.Rows.Add(appointment.Id, 
-                            appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"),
-                            appointment.TimeSlot.start.TimeOfDay.ToString(),
-                            appointment.TimeSlot.duration, 
-                            appointment.PatientId,
-                            appointment.IdRoom,
-                            appointment.IsCanceled);
-            }
-            this.dataGrid.ItemsSource = dt.DefaultView;
+            return dt;
         }
 
         private void changeDate_Click(object sender, RoutedEventArgs e)
@@ -139,20 +145,9 @@ namespace ZdravoCorp
             Appointment appointment = GetSelectedAppointment(item);
 
             Patient patient = appointment.getPatient();
-            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true,null);
+            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true, null);
             medicalRecord.ShowDialog();
 
-
-            /*foreach (Patient patient in singleton.patients)
-            {
-                if (appointment.PatientId == patient.Id)
-                {
-                    CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true);
-                    medicalRecord.ShowDialog();
-                    return;
-                }
-             }*/
-            //MessageBox.Show("The patient does not exist in the system");
         }
 
         private Appointment GetSelectedAppointment(DataRowView item)

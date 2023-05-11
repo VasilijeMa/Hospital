@@ -28,7 +28,7 @@ namespace ZdravoCorp
 
         public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
-            string roomId = Appointment.takeRoom(timeSlot);
+            string roomId = Appointment.TakeRoom(timeSlot);
             if (roomId == "")
             {
                 MessageBox.Show("All rooms are full.");
@@ -38,6 +38,7 @@ namespace ZdravoCorp
             int id = getLastId() + 1;
             Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id, roomId);
             appointments.Add(appointment);
+            if (appointment.TimeSlot.start.Date == DateTime.Now.Date) this.todaysAppointments.Add(appointment);
             return appointment;
         }
 

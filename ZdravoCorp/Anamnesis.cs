@@ -13,21 +13,16 @@ namespace ZdravoCorp
         public int AppointmentId { get; set; }
         public int PatientId { get; set; }
         public string Symptoms { get; set; }
-        public string Alergies { get; set; }
-        public string EarlierIllness { get; set; }
         public string DoctorsObservation { get; set; }
 
         public string DoctorsConclusion { get; set; }
         public Anamnesis() { }
         public Anamnesis(int appointmentId, int patientId, string symptoms, 
-            string alergies, string earlierIllness,
             string doctorsObservation,string doctorsConclusion )
         {
             this.AppointmentId = appointmentId;
             this.PatientId = patientId;
             this.Symptoms = symptoms;
-            this.Alergies = alergies;
-            this.EarlierIllness = earlierIllness;
             this.DoctorsObservation = doctorsObservation;
             this.DoctorsConclusion = doctorsConclusion;
         }

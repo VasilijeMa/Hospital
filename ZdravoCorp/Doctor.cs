@@ -13,11 +13,8 @@ namespace ZdravoCorp
     public class Doctor:User
     {
         public int Id { get; set; }
-
         public string FirstName { get; set; }
-
         public string LastName { get; set; }
-
         public Specialization Specialization { get; set; }
 
         public Doctor():base() { }
@@ -70,7 +67,7 @@ namespace ZdravoCorp
             return true;
         }
 
-        public bool isAlreadyExamined(int id)
+        public bool IsAlreadyExamined(int id)
         {
             foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
             {

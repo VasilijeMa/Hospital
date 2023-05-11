@@ -28,12 +28,6 @@ namespace ZdravoCorp
 
         public Appointment() { }
 
-        /*public void startAppointment()
-        {
-            Patient patient = Singleton.Instance.patients[PatientId];
-            //CreateMedicalRecordWindow medicalRecord = CreateMedicalRecordWindow();
-        }*/
-
         public Doctor getDoctor() {
             foreach (Doctor doctor in Singleton.Instance.doctors)
             {
@@ -44,6 +38,7 @@ namespace ZdravoCorp
             }
             return null;
         }
+
         public Patient getPatient()
         {
             foreach (Patient patient in Singleton.Instance.patients)
@@ -56,7 +51,7 @@ namespace ZdravoCorp
             return null;
         }
 
-        public bool isAbleToStart()
+        public bool IsAbleToStart()
         {
             DateTime earliestStart = TimeSlot.start.Add(new TimeSpan(0, -15, 0));
             DateTime latestStart = TimeSlot.start.Add(new TimeSpan(0, TimeSlot.duration, 0));
@@ -68,7 +63,7 @@ namespace ZdravoCorp
             return true;
         }
 
-        public static String takeRoom(TimeSlot timeSlot)
+        public static String TakeRoom(TimeSlot timeSlot)
         {
             Dictionary<String, Room> examinationRooms = Room.LoadAllExaminationRoom();
             foreach (var room in examinationRooms)

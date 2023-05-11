@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,75 +22,90 @@ using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
 {
-    /// <summary>
-    /// Interaction logic for CreateMedicalRecordWindow.xaml
-    /// </summary>
+
     public partial class CreateMedicalRecordWindow : Window
     {
-        bool createoredit;
-        bool doctorornurse;
-        bool startAppointment;
+        bool doctor;
+        bool create;
         Patient patient;
         MedicalRecord selectedRecord;
         Appointment selectedAppointment;
 
-
-        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse, Appointment selectedAppointment=null, bool startAppointment=false)
+        // (ConfigOperation operation, Patient patient, Appointment selectedAppointmen=null)
+        public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment=null, bool update=false)
         {
             InitializeComponent();
-            this.createoredit = createoredit;
+            this.doctor = doctor;
+            this.create = create;
             this.patient = patient;
             this.selectedAppointment = selectedAppointment;
-            this.doctorornurse = doctorornurse;
-            this.startAppointment = startAppointment;
 
-            if (startAppointment)
-            {
-                addAnamnesis.Visibility = Visibility.Hidden;
-            }
-            if (doctorornurse)
+            if (doctor)
             {
                 addAnamnesis.Visibility = Visibility.Hidden;
                 confirm.Visibility = Visibility.Hidden;
                 cancel.Visibility = Visibility.Hidden;
             }
-            if (!createoredit)
+            if (!create)
             {
+                addAnamnesis.Visibility = Visibility.Visible;
+                confirm.Visibility = Visibility.Visible;
+                cancel.Visibility = Visibility.Visible;
                 LoadFields();
+            }
+            if (update)
+            {
+                addAnamnesis.Visibility = Visibility.Hidden;
             }
         }
 
         private void LoadFields()
         {
-            int recordId = patient.MedicalRecordId;
+            this.selectedRecord = patient.getMedicalRecord();
 
-            foreach (MedicalRecord record in Singleton.Instance.medicalRecords)
-            {
-                if (recordId == record.Id)
-                {
-                    selectedRecord = record;
-                    break;
-                }
-            }
             height.Text = selectedRecord.Height.ToString();
             weight.Text = selectedRecord.Weight.ToString();
             foreach (string oneAnamnesis in selectedRecord.EarlierIllnesses)
             {
                 anamnesis.Text += oneAnamnesis + ", ";
             }
+            anamnesis.Text = anamnesis.Text.Substring(0, anamnesis.Text.Length - 2);
             foreach (string oneAllergen in selectedRecord.Allergens)
             {
                 allergen.Text += oneAllergen + ", ";
             }
-            
+            allergen.Text = allergen.Text.Substring(0, allergen.Text.Length - 2);
+
         }
 
-        /*private bool isNumeric(String number) 
+        private void addEarlyIllness(object sender, RoutedEventArgs e)
         {
-            int n;
-            bool isNumeric = int.TryParse(number, out n);
-            return isNumeric;
-        }*/
+            string inputIllness = inputDialogT("illness");
+            selectedRecord.EarlierIllnesses.Add(inputIllness);
+            anamnesis.Text += ", " + inputIllness;
+        }
+
+        private void addAlergyClick(object sender, RoutedEventArgs e)
+        {
+            string inputAlergy = inputDialogT("alergy");
+            selectedRecord.Allergens.Add(inputAlergy);
+            allergen.Text += ", " + inputAlergy;
+        }
+
+        private string inputDialogT(string type)
+        {
+            string input = Interaction.InputBox("Please enter " + type + ": ", "Input dialog");
+            if (input == "") return "";
+            foreach (string alergy in selectedRecord.Allergens)
+            {
+                if (alergy == input)
+                {
+                    MessageBox.Show(type + " already exists.");
+                    return "";
+                }
+            }
+            return input;
+        }
 
         private bool isValid()
         {
@@ -125,43 +141,51 @@ namespace ZdravoCorp
 
         public void confirm_Click(object sender, RoutedEventArgs e)
         {
-
             if (isValid())
             {
                 MedicalRecord medicalRecord = createMedicalRecordObject();
+                if (medicalRecord != null)
+                {
+                    addToMedicalRecords(medicalRecord);
+
+                }
                 addToPatients(patient);
                 addToUsers(patient);
-                addToMedicalRecords(medicalRecord);
                 MessageBox.Show("Operation successful. We saved your changes.", "Done", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 this.Close();
             }
         }
 
         public MedicalRecord createMedicalRecordObject() {
-            if (!createoredit)
+            if (!create)
             {
-                Singleton.Instance.medicalRecords.Remove(selectedRecord);
+                setAttributes(selectedRecord);
                 selectedRecord.WriteAll(Singleton.Instance.medicalRecords);
+                return null;
             }
             MedicalRecord newMedicalRecord = new MedicalRecord();
-            newMedicalRecord.Height = double.Parse(height.Text);
-            newMedicalRecord.Weight = double.Parse(weight.Text);
-            newMedicalRecord.EarlierIllnesses.Add(anamnesis.Text);
-            newMedicalRecord.Allergens.Add(allergen.Text);
+            setAttributes(newMedicalRecord);
             newMedicalRecord.Id = patient.MedicalRecordId;
             return newMedicalRecord;
         }
 
+        public void setAttributes(MedicalRecord medicalRecord)
+        {
+            medicalRecord.Height = double.Parse(height.Text);
+            medicalRecord.Weight = double.Parse(weight.Text);
+            medicalRecord.EarlierIllnesses = anamnesis.Text.Split(", ").ToList();
+            medicalRecord.Allergens = allergen.Text.Split(", ").ToList();
+        }
+
         public void addToPatients(Patient newPatient)
         {
-            if (!createoredit)
+            if (!create)
             {
                 Singleton.Instance.patients.Remove(patient);
                 patient.WriteAll(Singleton.Instance.patients);
                 User.RemoveUser(patient.Username);
                 User.WriteAll(Singleton.Instance.users);
             }
-
             Singleton.Instance.patients.Add(newPatient);
             newPatient.WriteAll(Singleton.Instance.patients);
         }
@@ -179,15 +203,25 @@ namespace ZdravoCorp
 
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
         {
-            Anamnesis findAnamnesis = findAnamnesisById(selectedAppointment);
-            if (findAnamnesis == null)
+            AnamnesisView anamnesis;
+            if (doctor)
             {
-                MessageBox.Show("The patient must first check in with the nurse.");
-                return;
+                Anamnesis findAnamnesis = findAnamnesisById(selectedAppointment);
+                if (findAnamnesis == null)
+                {
+                    MessageBox.Show("The patient must first check in with the nurse.");
+                    return;
+                }
+                anamnesis = new AnamnesisView(selectedAppointment, false);
             }
-            AnamnesisView view = new AnamnesisView(selectedAppointment, false);
-            view.ShowDialog();
-            //LoadFields();
+            else
+            {
+                anamnesis = new AnamnesisView(selectedAppointment, true);
+            }
+            anamnesis.ShowDialog();
+
+            //AnamnesisView view = new AnamnesisView(selectedAppointment, false);
+            //view.ShowDialog();
         }
 
         public bool isDouble(string data)

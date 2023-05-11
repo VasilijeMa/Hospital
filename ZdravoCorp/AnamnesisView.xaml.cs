@@ -40,9 +40,7 @@ namespace ZdravoCorp
             }
             else
             {
-                Allergies.IsReadOnly = true;
                 Symptoms.IsReadOnly = true;
-                EarlierIllness.IsReadOnly = true;
                 this.anamnesis = findAnamnesisById(selectedAppointment);
                 LoadFields(anamnesis);
             }
@@ -50,29 +48,18 @@ namespace ZdravoCorp
 
         private void SubmitClick(object sender, RoutedEventArgs e)
         {
-            /*if (isAlreadyExsist(selectedAppointment.Id))
-            {
-                MessageBox.Show("USLO");
-                return;
-            }*/
-
             if (isValid()) {
                 if (isNurse)
                 {
                     createAnamnesisObject();
-                    refreshMedicalRecord();
-                    MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 }
                 else {
-                    //Singleton.Instance.anamnesis.Remove(anamnesis);
-                    //anamnesis.WriteAll(Singleton.Instance.anamnesis);
                     anamnesis.DoctorsConclusion = DoctorConclusion.Text;
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
-                    //Singleton.Instance.anamnesis.Add(anamnesis);
-                    //anamnesis.WriteAll(Singleton.Instance.anamnesis);
                     anamnesis.WriteAll(Singleton.Instance.anamnesis);
-                    MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 }
+                MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
+                this.Close();
             }
         }
 
@@ -87,8 +74,6 @@ namespace ZdravoCorp
 
         private void LoadFields(Anamnesis anamnesis) {
             Symptoms.Text = anamnesis.Symptoms;
-            Allergies.Text = anamnesis.Alergies;
-            EarlierIllness.Text = anamnesis.EarlierIllness;
         }
 
         private bool isValid() {
@@ -102,7 +87,7 @@ namespace ZdravoCorp
         }
 
         private bool isValidForNurseInput() {
-            if ((Symptoms.Text.Length == 0) || (Allergies.Text.Length == 0) || (EarlierIllness.Text.Length == 0))
+            if ((Symptoms.Text.Length == 0))
             {
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
@@ -154,22 +139,20 @@ namespace ZdravoCorp
         }
 
 
-        private void refreshMedicalRecord()
+        /*private void refreshMedicalRecord()
         {
             Patient patient = getPatient();
             MedicalRecord medicalRecord = patient.getMedicalRecord();
             medicalRecord.EarlierIllnesses.Add(EarlierIllness.Text);
             medicalRecord.Allergens.Add(Allergies.Text);
             medicalRecord.WriteAll(Singleton.Instance.medicalRecords);
-        }
+        }*/
 
         private void createAnamnesisObject()
         {
             Anamnesis anamnesis = new Anamnesis(selectedAppointment.Id,
                                                        selectedAppointment.PatientId,
                                                        Symptoms.Text,
-                                                       Allergies.Text,
-                                                       EarlierIllness.Text,
                                                        "",
                                                        ""
                                                        );
@@ -178,6 +161,11 @@ namespace ZdravoCorp
             anamnesis.WriteAll(Singleton.Instance.anamnesis);
         }
 
+        private void useUpDynamicEquipment(object sender, RoutedEventArgs e)
+        {
+            EquipmentUsedByDoctor used = new EquipmentUsedByDoctor(selectedAppointment);
+            used.ShowDialog();
+        }
 
     }
 }

@@ -24,17 +24,12 @@ namespace ZdravoCorp
         {
             InitializeComponent();
             this.doctor = doctor;
-            loadDataGrid();
+            LoadDataGrid();
         }
 
-        public void loadDataGrid()
+        public void LoadDataGrid()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("PatientID", typeof(int));
-            dt.Columns.Add("FistName", typeof(string));
-            dt.Columns.Add("LastName", typeof(string));
-            dt.Columns.Add("BirthDate", typeof(string));
-            dt.Columns.Add("IsBlocked", typeof(bool));
+            DataTable dt = AddColumns();
 
             foreach (Patient patient in Singleton.Instance.patients)
             {
@@ -44,7 +39,18 @@ namespace ZdravoCorp
             this.dataGrid.ItemsSource = dt.DefaultView;
         }
 
-        private void getMedicalRecord(object sender, RoutedEventArgs e)
+        private static DataTable AddColumns()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("PatientID", typeof(int));
+            dt.Columns.Add("FistName", typeof(string));
+            dt.Columns.Add("LastName", typeof(string));
+            dt.Columns.Add("BirthDate", typeof(string));
+            dt.Columns.Add("IsBlocked", typeof(bool));
+            return dt;
+        }
+        
+        private void GetMedicalRecord(object sender, RoutedEventArgs e)
         {
             DataRowView item = dataGrid.SelectedItem as DataRowView;
             if (item == null)
@@ -52,29 +58,29 @@ namespace ZdravoCorp
                 MessageBox.Show("Patient is not selected.");
             }
             int id = (int)item.Row["PatientID"];
-            Patient patient = Patient.getById(id);
-            displayMedicalRecord(patient);
+            Patient selected = Patient.getById(id);
+            DisplayMedicalRecord(selected);
         }
 
-        private void searchPatientFromId(object sender, RoutedEventArgs e)
+        private void SearchPatientById(object sender, RoutedEventArgs e)
         {
             if (patientIdtext.Text == "")
             {
                 MessageBox.Show("Please enter id to search.");
             }
             int id = int.Parse(patientIdtext.Text);
-            Patient searched = Patient.getById(id);    // jel treba ById ???
-            displayMedicalRecord(searched);
+            Patient searched = Patient.getById(id);
+            DisplayMedicalRecord(searched);
         }
 
-        private void displayMedicalRecord(Patient patient)
+        private void DisplayMedicalRecord(Patient patient)
         {
-            if (!doctor.isAlreadyExamined(patient.Id))
+            if (!doctor.IsAlreadyExamined(patient.Id))
             {
                 MessageBox.Show("You cannot access the medical record.");
                 return;
             }
-            CreateMedicalRecordWindow medicalRecordView = new CreateMedicalRecordWindow(false, patient, false, null, true);
+            CreateMedicalRecordWindow medicalRecordView = new CreateMedicalRecordWindow(false, patient, true, null, true);
             medicalRecordView.ShowDialog();
         }
     }

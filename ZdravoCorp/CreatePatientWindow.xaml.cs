@@ -161,12 +161,13 @@ namespace ZdravoCorp
             }
             return true;
         }
+
         public void confirm_Click(object sender, RoutedEventArgs e)
         {
             if (isValid())
             {
                 Patient newpatient = CreatePatientObject();
-                CreateMedicalRecordWindow createMedicalRecordWindow = new CreateMedicalRecordWindow(createoredit, newpatient, doctorornurse,null);
+                CreateMedicalRecordWindow createMedicalRecordWindow = new CreateMedicalRecordWindow(createoredit, newpatient, doctorornurse, null);
                 createMedicalRecordWindow.ShowDialog();
                 this.Close();
             }

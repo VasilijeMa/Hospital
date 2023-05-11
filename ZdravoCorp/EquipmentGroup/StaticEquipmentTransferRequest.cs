@@ -47,5 +47,37 @@ namespace ZdravoCorp.EquipmentGroup
             TransferDate = transferDate;
             ItemsForTransfer = itemsForTransfer;
         }
+
+        public List<AlteredEquipmentQuantity> GetItemsForTransfer()
+        {
+            return ItemsForTransfer;
+        }
+        public string GetRoomFrom()
+        {
+            return RoomFrom;
+        }
+
+        public string GetRoomTo() {
+            return RoomTo;
+        }
+
+        public bool IsFromWarehouse()
+        {
+            return FromWarehouse;
+        }
+        public bool IsFinished()
+        {
+            return Finished;
+        }
+
+        public DateTime GetTransferDate()
+        {
+            return TransferDate;
+        }
+
+        public void Finish()
+        {
+            Finished = true;
+        }
     }
 }

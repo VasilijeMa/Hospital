@@ -10,24 +10,19 @@ namespace ZdravoCorp.InfrastructureGroup
 {
     public class FunctionalItem
     {
-        private string Where { get; set; }
-        private string What { get; set; }
-        private int Amount { get; set; }
+        public string Where { get; set; }
+        public string What { get; set; }
+        public int Amount { get; set; }
         public FunctionalItem(string where, string what, int amount)
         {
             this.Where = where;
             this.What = what;
             this.Amount = amount;
         }
-        public static List<FunctionalItem> LoadAll()
+
+        public void SetAmount(int amount)
         {
-
-            var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/functionalItems.json");
-            var json = reader.ReadToEnd();
-            List<FunctionalItem> allFunctionalItems = JsonConvert.DeserializeObject<List<FunctionalItem>>(json);
-
-            return allFunctionalItems;
+            this.Amount = amount;
         }
 
         public string GetWhere() { return Where; }

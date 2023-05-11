@@ -72,27 +72,16 @@ namespace ZdravoCorp.ManagerView
             }
             else
             {
-                List<AlteredEquipmentQuantity> itemsForTransfer = new List<AlteredEquipmentQuantity>();
-                foreach(AlteredEquipmentQuantity item in TransferGrid.Items)
+                bool wasSaveSuccessful = TransferEquipmentService.SaveStaticTransferRequest(TransferGrid.Items, FromWarehouse, RoomFrom, RoomTo, transferDate);
+                if(wasSaveSuccessful)
                 {
-                    if (item.GetSelectedQuantity() != 0)
-                    {
-                        itemsForTransfer.Add(item);
-                    }
-                    
-                }
-                if(itemsForTransfer.Count > 0)
-                {
-
-                    StaticEquipmentTransferRequest request = new StaticEquipmentTransferRequest(false, FromWarehouse, RoomFrom, RoomTo, transferDate, itemsForTransfer);
-
-                    StaticEquipmentTransferRequestRepository.Save(request);
                     MessageBox.Show("Transfer request recorded.");
                     Close();
                 }
                 else
                 {
-                    MessageBox.Show("You haven't chosen any items for transfer.");
+                    MessageBox.Show("You haven't chosen any items to transfer.");
+                    Close();
                 }
                 
             }

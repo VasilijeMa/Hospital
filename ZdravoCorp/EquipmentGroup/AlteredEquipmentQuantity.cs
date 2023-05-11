@@ -30,6 +30,10 @@ namespace ZdravoCorp.EquipmentGroup
             SelectedQuantity = selectedQuantity;
         }
 
+        public void SetSelectedQuantity(int quantity)
+        {
+            SelectedQuantity = quantity;
+        }
         public int GetSelectedQuantity() { return SelectedQuantity; }
 
         public string GetName() { return Name; }

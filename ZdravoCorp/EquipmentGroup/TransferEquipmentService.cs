@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.EquipmentGroup
 {
@@ -19,9 +21,27 @@ namespace ZdravoCorp.EquipmentGroup
             
         }
 
-        public static void SaveStaticTransferRequest()
+        public static bool SaveStaticTransferRequest(ItemCollection gridItems, bool fromWarehouse, string roomFrom, string roomTo, DateTime transferDate)
         {
+            List<AlteredEquipmentQuantity> itemsForTransfer = new List<AlteredEquipmentQuantity>();
+            foreach (AlteredEquipmentQuantity item in gridItems)
+            {
+                if (item.GetSelectedQuantity() != 0)
+                {
+                    itemsForTransfer.Add(item);
+                }
 
+            }
+            if (itemsForTransfer.Count > 0)
+            {
+
+                StaticEquipmentTransferRequest request = new StaticEquipmentTransferRequest(false, fromWarehouse, roomFrom, roomTo, transferDate, itemsForTransfer);
+
+                StaticEquipmentTransferRequestRepository.Save(request);
+                return true;
+                
+            }
+            return false;
         }
 
         public static void StaticTransferFromWarehouseToRoom(string RoomTo)

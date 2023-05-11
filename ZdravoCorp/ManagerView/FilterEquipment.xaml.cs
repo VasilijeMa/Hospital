@@ -63,7 +63,7 @@ namespace ZdravoCorp.ManagerView
 
             AllEquipment = EquipmentRepository.LoadAll();
             AllRooms = RoomRepository.LoadAll();
-            AllFunctionalItems = FunctionalItem.LoadAll();
+            AllFunctionalItems = FunctionalItemRepository.LoadAll();
             AllStoredItems = WarehouseRepository.Load();
 
             EquipmentOrganization = new Dictionary<string, EquipmentQuantity>();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -18,16 +17,16 @@ using ZdravoCorp.EquipmentGroup;
 namespace ZdravoCorp.ManagerView
 {
     /// <summary>
-    /// Interaction logic for TransferEquipmentPopup.xaml
+    /// Interaction logic for TransferDynamicEquipmentPopup.xaml
     /// </summary>
-    public partial class TransferStaticEquipmentPopup : Window
+    public partial class TransferDynamicEquipmentPopup : Window
     {
         public bool NoItems;
         bool FromWarehouse;
         string RoomFrom;
         string RoomTo;
         public BindingList<AlteredEquipmentQuantity> AllQuantities { get; set; }
-        public TransferStaticEquipmentPopup(bool fromWarehouse, string roomFrom, string roomTo)
+        public TransferDynamicEquipmentPopup(bool fromWarehouse, string roomFrom, string roomTo)
         {
             DataContext = this;
 
@@ -39,16 +38,15 @@ namespace ZdravoCorp.ManagerView
             RefreshDataGrid();
             InitializeComponent();
 
-            TransferDatePicker.Value = DateTime.Now;
             TransferDescription.Content = "Transferring items from:\n" + RoomFrom + "\n\nto:\n" + RoomTo;
-            
+            InitializeComponent();
         }
 
         public void RefreshDataGrid()
         {
-            NoItems=true;
+            NoItems = true;
             AllQuantities.Clear();
-            Dictionary<string, EquipmentQuantity> equipmentOrganization = EquipmentRepository.LoadOnlyStaticOrDynamic(false);
+            Dictionary<string, EquipmentQuantity> equipmentOrganization = EquipmentRepository.LoadOnlyStaticOrDynamic(true);
             if (FromWarehouse)
             {
                 EquipmentRepository.LoadQuantitiesFromWarehouse(ref equipmentOrganization);
@@ -57,8 +55,9 @@ namespace ZdravoCorp.ManagerView
             {
                 EquipmentRepository.LoadQuantitiesFromRoom(ref equipmentOrganization, RoomFrom);
             }
-            foreach(EquipmentQuantity equipmentQuantity in equipmentOrganization.Values) {
-                if(equipmentQuantity.Quantity > 0)
+            foreach (EquipmentQuantity equipmentQuantity in equipmentOrganization.Values)
+            {
+                if (equipmentQuantity.Quantity > 0)
                 {
                     AllQuantities.Add(new AlteredEquipmentQuantity(equipmentQuantity.GetName(), equipmentQuantity.GetQuantity()));
                     NoItems = false;
@@ -68,24 +67,30 @@ namespace ZdravoCorp.ManagerView
 
         private void TransferClick(object sender, RoutedEventArgs e)
         {
-            DateTime transferDate = TransferDatePicker.Value ?? DateTime.Now;
-            if(transferDate <= DateTime.Now) {
-                System.Windows.MessageBox.Show("Date of transfer must be in the future!");
+            bool wasSaveSuccessful = TransferEquipmentService.MoveDynamicEquipment(TransferGrid.Items, FromWarehouse, RoomFrom, RoomTo);
+            if (wasSaveSuccessful)
+            {
+                MessageBox.Show("Items transferred successfully.");
+
+                IEnumerable<TransferDynamicEquipment> windowsForUpdate = null;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    windowsForUpdate = Application.Current.Windows.OfType<TransferDynamicEquipment>();
+                });
+
+                foreach (TransferDynamicEquipment window in windowsForUpdate)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        window.RefreshDataGrid();
+                    });
+                }
+
+                Close();
             }
             else
             {
-                bool wasSaveSuccessful = TransferEquipmentService.SaveStaticTransferRequest(TransferGrid.Items, FromWarehouse, RoomFrom, RoomTo, transferDate);
-                if(wasSaveSuccessful)
-                {
-                    MessageBox.Show("Transfer request recorded.");
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("You haven't chosen any items to transfer.");
-                    Close();
-                }
-                
+                MessageBox.Show("You haven't chosen any items to transfer.");
             }
         }
     }

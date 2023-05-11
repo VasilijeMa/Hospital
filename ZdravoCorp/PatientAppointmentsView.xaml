@@ -10,6 +10,8 @@
         <DataGrid x:Name="dgAppointments" IsReadOnly="True" ItemsSource="{Binding Appointment}" Margin="0,0,0,121" FontSize="25" SelectionChanged="dgAppointments_SelectionChanged"/>
         <Button x:Name="btnOpenAnamnesis" Content="Open Anamnesis" HorizontalAlignment="Left" Margin="10,442,0,36" FontSize="25" Width="207" Click="btnOpenAnamnesis_Click" IsEnabled="False"/>
         <Button x:Name="btnExit" Content="Exit" Margin="890,442,59,36" FontSize="25" Click="btnExit_Click"/>
+        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="267,442,0,36" TextWrapping="Wrap" Text="" Width="242" FontSize="25"/>
+        <Button Name="btnSearch" Content="Search" Margin="549,442,0,36" FontSize="25" HorizontalAlignment="Left" Width="153" Click="btnSearch_Click"/>
 
     </Grid>
 </Window>

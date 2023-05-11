@@ -34,6 +34,7 @@ namespace ZdravoCorp
 
         private void LoadAppointmentsInDataGrid()
         {
+            dgAppointments.ItemsSource = null;
             DataTable dt = new DataTable();
             dt.Columns.Add("Id", typeof(int));
             dt.Columns.Add("Date", typeof(string));
@@ -90,6 +91,33 @@ namespace ZdravoCorp
                 return;
             }
             btnOpenAnamnesis.IsEnabled = true;
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbSearch.Text == "")
+            {
+                anamneses = singleton.anamnesis;
+            }
+            else
+            {
+                anamneses = GetAnamnesesContainingSubstring(tbSearch.Text.ToUpper());
+            }
+            LoadAppointmentsInDataGrid();
+            anamneses = singleton.anamnesis;
+        }
+
+        private List<Anamnesis> GetAnamnesesContainingSubstring(string search)
+        {
+            List<Anamnesis> tempAnamneses = new List<Anamnesis>();
+            foreach (Anamnesis anamnesis in anamneses)
+            {
+                if (anamnesis.DoctorsObservation.ToUpper().Contains(search) || anamnesis.DoctorsConclusion.ToUpper().Contains(search))
+                {
+                    tempAnamneses.Add(anamnesis);
+                }
+            }
+            return tempAnamneses;
         }
     }
 }

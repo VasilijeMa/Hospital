@@ -14,7 +14,7 @@ namespace ZdravoCorp
     {
         private const int TIME_SLOT_TOLERANCE = 1;
         private const int APPOINTMENT_DURATION = 15;
-        public List<Appointment> todaysAppointments { get; set; } 
+        public List<Appointment> todaysAppointments { get; set; }
         public List<Appointment> appointments { get; set; }
         public Dictionary<DateTime, List<Appointment>> dailyAppointments { get; set; }
         public Schedule()
@@ -179,7 +179,7 @@ namespace ZdravoCorp
                     if (doctor.IsAvailable(freeTimeSlot) && patient.IsAvailable(freeTimeSlot))
                     {
                         if (!AppointmentTimeOverlaps(closestAppointments, freeTimeSlot, doctor.Id)) continue;
-                        Appointment appointment = new Appointment(getLastId() + 1, freeTimeSlot, doctor.Id, patientId);
+                        Appointment appointment = new Appointment(getLastId() + 1, freeTimeSlot, doctor.Id, patientId, "");
                         closestAppointments.Add(appointment);
                         if (closestAppointments.Count() == 3) break;
                     }
@@ -223,7 +223,7 @@ namespace ZdravoCorp
             List<Appointment> closestAppointments = new List<Appointment>();
             foreach (var slot in tempTimeSlot)
             {
-                closestAppointments.Add(new Appointment(getLastId() + 1, slot, doctor.Id, patientId));
+                closestAppointments.Add(new Appointment(getLastId() + 1, slot, doctor.Id, patientId, ""));
             }
             return closestAppointments;
         }
@@ -240,7 +240,7 @@ namespace ZdravoCorp
         {
             for (DateTime currentDate = DateTime.Now; currentDate.Date <= appointmentRequest.LatestDate; currentDate = currentDate.AddDays(1))
             {
-    
+
                 DateTime startTime = GetStartTime(currentDate, appointmentRequest.EarliesTime);
                 DateTime endTime = GetEndTime(currentDate, appointmentRequest.LatestTime);
                 int duration = (int)(endTime - startTime).TotalMinutes;
@@ -295,7 +295,7 @@ namespace ZdravoCorp
         public TimeSlot MakeTimeSlotForPatient(TimeSlot timeSlot, int patientId)
         {
             Patient patient = Patient.getById(patientId);
-            for(DateTime currentDate = timeSlot.start; currentDate <= timeSlot.start.AddMinutes(timeSlot.duration-15); currentDate = currentDate.AddMinutes(1))
+            for (DateTime currentDate = timeSlot.start; currentDate <= timeSlot.start.AddMinutes(timeSlot.duration - 15); currentDate = currentDate.AddMinutes(1))
             {
                 TimeSlot founded = new TimeSlot(currentDate, APPOINTMENT_DURATION);
                 if (!patient.IsAvailable(founded)) continue;
@@ -329,7 +329,8 @@ namespace ZdravoCorp
             }
         }
 
-        public List<Appointment> GetTodaysAppontments() {
+        public List<Appointment> GetTodaysAppontments()
+        {
             List<Appointment> todayAppointments = new List<Appointment>();
             foreach (Appointment appointment in appointments)
             {

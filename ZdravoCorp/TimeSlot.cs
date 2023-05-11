@@ -25,16 +25,39 @@ namespace ZdravoCorp
         }
 
         public bool OverlapWith(TimeSlot timeSlot)
-        {   
-            if(this.start.Date == timeSlot.start.Date)
+        {
+            bool isAtDifferentTime = start> timeSlot.start.AddMinutes(timeSlot.duration) || start.AddMinutes(duration) < timeSlot.start;
+            if (!isAtDifferentTime)
             {
-                bool isAtDifferentTime = start.TimeOfDay > timeSlot.start.AddMinutes(timeSlot.duration).TimeOfDay || start.AddMinutes(duration).TimeOfDay < timeSlot.start.TimeOfDay;
-                if (!isAtDifferentTime)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
+        }
+
+        public List<TimeSlot> Split(TimeSlot timeSlot)
+        {
+            List<TimeSlot> timeSlots = new List<TimeSlot>();
+            if (timeSlot.start > start && timeSlot.start.AddMinutes(timeSlot.duration) < start.AddMinutes(duration))
+            {
+                timeSlots.Add(new TimeSlot(start, (int)(timeSlot.start - start).TotalMinutes));
+                timeSlots.Add(new TimeSlot(timeSlot.start.AddMinutes(timeSlot.duration), (int)(start.AddMinutes(duration) - timeSlot.start.AddMinutes(timeSlot.duration)).TotalMinutes));
+            }
+            else if (timeSlot.start <= start)
+            {
+                if (timeSlot.start.AddMinutes(timeSlot.duration) <= start.AddMinutes(duration))
+                {
+                    timeSlots.Add(new TimeSlot(timeSlot.start.AddMinutes(timeSlot.duration), (int)(start.AddMinutes(duration) - timeSlot.start.AddMinutes(timeSlot.duration)).TotalMinutes));
+                }
+                else
+                {
+                    timeSlots.Add(new TimeSlot(new DateTime(), 0));
+                }
+            }
+            else if (timeSlot.start < start.AddMinutes(duration))
+            {
+                timeSlots.Add(new TimeSlot(start, (int)(timeSlot.start - start).TotalMinutes));
+            }
+            return timeSlots;
         }
     }
 }

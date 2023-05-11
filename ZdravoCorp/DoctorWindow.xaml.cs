@@ -32,8 +32,20 @@ namespace ZdravoCorp
             lastNameTxt.Text = doctor.LastName;
             idTxt.Text = doctor.Id.ToString();
             specializationTxt.Text = doctor.Specialization.ToString();
+            showNotification();
         }
 
+        private void showNotification() {
+            foreach (NotificationAboutCancelledAppointment notification in Singleton.Instance.notificationAboutCancelledAppointment) {
+                if ((notification.DoctorId == this.doctor.Id)&&(!notification.isShown)) {
+                    MessageBox.Show("Your appointment with id: " + notification.AppointmenntId.ToString() + " is cancalled.");
+                    notification.isShown = true;
+                    Singleton.Instance.notificationAboutCancelledAppointment.Add(notification);
+                    notification.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
+                    return;
+                }
+            }
+        }
         private void MakeAppointmentClick(object sender, RoutedEventArgs e)
         {
             MakeAppointmentDoctor appointmentDoctor = new MakeAppointmentDoctor(doctor, false);

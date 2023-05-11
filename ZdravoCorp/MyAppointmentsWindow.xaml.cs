@@ -81,11 +81,11 @@ namespace ZdravoCorp
                 return;
             }
             MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel the appointment?", "Congfirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 ((DataRowView)dgAppointments.SelectedItem).Row["IsCanceled"] = true;
                 btnCancel.IsEnabled = false;
-                singleton.Schedule.CancelAppointment((int)((DataRowView)dgAppointments.SelectedItem).Row["Id"]);
+                singleton.Schedule.CancelAppointment(appointment.Id);
                 singleton.Log.UpdateCancelElement(appointment, patient);
                 if (patient.IsBlocked)
                 {
@@ -102,7 +102,7 @@ namespace ZdravoCorp
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             DataRowView item = dgAppointments.SelectedItem as DataRowView;
-            if(item == null)
+            if (item == null)
             {
                 MessageBox.Show("Appointment is not selected.");
                 return;

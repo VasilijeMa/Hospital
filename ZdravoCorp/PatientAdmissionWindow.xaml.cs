@@ -69,7 +69,7 @@ namespace ZdravoCorp
                 return;
             }
             Appointment selectedAppointment = Singleton.Instance.Schedule.todaysAppointments[selectedIndex]; 
-            AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,true);
+            AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,ConfigRoles.Nurse);
             anamnesisView.ShowDialog();
         }
     }

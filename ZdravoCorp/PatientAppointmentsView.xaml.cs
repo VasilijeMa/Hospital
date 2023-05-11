@@ -35,20 +35,13 @@ namespace ZdravoCorp
         private void LoadAppointmentsInDataGrid()
         {
             dgAppointments.ItemsSource = null;
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Id", typeof(int));
-            dt.Columns.Add("Date", typeof(string));
-            dt.Columns.Add("Time", typeof(string));
-            dt.Columns.Add("DoctorName", typeof(string));
-            dt.Columns.Add("DoctorSpetialization", typeof(string));
-            dt.Columns.Add("IsCanceled", typeof(bool));
-            dt.Columns.Add("Anamnesis", typeof(string));
+            DataTable dt = AddColumns();
             foreach (Anamnesis anamnesis in anamneses)
             {
                 if (anamnesis.PatientId == patient.Id)
                 {
                     Appointment appointment = singleton.Schedule.GetAppointment(anamnesis.AppointmentId);
-                    Doctor doctor = GetDoctor(appointment.DoctorId);
+                    Doctor doctor = appointment.getDoctor();
                     if (appointment.TimeSlot.start.Date > DateTime.Now.Date) continue;
                     dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"),
                         appointment.TimeSlot.start.TimeOfDay.ToString(@"hh\:mm"), doctor.FirstName + " " + doctor.LastName,
@@ -58,17 +51,19 @@ namespace ZdravoCorp
             dgAppointments.ItemsSource = dt.DefaultView;
         }
 
-        private Doctor GetDoctor(int id)
+        private static DataTable AddColumns()
         {
-            foreach(Doctor doctor in singleton.doctors)
-            {
-                if(doctor.Id == id)
-                {
-                    return doctor;
-                }
-            }
-            return null;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id", typeof(int));
+            dt.Columns.Add("Date", typeof(string));
+            dt.Columns.Add("Time", typeof(string));
+            dt.Columns.Add("DoctorName", typeof(string));
+            dt.Columns.Add("DoctorSpetialization", typeof(string));
+            dt.Columns.Add("IsCanceled", typeof(bool));
+            dt.Columns.Add("Anamnesis", typeof(string));
+            return dt;
         }
+
         private void btnOpenAnamnesis_Click(object sender, RoutedEventArgs e)
         {
             DataRowView item = dgAppointments.SelectedItem as DataRowView;
@@ -77,7 +72,9 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
-
+            Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["Id"]);
+            AnamnesisView anamnesisView = new AnamnesisView(appointment, ConfigRoles.Patient);
+            anamnesisView.ShowDialog();
         }
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
@@ -107,12 +104,12 @@ namespace ZdravoCorp
             anamneses = singleton.anamnesis;
         }
 
-        private List<Anamnesis> GetAnamnesesContainingSubstring(string search)
+        private List<Anamnesis> GetAnamnesesContainingSubstring(string keyword)
         {
             List<Anamnesis> tempAnamneses = new List<Anamnesis>();
             foreach (Anamnesis anamnesis in anamneses)
             {
-                if (anamnesis.DoctorsObservation.ToUpper().Contains(search) || anamnesis.DoctorsConclusion.ToUpper().Contains(search))
+                if (anamnesis.DoctorsObservation.ToUpper().Contains(keyword) || anamnesis.DoctorsConclusion.ToUpper().Contains(keyword))
                 {
                     tempAnamneses.Add(anamnesis);
                 }

@@ -32,7 +32,7 @@ namespace ZdravoCorp
         Appointment selectedAppointment;
 
 
-        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse, Appointment selectedAppointment=null, bool startAppointment=false)
+        public CreateMedicalRecordWindow(bool createoredit, Patient patient, bool doctorornurse, Appointment selectedAppointment = null, bool startAppointment = false)
         {
             InitializeComponent();
             this.createoredit = createoredit;
@@ -74,7 +74,7 @@ namespace ZdravoCorp
             anamnesis.Text = selectedRecord.Anamnesis;
         }
 
-        private bool isNumeric(String number) 
+        private bool isNumeric(String number)
         {
             int n;
             bool isNumeric = int.TryParse(number, out n);
@@ -87,7 +87,7 @@ namespace ZdravoCorp
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
             }
-            if (!(isDouble(height.Text) && isDouble(weight.Text))) 
+            if (!(isDouble(height.Text) && isDouble(weight.Text)))
             {
                 MessageBox.Show("Weight and height should be numbers.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
@@ -126,7 +126,8 @@ namespace ZdravoCorp
             }
         }
 
-        public MedicalRecord createMedicalRecordObject() {
+        public MedicalRecord createMedicalRecordObject()
+        {
             if (!createoredit)
             {
                 Singleton.Instance.medicalRecords.Remove(selectedRecord);
@@ -140,7 +141,8 @@ namespace ZdravoCorp
             return newMedicalRecord;
         }
 
-        public void addToPatients(Patient newPatient) {
+        public void addToPatients(Patient newPatient)
+        {
             Singleton.Instance.patients.Remove(patient);
             User.RemoveUser(patient.Username);
             User.WriteAll(Singleton.Instance.users);
@@ -156,13 +158,22 @@ namespace ZdravoCorp
             newMedicalRecord.WriteAll(Singleton.Instance.medicalRecords);
         }
 
-        public void addToUsers(Patient newPatient) {
+        public void addToUsers(Patient newPatient)
+        {
             Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
-           // User.WriteAll(Singleton.Instance.users);
+            // User.WriteAll(Singleton.Instance.users);
         }
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
         {
-            AnamnesisView anamnesis = new AnamnesisView(selectedAppointment,false);
+            AnamnesisView anamnesis;
+            if (doctorornurse)
+            {
+                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Doctor);
+            }
+            else
+            {
+                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Nurse);
+            }
             anamnesis.ShowDialog();
         }
 

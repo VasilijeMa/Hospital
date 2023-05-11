@@ -98,7 +98,7 @@ namespace ZdravoCorp
         }
 
         private bool isValid() {
-            if (isNurse)
+            if (role == ConfigRoles.Nurse)
             {
                 return isValidForNurseInput();
             }

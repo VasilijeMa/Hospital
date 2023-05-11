@@ -34,7 +34,6 @@ namespace ZdravoCorp
                 MessageBox.Show("All rooms are full.");
                 return null;
             }
-
             int id = getLastId() + 1;
             Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id, roomId);
             appointments.Add(appointment);

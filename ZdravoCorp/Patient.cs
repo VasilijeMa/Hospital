@@ -68,6 +68,14 @@ namespace ZdravoCorp
             return null;
         }
 
+        public static Patient getByUsername(String username) {
+            foreach (Patient patient in Singleton.Instance.patients) {
+                if (patient.Username == username) {
+                    return patient;
+                }
+            }
+            return null;
+        }
         public MedicalRecord getMedicalRecord()
         {
             foreach (MedicalRecord medicalRecord in Singleton.Instance.medicalRecords)

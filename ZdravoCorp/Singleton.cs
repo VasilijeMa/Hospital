@@ -24,6 +24,7 @@ namespace ZdravoCorp
 
         public List<Anamnesis> anamnesis;
 
+        public List<NotificationAboutCancelledAppointment> notificationAboutCancelledAppointment;
         public static Singleton Instance
         {
             get 
@@ -45,6 +46,7 @@ namespace ZdravoCorp
             medicalRecords = MedicalRecord.LoadAll();
             anamnesis = Anamnesis.LoadAll();
             users = User.LoadAll();
+            notificationAboutCancelledAppointment = NotificationAboutCancelledAppointment.LoadAll();
         }
     }
 }

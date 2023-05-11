@@ -82,5 +82,19 @@
     "Symptoms": "bol u grlu",
     "DoctorsObservation": "crveno grlo",
     "DoctorsConclusion": "lek"
+  },
+  {
+    "AppointmentId": 45,
+    "PatientId": 1,
+    "Symptoms": "bol u glavi",
+    "DoctorsObservation": "bolest",
+    "DoctorsConclusion": "lek"
+  },
+  {
+    "AppointmentId": 46,
+    "PatientId": 2,
+    "Symptoms": "bolll",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
   }
 ]

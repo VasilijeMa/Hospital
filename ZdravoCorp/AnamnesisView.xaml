@@ -15,6 +15,6 @@ Title="AnamnesisView" Height="400" Width="850" Icon="/icon.png" WindowStartupLoc
         <TextBox Name="DoctorConclusion" HorizontalAlignment="Left" Margin="358,207,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="60" Width="260"/>
         <Button Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="223,308,0,0" VerticalAlignment="Top" Width="100" Height="33" Click="SubmitClick"/>
         <Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="367,308,0,0" VerticalAlignment="Top" Width="100" Height="33" Click="CancelClick"/>
-        <Button Click="useUpDynamicEquipment" Content="Update equipment" HorizontalAlignment="Left" Margin="507,305,0,0" VerticalAlignment="Top" Width="106" Height="33"/>
+        <Button Name="btnChangeEquipment" Click="useUpDynamicEquipment" Content="Update equipment" HorizontalAlignment="Left" Margin="507,305,0,0" VerticalAlignment="Top" Width="106" Height="33"/>
     </Grid>
 </Window>

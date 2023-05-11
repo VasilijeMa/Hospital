@@ -50,11 +50,11 @@ namespace ZdravoCorp
 
         private void SubmitClick(object sender, RoutedEventArgs e)
         {
-            if (isAlreadyExsist(selectedAppointment.Id))
+            /*if (isAlreadyExsist(selectedAppointment.Id))
             {
                 MessageBox.Show("USLO");
                 return;
-            }
+            }*/
 
             if (isValid()) {
                 if (isNurse)
@@ -70,6 +70,7 @@ namespace ZdravoCorp
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
                     //Singleton.Instance.anamnesis.Add(anamnesis);
                     //anamnesis.WriteAll(Singleton.Instance.anamnesis);
+                    anamnesis.WriteAll(Singleton.Instance.anamnesis);
                     MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 }
             }
@@ -159,7 +160,7 @@ namespace ZdravoCorp
             MedicalRecord medicalRecord = patient.getMedicalRecord();
             medicalRecord.EarlierIllnesses.Add(EarlierIllness.Text);
             medicalRecord.Allergens.Add(Allergies.Text);
-
+            medicalRecord.WriteAll(Singleton.Instance.medicalRecords);
         }
 
         private void createAnamnesisObject()

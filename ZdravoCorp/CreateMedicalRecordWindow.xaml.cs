@@ -81,15 +81,16 @@ namespace ZdravoCorp
             {
                 allergen.Text += oneAllergen + ", ";
             }
-
+            
         }
 
-        private bool isNumeric(String number) 
+        /*private bool isNumeric(String number) 
         {
             int n;
             bool isNumeric = int.TryParse(number, out n);
             return isNumeric;
-        }
+        }*/
+
         private bool isValid()
         {
             if ((height.Text.Length == 0) || (weight.Text.Length == 0) || (anamnesis.Text.Length == 0))
@@ -175,6 +176,7 @@ namespace ZdravoCorp
             Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
             User.WriteAll(Singleton.Instance.users);
         }
+
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
         {
             Anamnesis findAnamnesis = findAnamnesisById(selectedAppointment);
@@ -185,7 +187,7 @@ namespace ZdravoCorp
             }
             AnamnesisView view = new AnamnesisView(selectedAppointment, false);
             view.ShowDialog();
-            LoadFields();
+            //LoadFields();
         }
 
         public bool isDouble(string data)

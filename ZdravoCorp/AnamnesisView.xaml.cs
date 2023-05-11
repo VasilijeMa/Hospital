@@ -35,6 +35,7 @@ namespace ZdravoCorp
         {
             if (role == ConfigRoles.Nurse)
             {
+                btnChangeEquipment.Visibility = Visibility.Visible;
                 DoctorConclusion.IsReadOnly = true;
                 DoctorObservation.IsReadOnly = true;
             }

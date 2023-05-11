@@ -66,41 +66,63 @@ namespace ZdravoCorp
             weight.Text = selectedRecord.Weight.ToString();
             foreach (string oneAnamnesis in selectedRecord.EarlierIllnesses)
             {
-                anamnesis.Text += oneAnamnesis + ", ";
+                earlyIlnness.Text += oneAnamnesis + ", ";
             }
-            anamnesis.Text = anamnesis.Text.Substring(0, anamnesis.Text.Length - 2);
+            earlyIlnness.Text = earlyIlnness.Text.Substring(0, earlyIlnness.Text.Length - 2);
             foreach (string oneAllergen in selectedRecord.Allergens)
             {
-                allergen.Text += oneAllergen + ", ";
+                alergy.Text += oneAllergen + ", ";
             }
-            allergen.Text = allergen.Text.Substring(0, allergen.Text.Length - 2);
+            alergy.Text = alergy.Text.Substring(0, alergy.Text.Length - 2);
 
         }
 
         private void addEarlyIllness(object sender, RoutedEventArgs e)
         {
             string inputIllness = inputDialogT("illness");
+            if (inputIllness == "")
+            {
+                return;
+            }
             selectedRecord.EarlierIllnesses.Add(inputIllness);
-            anamnesis.Text += ", " + inputIllness;
+            earlyIlnness.Text += ", " + inputIllness;
         }
 
         private void addAlergyClick(object sender, RoutedEventArgs e)
         {
             string inputAlergy = inputDialogT("alergy");
+            if (inputAlergy == "")
+            {
+                return;
+            }
             selectedRecord.Allergens.Add(inputAlergy);
-            allergen.Text += ", " + inputAlergy;
+            alergy.Text += ", " + inputAlergy;
         }
 
         private string inputDialogT(string type)
         {
             string input = Interaction.InputBox("Please enter " + type + ": ", "Input dialog");
             if (input == "") return "";
-            foreach (string alergy in selectedRecord.Allergens)
+            if (type == "alergy")
             {
-                if (alergy == input)
+                foreach (string alergy in selectedRecord.Allergens)
                 {
-                    MessageBox.Show(type + " already exists.");
-                    return "";
+                    if (alergy == input)
+                    {
+                        MessageBox.Show(type + " already exists.");
+                        return "";
+                    }
+                }
+            }
+            else
+            {
+                foreach (string ilnness in selectedRecord.EarlierIllnesses)
+                {
+                    if (ilnness == input)
+                    {
+                        MessageBox.Show(type + " already exists.");
+                        return "";
+                    }
                 }
             }
             return input;
@@ -108,7 +130,7 @@ namespace ZdravoCorp
 
         private bool isValid()
         {
-            if ((height.Text.Length == 0) || (weight.Text.Length == 0) || (anamnesis.Text.Length == 0))
+            if ((height.Text.Length == 0) || (weight.Text.Length == 0) || (earlyIlnness.Text.Length == 0))
             {
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
@@ -125,7 +147,7 @@ namespace ZdravoCorp
         {
             height.Clear();
             weight.Clear();
-            anamnesis.Clear();
+            earlyIlnness.Clear();
         }
 
         public void cancel_Click(object sender, RoutedEventArgs e)
@@ -172,8 +194,8 @@ namespace ZdravoCorp
         {
             medicalRecord.Height = double.Parse(height.Text);
             medicalRecord.Weight = double.Parse(weight.Text);
-            medicalRecord.EarlierIllnesses = anamnesis.Text.Split(", ").ToList();
-            medicalRecord.Allergens = allergen.Text.Split(", ").ToList();
+            medicalRecord.EarlierIllnesses = earlyIlnness.Text.Split(", ").ToList();
+            medicalRecord.Allergens = alergy.Text.Split(", ").ToList();
         }
 
         public void addToPatients(Patient newPatient)

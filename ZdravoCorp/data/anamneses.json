@@ -5,8 +5,8 @@
     "Symptoms": "kasalj",
     "Alergies": "polen",
     "EarlierIllness": "astma",
-    "DoctorsObservation": "",
-    "DoctorsConclusion": ""
+    "DoctorsObservation": "Upaljeno grlo",
+    "DoctorsConclusion": "Neki sprej"
   },
   {
     "AppointmentId": 1,
@@ -14,7 +14,7 @@
     "Symptoms": "nista",
     "Alergies": "nista",
     "EarlierIllness": "nista",
-    "DoctorsObservation": "",
-    "DoctorsConclusion": ""
+    "DoctorsObservation": "Nema vidljivih simptoma",
+    "DoctorsConclusion": "Odmor"
   }
 ]

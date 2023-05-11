@@ -65,5 +65,11 @@ namespace ZdravoCorp
         {
             singleton.Schedule.WriteAllAppointmens();
         }
+
+        private void MedicalRecord_Click(object sender, RoutedEventArgs e)
+        {
+            PatientAppointmentsView patientAppointmentsView = new PatientAppointmentsView(patient);
+            patientAppointmentsView.ShowDialog();
+        }
     }
 }

@@ -10,16 +10,21 @@
 
   <ItemGroup>
     <None Remove="icon.png" />
+    <None Remove="search.png" />
+    <None Remove="search2.png" />
     <None Remove="user.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="icon.png" />
+    <Resource Include="search.png" />
+    <Resource Include="search2.png" />
     <Resource Include="user.png" />
   </ItemGroup>
 

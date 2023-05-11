@@ -31,8 +31,21 @@ namespace ZdravoCorp
             nameTxt.Text = doctor.FirstName;
             lastNameTxt.Text = doctor.LastName;
             idTxt.Text = doctor.Id.ToString();
+            specializationTxt.Text = doctor.Specialization.ToString();
+            showNotification();
         }
 
+        private void showNotification() {
+            foreach (NotificationAboutCancelledAppointment notification in Singleton.Instance.notificationAboutCancelledAppointment) {
+                if ((notification.DoctorId == this.doctor.Id)&&(!notification.isShown)) {
+                    MessageBox.Show("Your appointment with id: " + notification.AppointmenntId.ToString() + " is cancalled.");
+                    notification.isShown = true;
+                    Singleton.Instance.notificationAboutCancelledAppointment.Add(notification);
+                    notification.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
+                    return;
+                }
+            }
+        }
         private void MakeAppointmentClick(object sender, RoutedEventArgs e)
         {
             MakeAppointmentDoctor appointmentDoctor = new MakeAppointmentDoctor(doctor, false);
@@ -41,7 +54,7 @@ namespace ZdravoCorp
 
         private void ViewOneDayAppointmentClick(object sender, RoutedEventArgs e)
         {
-            this.appointments = doctor.GetAllAppointments(DateTime.Now, DateTime.Now);
+            this.appointments = doctor.GetAllAppointments(DateTime.Now.Date, DateTime.Now.Date);
             ViewAppointment appointmentDoctor = new ViewAppointment(appointments, doctor, 1);
             appointmentDoctor.Show();
         }
@@ -49,9 +62,22 @@ namespace ZdravoCorp
         private void ViewThreeDayAppointmentClick(object sender, RoutedEventArgs e)
         {
             DateTime endDate = DateTime.Now.AddDays(3);
-            this.appointments = doctor.GetAllAppointments(DateTime.Now, endDate);
+            this.appointments = doctor.GetAllAppointments(DateTime.Now.Date, endDate.Date);
             ViewAppointment appointmentDoctor = new ViewAppointment(appointments, doctor, 3);
             appointmentDoctor.Show();
+        }
+
+        private void DailyScheduleClick(object sender, RoutedEventArgs e)
+        {
+            this.appointments = doctor.GetAllAppointments(DateTime.Now.Date, DateTime.Now.Date);
+            DailyAppointmentView dailySchedule = new DailyAppointmentView(appointments, doctor);
+            dailySchedule.ShowDialog();
+        }
+
+        private void SearchPatientClick(object sender, RoutedEventArgs e)
+        {
+            SearchPatientWindow searchPatient = new SearchPatientWindow(doctor);
+            searchPatient.Show();
         }
 
         private void LogOutClick(object sender, RoutedEventArgs e)

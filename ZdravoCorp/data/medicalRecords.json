@@ -1,38 +1,60 @@
 [
   {
+    "Id": 7,
+    "EarlierIllnesses": [
+      "bol u grlu",
+      "upala pluca"
+    ],
+    "Allergens": [
+      "polen",
+      "prasina"
+    ],
+    "Height": 80.0,
+    "Weight": 179.0
+  },
+  {
     "Id": 1,
-    "Anamnesis": "anamnesis",
-    "Height": 182.2,
-    "Weight": 90.0
-  },
-  {
-    "Id": 2,
-    "Anamnesis": "bol u grlu",
-    "Height": 186.0,
-    "Weight": 80.0
-  },
-  {
-    "Id": 3,
-    "Anamnesis": "svakodnevne migrene",
-    "Height": 170.0,
-    "Weight": 62.0
-  },
-  {
-    "Id": 4,
-    "Anamnesis": "bol u grlu",
-    "Height": 190.0,
-    "Weight": 80.0
+    "EarlierIllnesses": [
+      "anamnesis",
+      "nist",
+      "nis",
+      "ambrozija",
+      "vanja",
+      "vanjaaa"
+    ],
+    "Allergens": [
+      "polen",
+      "nist",
+      ""
+    ],
+    "Height": 187.5,
+    "Weight": 95.0
   },
   {
     "Id": 5,
-    "Anamnesis": "bol u grlu",
-    "Height": 190.0,
-    "Weight": 80.0
+    "EarlierIllnesses": [
+      "bol u grlu",
+      "migrena",
+      "visok pritisak"
+    ],
+    "Allergens": [
+      "polen",
+      "prasina"
+    ],
+    "Height": 190.5,
+    "Weight": 105.0
   },
   {
     "Id": 6,
-    "Anamnesis": "svakodnevna migrena",
-    "Height": 175.0,
-    "Weight": 60.0
+    "EarlierIllnesses": [
+      "svakodnevne migrene",
+      "nistaa"
+    ],
+    "Allergens": [
+      "polen",
+      "ambrozija"
+    ],
+    "Height": 170.0,
+    "Weight": 70.0
   }
 ]

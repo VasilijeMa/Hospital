@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
+using ZdravoCorp.ManagerView;
 
 namespace ZdravoCorp
 {
@@ -64,12 +65,11 @@ namespace ZdravoCorp
                     }
                     break;
 
-
                 case "nurse":
                     foreach (Nurse nurse in Singleton.Instance.nurses) {
                         if (user.Username == nurse.Username) {
                             NurseWindow nurseWindow = new NurseWindow(nurse);
-                            nurseWindow.Show();
+                            nurseWindow.ShowDialog();
                             break;
                         }
                     }
@@ -99,7 +99,6 @@ namespace ZdravoCorp
                     }
                     break;
                 default:
-                    // code block
                     break;
             }
         }

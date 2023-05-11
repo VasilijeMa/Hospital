@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ZdravoCorp
+namespace ZdravoCorp.ManagerView
 {
     /// <summary>
     /// Interaction logic for ManagerWindow.xaml
@@ -30,7 +30,25 @@ namespace ZdravoCorp
             newWindow.ShowDialog();
         }
 
-        private void LogOutClick(object sender, RoutedEventArgs e) {
+        private void OrderClick(object sender, RoutedEventArgs e)
+        {
+            OrderDynamicEquipment newWindow = new OrderDynamicEquipment();
+            newWindow.ShowDialog();
+        }
+
+        private void StaticTransferClick(object sender, RoutedEventArgs e)
+        {
+            TransferStaticEquipment newWindow = new TransferStaticEquipment();
+            newWindow.ShowDialog();
+        }
+
+        private void DynamicTransferClick(object sender, RoutedEventArgs e)
+        {
+            TransferDynamicEquipment newWindow = new TransferDynamicEquipment();
+            newWindow.ShowDialog();
+        }
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
             this.Close();
         }
     }

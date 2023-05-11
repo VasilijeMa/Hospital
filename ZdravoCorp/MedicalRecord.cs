@@ -13,15 +13,21 @@ namespace ZdravoCorp
     public class MedicalRecord
     {
         public int Id { get; set; }
-        public string Anamnesis { get; set; }
+        public List<string> EarlierIllnesses { get; set; }
+        public List<string> Allergens { get; set; }
         public double Height { get; set; }
         public double Weight { get; set; }
-        public MedicalRecord() { }
 
-        public MedicalRecord(int id,string anamnesis, double height, double weight)
+        public MedicalRecord() {
+            Allergens = new List<string>();
+            EarlierIllnesses = new List<string>();
+        }
+
+        public MedicalRecord(int id, List<string> earlierIllnesses, List<string> allergens, double height, double weight)
         {
             Id = id;
-            Anamnesis = anamnesis;
+            EarlierIllnesses = earlierIllnesses;
+            Allergens = allergens;
             Height = height;
             Weight = weight;
         }

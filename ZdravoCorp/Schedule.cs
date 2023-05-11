@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Ink;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
 {
@@ -13,13 +14,16 @@ namespace ZdravoCorp
     {
         private const int TIME_SLOT_TOLERANCE = 1;
         private const int APPOINTMENT_DURATION = 15;
+        public List<Appointment> todaysAppointments { get; set; } 
         public List<Appointment> appointments { get; set; }
         public Dictionary<DateTime, List<Appointment>> dailyAppointments { get; set; }
         public Schedule()
         {
             this.appointments = LoadAllAppointments();
             CreateAppointmentsMap();
+            this.todaysAppointments = GetTodaysAppontments();
         }
+
         public Schedule(List<Appointment> appointments)
         {
             this.appointments = appointments;
@@ -27,9 +31,16 @@ namespace ZdravoCorp
 
         public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
+            string roomId = Appointment.TakeRoom(timeSlot);
+            if (roomId == "")
+            {
+                MessageBox.Show("All rooms are full.");
+                return null;
+            }
             int id = getLastId() + 1;
-            Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id);
+            Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id, roomId);
             appointments.Add(appointment);
+            if (appointment.TimeSlot.start.Date == DateTime.Now.Date) this.todaysAppointments.Add(appointment);
             CreateAppointmentsMap();
             return appointment;
         }
@@ -318,5 +329,22 @@ namespace ZdravoCorp
             }
         }
 
+        public List<Appointment> GetTodaysAppontments() {
+            List<Appointment> todayAppointments = new List<Appointment>();
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.IsCanceled == false)
+                {
+                    if ((appointment.TimeSlot.start.ToShortDateString() == DateTime.Now.ToShortDateString()))
+                    {
+                        if (appointment.TimeSlot.start > DateTime.Now)
+                        {
+                            todayAppointments.Add(appointment);
+                        }
+                    }
+                }
+            }
+            return todayAppointments;
+        }
     }
 }

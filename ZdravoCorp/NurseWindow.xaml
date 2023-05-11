@@ -6,13 +6,9 @@
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
         Title="Nurse" Height="590" Width="900" WindowStartupLocation="CenterScreen" Icon="/icon.png">
-
-    <Grid x:Name="Layout" Background="#FFFFA7A7">
-        <Button x:Name="CreatePatient" Content="Create patient's account" HorizontalAlignment="Left" Height="40" Margin="92,400,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="createButton"/>
-        <Button x:Name="UpdatePatient" Content="Edit patient's data" HorizontalAlignment="Left" Height="40" Margin="92,450,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="updateButton"/>
-        <Button x:Name="DeletePatient" Content="Delete patient's account" HorizontalAlignment="Left" Height="40" Margin="92,500,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="deleteButton"/>
-        <DataGrid x:Name="datagrid" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Height="310" Margin="92,60,0,0" VerticalAlignment="Top" Width="750" Background="#FFE6D7D7" AutoGenerateColumns="True" AutomationProperties.IsRowHeader="True"/>
-
-
+    <Grid Background="#FFFFA7A7">
+        <Button x:Name="CRUDpatients" Content="CRUD patient" HorizontalAlignment="Left" Height="80" Margin="92,50,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="CRUDpatients_Click" />
+        <Button x:Name="PatientAdmission" Content="Admission of patients" HorizontalAlignment="Left" Height="80" Margin="92,150,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="PatientAdmission_Click"  />
+        <Button x:Name="Emergency" Content="Scheduling emergency examinations or surgeries" HorizontalAlignment="Left" Height="80" Margin="92,250,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="Emergency_Click"   />
     </Grid>
 </Window>

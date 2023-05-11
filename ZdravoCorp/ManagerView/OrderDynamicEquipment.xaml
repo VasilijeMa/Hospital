@@ -1,0 +1,26 @@
+﻿<Window x:Class="ZdravoCorp.ManagerView.OrderDynamicEquipment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp"
+        mc:Ignorable="d"
+        Title="OrderDynamicEquipment" Height="450" Width="800">
+    
+    <Grid>
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" ItemsSource="{Binding AllDepletingDynamicEquipment}" Height="150" Width="500" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="200"/>
+                <DataGridTemplateColumn Header="Order" Width="90">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Order" Click="OrderButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

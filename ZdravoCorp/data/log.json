@@ -8,7 +8,8 @@
       },
       "DoctorId": 1,
       "PatientId": 1,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:05:16.0123045+02:00",
     "Type": "make"
@@ -22,7 +23,8 @@
       },
       "DoctorId": 2,
       "PatientId": 1,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:06:25.8442046+02:00",
     "Type": "make"
@@ -36,7 +38,8 @@
       },
       "DoctorId": 2,
       "PatientId": 2,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:30:18.6237633+02:00",
     "Type": "make"
@@ -50,7 +53,8 @@
       },
       "DoctorId": 2,
       "PatientId": 2,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:30:48.3453664+02:00",
     "Type": "make"
@@ -64,7 +68,8 @@
       },
       "DoctorId": 1,
       "PatientId": 2,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:31:03.2550288+02:00",
     "Type": "make"
@@ -78,7 +83,8 @@
       },
       "DoctorId": 1,
       "PatientId": 3,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:32:02.313988+02:00",
     "Type": "make"
@@ -92,7 +98,8 @@
       },
       "DoctorId": 1,
       "PatientId": 3,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:32:23.2775322+02:00",
     "Type": "make"
@@ -106,7 +113,8 @@
       },
       "DoctorId": 1,
       "PatientId": 3,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:32:54.8444695+02:00",
     "Type": "make"
@@ -120,7 +128,8 @@
       },
       "DoctorId": 1,
       "PatientId": 1,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:37:56.4778505+02:00",
     "Type": "make"
@@ -134,37 +143,70 @@
       },
       "DoctorId": 2,
       "PatientId": 3,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
     "DateTime": "2023-04-17T23:38:36.3259478+02:00",
     "Type": "make"
   },
   {
     "Appointment": {
-      "Id": 12,
+      "Id": 14,
       "TimeSlot": {
-        "start": "2023-05-11T23:27:50.7281739+02:00",
+        "start": "2023-05-28T12:00:00",
         "duration": 15
       },
-      "DoctorId": 1,
+      "DoctorId": 2,
       "PatientId": 1,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": null
     },
-    "DateTime": "2023-05-11T23:12:50.7460071+02:00",
+    "DateTime": "2023-05-08T18:43:57.7035704+02:00",
     "Type": "make"
   },
   {
     "Appointment": {
-      "Id": 14,
+      "Id": 22,
       "TimeSlot": {
-        "start": "2023-05-12T02:00:00",
+        "start": "2023-05-11T12:00:00",
         "duration": 15
       },
-      "DoctorId": 1,
+      "DoctorId": 2,
       "PatientId": 1,
-      "IsCanceled": false
+      "IsCanceled": false,
+      "IdRoom": "Examination Room 1"
     },
-    "DateTime": "2023-05-11T23:16:23.6263139+02:00",
+    "DateTime": "2023-05-10T14:16:52.0314448+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 23,
+      "TimeSlot": {
+        "start": "2023-05-11T13:00:00",
+        "duration": 15
+      },
+      "DoctorId": 2,
+      "PatientId": 1,
+      "IsCanceled": false,
+      "IdRoom": "Examination Room 1"
+    },
+    "DateTime": "2023-05-10T14:32:00.4783523+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 24,
+      "TimeSlot": {
+        "start": "2023-05-11T16:00:00",
+        "duration": 15
+      },
+      "DoctorId": 3,
+      "PatientId": 1,
+      "IsCanceled": false,
+      "IdRoom": "Examination Room 1"
+    },
+    "DateTime": "2023-05-10T14:33:03.9755632+02:00",
     "Type": "make"
   }
 ]

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -10,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -18,188 +22,107 @@ using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
 {
-    /// <summary>
-    /// Interaction logic for CreateMedicalRecordWindow.xaml
-    /// </summary>
+
     public partial class CreateMedicalRecordWindow : Window
     {
-        bool createoredit;
-
-        List<String> usernames = new List<String>();
-        List<int> patientsIds = new List<int>();
-        List<int> recordsIds = new List<int>();
-
-        Patient selectedPatient;
+        bool doctor;
+        bool create;
+        Patient patient;
         MedicalRecord selectedRecord;
+        Appointment selectedAppointment;
 
-        int selectedIndex = 0;
-
-        public CreateMedicalRecordWindow(bool createoredit, Patient selectedPatient, bool doctorornurse)
+        public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment=null, bool update=false)
         {
             InitializeComponent();
-            this.createoredit = createoredit;
-            this.selectedPatient = selectedPatient;
-            if (doctorornurse)
+            this.doctor = doctor;
+            this.create = create;
+            this.patient = patient;
+            this.selectedAppointment = selectedAppointment;
+
+            if (doctor)
             {
+                addAnamnesis.Visibility = Visibility.Hidden;
                 confirm.Visibility = Visibility.Hidden;
                 cancel.Visibility = Visibility.Hidden;
             }
-            if (!createoredit)
+            if (!create)
             {
+                addAnamnesis.Visibility = Visibility.Visible;
+                confirm.Visibility = Visibility.Visible;
+                cancel.Visibility = Visibility.Visible;
                 LoadFields();
+            }
+            if (update)
+            {
+                addAnamnesis.Visibility = Visibility.Hidden;
             }
         }
 
         private void LoadFields()
         {
-            //selectedPatient = Singleton.Instance.patients[selectedIndex];
+            this.selectedRecord = patient.getMedicalRecord();
 
-            int recordId = selectedPatient.MedicalRecordId;
-            foreach (MedicalRecord record in Singleton.Instance.medicalRecords)
-            {
-                if (recordId == record.Id)
-                {
-                    selectedRecord = record;
-                    break;
-                }
-            }
-
-            firstname.Text = selectedPatient.FirstName;
-            lastname.Text = selectedPatient.LastName;
-            birthdate.Text = selectedPatient.BirthDate.ToString();
-            username.Text = selectedPatient.Username;
-            password.Text = selectedPatient.Password;
             height.Text = selectedRecord.Height.ToString();
             weight.Text = selectedRecord.Weight.ToString();
-            anamnesis.Text = selectedRecord.Anamnesis;
+            foreach (string oneAnamnesis in selectedRecord.EarlierIllnesses)
+            {
+                anamnesis.Text += oneAnamnesis + ", ";
+            }
+            anamnesis.Text = anamnesis.Text.Substring(0, anamnesis.Text.Length - 2);
+            foreach (string oneAllergen in selectedRecord.Allergens)
+            {
+                allergen.Text += oneAllergen + ", ";
+            }
+            allergen.Text = allergen.Text.Substring(0, allergen.Text.Length - 2);
 
-            //Singleton.Instance.patients.Remove(selectedPatient);
-            //Singleton.Instance.medicalRecords.Remove(selectedRecord);
         }
 
-        private bool validateDate(string dateInString)
+        private void addEarlyIllness(object sender, RoutedEventArgs e)
         {
-            DateOnly temp;
-            if (DateOnly.TryParse(dateInString, out temp))
-            {
-                return true;
-            }
-            return false;
+            string inputIllness = inputDialogT("illness");
+            selectedRecord.EarlierIllnesses.Add(inputIllness);
+            anamnesis.Text += ", " + inputIllness;
         }
 
-        private List<String> usedUsernames()
+        private void addAlergyClick(object sender, RoutedEventArgs e)
         {
-            foreach (Patient patient in Singleton.Instance.patients)
+            string inputAlergy = inputDialogT("alergy");
+            selectedRecord.Allergens.Add(inputAlergy);
+            allergen.Text += ", " + inputAlergy;
+        }
+
+        private string inputDialogT(string type)
+        {
+            string input = Interaction.InputBox("Please enter " + type + ": ", "Input dialog");
+            if (input == "") return "";
+            foreach (string alergy in selectedRecord.Allergens)
             {
-                if (selectedPatient != null && selectedPatient.Username == patient.Username) continue;
-                usernames.Add(patient.Username);
+                if (alergy == input)
+                {
+                    MessageBox.Show(type + " already exists.");
+                    return "";
+                }
             }
-            return usernames;
+            return input;
         }
 
         private bool isValid()
         {
-            if (firstname.Text.Length == 0)
+            if ((height.Text.Length == 0) || (weight.Text.Length == 0) || (anamnesis.Text.Length == 0))
             {
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
             }
-            if (lastname.Text.Length == 0)
+            if (!(isDouble(height.Text) && isDouble(weight.Text)))
             {
-                MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
+                MessageBox.Show("Weight and height should be numbers.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
             }
-            if ((birthdate.Text.Length == 0) || !validateDate(birthdate.Text))
-            {
-                MessageBox.Show("Invalid input.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
-                return false;
-            }
-            if ((username.Text.Length == 0) || (usedUsernames().Contains(username.Text)))
-            {
-                MessageBox.Show("Invalid input.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
-                return false;
-            }
-            if (password.Text.Length == 0)
-            {
-                MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
-                return false;
-            }
-            if (height.Text.Length == 0)
-            {
-                MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
-                return false;
-            }
-            if (weight.Text.Length == 0)
-            {
-                MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
-                return false;
-            }
-            if (anamnesis.Text.Length == 0)
-            {
-                MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        private List<int> usedPatientsIds()
-        {
-            foreach (Patient patient in Singleton.Instance.patients)
-            {
-                patientsIds.Add(patient.Id);
-            }
-            return patientsIds;
-        }
-
-        private List<int> usedMedicalRecordsIds()
-        {
-            foreach (MedicalRecord record in Singleton.Instance.medicalRecords)
-            {
-                recordsIds.Add(record.Id);
-            }
-            return recordsIds;
-        }
-
-        private int generatePatientId()
-        {
-            int limit = 100;
-            int newpatientid = 0;
-            for (int i = 1; i < limit; i++)
-            {
-                if (!usedPatientsIds().Contains(i))
-                {
-                    newpatientid = i;
-                    break;
-                }
-            }
-            return newpatientid;
-        }
-
-        private int generateMedicalRecordId()
-        {
-            int limit = 100;
-            int newrecordid = 0;
-            for (int i = 1; i < limit; i++)
-            {
-                if (!usedMedicalRecordsIds().Contains(i))
-                {
-                    newrecordid = i;
-                    break;
-                }
-            }
-            return newrecordid;
+            return true;
         }
 
         private void clearData()
         {
-            firstname.Clear();
-            lastname.Clear();
-            birthdate.Clear();
-            username.Clear();
-            password.Clear();
             height.Clear();
             weight.Clear();
             anamnesis.Clear();
@@ -217,49 +140,107 @@ namespace ZdravoCorp
 
         public void confirm_Click(object sender, RoutedEventArgs e)
         {
-
             if (isValid())
             {
-                Patient newpatient = new Patient();
-                newpatient.FirstName = firstname.Text;
-                newpatient.LastName = lastname.Text;
-                newpatient.BirthDate = DateOnly.Parse(birthdate.Text);
-                newpatient.Username = username.Text;
-                newpatient.Password = password.Text;
-                newpatient.Type = "patient";
-                newpatient.IsBlocked = false;
-                if (createoredit)
+                MedicalRecord medicalRecord = createMedicalRecordObject();
+                if (medicalRecord != null)
                 {
-                    newpatient.Id = generatePatientId();
-                    newpatient.MedicalRecordId = generateMedicalRecordId();
+                    addToMedicalRecords(medicalRecord);
+
                 }
-                else
-                {
-
-                    Singleton.Instance.patients.Remove(selectedPatient);
-                    Singleton.Instance.medicalRecords.Remove(selectedRecord);
-                    User.RemoveUser(selectedPatient.Username);
-                    newpatient.Id = selectedPatient.Id;
-                    newpatient.MedicalRecordId = selectedPatient.MedicalRecordId;
-                }
-
-                MedicalRecord newMedicalRecord = new MedicalRecord();
-                newMedicalRecord.Height = double.Parse(height.Text);
-                newMedicalRecord.Weight = double.Parse(weight.Text);
-                newMedicalRecord.Anamnesis = anamnesis.Text;
-                newMedicalRecord.Id = newpatient.MedicalRecordId;
-
-                Singleton.Instance.patients.Add(newpatient);
-                newpatient.WriteAll(Singleton.Instance.patients);
-                Singleton.Instance.medicalRecords.Add(newMedicalRecord);
-                newMedicalRecord.WriteAll(Singleton.Instance.medicalRecords);
-                Singleton.Instance.users.Add(new User(newpatient.Username, newpatient.Password, "patient"));
-                User.WriteAll(Singleton.Instance.users);
-
+                addToPatients(patient);
+                addToUsers(patient);
                 MessageBox.Show("Operation successful. We saved your changes.", "Done", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 this.Close();
-
             }
+        }
+
+        public MedicalRecord createMedicalRecordObject() {
+            if (!create)
+            {
+                setAttributes(selectedRecord);
+                selectedRecord.WriteAll(Singleton.Instance.medicalRecords);
+                return null;
+            }
+            MedicalRecord newMedicalRecord = new MedicalRecord();
+            setAttributes(newMedicalRecord);
+            newMedicalRecord.Id = patient.MedicalRecordId;
+            return newMedicalRecord;
+        }
+
+        public void setAttributes(MedicalRecord medicalRecord)
+        {
+            medicalRecord.Height = double.Parse(height.Text);
+            medicalRecord.Weight = double.Parse(weight.Text);
+            medicalRecord.EarlierIllnesses = anamnesis.Text.Split(", ").ToList();
+            medicalRecord.Allergens = allergen.Text.Split(", ").ToList();
+        }
+
+        public void addToPatients(Patient newPatient)
+        {
+            if (!create)
+            {
+                Singleton.Instance.patients.Remove(patient);
+                patient.WriteAll(Singleton.Instance.patients);
+                User.RemoveUser(patient.Username);
+                User.WriteAll(Singleton.Instance.users);
+            }
+            Singleton.Instance.patients.Add(newPatient);
+            newPatient.WriteAll(Singleton.Instance.patients);
+        }
+
+        public void addToMedicalRecords(MedicalRecord newMedicalRecord)
+        {
+            Singleton.Instance.medicalRecords.Add(newMedicalRecord);
+            newMedicalRecord.WriteAll(Singleton.Instance.medicalRecords);
+        }
+
+        public void addToUsers(Patient newPatient)
+        {
+            Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
+            User.WriteAll(Singleton.Instance.users);
+        }
+
+        public void addAnamnesisClick(object sender, RoutedEventArgs e)
+        {
+            AnamnesisView anamnesis;
+            if (doctor)
+            {
+                Anamnesis findAnamnesis = findAnamnesisById(selectedAppointment);
+                if (findAnamnesis == null)
+                {
+                    MessageBox.Show("The patient must first check in with the nurse.");
+                    return;
+                }
+                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Doctor);
+            }
+            else
+            {
+                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Nurse);
+            }
+            anamnesis.ShowDialog();
+        }
+
+        public bool isDouble(string data)
+        {
+            double d;
+            if (Double.TryParse(data, out d))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public Anamnesis findAnamnesisById(Appointment selectedAppointment)
+        {
+            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
+            {
+                if (anamnesis.AppointmentId == selectedAppointment.Id)
+                {
+                    return anamnesis;
+                }
+            }
+            return null;
         }
     }
 }

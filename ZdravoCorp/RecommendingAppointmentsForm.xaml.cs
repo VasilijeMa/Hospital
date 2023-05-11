@@ -57,20 +57,9 @@ namespace ZdravoCorp
 
         private void btnFind_Click(object sender, RoutedEventArgs e)
         {
-            if (!inputValidation())
-            {
-                return;
-            }
-            DateTime date = dpLDate.SelectedDate.Value;
-            if (date.Date < DateTime.Now.Date)
-            {
-                MessageBox.Show("The selected date cannot be in the past.");
-                return;
-            }
-            Priority priority = GetPriority();
-            TimeOnly earliestTime = new TimeOnly(int.Parse(tbETime.Text.Split(":")[0]), int.Parse(tbETime.Text.Split(":")[1]));
-            TimeOnly latestTime = new TimeOnly(int.Parse(tbLTime.Text.Split(":")[0]), int.Parse(tbLTime.Text.Split(":")[1]));
-            AppointmentRequest appointmentRequest = new AppointmentRequest((Doctor)cmbDoctors.SelectedItem, earliestTime, latestTime, date, priority);
+            if (!inputValidation()) return;
+            AppointmentRequest appointmentRequest = CreateAppointmentRequest();
+            if (appointmentRequest == null) return;
             recommendedAppointments = singleton.Schedule.GetAppointmentsByRequest(appointmentRequest, patient.Id);
             dgAppointments.ItemsSource = null;
             LoadAppointmentsInDataGrid(recommendedAppointments);
@@ -81,6 +70,20 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
             }
+        }
+
+        private AppointmentRequest CreateAppointmentRequest()
+        {
+            DateTime date = dpLDate.SelectedDate.Value;
+            if (date.Date < DateTime.Now.Date)
+            {
+                MessageBox.Show("The selected date cannot be in the past.");
+                return null;
+            }
+            Priority priority = GetPriority();
+            TimeOnly earliestTime = new TimeOnly(int.Parse(tbETime.Text.Split(":")[0]), int.Parse(tbETime.Text.Split(":")[1]));
+            TimeOnly latestTime = new TimeOnly(int.Parse(tbLTime.Text.Split(":")[0]), int.Parse(tbLTime.Text.Split(":")[1]));
+            return new AppointmentRequest((Doctor)cmbDoctors.SelectedItem, earliestTime, latestTime, date, priority); ;
         }
 
         private Priority GetPriority()
@@ -112,6 +115,16 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
+            Appointment appointment = GetAppointmentFromSelectedRow();
+            //singleton.Schedule.CreateAppointment(appointment);
+            //singleton.Log.AddElement(appointment, patient);
+            MessageBox.Show("Appointment successfully created."); //scheduled
+            this.Close();
+            return;
+        }
+
+        private Appointment GetAppointmentFromSelectedRow()
+        {
             int appointmentId = (int)((DataRowView)dgAppointments.SelectedItem).Row["Id"];
             string date = (string)((DataRowView)dgAppointments.SelectedItem).Row["Date"];
             string time = (string)((DataRowView)dgAppointments.SelectedItem).Row["Time"];
@@ -119,19 +132,7 @@ namespace ZdravoCorp
                 int.Parse(date.Split("-")[2]), int.Parse(time.Split(":")[0]), int.Parse(time.Split(":")[1]), 0);
             TimeSlot appointmentTimeSlot = new TimeSlot(dateTime, 15);
             int doctorId = (int)((DataRowView)dgAppointments.SelectedItem).Row["DoctorID"];
-            Appointment appointment = new Appointment(appointmentId, appointmentTimeSlot, doctorId, patient.Id);
-            //foreach(Appointment appointment in recommendedAppointments)
-            //{
-            //    if(appointment.Id == appointmentId)
-            //    {
-            //singleton.Schedule.CreateAppointment(appointment);
-            //singleton.Log.AddElement(appointment, patient);
-            MessageBox.Show("Appointment successfully created."); //scheduled
-            this.Close();
-            return;
-            //    }
-            //}
-            MessageBox.Show("UPS");
+            return new Appointment(appointmentId, appointmentTimeSlot, doctorId, patient.Id);
         }
 
         private void dgAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)

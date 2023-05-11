@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Ink;
 
 namespace ZdravoCorp
@@ -127,45 +128,32 @@ namespace ZdravoCorp
 
         public List<Appointment> GetAppointmentsByRequest(AppointmentRequest appointmentRequest, int patientId)
         {
-            List<Appointment> recommendedAppointments = new List<Appointment>();
-            //kroz sve za trazenig doktora
             List<TimeSlot> closestTimeSlots = GetClosestTimeSlots(appointmentRequest);
-            if (closestTimeSlots != null)
-            {
-                foreach (TimeSlot timeSlot in closestTimeSlots)
-                {
-                    int appointmentId = getLastId() + 1;
-                    Appointment appointment = new Appointment(appointmentId, timeSlot, appointmentRequest.Doctor.Id, patientId);
-                    recommendedAppointments.Add(appointment);
-                }
-                return recommendedAppointments;
-            }
-            MessageBox.Show("Nema koji zadovoljavaju sve parametra");
-            //po prioritetu
+            if (closestTimeSlots != null) return GetAppointmentsFromTimeSlot(patientId, appointmentRequest.Doctor, closestTimeSlots[0]);
+            //{
+            //    foreach (TimeSlot timeSlot in closestTimeSlots)
+            //    {
+            //        recommendedAppointments.Add(new Appointment(getLastId() + 1, timeSlot, appointmentRequest.Doctor.Id, patientId));
+            //    }
+            //    return recommendedAppointments;
+            //}
             if (appointmentRequest.Priority == Priority.Doctor)
             {
                 closestTimeSlots = GetClosestTimeSlotsByPriorityDoctor(appointmentRequest);
-                if (closestTimeSlots != null)
-                {
-                    foreach (TimeSlot timeSlot in closestTimeSlots)
-                    {
-                        int appointmentId = getLastId() + 1;
-                        Appointment appointment = new Appointment(appointmentId, timeSlot, appointmentRequest.Doctor.Id, patientId);
-                        recommendedAppointments.Add(appointment);
-                    }
-                    return recommendedAppointments;
-                }
+                if (closestTimeSlots != null) return GetAppointmentsFromTimeSlot(patientId, appointmentRequest.Doctor, closestTimeSlots[0]);
+                //{
+                //    foreach (TimeSlot timeSlot in closestTimeSlots)
+                //    {
+                //        recommendedAppointments.Add(new Appointment(getLastId() + 1, timeSlot, appointmentRequest.Doctor.Id, patientId));
+                //    }
+                //    return recommendedAppointments;
+                //}
             }
             else
             {
-                recommendedAppointments = GetClosestAppointmentsByTimeInterval(appointmentRequest, patientId);
-                if (recommendedAppointments != null)
-                {
-                    return recommendedAppointments;
-                }
+                List<Appointment> recommendedAppointments = GetClosestAppointmentsByTimeInterval(appointmentRequest, patientId);
+                if (recommendedAppointments != null) return recommendedAppointments;
             }
-            MessageBox.Show("Nema koji zadovoljavaju prioritet");
-            //kroz sve dok ne nadje 3
             return GetClosestAppointments(appointmentRequest, patientId);
         }
 
@@ -202,54 +190,50 @@ namespace ZdravoCorp
 
         public List<Appointment> GetClosestAppointmentsByTimeInterval(AppointmentRequest appointmentRequest, int patientId)
         {
-            List<TimeSlot> timeSlots = new List<TimeSlot>();
-            DateTime endDate = appointmentRequest.LatestDate;
-            DateTime startDate = DateTime.Now;
-            int startHour = (int)appointmentRequest.EarliesTime.Hour;
-            int startMinute = (int)appointmentRequest.EarliesTime.Minute;
-            int endHour = (int)appointmentRequest.LatestTime.Hour;
-            int endMinute = (int)appointmentRequest.LatestTime.Minute;
-            for (DateTime i = startDate; i.Date <= endDate.Date; i = i.AddDays(1))
+            //DateTime endDate = appointmentRequest.LatestDate;
+            //DateTime startDate = DateTime.Now;
+            //int startHour = (int)appointmentRequest.EarliesTime.Hour;
+            //int startMinute = (int)appointmentRequest.EarliesTime.Minute;
+            //int endHour = (int)appointmentRequest.LatestTime.Hour;
+            //int endMinute = (int)appointmentRequest.LatestTime.Minute;
+            for (DateTime currentDate = DateTime.Now; currentDate.Date <= appointmentRequest.LatestDate.Date; currentDate = currentDate.AddDays(1))
             {
                 foreach (Doctor doctor in Singleton.Instance.doctors)
                 {
                     if (doctor.Id == appointmentRequest.Doctor.Id) continue;
-                    if (startDate == i && startDate.Hour > startHour)
-                    {
-                        if (startDate.Hour >= endHour && startDate.AddMinutes(15).Minute >= endMinute) continue;
-                        startHour = i.AddMinutes(15).Hour;
-                        startMinute = i.AddMinutes(15).Minute;
-                    }
-                    else
-                    {
-                        startHour = (int)appointmentRequest.EarliesTime.Hour;
-                        startMinute = (int)appointmentRequest.EarliesTime.Minute;
-                    }
-                    DateTime startTime = new DateTime(i.Year, i.Month, i.Day, startHour, startMinute, 0);
-                    DateTime endTime = new DateTime(i.Year, i.Month, i.Day, endHour, endMinute, 0);
+                    //if (startDate == i && startDate.Hour > startHour)
+                    //{
+                    //    if (startDate.Hour >= endHour && startDate.AddMinutes(15).Minute >= endMinute) continue;
+                    //    startHour = i.AddMinutes(15).Hour;
+                    //    startMinute = i.AddMinutes(15).Minute;
+                    //}
+                    //else
+                    //{
+                    //    startHour = (int)appointmentRequest.EarliesTime.Hour;
+                    //    startMinute = (int)appointmentRequest.EarliesTime.Minute;
+                    //}
+                    DateTime startTime = GetStartTime(currentDate, appointmentRequest.EarliesTime); /*new DateTime(i.Year, i.Month, i.Day, startHour, startMinute, 0);*/
+                    DateTime endTime = GetEndTime(currentDate, appointmentRequest.LatestTime); /* new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, endHour, endMinute, 0);*/
                     int duration = (int)(endTime - startTime).Minutes;
-                    timeSlots.Add(new TimeSlot(startTime, duration));
-                    if (dailyAppointments.ContainsKey(i.Date))
-                    {
-                        GetFreeTimeSlots(dailyAppointments[i.Date], timeSlots, doctor.Id);
-                    }
+                    List<TimeSlot> timeSlots = new List<TimeSlot>() { new TimeSlot(startTime, duration) };
+                    //timeSlots.Add(new TimeSlot(startTime, duration));
+                    if (dailyAppointments.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(dailyAppointments[currentDate.Date], timeSlots, doctor.Id);
                     TimeSlot? timeSlot = GetFirstFreeTimeSlot(timeSlots);
-                    if (timeSlot != null)
-                    {
-                        List<TimeSlot> tempTimeSlot = new List<TimeSlot>();
-                        tempTimeSlot.Add(timeSlot);
-                        List<Appointment> closestAppointments = new List<Appointment>();
-                        foreach (var slot in tempTimeSlot)
-                        {
-                            int appointmentId = getLastId() + 1;
-                            Appointment appointment = new Appointment(appointmentId, slot, doctor.Id, patientId);
-                            closestAppointments.Add(appointment);
-                        }
-                        return closestAppointments;
-                    }
+                    if (timeSlot != null) return GetAppointmentsFromTimeSlot(patientId, doctor, timeSlot);
                 }
             }
             return null;
+        }
+
+        private List<Appointment> GetAppointmentsFromTimeSlot(int patientId, Doctor doctor, TimeSlot timeSlot)
+        {
+            List<TimeSlot> tempTimeSlot = new List<TimeSlot>() { timeSlot };
+            List<Appointment> closestAppointments = new List<Appointment>();
+            foreach (var slot in tempTimeSlot)
+            {
+                closestAppointments.Add(new Appointment(getLastId() + 1, slot, doctor.Id, patientId));
+            }
+            return closestAppointments;
         }
 
         public List<TimeSlot> GetClosestTimeSlotsByPriorityDoctor(AppointmentRequest appointmentRequest)
@@ -262,58 +246,77 @@ namespace ZdravoCorp
 
         public List<TimeSlot> GetClosestTimeSlots(AppointmentRequest appointmentRequest)
         {
-            List<TimeSlot> timeSlots = new List<TimeSlot>();
-            DateTime endDate = appointmentRequest.LatestDate;
-            DateTime startDate = DateTime.Now;
-            int startHour = (int)appointmentRequest.EarliesTime.Hour;
-            int startMinute = (int)appointmentRequest.EarliesTime.Minute;
-            int endHour = (int)appointmentRequest.LatestTime.Hour;
-            int endMinute = (int)appointmentRequest.LatestTime.Minute;
-            for (DateTime i = startDate; i.Date <= endDate; i = i.AddDays(1))
+            //List<TimeSlot> timeSlots = new List<TimeSlot>();
+            //DateTime startDate = DateTime.Now;
+            //DateTime endDate = appointmentRequest.LatestDate;
+            for (DateTime currentDate = DateTime.Now/*startDate*/; currentDate.Date <= appointmentRequest.LatestDate/*endDate*/; currentDate = currentDate.AddDays(1))
             {
-                if (startDate == i && startDate.Hour >= startHour)
-                {
-                    if (startDate.Hour >= endHour && startDate.AddMinutes(15).Minute >= endMinute) continue;
-                    startHour = i.AddMinutes(15).Hour;
-                    startMinute = i.AddMinutes(15).Minute;
-                }
-                else
-                {
-                    startHour = (int)appointmentRequest.EarliesTime.Hour;
-                    startMinute = (int)appointmentRequest.EarliesTime.Minute;
-                }
-                DateTime startTime = new DateTime(i.Year, i.Month, i.Day, startHour, startMinute, 0);
-                DateTime endTime = new DateTime(i.Year, i.Month, i.Day, endHour, endMinute, 0);
+                //int startHour = (int)appointmentRequest.EarliesTime.Hour;
+                //int startMinute = (int)appointmentRequest.EarliesTime.Minute;
+                //if (startDate == currentDate && startDate.Hour >= startHour)
+                //{
+                //    if (startDate.Hour >= endHour && startDate.AddMinutes(15).Minute >= endMinute) continue;
+                //    startHour = currentDate.AddMinutes(15).Hour;
+                //    startMinute = currentDate.AddMinutes(15).Minute;
+                //}
+                //else
+                //{
+                //    startHour = (int)appointmentRequest.EarliesTime.Hour;
+                //    startMinute = (int)appointmentRequest.EarliesTime.Minute;
+                //}
+                DateTime startTime = GetStartTime(currentDate, appointmentRequest.EarliesTime); /*new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, startHour, startMinute, 0);*/
+                //int endHour = (int)appointmentRequest.LatestTime.Hour;
+                //int endMinute = (int)appointmentRequest.LatestTime.Minute;
+                DateTime endTime = GetEndTime(currentDate, appointmentRequest.LatestTime); /*new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, endHour, endMinute, 0);*/
                 int duration = (int)(endTime - startTime).TotalMinutes;
-                timeSlots = new List<TimeSlot>();
-                timeSlots.Add(new TimeSlot(startTime, duration));
-                if (dailyAppointments.ContainsKey(i.Date))
-                {
-                    GetFreeTimeSlots(dailyAppointments[i.Date], timeSlots, appointmentRequest.Doctor.Id);
-                }
+                List<TimeSlot> timeSlots = new List<TimeSlot>() { new TimeSlot(startTime, duration) };
+                //timeSlots.Add(new TimeSlot(startTime, duration));
+                if (dailyAppointments.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(dailyAppointments[currentDate.Date], timeSlots, appointmentRequest.Doctor.Id);
                 TimeSlot? timeSlot = GetFirstFreeTimeSlot(timeSlots);
-                if (timeSlot != null)
-                {
-                    List<TimeSlot> tempTimeSlot = new List<TimeSlot>();
-                    tempTimeSlot.Add(timeSlot);
-                    return tempTimeSlot;
-                }
+                if (timeSlot != null) return new List<TimeSlot> { timeSlot };
+                //{
+                //    List<TimeSlot> tempTimeSlot = new List<TimeSlot>();
+                //    tempTimeSlot.Add(timeSlot);
+                //    return tempTimeSlot;
+                //}
             }
             return null;
         }
 
-        public TimeSlot? GetFirstFreeTimeSlot(List<TimeSlot> timeSlots)
+        private DateTime GetStartTime(DateTime currentDate, TimeOnly earliestTime)
         {
-            for (int i = 0; i < timeSlots.Count; i++)
+            DateTime startTime = new DateTime();
+            //int startHour = (int)appointmentRequest.EarliesTime.Hour;
+            //int startMinute = (int)appointmentRequest.EarliesTime.Minute;
+            if (currentDate.Date == DateTime.Now.Date && DateTime.Now.TimeOfDay >= earliestTime.ToTimeSpan())
             {
-                if (timeSlots[i].duration >= APPOINTMENT_DURATION)
+                //if (DateTime.Now.Hour >= endHour && DateTime.Now.AddMinutes(15).Minute >= endMinute) return;
+                startTime = currentDate.Date.AddMinutes(15);
+            }
+            else
+            {
+                startTime = currentDate.Date.Add(earliestTime.ToTimeSpan());
+            }
+            return startTime;
+        }
+
+        private DateTime GetEndTime(DateTime currentDate, TimeOnly latestTime)
+        {
+            return currentDate.Date.Add(latestTime.ToTimeSpan());
+        }
+
+        public TimeSlot? GetFirstFreeTimeSlot(List<TimeSlot> freeTimeSlots)
+        {
+            for (int i = 0; i < freeTimeSlots.Count; i++)
+            {
+                if (freeTimeSlots[i].duration >= APPOINTMENT_DURATION)
                 {
-                    TimeSlot founded = new TimeSlot(timeSlots[i].start, 15);
-                    List<TimeSlot> tempTimeSlots = timeSlots[i].Split(founded);
-                    timeSlots.Remove(timeSlots[i]);
+                    TimeSlot founded = new TimeSlot(freeTimeSlots[i].start, APPOINTMENT_DURATION);
+                    List<TimeSlot> tempTimeSlots = freeTimeSlots[i].Split(founded);
+                    freeTimeSlots.Remove(freeTimeSlots[i]);
                     for (int j = 0; j < tempTimeSlots.Count; j++)
                     {
-                        timeSlots.Insert(i + j, tempTimeSlots[j]);
+                        freeTimeSlots.Insert(i + j, tempTimeSlots[j]);
                     }
                     return founded;
                 }
@@ -321,7 +324,7 @@ namespace ZdravoCorp
             return null;
         }
 
-        public void GetFreeTimeSlots(List<Appointment> appointments, List<TimeSlot> timeSlots, int doctorId)
+        public void GetFreeDoctorsTimeSlots(List<Appointment> appointments, List<TimeSlot> timeSlots, int doctorId)
         {
             foreach (Appointment appointment in appointments)
             {
@@ -334,10 +337,10 @@ namespace ZdravoCorp
         {
             for (int i = 0; i < timeSlots.Count; i++)
             {
-                List<TimeSlot> tempTimeSlots = new List<TimeSlot>();
+                //tempTimeSlots = new List<TimeSlot>();
                 if (timeSlots[i].OverlapWith(appointment.TimeSlot))
                 {
-                    tempTimeSlots = timeSlots[i].Split(appointment.TimeSlot);
+                    List<TimeSlot> tempTimeSlots = timeSlots[i].Split(appointment.TimeSlot);
                     timeSlots.Remove(timeSlots[i]);
                     for (int j = 0; j < tempTimeSlots.Count; j++)
                     {

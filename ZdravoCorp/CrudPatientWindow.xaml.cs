@@ -62,7 +62,7 @@ namespace ZdravoCorp
                     if (patient.MedicalRecordId == record.Id)
                     {
                         dt.Rows.Add(patient.Id, patient.FirstName, patient.LastName, patient.BirthDate,
-                            patient.Username, patient.Password,record.Id, record.Height, record.Weight, record.Anamnesis);
+                            patient.Username, patient.Password,record.Id, record.Height, record.Weight, record.EarlierIllnesses);
                         dt.AcceptChanges();
                     }
                 }

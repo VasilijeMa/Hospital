@@ -28,38 +28,48 @@ namespace ZdravoCorp
             InitializeComponent();
             this.selectedAppointment = selectedAppointment;
             this.isNurse = isNurse;
-            if (isNurse)
-            {   
+            setWindow();
+        }
 
+        private void setWindow()
+        {
+            if (isNurse)
+            {
                 DoctorConclusion.IsReadOnly = true;
                 DoctorObservation.IsReadOnly = true;
             }
-            else {
+            else
+            {
+                Allergies.IsReadOnly = true;
+                Symptoms.IsReadOnly = true;
+                EarlierIllness.IsReadOnly = true;
                 this.anamnesis = findAnamnesisById(selectedAppointment);
                 LoadFields(anamnesis);
-                Symptoms.IsReadOnly = true;
-                Allergies.IsReadOnly = true;
-                EarlierIllness.IsReadOnly = true;
-            }   
+            }
         }
 
         private void SubmitClick(object sender, RoutedEventArgs e)
         {
+            /*if (isAlreadyExsist(selectedAppointment.Id))
+            {
+                MessageBox.Show("USLO");
+                return;
+            }*/
+
             if (isValid()) {
                 if (isNurse)
                 {
-                    Anamnesis anamnesis = new Anamnesis(selectedAppointment.Id, selectedAppointment.PatientId
-                        , Symptoms.Text, Allergies.Text, EarlierIllness.Text, "", "");
-                    Singleton.Instance.anamnesis.Add(anamnesis);
-                    anamnesis.WriteAll(Singleton.Instance.anamnesis);
+                    createAnamnesisObject();
+                    refreshMedicalRecord();
                     MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 }
                 else {
-                    Singleton.Instance.anamnesis.Remove(anamnesis);
-                    anamnesis.WriteAll(Singleton.Instance.anamnesis);
+                    //Singleton.Instance.anamnesis.Remove(anamnesis);
+                    //anamnesis.WriteAll(Singleton.Instance.anamnesis);
                     anamnesis.DoctorsConclusion = DoctorConclusion.Text;
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
-                    Singleton.Instance.anamnesis.Add(anamnesis);
+                    //Singleton.Instance.anamnesis.Add(anamnesis);
+                    //anamnesis.WriteAll(Singleton.Instance.anamnesis);
                     anamnesis.WriteAll(Singleton.Instance.anamnesis);
                     MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 }
@@ -73,17 +83,16 @@ namespace ZdravoCorp
             {
                 this.Close();
             }
-
         }
 
         private void LoadFields(Anamnesis anamnesis) {
             Symptoms.Text = anamnesis.Symptoms;
             Allergies.Text = anamnesis.Alergies;
             EarlierIllness.Text = anamnesis.EarlierIllness;
-        
         }
+
         private bool isValid() {
-            if (this.isNurse)
+            if (isNurse)
             {
                 return isValidForNurseInput();
             }
@@ -100,6 +109,7 @@ namespace ZdravoCorp
             }
             return true;
         }
+
         private bool isValidForDoctorInput() {
             if ((DoctorObservation.Text.Length == 0) || (DoctorConclusion.Text.Length == 0))
             {
@@ -117,5 +127,57 @@ namespace ZdravoCorp
             }
             return null;
         }
+
+        private bool isAlreadyExsist(int appointmentId)
+        {
+            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
+            {
+                if (anamnesis.AppointmentId == appointmentId)
+                {
+                    MessageBox.Show("There is already an anamnesis in this appointemnt.");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public Patient getPatient()
+        {
+            foreach (Patient patient in Singleton.Instance.patients)
+            {
+                if (patient.Id == anamnesis.PatientId)
+                {
+                    return patient;
+                }
+            }
+            return null;
+        }
+
+
+        private void refreshMedicalRecord()
+        {
+            Patient patient = getPatient();
+            MedicalRecord medicalRecord = patient.getMedicalRecord();
+            medicalRecord.EarlierIllnesses.Add(EarlierIllness.Text);
+            medicalRecord.Allergens.Add(Allergies.Text);
+            medicalRecord.WriteAll(Singleton.Instance.medicalRecords);
+        }
+
+        private void createAnamnesisObject()
+        {
+            Anamnesis anamnesis = new Anamnesis(selectedAppointment.Id,
+                                                       selectedAppointment.PatientId,
+                                                       Symptoms.Text,
+                                                       Allergies.Text,
+                                                       EarlierIllness.Text,
+                                                       "",
+                                                       ""
+                                                       );
+            this.anamnesis = anamnesis;
+            Singleton.Instance.anamnesis.Add(anamnesis);
+            anamnesis.WriteAll(Singleton.Instance.anamnesis);
+        }
+
+
     }
 }

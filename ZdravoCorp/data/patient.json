@@ -42,5 +42,38 @@
     "Username": "pera123",
     "Password": "pera123",
     "Type": "patient"
+  },
+  {
+    "Id": 5,
+    "FirstName": "luka",
+    "LastName": "lukic",
+    "BirthDate": "1999-10-10",
+    "MedicalRecordId": 8,
+    "IsBlocked": false,
+    "Username": "luka",
+    "Password": "luka",
+    "Type": "patient"
+  },
+  {
+    "Id": 5,
+    "FirstName": "lukaa",
+    "LastName": "lukic",
+    "BirthDate": "1999-10-10",
+    "MedicalRecordId": 8,
+    "IsBlocked": false,
+    "Username": "luka",
+    "Password": "luka",
+    "Type": "patient"
+  },
+  {
+    "Id": 5,
+    "FirstName": "lukaaa",
+    "LastName": "lukic",
+    "BirthDate": "1999-10-10",
+    "MedicalRecordId": 8,
+    "IsBlocked": false,
+    "Username": "luka",
+    "Password": "luka",
+    "Type": "patient"
   }
 ]

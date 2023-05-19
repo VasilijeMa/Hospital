@@ -12,5 +12,12 @@
     "Symptoms": "bol",
     "DoctorsObservation": "fwffw",
     "DoctorsConclusion": "gwg"
+  },
+  {
+    "AppointmentId": 33,
+    "PatientId": 2,
+    "Symptoms": "bol",
+    "DoctorsObservation": "aaaaaa",
+    "DoctorsConclusion": "bbbbbb"
   }
 ]

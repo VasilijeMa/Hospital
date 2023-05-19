@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZdravoCorp.Domain;
+using ZdravoCorp.Enums;
+using ZdravoCorp.Servieces;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ZdravoCorp
@@ -45,42 +48,22 @@ namespace ZdravoCorp
             return appointments;
         }
 
-       /* public List<Appointment> GetAppointmentsInNextTwoHours() 
-        {
-            DateTime currentTime = DateTime.Now;
-            DateTime timeAfterTwoHours = DateTime.Now.AddHours(2);
-            List<Appointment> appointmentsInNextTwoHours = new List<Appointment>();
-            for (DateTime time = currentTime; time < timeAfterTwoHours; time = time.AddMinutes(1))
-            {
-                foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
-                {
-                    if (appointment.TimeSlot.start.AddSeconds(-appointment.TimeSlot.start.Second) == time.AddSeconds(-time.Second) && appointment.DoctorId == this.Id)
-                    {
-                        MessageBox.Show(appointment.ToString());
-                        appointmentsInNextTwoHours.Add(appointment);
-                    }
-                }
-            }
-            return appointmentsInNextTwoHours;
-
-        }*/
-
         public List<Appointment> GetAppointmentsInNextTwoHours()
         {
             DateTime currentTime = DateTime.Now;
             DateTime timeAfterTwoHours = DateTime.Now.AddHours(2);
             List<Appointment> appointmentsInNextTwoHours = new List<Appointment>();
-            
-                foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
+
+            foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
+            {
+                if (appointment.TimeSlot.start.Date == timeAfterTwoHours.Date)
                 {
-                    if (appointment.TimeSlot.start.Date == timeAfterTwoHours.Date)
+                    if (TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1 && appointment.DoctorId == this.Id)
                     {
-                        if (TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1 && appointment.DoctorId == this.Id)
-                        {
-                            appointmentsInNextTwoHours.Add(appointment);
-                        }
+                        appointmentsInNextTwoHours.Add(appointment);
                     }
                 }
+            }
             return appointmentsInNextTwoHours;
 
         }
@@ -93,21 +76,13 @@ namespace ZdravoCorp
             return doctors;
         }
 
-        public Doctor GetDoctor(int id)
-        {
-            foreach(Doctor doctor in Singleton.Instance.doctors)
-            {
-                if (doctor.Id == id) return doctor;
-            }
-            return null;
-        }
-
         public bool IsAvailable(TimeSlot timeSlot, int appointmentId = -1)
         {
             foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
             {
                 if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
-                if (Id == appointment.DoctorId && appointment.TimeSlot.OverlapWith(timeSlot))
+                TimeSlotService timeSlotService = new TimeSlotService(timeSlot);
+                if (Id == appointment.DoctorId && timeSlotService.OverlapWith(timeSlot))
                 {
                     return false;
                 }
@@ -115,16 +90,19 @@ namespace ZdravoCorp
             return true;
         }
 
-        public List<Doctor> getDoctorBySpecialization(String specialization) { 
+        public List<Doctor> getDoctorBySpecialization(String specialization)
+        {
             List<Doctor> qualifiedDoctors = new List<Doctor>();
-            foreach (Doctor doctor in Singleton.Instance.doctors) {
-                if (doctor.Specialization.ToString() == specialization) { 
+            foreach (Doctor doctor in Singleton.Instance.doctors)
+            {
+                if (doctor.Specialization.ToString() == specialization)
+                {
                     qualifiedDoctors.Add(doctor);
                 }
             }
             return qualifiedDoctors;
         }
-        
+
         public bool IsAlreadyExamined(int id)
         {
             foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)

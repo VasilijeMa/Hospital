@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 //using System.Collections;
 using System.IO;
 using Newtonsoft.Json;
+using ZdravoCorp.Domain;
 
 namespace ZdravoCorp
 {

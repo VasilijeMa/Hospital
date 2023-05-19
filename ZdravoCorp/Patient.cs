@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using ZdravoCorp.Domain;
+using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
 {
@@ -48,7 +50,8 @@ namespace ZdravoCorp
             foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
             {
                 if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
-                if (Id == appointment.PatientId && appointment.TimeSlot.OverlapWith(timeSlot))
+                TimeSlotService timeSlotService = new TimeSlotService(timeSlot);
+                if (Id == appointment.PatientId && timeSlotService.OverlapWith(timeSlot))
                 {
                     return false;
                 }

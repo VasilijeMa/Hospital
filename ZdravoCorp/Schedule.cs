@@ -6,6 +6,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Ink;
+using ZdravoCorp.Domain;
+using ZdravoCorp.Enums;
+using ZdravoCorp.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
@@ -31,7 +34,7 @@ namespace ZdravoCorp
 
         public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
-            string roomId = Appointment.TakeRoom(timeSlot);
+            string roomId = AppointmentService.TakeRoom(timeSlot);
             if (roomId == "")
             {
                 MessageBox.Show("All rooms are full.");
@@ -193,7 +196,8 @@ namespace ZdravoCorp
         {
             foreach (Appointment appointment in appointments)
             {
-                if (appointment.TimeSlot.OverlapWith(timeSlot)) return false;
+                TimeSlotService timeSlotService = new TimeSlotService(timeSlot);
+                if (timeSlotService.OverlapWith(timeSlot)) return false;
             }
             return true;
         }
@@ -240,7 +244,6 @@ namespace ZdravoCorp
         {
             for (DateTime currentDate = DateTime.Now; currentDate.Date <= appointmentRequest.LatestDate; currentDate = currentDate.AddDays(1))
             {
-
                 DateTime startTime = GetStartTime(currentDate, appointmentRequest.EarliesTime);
                 DateTime endTime = GetEndTime(currentDate, appointmentRequest.LatestTime);
                 int duration = (int)(endTime - startTime).TotalMinutes;
@@ -280,7 +283,8 @@ namespace ZdravoCorp
                 {
                     TimeSlot founded = MakeTimeSlotForPatient(freeTimeSlots[i], patientId);
                     if (founded == null) continue;
-                    List<TimeSlot> tempTimeSlots = freeTimeSlots[i].Split(founded);
+                    TimeSlotService timeSlotService = new TimeSlotService(freeTimeSlots[i]);
+                    List<TimeSlot> tempTimeSlots = timeSlotService.Split(founded);
                     freeTimeSlots.Remove(freeTimeSlots[i]);
                     for (int j = 0; j < tempTimeSlots.Count; j++)
                     {
@@ -317,9 +321,10 @@ namespace ZdravoCorp
         {
             for (int i = 0; i < timeSlots.Count; i++)
             {
-                if (timeSlots[i].OverlapWith(appointment.TimeSlot))
+                TimeSlotService timeSlotService = new TimeSlotService(timeSlots[i]);
+                if (timeSlotService.OverlapWith(appointment.TimeSlot))
                 {
-                    List<TimeSlot> tempTimeSlots = timeSlots[i].Split(appointment.TimeSlot);
+                    List<TimeSlot> tempTimeSlots = timeSlotService.Split(appointment.TimeSlot);
                     timeSlots.Remove(timeSlots[i]);
                     for (int j = 0; j < tempTimeSlots.Count; j++)
                     {

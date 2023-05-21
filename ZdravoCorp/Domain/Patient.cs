@@ -21,30 +21,6 @@ namespace ZdravoCorp.Domain
             IsBlocked = isBlocked;
         }
         public Patient() : base() { }
-        public bool IsAvailable(TimeSlot timeSlot, int appointmentId = -1)
-        {
-            foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
-            {
-                if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
-                TimeSlotService timeSlotService = new TimeSlotService(appointment.TimeSlot);
-                if (Id == appointment.PatientId && timeSlotService.OverlapWith(timeSlot))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        public MedicalRecord getMedicalRecord()
-        {
-            foreach (MedicalRecord medicalRecord in Singleton.Instance.medicalRecords)
-            {
-                if (MedicalRecordId == medicalRecord.Id)
-                {
-                    return medicalRecord;
-                }
-            }
-            return null;
-        }
 
         public override string ToString()
         {

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using ZdravoCorp.Controllers;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Domain.Enums;
 using ZdravoCorp.Repositories;
@@ -18,10 +19,14 @@ namespace ZdravoCorp
         Patient patient;
         MedicalRecord selectedRecord;
         Appointment selectedAppointment;
+        private MedicalRecordController medicalRecordController;
+        private PatientController patientController;
 
         public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment = null, bool update = false)
         {
             InitializeComponent();
+            medicalRecordController = new MedicalRecordController();
+            patientController = new PatientController();
             this.doctor = doctor;
             this.create = create;
             this.patient = patient;
@@ -45,11 +50,9 @@ namespace ZdravoCorp
                 addAnamnesis.Visibility = Visibility.Hidden;
             }
         }
-
         private void LoadFields()
         {
-            this.selectedRecord = patient.getMedicalRecord();
-
+            this.selectedRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordId);
             height.Text = selectedRecord.Height.ToString();
             weight.Text = selectedRecord.Weight.ToString();
             foreach (string oneAnamnesis in selectedRecord.EarlierIllnesses)
@@ -62,9 +65,7 @@ namespace ZdravoCorp
                 alergy.Text += oneAllergen + ", ";
             }
             alergy.Text = alergy.Text.Substring(0, alergy.Text.Length - 2);
-
         }
-
         private void addEarlyIllness(object sender, RoutedEventArgs e)
         {
             string inputIllness = inputDialogT("illness");
@@ -170,7 +171,7 @@ namespace ZdravoCorp
             if (!create)
             {
                 setAttributes(selectedRecord);
-                MedicalRecordRepository.WriteAll(Singleton.Instance.medicalRecords);
+                medicalRecordController.WriteAll(Singleton.Instance.medicalRecords);
                 return null;
             }
             MedicalRecord newMedicalRecord = new MedicalRecord();
@@ -192,18 +193,21 @@ namespace ZdravoCorp
             if (!create)
             {
                 Singleton.Instance.patients.Remove(patient);
-                PatientRepository.WriteAll(Singleton.Instance.patients);
+                patientController.WriteAll(Singleton.Instance.patients);
                 UserRepository.RemoveUser(patient.Username);
                 UserRepository.WriteAll(Singleton.Instance.users);
             }
-            Singleton.Instance.patients.Add(newPatient);
-            PatientRepository.WriteAll(Singleton.Instance.patients);
+            else
+            {
+                Singleton.Instance.patients.Add(newPatient);
+                patientController.WriteAll(Singleton.Instance.patients);
+            }
         }
 
         public void addToMedicalRecords(MedicalRecord newMedicalRecord)
         {
             Singleton.Instance.medicalRecords.Add(newMedicalRecord);
-            MedicalRecordRepository.WriteAll(Singleton.Instance.medicalRecords);
+            medicalRecordController.WriteAll(Singleton.Instance.medicalRecords);
         }
 
         public void addToUsers(Patient newPatient)

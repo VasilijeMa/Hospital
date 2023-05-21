@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using System.Windows.Forms;
+using ZdravoCorp.Controllers;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -17,9 +18,13 @@ namespace ZdravoCorp
         List<MedicalRecord> records;
         List<Patient> patients;
         private Nurse nurse;
+        private MedicalRecordController medicalRecordController;
+        private PatientController patientController;
         public CrudPatientWindow(Nurse nurse)
         {
             InitializeComponent();
+            medicalRecordController = new MedicalRecordController();
+            patientController = new PatientController();
             this.nurse = nurse;
             LoadData();
         }
@@ -120,8 +125,8 @@ namespace ZdravoCorp
                     Singleton.Instance.medicalRecords.Remove(selectedRecord);
                     UserRepository.RemoveUser(selectedPatient.Username);
                     UserRepository.WriteAll(Singleton.Instance.users);
-                    PatientRepository.WriteAll(Singleton.Instance.patients);
-                    MedicalRecordRepository.WriteAll(Singleton.Instance.medicalRecords);
+                    patientController.WriteAll(Singleton.Instance.patients);
+                    medicalRecordController.WriteAll(Singleton.Instance.medicalRecords);
                     LoadData();
                 }
             }

@@ -21,7 +21,7 @@ namespace ZdravoCorp
             InitializeComponent();
             this.patient = patient;
             singleton = Singleton.Instance;
-            appointments = singleton.Schedule.appointments;
+            appointments = singleton.Schedule.Appointments;
             LoadAppointmentsInDataGrid();
         }
 
@@ -67,7 +67,8 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
-            Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["Id"]);
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            Appointment appointment = scheduleRepository.GetAppointment((int)item.Row["Id"]);
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
                 MessageBox.Show("The selected appointment must not changed.");
@@ -78,7 +79,7 @@ namespace ZdravoCorp
             {
                 ((DataRowView)dgAppointments.SelectedItem).Row["IsCanceled"] = true;
                 btnCancel.IsEnabled = false;
-                singleton.Schedule.CancelAppointment(appointment.Id);
+                scheduleRepository.CancelAppointment(appointment.Id);
                 LogRepository.UpdateCancelElement(appointment, patient);
                 if (patient.IsBlocked)
                 {
@@ -106,7 +107,8 @@ namespace ZdravoCorp
                 return;
             }
             int id = (int)item.Row["Id"];
-            Appointment appointment = singleton.Schedule.GetAppointment(id);
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            Appointment appointment = scheduleRepository.GetAppointment(id);
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
                 MessageBox.Show("The selected appointment must not changed.");
@@ -124,7 +126,8 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            singleton.Schedule.WriteAllAppointmens();
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            scheduleRepository.WriteAllAppointmens();
         }
 
     }

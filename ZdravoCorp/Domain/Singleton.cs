@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using ZdravoCorp.Controllers;
 using ZdravoCorp.Repositories;
+using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp.Domain
 {
@@ -35,15 +37,19 @@ namespace ZdravoCorp.Domain
         }
         private Singleton()
         {
-            Schedule = new Schedule();
-            Log = new Log();
-            doctors = DoctorRepository.LoadAll();
-            patients = PatientRepository.LoadAll();
-            nurses = NurseRepository.LoadAll();
-            medicalRecords = MedicalRecordRepository.LoadAll();
+            //Schedule = new Schedule();
+            //Log = new Log();
+            DoctorRepository doctorRepository = new DoctorRepository();
+            doctors = doctorRepository.LoadAll();
+            PatientRepository patientController = new PatientRepository();
+            patients = patientController.LoadAll(); 
+            //nurses = NurseRepository.LoadAll();
+            MedicalRecordRepository medicalRecordRepository = new MedicalRecordRepository();
+            medicalRecords = medicalRecordRepository.LoadAll();
             anamnesis = AnamnesisRepository.LoadAll();
             users = UserRepository.LoadAll();
-            notificationAboutCancelledAppointment = NotificarionAboutCancelledAppointmentRepository.LoadAll();
+            NotificarionAboutCancelledAppointmentRepository n = new NotificarionAboutCancelledAppointmentRepository();
+            notificationAboutCancelledAppointment = n.LoadAll();
         }
     }
 }

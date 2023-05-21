@@ -7,12 +7,13 @@ namespace ZdravoCorp.Repositories
 {
     public class NotificarionAboutCancelledAppointmentRepository
     {
-        public static List<NotificationAboutCancelledAppointment> LoadAll()
+        public List<NotificationAboutCancelledAppointment> notifications;
+        public  List<NotificationAboutCancelledAppointment> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/notifications.json");
             var json = reader.ReadToEnd();
-            List<NotificationAboutCancelledAppointment> notifications = JsonConvert.DeserializeObject<List<NotificationAboutCancelledAppointment>>(json);
+            notifications = JsonConvert.DeserializeObject<List<NotificationAboutCancelledAppointment>>(json);
             return notifications;
         }
 
@@ -20,6 +21,11 @@ namespace ZdravoCorp.Repositories
         {
             string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
             File.WriteAllText("./../../../data/notifications.json", json);
+        }
+
+        public void Add(NotificationAboutCancelledAppointment notificationAboutCancelledAppointment)
+        {
+            notifications.Add(notificationAboutCancelledAppointment);
         }
     }
 }

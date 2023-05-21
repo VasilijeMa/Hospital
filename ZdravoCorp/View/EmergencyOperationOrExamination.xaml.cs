@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using ZdravoCorp.Controllers;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
 using ZdravoCorp.Servieces;
@@ -17,20 +18,20 @@ namespace ZdravoCorp
         private String selectedSpecialization;
         private String selectedPatient;
         private List<Appointment> appointmentsToCancel;
+        private DoctorController doctorController;
         public EmergencyOperationOrExamination()
         {
             InitializeComponent();
+            doctorController = new DoctorController();
             delayButton.Visibility = Visibility.Hidden;
             fillCheckBoxes();
         }
-
         private void fillCheckBoxes()
         {
             addSpecializationsToComboBox();
             addPatientToComboBox();
             addSearchCriteria();
         }
-
         private void addSpecializationsToComboBox()
         {
             foreach (Doctor doctor in Singleton.Instance.doctors)
@@ -38,7 +39,6 @@ namespace ZdravoCorp
                 specialization.Items.Add(doctor.Specialization);
             }
         }
-
         private void addPatientToComboBox()
         {
             foreach (Patient patient in Singleton.Instance.patients)
@@ -46,13 +46,11 @@ namespace ZdravoCorp
                 patients.Items.Add(patient.Username);
             }
         }
-
         private void addSearchCriteria()
         {
             examinationOrOperation.Items.Add("Examination");
             examinationOrOperation.Items.Add("Operation");
         }
-
         private bool isOperationSelected()
         {
             if (examinationOrOperation.SelectedItem.ToString() == "Operation")
@@ -61,19 +59,18 @@ namespace ZdravoCorp
             }
             return false;
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (areComboboxesSelected())
             {
                 this.selectedSpecialization = specialization.SelectedItem.ToString();
                 this.selectedPatient = patients.SelectedItem.ToString();
-                List<Doctor> qualifiedDoctors = Doctor.GetDoctorBySpecialization(selectedSpecialization);
+                List<Doctor> qualifiedDoctors = doctorController.GetDoctorBySpecialization(selectedSpecialization);
                 MessageBox.Show(qualifiedDoctors.Count().ToString());
-                Doctor firstFoundDoctor = getFirstFreeDoctor(qualifiedDoctors);
+                Doctor firstFoundDoctor = doctorController.GetFirstFreeDoctor(qualifiedDoctors, getDuration(), selectedPatient);
                 if (firstFoundDoctor == null)
                 {
-                    this.appointmentsToCancel = getAppointmentsInNextTwoHours(qualifiedDoctors);
+                    this.appointmentsToCancel = doctorController.getAppointmentsInNextTwoHours(qualifiedDoctors);
                     if (this.appointmentsToCancel.Count == 0)
                     {
                         ShowInTable();
@@ -92,7 +89,6 @@ namespace ZdravoCorp
                 }
             }
         }
-
         private DataTable CreateTable()
         {
             DataTable dt = new DataTable();
@@ -105,18 +101,19 @@ namespace ZdravoCorp
             dt.AcceptChanges();
             return dt;
         }
-
         private void ShowInTable()
         {
             DataTable dt = CreateTable();
             delayButton.Visibility = Visibility.Visible;
             foreach (Appointment appointment in this.appointmentsToCancel)
             {
+                DoctorRepository doctorRepository = new DoctorRepository();
+                PatientRepository patientRepository = new PatientRepository();
                 dt.Rows.Add(appointment.Id,
                     appointment.TimeSlot.start.ToString(),
                     appointment.TimeSlot.duration.ToString(),
-                    appointment.getDoctor().Username,
-                    appointment.getPatient().Username,
+                    doctorRepository.getDoctor(appointment.DoctorId).Username,
+                    patientRepository.getPatient(appointment.PatientId).Username,
                     appointment.IdRoom.ToString());
                 dt.AcceptChanges();
             }
@@ -131,47 +128,6 @@ namespace ZdravoCorp
             }
             return 15;
         }
-
-        private List<Appointment> getAppointmentsInNextTwoHours(List<Doctor> qualifiedDoctors)
-        {
-            List<Appointment> allAppointments = new List<Appointment>();
-            foreach (Doctor doctor in qualifiedDoctors)
-            {
-                List<Appointment> appointmentsForOne = doctor.GetAppointmentsInNextTwoHours();
-                if (appointmentsForOne.Count() == 0) { continue; }
-                foreach (Appointment appointment in appointmentsForOne)
-                {
-                    allAppointments.Add(appointment);
-                }
-            }
-            return allAppointments;
-        }
-        private Doctor getFirstFreeDoctor(List<Doctor> qualifiedDoctors)
-        {
-            DateTime currentTime = DateTime.Now;
-            DateTime timeAfterTwoHours = DateTime.Now.AddHours(2);
-            foreach (Doctor qualifiedDoctor in qualifiedDoctors)
-            {
-                for (DateTime time = currentTime; time < timeAfterTwoHours; time = time.AddMinutes(5))
-                {
-                    TimeSlot doctorsTimeSlot = new TimeSlot(currentTime, getDuration());
-                    if (qualifiedDoctor.IsAvailable(doctorsTimeSlot))
-                    {
-                        Appointment appointment = Singleton.Instance.Schedule.CreateAppointment(doctorsTimeSlot,
-                        qualifiedDoctor, PatientService.getByUsername(this.selectedPatient));
-                        if (appointment != null)
-                        {
-                            Singleton.Instance.Schedule.WriteAllAppointmens();
-                        }
-                        return qualifiedDoctor;
-                    }
-
-                }
-
-            }
-            return null;
-        }
-
         private bool areComboboxesSelected()
         {
             if ((specialization.SelectedItem == null) ||
@@ -200,7 +156,6 @@ namespace ZdravoCorp
             return true;
 
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             int selectedIndex = datagrid.SelectedIndex;
@@ -210,10 +165,12 @@ namespace ZdravoCorp
             }
             else
             {
+                ScheduleRepository scheduleRepository = new ScheduleRepository();
                 Appointment selectedAppointment = this.appointmentsToCancel[selectedIndex];
                 selectedAppointment.IsCanceled = true;
-                Appointment emergencyAppointment = Singleton.Instance.Schedule.CreateAppointment(selectedAppointment.TimeSlot,
-                            selectedAppointment.getDoctor(), PatientService.getByUsername(this.selectedPatient));
+                DoctorRepository doctorRepository = new DoctorRepository();
+                Appointment emergencyAppointment = scheduleRepository.CreateAppointment(selectedAppointment.TimeSlot,
+                            doctorRepository.getDoctor(selectedAppointment.DoctorId), PatientService.getByUsername(this.selectedPatient));
                 NotificationAboutCancelledAppointment notification = new NotificationAboutCancelledAppointment
                     (emergencyAppointment.Id, emergencyAppointment.DoctorId, false);
                 Singleton.Instance.notificationAboutCancelledAppointment.Add(notification);
@@ -222,7 +179,7 @@ namespace ZdravoCorp
                 NotificarionAboutCancelledAppointmentRepository.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
                 if (emergencyAppointment != null)
                 {
-                    Singleton.Instance.Schedule.WriteAllAppointmens();
+                    scheduleRepository.WriteAllAppointmens();
                     MessageBox.Show("Emergency appointment added successfully.");
                     this.Close();
                 }

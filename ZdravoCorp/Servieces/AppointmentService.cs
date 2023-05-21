@@ -7,18 +7,14 @@ namespace ZdravoCorp.Servieces
 {
     internal class AppointmentService
     {
-        Appointment Appointment { get; set; }
-        public AppointmentService(Appointment appointment)
-        {
-            Appointment = appointment;
-        }
+        public AppointmentService() { }
         public static string TakeRoom(TimeSlot timeSlot)
         {
             Dictionary<string, Room> examinationRooms = Room.LoadAllExaminationRoom();
             foreach (var room in examinationRooms)
             {
                 bool check = true;
-                foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
+                foreach (Appointment appointment in Singleton.Instance.Schedule.Appointments)
                 {
                     if (appointment.IsCanceled) continue;
                     TimeSlotService timeSlotService = new TimeSlotService(timeSlot);
@@ -35,10 +31,10 @@ namespace ZdravoCorp.Servieces
             }
             return "";
         }
-        public bool IsAbleToStart()
+        public bool IsAbleToStart(Appointment appointment)
         {
-            DateTime earliestStart = Appointment.TimeSlot.start.Add(new TimeSpan(0, -15, 0));
-            DateTime latestStart = Appointment.TimeSlot.start.Add(new TimeSpan(0, Appointment.TimeSlot.duration, 0));
+            DateTime earliestStart = appointment.TimeSlot.start.Add(new TimeSpan(0, -15, 0));
+            DateTime latestStart = appointment.TimeSlot.start.Add(new TimeSpan(0, appointment.TimeSlot.duration, 0));
 
             if (DateTime.Now < earliestStart || DateTime.Now > latestStart)
             {

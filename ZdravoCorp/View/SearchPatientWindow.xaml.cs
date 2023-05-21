@@ -65,7 +65,8 @@ namespace ZdravoCorp
 
         private void DisplayMedicalRecord(Patient patient)
         {
-            if (!doctor.IsAlreadyExamined(patient.Id))
+            DoctorService doctorService = new DoctorService();
+            if (!doctorService.IsAlreadyExamined(patient.Id, doctor.Id))
             {
                 MessageBox.Show("You cannot access the medical record.");
                 return;

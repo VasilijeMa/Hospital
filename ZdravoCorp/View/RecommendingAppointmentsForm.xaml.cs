@@ -60,12 +60,14 @@ namespace ZdravoCorp
             if (!inputValidation()) return;
             AppointmentRequest appointmentRequest = CreateAppointmentRequest();
             if (appointmentRequest == null) return;
-            recommendedAppointments = singleton.Schedule.GetAppointmentsByRequest(appointmentRequest, patient.Id);
+            ScheduleService scheduleService = new ScheduleService();
+            recommendedAppointments = scheduleService.GetAppointmentsByRequest(appointmentRequest, patient.Id);
             dgAppointments.ItemsSource = null;
             LoadAppointmentsInDataGrid(recommendedAppointments);
             if (recommendedAppointments.Count() == 1)
             {
-                singleton.Schedule.CreateAppointment(recommendedAppointments[0]);
+                ScheduleRepository scheduleRepository = new ScheduleRepository();
+                scheduleRepository.CreateAppointment(recommendedAppointments[0]);
                 LogRepository.AddElement(recommendedAppointments[0], patient);
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
@@ -116,7 +118,8 @@ namespace ZdravoCorp
                 return;
             }
             Appointment appointment = GetAppointmentFromSelectedRow();
-            singleton.Schedule.CreateAppointment(appointment);
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            scheduleRepository.CreateAppointment(appointment);
             LogRepository.AddElement(appointment, patient);
             MessageBox.Show("Appointment successfully created.");
             this.Close();

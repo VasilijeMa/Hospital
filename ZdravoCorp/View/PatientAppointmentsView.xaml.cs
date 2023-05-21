@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using ZdravoCorp.Controllers;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Domain.Enums;
+using ZdravoCorp.Repositories;
+using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
 {
@@ -28,7 +31,8 @@ namespace ZdravoCorp
 
         private void LoadMedicalRecordInToxtBox()
         {
-            MedicalRecord medicalRecord = patient.getMedicalRecord();
+            MedicalRecordController medicalRecordController = new MedicalRecordController();
+            MedicalRecord medicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordId);
             tbAllergens.Text = ListToString(medicalRecord.Allergens);
             tbEarlierIllnesses.Text = ListToString(medicalRecord.EarlierIllnesses);
             tbHeight.Text = medicalRecord.Height.ToString();
@@ -48,8 +52,10 @@ namespace ZdravoCorp
             {
                 if (anamnesis.PatientId == patient.Id)
                 {
-                    Appointment appointment = singleton.Schedule.GetAppointment(anamnesis.AppointmentId);
-                    Doctor doctor = appointment.getDoctor();
+                    ScheduleRepository scheduleRepository = new ScheduleRepository();
+                    Appointment appointment = scheduleRepository.GetAppointment(anamnesis.AppointmentId);
+                    DoctorRepository doctorRepository = new DoctorRepository();
+                    Doctor doctor = doctorRepository.getDoctor(appointment.DoctorId);
                     if (appointment.TimeSlot.start.Date > DateTime.Now.Date) continue;
                     dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"),
                         appointment.TimeSlot.start.TimeOfDay.ToString(@"hh\:mm"), doctor.FirstName + " " + doctor.LastName,
@@ -79,7 +85,8 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
-            Appointment appointment = singleton.Schedule.GetAppointment((int)item.Row["Id"]);
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            Appointment appointment = scheduleRepository.GetAppointment((int)item.Row["Id"]);
             AnamnesisView anamnesisView = new AnamnesisView(appointment, ConfigRoles.Patient);
             anamnesisView.ShowDialog();
         }

@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using ZdravoCorp.Domain;
+using ZdravoCorp.Repositories;
 using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
@@ -63,10 +64,12 @@ namespace ZdravoCorp
             }
 
             int id = (int)item.Row["AppointmentId"];
-            Appointment selectedAppointment = singleton.Schedule.GetAppointment(id);
-            Patient patient = selectedAppointment.getPatient();
-            AppointmentService appointmentService = new AppointmentService(selectedAppointment);
-            if (!appointmentService.IsAbleToStart())
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            Appointment selectedAppointment = scheduleRepository.GetAppointment(id);
+            PatientRepository patientRepository = new PatientRepository();
+            Patient patient = patientRepository.getPatient(selectedAppointment.PatientId);
+            AppointmentService appointmentService = new AppointmentService();
+            if (!appointmentService.IsAbleToStart(selectedAppointment))
             {
                 MessageBox.Show("You cannot start a appointment.");
                 return;

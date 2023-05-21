@@ -18,31 +18,6 @@
             IsCanceled = false;
             IdRoom = idRoom;
         }
-
         public Appointment() { }
-
-        public Doctor getDoctor()
-        {
-            foreach (Doctor doctor in Singleton.Instance.doctors)
-            {
-                if (doctor.Id == DoctorId)
-                {
-                    return doctor;
-                }
-            }
-            return null;
-        }
-
-        public Patient getPatient()
-        {
-            foreach (Patient patient in Singleton.Instance.patients)
-            {
-                if (patient.Id == PatientId)
-                {
-                    return patient;
-                }
-            }
-            return null;
-        }
     }
 }

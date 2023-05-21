@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using ZdravoCorp.Domain;
+using ZdravoCorp.Repositories;
+using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
 {
@@ -38,29 +40,30 @@ namespace ZdravoCorp
                 return;
             }
             TimeSlot timeSlot = MakeTimeSlot();
-
-            if (!doctor.IsAvailable(timeSlot, appointmentId))
+            DoctorService doctorService = new DoctorService();
+            PatientService patientService = new PatientService();
+            if (!doctorService.IsAvailable(timeSlot, doctor.Id, appointmentId))
             {
                 MessageBox.Show("You are not available at choosen date and time.");
                 return;
             }
             Patient patient = (Patient)cmbPatients.SelectedItem;
-            if (!patient.IsAvailable(timeSlot, appointmentId))
+            if (!patientService.IsAvailable(timeSlot, patient.Id, appointmentId))
             {
                 MessageBox.Show("Patient is not available at choosen date and time.");
                 return;
             }
-
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
             if (update)
             {
-                singleton.Schedule.UpdateAppointment(appointmentId, timeSlot, doctor.Id, (Patient)cmbPatients.SelectedItem);
+                scheduleRepository.UpdateAppointment(appointmentId, timeSlot, doctor.Id, (Patient)cmbPatients.SelectedItem);
                 MessageBox.Show("Appointment successfully updated.");
                 this.Close();
                 return;
             }
             else
             {
-                singleton.Schedule.CreateAppointment(timeSlot, doctor, (Patient)cmbPatients.SelectedItem);
+                scheduleRepository.CreateAppointment(timeSlot, doctor, (Patient)cmbPatients.SelectedItem);
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
             }

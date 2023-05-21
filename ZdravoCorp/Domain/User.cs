@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ZdravoCorp.Controllers;
 using ZdravoCorp.ManagerView;
 using ZdravoCorp.Repositories;
 
@@ -71,7 +72,8 @@ namespace ZdravoCorp.Domain
                                 patientWindow.ShowDialog();
                                 if (patient.IsBlocked)
                                 {
-                                    PatientRepository.WriteAll(Singleton.Instance.patients);
+                                    PatientController patientController = new PatientController();
+                                    patientController.WriteAll(Singleton.Instance.patients);
                                 }
                                 break;
                             }

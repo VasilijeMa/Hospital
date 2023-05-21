@@ -2,6 +2,7 @@
 using System.Windows;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
+using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
 {
@@ -42,17 +43,20 @@ namespace ZdravoCorp
                 return;
             }
             Doctor doctor = (Doctor)cmbDoctors.SelectedItem;
-            if (!doctor.IsAvailable(timeSlot))
+            DoctorService doctorService = new DoctorService();
+            PatientService patientService = new PatientService();
+            if (!doctorService.IsAvailable(timeSlot, doctor.Id))
             {
                 MessageBox.Show("Doctor is not available at choosen date and time.");
                 return;
             }
-            if (!patient.IsAvailable(timeSlot))
+            if (!patientService.IsAvailable(timeSlot, patient.Id))
             {
                 MessageBox.Show("Patient is not available at choosen date and time.");
                 return;
             }
-            Appointment appointment = singleton.Schedule.CreateAppointment(timeSlot, doctor, patient);
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            Appointment appointment = scheduleRepository.CreateAppointment(timeSlot, doctor, patient);
             LogRepository.AddElement(appointment, patient);
             MessageBox.Show("Appointment successfully created.");
             this.Close();

@@ -1,23 +1,41 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using ZdravoCorp.Domain;
 
 namespace ZdravoCorp.Repositories
 {
     public class MedicalRecordRepository
     {
-        public static void WriteAll(List<MedicalRecord> newlistofrecords)
+        private List<MedicalRecord> Records { get; set; }
+
+        public MedicalRecordRepository()
+        {
+            LoadAll();
+        }
+        public void WriteAll(List<MedicalRecord> newlistofrecords)
         {
             string json = JsonConvert.SerializeObject(newlistofrecords, Formatting.Indented);
             File.WriteAllText("./../../../data/medicalRecords.json", json);
         }
-        public static List<MedicalRecord> LoadAll()
+        public List<MedicalRecord> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/medicalRecords.json");
             var json = reader.ReadToEnd();
-            List<MedicalRecord> records = JsonConvert.DeserializeObject<List<MedicalRecord>>(json);
-            return records;
+            Records = JsonConvert.DeserializeObject<List<MedicalRecord>>(json);
+            return Records;
+        }
+        public MedicalRecord GetMedicalRecord(int medicalRecordId)
+        {
+            foreach (MedicalRecord medicalRecord in Records)
+            {
+                if (medicalRecordId == medicalRecord.Id)
+                {
+                    return medicalRecord;
+                }
+            }
+            return null;
         }
     }
 }

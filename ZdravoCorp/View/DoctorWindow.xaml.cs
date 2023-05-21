@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using ZdravoCorp.Controllers;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
+using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
 {
@@ -12,65 +14,48 @@ namespace ZdravoCorp
     public partial class DoctorWindow : Window
     {
         private Doctor doctor { get; set; }
-        private List<Appointment> appointments { get; set; }
+
+        private DoctorController doctorController;
 
         public DoctorWindow(Doctor doctor)
         {
-            this.doctor = doctor;
             InitializeComponent();
+            doctorController = new DoctorController();
+            this.doctor = doctor;
+            SetFields(doctor);
+            doctorController.showNotification(doctor.Id);
+        }
+
+        private void SetFields(Doctor doctor)
+        {
             nameTxt.Text = doctor.FirstName;
             lastNameTxt.Text = doctor.LastName;
             idTxt.Text = doctor.Id.ToString();
             specializationTxt.Text = doctor.Specialization.ToString();
-            showNotification();
-        }
-
-        private void showNotification()
-        {
-            foreach (NotificationAboutCancelledAppointment notification in Singleton.Instance.notificationAboutCancelledAppointment)
-            {
-                if ((notification.DoctorId == this.doctor.Id) && (!notification.isShown))
-                {
-                    MessageBox.Show("Your appointment with id: " + notification.AppointmenntId.ToString() + " is cancalled.");
-                    notification.isShown = true;
-                    Singleton.Instance.notificationAboutCancelledAppointment.Add(notification);
-                    NotificarionAboutCancelledAppointmentRepository.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
-                    return;
-                }
-            }
         }
         private void MakeAppointmentClick(object sender, RoutedEventArgs e)
         {
-            MakeAppointmentDoctor appointmentDoctor = new MakeAppointmentDoctor(doctor, false);
-            appointmentDoctor.Show();
+            doctorController.MakeAppointment(doctor);
         }
 
         private void ViewOneDayAppointmentClick(object sender, RoutedEventArgs e)
         {
-            this.appointments = doctor.GetAllAppointments(DateTime.Now.Date, DateTime.Now.Date);
-            ViewAppointment appointmentDoctor = new ViewAppointment(appointments, doctor, 1);
-            appointmentDoctor.Show();
+            doctorController.ViewOneDayAppointment(doctor);
         }
 
         private void ViewThreeDayAppointmentClick(object sender, RoutedEventArgs e)
         {
-            DateTime endDate = DateTime.Now.AddDays(3);
-            this.appointments = doctor.GetAllAppointments(DateTime.Now.Date, endDate.Date);
-            ViewAppointment appointmentDoctor = new ViewAppointment(appointments, doctor, 3);
-            appointmentDoctor.Show();
+            doctorController.ViewThreeDayAppointment(doctor);
         }
 
         private void DailyScheduleClick(object sender, RoutedEventArgs e)
         {
-            this.appointments = doctor.GetAllAppointments(DateTime.Now.Date, DateTime.Now.Date);
-            DailyAppointmentView dailySchedule = new DailyAppointmentView(appointments, doctor);
-            dailySchedule.ShowDialog();
+            doctorController.DailySchedule(doctor);
         }
 
         private void SearchPatientClick(object sender, RoutedEventArgs e)
         {
-            SearchPatientWindow searchPatient = new SearchPatientWindow(doctor);
-            searchPatient.Show();
+            doctorController.SearchPatient(doctor);
         }
 
         private void LogOutClick(object sender, RoutedEventArgs e)
@@ -80,7 +65,8 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Singleton.Instance.Schedule.WriteAllAppointmens();
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            scheduleRepository.WriteAllAppointmens();
         }
     }
 }

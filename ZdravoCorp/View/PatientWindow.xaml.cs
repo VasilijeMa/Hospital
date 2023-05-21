@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using ZdravoCorp.Domain;
+using ZdravoCorp.Repositories;
 using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
@@ -59,7 +60,8 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            singleton.Schedule.WriteAllAppointmens();
+            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            scheduleRepository.WriteAllAppointmens();
         }
 
         private void MedicalRecord_Click(object sender, RoutedEventArgs e)

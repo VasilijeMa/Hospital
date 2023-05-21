@@ -1,12 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.RightsManagement;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Media3D;
+﻿using System.Collections.Generic;
 
 namespace ZdravoCorp
 {
@@ -18,7 +10,8 @@ namespace ZdravoCorp
         public double Height { get; set; }
         public double Weight { get; set; }
 
-        public MedicalRecord() {
+        public MedicalRecord()
+        {
             Allergens = new List<string>();
             EarlierIllnesses = new List<string>();
         }

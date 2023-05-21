@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
+using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
 {
@@ -50,7 +39,7 @@ namespace ZdravoCorp
             dt.Columns.Add("IsBlocked", typeof(bool));
             return dt;
         }
-        
+
         private void GetMedicalRecord(object sender, RoutedEventArgs e)
         {
             DataRowView item = dataGrid.SelectedItem as DataRowView;
@@ -59,7 +48,7 @@ namespace ZdravoCorp
                 MessageBox.Show("Patient is not selected.");
             }
             int id = (int)item.Row["PatientID"];
-            Patient selected = Patient.getById(id);
+            Patient selected = PatientService.getById(id);
             DisplayMedicalRecord(selected);
         }
 
@@ -70,7 +59,7 @@ namespace ZdravoCorp
                 MessageBox.Show("Please enter id to search.");
             }
             int id = int.Parse(patientIdtext.Text);
-            Patient searched = Patient.getById(id);
+            Patient searched = PatientService.getById(id);
             DisplayMedicalRecord(searched);
         }
 

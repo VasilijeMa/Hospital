@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZdravoCorp.EquipmentGroup
+﻿namespace ZdravoCorp.EquipmentGroup
 {
     public class EquipmentQuantity
     {

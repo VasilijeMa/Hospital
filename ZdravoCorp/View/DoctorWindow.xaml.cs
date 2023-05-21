@@ -1,19 +1,8 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using ZdravoCorp.Repositories;
 
 namespace ZdravoCorp
 {
@@ -22,7 +11,7 @@ namespace ZdravoCorp
     /// </summary>
     public partial class DoctorWindow : Window
     {
-        private Doctor doctor { get; set; } 
+        private Doctor doctor { get; set; }
         private List<Appointment> appointments { get; set; }
 
         public DoctorWindow(Doctor doctor)
@@ -36,13 +25,16 @@ namespace ZdravoCorp
             showNotification();
         }
 
-        private void showNotification() {
-            foreach (NotificationAboutCancelledAppointment notification in Singleton.Instance.notificationAboutCancelledAppointment) {
-                if ((notification.DoctorId == this.doctor.Id)&&(!notification.isShown)) {
+        private void showNotification()
+        {
+            foreach (NotificationAboutCancelledAppointment notification in Singleton.Instance.notificationAboutCancelledAppointment)
+            {
+                if ((notification.DoctorId == this.doctor.Id) && (!notification.isShown))
+                {
                     MessageBox.Show("Your appointment with id: " + notification.AppointmenntId.ToString() + " is cancalled.");
                     notification.isShown = true;
                     Singleton.Instance.notificationAboutCancelledAppointment.Add(notification);
-                    notification.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
+                    NotificarionAboutCancelledAppointmentRepository.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
                     return;
                 }
             }

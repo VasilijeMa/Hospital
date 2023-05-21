@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
-using ZdravoCorp.Enums;
+using ZdravoCorp.Domain.Enums;
 using ZdravoCorp.Repositories;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -51,7 +38,7 @@ namespace ZdravoCorp
             else
             {
                 Symptoms.IsReadOnly = true;
-                DoctorObservation.IsReadOnly= true;
+                DoctorObservation.IsReadOnly = true;
                 DoctorConclusion.IsReadOnly = true;
                 btnCancel.Visibility = Visibility.Hidden;
                 btnSubmit.Visibility = Visibility.Hidden;
@@ -62,12 +49,14 @@ namespace ZdravoCorp
 
         private void SubmitClick(object sender, RoutedEventArgs e)
         {
-            if (isValid()) {
+            if (isValid())
+            {
                 if (role == ConfigRoles.Nurse)
                 {
                     createAnamnesisObject();
                 }
-                else {
+                else
+                {
                     anamnesis.DoctorsConclusion = DoctorConclusion.Text;
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
                     AnamnesisRepository.WriteAll(Singleton.Instance.anamnesis);
@@ -86,23 +75,27 @@ namespace ZdravoCorp
             }
         }
 
-        private void LoadFields(Anamnesis anamnesis) {
+        private void LoadFields(Anamnesis anamnesis)
+        {
             Symptoms.Text = anamnesis.Symptoms;
             DoctorObservation.Text = anamnesis.DoctorsObservation.ToString();
             DoctorConclusion.Text = anamnesis.DoctorsConclusion.ToString();
         }
 
-        private bool isValid() {
+        private bool isValid()
+        {
             if (role == ConfigRoles.Nurse)
             {
                 return isValidForNurseInput();
             }
-            else {
+            else
+            {
                 return isValidForDoctorInput();
             }
         }
 
-        private bool isValidForNurseInput() {
+        private bool isValidForNurseInput()
+        {
             if (Symptoms.Text.Length == 0)
             {
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
@@ -111,7 +104,8 @@ namespace ZdravoCorp
             return true;
         }
 
-        private bool isValidForDoctorInput() {
+        private bool isValidForDoctorInput()
+        {
             if ((DoctorObservation.Text.Length == 0) || (DoctorConclusion.Text.Length == 0))
             {
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
@@ -120,9 +114,12 @@ namespace ZdravoCorp
             return true;
         }
 
-        public Anamnesis findAnamnesisById(Appointment selectedAppointment) {
-            foreach(Anamnesis anamnesis in Singleton.Instance.anamnesis){
-                if (anamnesis.AppointmentId == selectedAppointment.Id) {
+        public Anamnesis findAnamnesisById(Appointment selectedAppointment)
+        {
+            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
+            {
+                if (anamnesis.AppointmentId == selectedAppointment.Id)
+                {
                     return anamnesis;
                 }
             }

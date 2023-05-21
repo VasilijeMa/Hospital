@@ -1,25 +1,10 @@
 ﻿using Microsoft.VisualBasic;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
-using ZdravoCorp.Enums;
+using ZdravoCorp.Domain.Enums;
 using ZdravoCorp.Repositories;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -34,7 +19,7 @@ namespace ZdravoCorp
         MedicalRecord selectedRecord;
         Appointment selectedAppointment;
 
-        public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment=null, bool update=false)
+        public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment = null, bool update = false)
         {
             InitializeComponent();
             this.doctor = doctor;
@@ -180,7 +165,8 @@ namespace ZdravoCorp
             }
         }
 
-        public MedicalRecord createMedicalRecordObject() {
+        public MedicalRecord createMedicalRecordObject()
+        {
             if (!create)
             {
                 setAttributes(selectedRecord);
@@ -206,12 +192,12 @@ namespace ZdravoCorp
             if (!create)
             {
                 Singleton.Instance.patients.Remove(patient);
-                patient.WriteAll(Singleton.Instance.patients);
+                PatientRepository.WriteAll(Singleton.Instance.patients);
                 UserRepository.RemoveUser(patient.Username);
                 UserRepository.WriteAll(Singleton.Instance.users);
             }
             Singleton.Instance.patients.Add(newPatient);
-            newPatient.WriteAll(Singleton.Instance.patients);
+            PatientRepository.WriteAll(Singleton.Instance.patients);
         }
 
         public void addToMedicalRecords(MedicalRecord newMedicalRecord)

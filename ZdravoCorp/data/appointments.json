@@ -339,5 +339,16 @@
     "PatientId": 2,
     "IsCanceled": false,
     "IdRoom": "Examination Room 1"
+  },
+  {
+    "Id": 34,
+    "TimeSlot": {
+      "start": "2023-05-20T14:34:47.1618154+02:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false,
+    "IdRoom": ""
   }
 ]

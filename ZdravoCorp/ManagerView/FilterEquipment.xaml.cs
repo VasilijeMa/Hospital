@@ -2,16 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ZdravoCorp.EquipmentGroup;
 using ZdravoCorp.InfrastructureGroup;
 
@@ -91,26 +82,28 @@ namespace ZdravoCorp.ManagerView
             return (byQuantity == 1 && egi.GetQuantity() == 0) || (byQuantity == 2 && egi.GetQuantity() <= 10) || (byQuantity == 3 && egi.GetQuantity() > 10);
         }
 
-        bool IsSearchReturn(EquipmentQuantity egi, string searchInput) {
+        bool IsSearchReturn(EquipmentQuantity egi, string searchInput)
+        {
             string upperInput = searchInput.ToUpper();
             string upperName = egi.GetName().ToUpper();
             string upperType = egi.GetTypeOfEq().ToUpper();
-            for(int i = 0; i<upperInput.Length; i++)
+            for (int i = 0; i < upperInput.Length; i++)
             {
                 char c = upperInput[i];
-                if(c != ' ')
+                if (c != ' ')
                 {
                     bool exists = false;
                     for (int j = 0; j < upperName.Length; j++)
                     {
-                        if(upperName[j] == c){
+                        if (upperName[j] == c)
+                        {
                             exists = true;
                             break;
                         }
                     }
                     if (!exists)
                     {
-                        for(int j = 0;j < upperType.Length; j++)
+                        for (int j = 0; j < upperType.Length; j++)
                         {
                             if (upperType[j] == c)
                             {
@@ -140,7 +133,8 @@ namespace ZdravoCorp.ManagerView
                 }
 
             }
-            if(byRoomType != byRoomTypeLen - 1) {
+            if (byRoomType != byRoomTypeLen - 1)
+            {
                 foreach (FunctionalItem fi in AllFunctionalItems)
                 {
                     if (IsValidForIncrease(fi, byRoomType) && EquipmentOrganization.ContainsKey(fi.GetWhat()))
@@ -150,7 +144,7 @@ namespace ZdravoCorp.ManagerView
 
                 }
             }
-            
+
             if (notInWarehouse == 0 && (byRoomType == 0 || byRoomType == byRoomTypeLen - 1))
             {
                 foreach (string key in AllStoredItems.GetInventory().Keys)
@@ -165,12 +159,14 @@ namespace ZdravoCorp.ManagerView
             {
                 foreach (string key in EquipmentOrganization.Keys)
                 {
-                        if (!IsOfValidQuantity(EquipmentOrganization[key], byQuantity)) {
-                            EquipmentOrganization.Remove(key);
-                        }
+                    if (!IsOfValidQuantity(EquipmentOrganization[key], byQuantity))
+                    {
+                        EquipmentOrganization.Remove(key);
+                    }
                 }
             }
-            if (!string.IsNullOrEmpty(searchInput)) {
+            if (!string.IsNullOrEmpty(searchInput))
+            {
                 foreach (string key in EquipmentOrganization.Keys)
                 {
                     if (!IsSearchReturn(EquipmentOrganization[key], searchInput))
@@ -188,7 +184,7 @@ namespace ZdravoCorp.ManagerView
         {
 
             FilterGridItems(ByRoomType.Items.Count, ByRoomType.SelectedIndex, ByEquipmentType.SelectedIndex, ByQuantity.SelectedIndex, NotInWarehouse.SelectedIndex, SearchBox.Text);
-            
+
 
         }
 

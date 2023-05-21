@@ -2,18 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
+using ZdravoCorp.Repositories;
+using ZdravoCorp.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
@@ -27,7 +20,7 @@ namespace ZdravoCorp
         public EmergencyOperationOrExamination()
         {
             InitializeComponent();
-            delayButton.Visibility= Visibility.Hidden;
+            delayButton.Visibility = Visibility.Hidden;
             fillCheckBoxes();
         }
 
@@ -38,25 +31,32 @@ namespace ZdravoCorp
             addSearchCriteria();
         }
 
-        private void addSpecializationsToComboBox() {
-            foreach (Doctor doctor in Singleton.Instance.doctors){
+        private void addSpecializationsToComboBox()
+        {
+            foreach (Doctor doctor in Singleton.Instance.doctors)
+            {
                 specialization.Items.Add(doctor.Specialization);
             }
         }
 
-        private void addPatientToComboBox() {
-            foreach (Patient patient in Singleton.Instance.patients) {
+        private void addPatientToComboBox()
+        {
+            foreach (Patient patient in Singleton.Instance.patients)
+            {
                 patients.Items.Add(patient.Username);
             }
         }
 
-        private void addSearchCriteria() {
+        private void addSearchCriteria()
+        {
             examinationOrOperation.Items.Add("Examination");
             examinationOrOperation.Items.Add("Operation");
         }
 
-        private bool isOperationSelected() {
-            if (examinationOrOperation.SelectedItem.ToString() == "Operation") {
+        private bool isOperationSelected()
+        {
+            if (examinationOrOperation.SelectedItem.ToString() == "Operation")
+            {
                 return true;
             }
             return false;
@@ -68,8 +68,7 @@ namespace ZdravoCorp
             {
                 this.selectedSpecialization = specialization.SelectedItem.ToString();
                 this.selectedPatient = patients.SelectedItem.ToString();
-                Doctor doctor = new Doctor();
-                List<Doctor> qualifiedDoctors = doctor.getDoctorBySpecialization(selectedSpecialization);
+                List<Doctor> qualifiedDoctors = Doctor.GetDoctorBySpecialization(selectedSpecialization);
                 MessageBox.Show(qualifiedDoctors.Count().ToString());
                 Doctor firstFoundDoctor = getFirstFreeDoctor(qualifiedDoctors);
                 if (firstFoundDoctor == null)
@@ -94,7 +93,7 @@ namespace ZdravoCorp
             }
         }
 
-      private DataTable CreateTable()
+        private DataTable CreateTable()
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Appointment ID");
@@ -107,12 +106,13 @@ namespace ZdravoCorp
             return dt;
         }
 
-        private void ShowInTable() {
+        private void ShowInTable()
+        {
             DataTable dt = CreateTable();
             delayButton.Visibility = Visibility.Visible;
             foreach (Appointment appointment in this.appointmentsToCancel)
             {
-                dt.Rows.Add(appointment.Id, 
+                dt.Rows.Add(appointment.Id,
                     appointment.TimeSlot.start.ToString(),
                     appointment.TimeSlot.duration.ToString(),
                     appointment.getDoctor().Username,
@@ -122,8 +122,10 @@ namespace ZdravoCorp
             }
             datagrid.DataContext = dt.DefaultView;
         }
-        private int getDuration() {
-            if (isOperationSelected()) {
+        private int getDuration()
+        {
+            if (isOperationSelected())
+            {
                 this.typedDuration = int.Parse(operationDuration.Text);
                 return this.typedDuration;
             }
@@ -133,41 +135,49 @@ namespace ZdravoCorp
         private List<Appointment> getAppointmentsInNextTwoHours(List<Doctor> qualifiedDoctors)
         {
             List<Appointment> allAppointments = new List<Appointment>();
-            foreach (Doctor doctor in qualifiedDoctors) {
-                List <Appointment> appointmentsForOne = doctor.GetAppointmentsInNextTwoHours();
-                if (appointmentsForOne.Count() == 0) {continue;}
-                foreach (Appointment appointment in appointmentsForOne) {
+            foreach (Doctor doctor in qualifiedDoctors)
+            {
+                List<Appointment> appointmentsForOne = doctor.GetAppointmentsInNextTwoHours();
+                if (appointmentsForOne.Count() == 0) { continue; }
+                foreach (Appointment appointment in appointmentsForOne)
+                {
                     allAppointments.Add(appointment);
                 }
             }
             return allAppointments;
         }
-        private Doctor getFirstFreeDoctor(List<Doctor> qualifiedDoctors) {
+        private Doctor getFirstFreeDoctor(List<Doctor> qualifiedDoctors)
+        {
             DateTime currentTime = DateTime.Now;
             DateTime timeAfterTwoHours = DateTime.Now.AddHours(2);
-            foreach(Doctor qualifiedDoctor in qualifiedDoctors)
+            foreach (Doctor qualifiedDoctor in qualifiedDoctors)
             {
-                for (DateTime time = currentTime;time < timeAfterTwoHours;time=time.AddMinutes(5)) {
-                    TimeSlot doctorsTimeSlot = new TimeSlot(currentTime,getDuration());
-                    if (qualifiedDoctor.IsAvailable(doctorsTimeSlot)){
-                            Appointment appointment = Singleton.Instance.Schedule.CreateAppointment(doctorsTimeSlot,
-                            qualifiedDoctor, Patient.getByUsername(this.selectedPatient));
-                            if (appointment != null){
-                                Singleton.Instance.Schedule.WriteAllAppointmens();
-                            }
-                            return qualifiedDoctor;
+                for (DateTime time = currentTime; time < timeAfterTwoHours; time = time.AddMinutes(5))
+                {
+                    TimeSlot doctorsTimeSlot = new TimeSlot(currentTime, getDuration());
+                    if (qualifiedDoctor.IsAvailable(doctorsTimeSlot))
+                    {
+                        Appointment appointment = Singleton.Instance.Schedule.CreateAppointment(doctorsTimeSlot,
+                        qualifiedDoctor, PatientService.getByUsername(this.selectedPatient));
+                        if (appointment != null)
+                        {
+                            Singleton.Instance.Schedule.WriteAllAppointmens();
+                        }
+                        return qualifiedDoctor;
                     }
-                
+
                 }
 
             }
             return null;
         }
 
-        private bool areComboboxesSelected() {
+        private bool areComboboxesSelected()
+        {
             if ((specialization.SelectedItem == null) ||
                 (patients.SelectedItem == null) ||
-                (examinationOrOperation.SelectedItem == null)) {
+                (examinationOrOperation.SelectedItem == null))
+            {
                 MessageBox.Show("You can't leave comboboxes empty.");
                 return false;
             }
@@ -179,7 +189,8 @@ namespace ZdravoCorp
                     return false;
                 }
             }
-            else {
+            else
+            {
                 if (operationDuration.Text != "")
                 {
                     MessageBox.Show("You should leave field empty.");
@@ -187,7 +198,7 @@ namespace ZdravoCorp
                 }
             }
             return true;
-        
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -197,17 +208,18 @@ namespace ZdravoCorp
             {
                 MessageBox.Show("You must select the patient whose account you want to edit.", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
             }
-            else {
+            else
+            {
                 Appointment selectedAppointment = this.appointmentsToCancel[selectedIndex];
                 selectedAppointment.IsCanceled = true;
                 Appointment emergencyAppointment = Singleton.Instance.Schedule.CreateAppointment(selectedAppointment.TimeSlot,
-                            selectedAppointment.getDoctor(), Patient.getByUsername(this.selectedPatient));
+                            selectedAppointment.getDoctor(), PatientService.getByUsername(this.selectedPatient));
                 NotificationAboutCancelledAppointment notification = new NotificationAboutCancelledAppointment
-                    (emergencyAppointment.Id,emergencyAppointment.DoctorId,false);
+                    (emergencyAppointment.Id, emergencyAppointment.DoctorId, false);
                 Singleton.Instance.notificationAboutCancelledAppointment.Add(notification);
 
                 MessageBox.Show(Singleton.Instance.notificationAboutCancelledAppointment.Count().ToString());
-                notification.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
+                NotificarionAboutCancelledAppointmentRepository.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
                 if (emergencyAppointment != null)
                 {
                     Singleton.Instance.Schedule.WriteAllAppointmens();

@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -64,7 +53,7 @@ namespace ZdravoCorp
                     if (patient.MedicalRecordId == record.Id)
                     {
                         dt.Rows.Add(patient.Id, patient.FirstName, patient.LastName, patient.BirthDate,
-                            patient.Username, patient.Password,record.Id, record.Height, record.Weight, record.EarlierIllnesses);
+                            patient.Username, patient.Password, record.Id, record.Height, record.Weight, record.EarlierIllnesses);
                         dt.AcceptChanges();
                     }
                 }
@@ -88,7 +77,7 @@ namespace ZdravoCorp
             if (selectedIndex == -1)
             {
                 MessageBox.Show("You must select the patient whose account you want to edit.", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
-                
+
             }
             else
             {
@@ -102,7 +91,7 @@ namespace ZdravoCorp
             }
         }
         public void deleteButton(object sender, RoutedEventArgs e)
-         {
+        {
             int selectedIndex = datagrid.SelectedIndex;
             if (selectedIndex == -1)
             {
@@ -131,12 +120,12 @@ namespace ZdravoCorp
                     Singleton.Instance.medicalRecords.Remove(selectedRecord);
                     UserRepository.RemoveUser(selectedPatient.Username);
                     UserRepository.WriteAll(Singleton.Instance.users);
-                    selectedPatient.WriteAll(Singleton.Instance.patients);
+                    PatientRepository.WriteAll(Singleton.Instance.patients);
                     MedicalRecordRepository.WriteAll(Singleton.Instance.medicalRecords);
                     LoadData();
                 }
             }
-            
+
         }
 
     }

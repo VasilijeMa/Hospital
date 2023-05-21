@@ -1,156 +1,6 @@
 [
   {
     "Appointment": {
-      "Id": 3,
-      "TimeSlot": {
-        "start": "2023-05-04T11:10:00",
-        "duration": 15
-      },
-      "DoctorId": 1,
-      "PatientId": 1,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:05:16.0123045+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 4,
-      "TimeSlot": {
-        "start": "2023-04-19T09:00:00",
-        "duration": 15
-      },
-      "DoctorId": 2,
-      "PatientId": 1,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:06:25.8442046+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 5,
-      "TimeSlot": {
-        "start": "2023-05-03T11:10:00",
-        "duration": 15
-      },
-      "DoctorId": 2,
-      "PatientId": 2,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:30:18.6237633+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 6,
-      "TimeSlot": {
-        "start": "2023-04-30T09:09:00",
-        "duration": 15
-      },
-      "DoctorId": 2,
-      "PatientId": 2,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:30:48.3453664+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 7,
-      "TimeSlot": {
-        "start": "2023-04-18T21:30:00",
-        "duration": 15
-      },
-      "DoctorId": 1,
-      "PatientId": 2,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:31:03.2550288+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 8,
-      "TimeSlot": {
-        "start": "2023-05-29T13:55:00",
-        "duration": 15
-      },
-      "DoctorId": 1,
-      "PatientId": 3,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:32:02.313988+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 9,
-      "TimeSlot": {
-        "start": "2023-05-26T18:05:00",
-        "duration": 15
-      },
-      "DoctorId": 1,
-      "PatientId": 3,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:32:23.2775322+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 10,
-      "TimeSlot": {
-        "start": "2023-04-29T08:00:00",
-        "duration": 15
-      },
-      "DoctorId": 1,
-      "PatientId": 3,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:32:54.8444695+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 10,
-      "TimeSlot": {
-        "start": "2023-05-31T11:00:00",
-        "duration": 15
-      },
-      "DoctorId": 1,
-      "PatientId": 1,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:37:56.4778505+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 11,
-      "TimeSlot": {
-        "start": "2023-06-10T09:00:00",
-        "duration": 15
-      },
-      "DoctorId": 2,
-      "PatientId": 3,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-04-17T23:38:36.3259478+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
       "Id": 14,
       "TimeSlot": {
         "start": "2023-05-28T12:00:00",
@@ -207,6 +57,21 @@
       "IdRoom": "Examination Room 1"
     },
     "DateTime": "2023-05-10T14:33:03.9755632+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 34,
+      "TimeSlot": {
+        "start": "2023-05-20T14:34:47.1618154+02:00",
+        "duration": 15
+      },
+      "DoctorId": 1,
+      "PatientId": 1,
+      "IsCanceled": false,
+      "IdRoom": ""
+    },
+    "DateTime": "2023-05-20T14:19:51.7616004+02:00",
     "Type": "make"
   }
 ]

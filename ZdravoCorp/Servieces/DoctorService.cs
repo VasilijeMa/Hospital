@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZdravoCorp.Enums
+namespace ZdravoCorp.Servieces
 {
-    public enum Priority
+    internal class DoctorService
     {
-        Doctor,
-        TimeSlot
     }
 }

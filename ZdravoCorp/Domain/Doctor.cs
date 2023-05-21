@@ -1,17 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ZdravoCorp.Domain;
-using ZdravoCorp.Enums;
+using ZdravoCorp.Domain.Enums;
 using ZdravoCorp.Servieces;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
-namespace ZdravoCorp
+namespace ZdravoCorp.Domain
 {
     public class Doctor : User
     {
@@ -38,7 +31,7 @@ namespace ZdravoCorp
             {
                 foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
                 {
-                    if (appointment.TimeSlot.start.Date == startDate && appointment.DoctorId == this.Id)
+                    if (appointment.TimeSlot.start.Date == startDate && appointment.DoctorId == Id)
                     {
                         appointments.Add(appointment);
                     }
@@ -58,22 +51,13 @@ namespace ZdravoCorp
             {
                 if (appointment.TimeSlot.start.Date == timeAfterTwoHours.Date)
                 {
-                    if (TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1 && appointment.DoctorId == this.Id)
+                    if (TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1 && appointment.DoctorId == Id)
                     {
                         appointmentsInNextTwoHours.Add(appointment);
                     }
                 }
             }
             return appointmentsInNextTwoHours;
-
-        }
-        public static List<Doctor> LoadAll()
-        {
-            var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/doctor.json");
-            var json = reader.ReadToEnd();
-            List<Doctor> doctors = JsonConvert.DeserializeObject<List<Doctor>>(json);
-            return doctors;
         }
 
         public bool IsAvailable(TimeSlot timeSlot, int appointmentId = -1)
@@ -90,17 +74,9 @@ namespace ZdravoCorp
             return true;
         }
 
-        public List<Doctor> getDoctorBySpecialization(String specialization)
+        public static List<Doctor> GetDoctorBySpecialization(string specialization)
         {
-            List<Doctor> qualifiedDoctors = new List<Doctor>();
-            foreach (Doctor doctor in Singleton.Instance.doctors)
-            {
-                if (doctor.Specialization.ToString() == specialization)
-                {
-                    qualifiedDoctors.Add(doctor);
-                }
-            }
-            return qualifiedDoctors;
+            return Singleton.Instance.doctors.Where(doctor => doctor.Specialization.ToString() == specialization).ToList();
         }
 
         public bool IsAlreadyExamined(int id)
@@ -108,7 +84,7 @@ namespace ZdravoCorp
             foreach (Appointment appointment in Singleton.Instance.Schedule.appointments)
             {
                 if (appointment.IsCanceled) continue;
-                if (appointment.PatientId == id && appointment.DoctorId == this.Id)
+                if (appointment.PatientId == id && appointment.DoctorId == Id)
                 {
                     if (appointment.TimeSlot.start < DateTime.Now)
                     {

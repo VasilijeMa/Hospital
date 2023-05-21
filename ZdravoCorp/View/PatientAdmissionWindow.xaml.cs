@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -47,16 +35,17 @@ namespace ZdravoCorp
         public void LoadData()
         {
             DataTable dt = CreateDataTable();
-            foreach (Appointment appointment in Singleton.Instance.Schedule.todaysAppointments){
-                        dt.Rows.Add(appointment.Id.ToString()
-                            ,appointment.TimeSlot.start.ToString()
-                            ,appointment.getDoctor().Username
-                            ,appointment.getDoctor().FirstName
-                            ,appointment.getDoctor().LastName
-                            ,appointment.getPatient().Username
-                            ,appointment.getPatient().FirstName
-                            ,appointment.getPatient().LastName);
-                        dt.AcceptChanges();
+            foreach (Appointment appointment in Singleton.Instance.Schedule.todaysAppointments)
+            {
+                dt.Rows.Add(appointment.Id.ToString()
+                    , appointment.TimeSlot.start.ToString()
+                    , appointment.getDoctor().Username
+                    , appointment.getDoctor().FirstName
+                    , appointment.getDoctor().LastName
+                    , appointment.getPatient().Username
+                    , appointment.getPatient().FirstName
+                    , appointment.getPatient().LastName);
+                dt.AcceptChanges();
             }
             datagrid.DataContext = dt.DefaultView;
         }
@@ -79,7 +68,7 @@ namespace ZdravoCorp
             }
             //isAlreadyExsist(selectedAppointment.Id);
             Patient patient = selectedAppointment.getPatient();
-            CreateMedicalRecordWindow medicalRecordWindow = new CreateMedicalRecordWindow(false, patient,false,selectedAppointment);
+            CreateMedicalRecordWindow medicalRecordWindow = new CreateMedicalRecordWindow(false, patient, false, selectedAppointment);
             //AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,true);
             medicalRecordWindow.ShowDialog();
         }

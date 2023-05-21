@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZdravoCorp.EquipmentGroup
 {
@@ -14,13 +11,13 @@ namespace ZdravoCorp.EquipmentGroup
 
         [JsonProperty("fromWarehouse")]
         public bool FromWarehouse { get; set; }
-        
+
         [JsonProperty("roomFrom")]
         public string RoomFrom { get; set; }
 
         [JsonProperty("roomTo")]
         public string RoomTo { get; set; }
-        
+
         [JsonProperty("transferDate")]
         public DateTime TransferDate { get; set; }
 
@@ -57,7 +54,8 @@ namespace ZdravoCorp.EquipmentGroup
             return RoomFrom;
         }
 
-        public string GetRoomTo() {
+        public string GetRoomTo()
+        {
             return RoomTo;
         }
 

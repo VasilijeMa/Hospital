@@ -1,18 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -144,8 +133,8 @@ namespace ZdravoCorp
 
         private bool isValid()
         {
-            if ((firstname.Text.Length == 0)||(lastname.Text.Length == 0)||(birthdate.Text.Length==0)
-                ||(username.Text.Length==0)||(password.Text.Length ==0))
+            if ((firstname.Text.Length == 0) || (lastname.Text.Length == 0) || (birthdate.Text.Length == 0)
+                || (username.Text.Length == 0) || (password.Text.Length == 0))
             {
                 MessageBox.Show("You cannot leave the field blank.", "Failed", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
                 return false;
@@ -173,7 +162,8 @@ namespace ZdravoCorp
                 this.Close();
             }
         }
-        public Patient CreatePatientObject() {
+        public Patient CreatePatientObject()
+        {
             Patient newpatient = new Patient();
             newpatient.FirstName = firstname.Text;
             newpatient.LastName = lastname.Text;
@@ -189,8 +179,8 @@ namespace ZdravoCorp
             }
             else
             {
-               // Singleton.Instance.patients.Remove(selectedPatient);
-               // User.RemoveUser(selectedPatient.Username);
+                // Singleton.Instance.patients.Remove(selectedPatient);
+                // User.RemoveUser(selectedPatient.Username);
                 newpatient.Id = selectedPatient.Id;
                 newpatient.MedicalRecordId = selectedPatient.MedicalRecordId;
             }

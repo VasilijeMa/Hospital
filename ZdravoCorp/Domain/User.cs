@@ -1,14 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml.Linq;
+﻿using System.Windows;
 using ZdravoCorp.ManagerView;
+using ZdravoCorp.Repositories;
 
 namespace ZdravoCorp.Domain
 {
@@ -79,7 +71,7 @@ namespace ZdravoCorp.Domain
                                 patientWindow.ShowDialog();
                                 if (patient.IsBlocked)
                                 {
-                                    patient.WriteAll(Singleton.Instance.patients);
+                                    PatientRepository.WriteAll(Singleton.Instance.patients);
                                 }
                                 break;
                             }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ZdravoCorp.Repositories;
 
 namespace ZdravoCorp.Domain
@@ -41,13 +37,13 @@ namespace ZdravoCorp.Domain
         {
             Schedule = new Schedule();
             Log = new Log();
-            doctors = Doctor.LoadAll();
-            patients = Patient.LoadAll();
+            doctors = DoctorRepository.LoadAll();
+            patients = PatientRepository.LoadAll();
             nurses = NurseRepository.LoadAll();
             medicalRecords = MedicalRecordRepository.LoadAll();
             anamnesis = AnamnesisRepository.LoadAll();
             users = UserRepository.LoadAll();
-            notificationAboutCancelledAppointment = NotificationAboutCancelledAppointment.LoadAll();
+            notificationAboutCancelledAppointment = NotificarionAboutCancelledAppointmentRepository.LoadAll();
         }
     }
 }

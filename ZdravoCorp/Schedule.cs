@@ -3,11 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Ink;
 using ZdravoCorp.Domain;
-using ZdravoCorp.Enums;
+using ZdravoCorp.Domain.Enums;
 using ZdravoCorp.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -171,7 +168,7 @@ namespace ZdravoCorp
 
         public List<Appointment> GetClosestAppointments(int patientId)
         {
-            Patient patient = Patient.getById(patientId);
+            Patient patient = PatientService.getById(patientId);
             List<Appointment> closestAppointments = new List<Appointment>();
             for (DateTime i = DateTime.Now.AddMinutes(15); ; i = i.AddMinutes(1))
             {
@@ -179,13 +176,11 @@ namespace ZdravoCorp
                 foreach (Doctor doctor in Singleton.Instance.doctors)
                 {
                     TimeSlot freeTimeSlot = new TimeSlot(i, APPOINTMENT_DURATION);
-                    if (doctor.IsAvailable(freeTimeSlot) && patient.IsAvailable(freeTimeSlot))
-                    {
-                        if (!AppointmentTimeOverlaps(closestAppointments, freeTimeSlot, doctor.Id)) continue;
-                        Appointment appointment = new Appointment(getLastId() + 1, freeTimeSlot, doctor.Id, patientId, "");
-                        closestAppointments.Add(appointment);
-                        if (closestAppointments.Count() == 3) break;
-                    }
+                    if (!doctor.IsAvailable(freeTimeSlot) || !patient.IsAvailable(freeTimeSlot)) continue;
+                    if (!AppointmentTimeOverlaps(closestAppointments, freeTimeSlot, doctor.Id)) continue;
+                    Appointment appointment = new Appointment(getLastId() + 1, freeTimeSlot, doctor.Id, patientId, "");
+                    closestAppointments.Add(appointment);
+                    if (closestAppointments.Count() == 3) break;
                 }
             }
             return closestAppointments;
@@ -279,26 +274,24 @@ namespace ZdravoCorp
         {
             for (int i = 0; i < freeTimeSlots.Count; i++)
             {
-                if (freeTimeSlots[i].duration >= APPOINTMENT_DURATION)
+                if (freeTimeSlots[i].duration < APPOINTMENT_DURATION) continue;
+                var founded = MakeTimeSlotForPatient(freeTimeSlots[i], patientId);
+                if (founded == null) continue;
+                var timeSlotService = new TimeSlotService(freeTimeSlots[i]);
+                var tempTimeSlots = timeSlotService.Split(founded);
+                freeTimeSlots.Remove(freeTimeSlots[i]);
+                for (int j = 0; j < tempTimeSlots.Count; j++)
                 {
-                    TimeSlot founded = MakeTimeSlotForPatient(freeTimeSlots[i], patientId);
-                    if (founded == null) continue;
-                    TimeSlotService timeSlotService = new TimeSlotService(freeTimeSlots[i]);
-                    List<TimeSlot> tempTimeSlots = timeSlotService.Split(founded);
-                    freeTimeSlots.Remove(freeTimeSlots[i]);
-                    for (int j = 0; j < tempTimeSlots.Count; j++)
-                    {
-                        freeTimeSlots.Insert(i + j, tempTimeSlots[j]);
-                    }
-                    return founded;
+                    freeTimeSlots.Insert(i + j, tempTimeSlots[j]);
                 }
+                return founded;
             }
             return null;
         }
 
         public TimeSlot MakeTimeSlotForPatient(TimeSlot timeSlot, int patientId)
         {
-            Patient patient = Patient.getById(patientId);
+            Patient patient = PatientService.getById(patientId);
             for (DateTime currentDate = timeSlot.start; currentDate <= timeSlot.start.AddMinutes(timeSlot.duration - 15); currentDate = currentDate.AddMinutes(1))
             {
                 TimeSlot founded = new TimeSlot(currentDate, APPOINTMENT_DURATION);

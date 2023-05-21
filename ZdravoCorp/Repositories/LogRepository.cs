@@ -2,10 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Servieces;
 
@@ -44,7 +40,7 @@ namespace ZdravoCorp.Repositories
         }
         public static void Refresh(List<LogElement> elements)
         {
-            for(int i = 0; i < elements.Count;i++)
+            for (int i = 0; i < elements.Count; i++)
             {
                 if (elements[i].DateTime.AddDays(30) <= DateTime.Now)
                 {

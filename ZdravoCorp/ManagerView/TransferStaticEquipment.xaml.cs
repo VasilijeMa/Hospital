@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ZdravoCorp.EquipmentGroup;
 using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.ManagerView
@@ -47,16 +35,16 @@ namespace ZdravoCorp.ManagerView
             int indexFrom = RoomFrom.SelectedIndex;
             int indexTo = RoomTo.SelectedIndex;
 
-            if (indexFrom-1 == indexTo)
+            if (indexFrom - 1 == indexTo)
             {
                 MessageBox.Show("You cannot transfer items inside one room.");
             }
             else
             {
-                
+
                 string nameFrom = RoomFrom.SelectedItem.ToString();
                 string nameTo = RoomTo.SelectedItem.ToString();
-                
+
                 TransferStaticEquipmentPopup newWindow = new TransferStaticEquipmentPopup(indexFrom == 0, nameFrom, nameTo);
                 if (newWindow.NoItems)
                 {

@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 //using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ZdravoCorp.Domain;
 using ZdravoCorp.EquipmentGroup;
 using ZdravoCorp.InfrastructureGroup;
@@ -47,11 +37,11 @@ namespace ZdravoCorp
             ItemCollection gridItems = TransferGrid.Items;
             foreach (AlteredEquipmentQuantity gridItem in gridItems)
             {
-                foreach (FunctionalItem functionalItem in functionalItems) 
-                { 
+                foreach (FunctionalItem functionalItem in functionalItems)
+                {
                     if (gridItem.GetName() == functionalItem.GetWhat() && appointment.IdRoom == functionalItem.GetWhere())
                     {
-                        functionalItem.SetAmount(functionalItem.GetAmount()-gridItem.GetSelectedQuantity());
+                        functionalItem.SetAmount(functionalItem.GetAmount() - gridItem.GetSelectedQuantity());
                         if (functionalItem.GetAmount() == 0)
                         {
                             functionalItems.Remove(functionalItem);
@@ -65,11 +55,11 @@ namespace ZdravoCorp
             this.Close();
         }
 
-        private void RefreshDataGrid() 
+        private void RefreshDataGrid()
         {
             AllQuantities.Clear();
             Dictionary<string, EquipmentQuantity> equipmentOrganization = EquipmentRepository.LoadOnlyStaticOrDynamic(true);
-            
+
             EquipmentRepository.LoadQuantitiesFromRoom(ref equipmentOrganization, appointment.IdRoom);
 
             foreach (EquipmentQuantity equipmentQuantity in equipmentOrganization.Values)

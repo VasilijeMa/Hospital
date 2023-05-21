@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using ZdravoCorp.EquipmentGroup;
-using ZdravoCorp.InfrastructureGroup;
 using ZdravoCorp.ManagerView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ZdravoCorp
 {
@@ -57,6 +52,6 @@ namespace ZdravoCorp
             }
         }
 
-        
+
     }
 }

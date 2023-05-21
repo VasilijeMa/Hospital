@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Security.AccessControl;
 
 namespace ZdravoCorp.InfrastructureGroup
 {
@@ -20,7 +17,7 @@ namespace ZdravoCorp.InfrastructureGroup
         {
             if (this.Inventory.ContainsKey(equipment))
             {
-                this.Inventory[equipment]+=quantity;
+                this.Inventory[equipment] += quantity;
             }
             else
             {
@@ -29,7 +26,7 @@ namespace ZdravoCorp.InfrastructureGroup
         }
 
         public Dictionary<string, int> GetInventory() { return Inventory; }
-       
+
 
     }
 }

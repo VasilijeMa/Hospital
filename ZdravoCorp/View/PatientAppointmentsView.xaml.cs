@@ -52,7 +52,7 @@ namespace ZdravoCorp
             {
                 if (anamnesis.PatientId == patient.Id)
                 {
-                    ScheduleRepository scheduleRepository = new ScheduleRepository();
+                    ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
                     Appointment appointment = scheduleRepository.GetAppointment(anamnesis.AppointmentId);
                     DoctorRepository doctorRepository = new DoctorRepository();
                     Doctor doctor = doctorRepository.getDoctor(appointment.DoctorId);
@@ -85,7 +85,7 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
-            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             Appointment appointment = scheduleRepository.GetAppointment((int)item.Row["Id"]);
             AnamnesisView anamnesisView = new AnamnesisView(appointment, ConfigRoles.Patient);
             anamnesisView.ShowDialog();
@@ -112,23 +112,10 @@ namespace ZdravoCorp
             }
             else
             {
-                anamneses = GetAnamnesesContainingSubstring(tbSearch.Text.ToUpper());
+                anamneses = singleton.AnamnesisRepository.GetAnamnesesContainingSubstring(tbSearch.Text.ToUpper());
             }
             LoadAppointmentsInDataGrid();
             anamneses = singleton.AnamnesisRepository.Anamneses;
-        }
-
-        private List<Anamnesis> GetAnamnesesContainingSubstring(string keyword)
-        {
-            List<Anamnesis> tempAnamneses = new List<Anamnesis>();
-            foreach (Anamnesis anamnesis in anamneses)
-            {
-                if (anamnesis.DoctorsObservation.ToUpper().Contains(keyword) || anamnesis.DoctorsConclusion.ToUpper().Contains(keyword))
-                {
-                    tempAnamneses.Add(anamnesis);
-                }
-            }
-            return tempAnamneses;
         }
     }
 }

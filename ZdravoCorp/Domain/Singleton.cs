@@ -18,22 +18,7 @@ namespace ZdravoCorp.Domain
         private readonly UserRepository _userRepository;
 
         private static Singleton instance;
-        //public Schedule Schedule { get; set; }
-        //public Log Log { get; set; }
 
-        //public List<Doctor> doctors;
-
-        //public List<Patient> patients;
-
-        //public List<Nurse> nurses;
-
-        //public List<MedicalRecord> medicalRecords;
-
-        //public List<User> users;
-
-        //public List<Anamnesis> anamnesis;
-
-        //public List<NotificationAboutCancelledAppointment> notificationAboutCancelledAppointment;
         public static Singleton Instance
         {
             get
@@ -48,23 +33,14 @@ namespace ZdravoCorp.Domain
         private Singleton()
         {
             _scheduleRepository = new ScheduleRepository();
-            //Schedule = _scheduleRepository.Schedule;
             _logRepository = new LogRepository();
-            //Log = _logRepository.Log;
             _doctorRepository = new DoctorRepository();
-            //doctors = _doctorRepository.LoadAll();
             _patientRepository = new PatientRepository();
-            //patients = _patientRepository.LoadAll();
             _nurseRepository = new NurseRepository();
-            //nurses = _nurseRepository.Nurses;
             _medicalRecordRepository = new MedicalRecordRepository();
-            //medicalRecords = _medicalRecordRepository.LoadAll();
             _anamnesisRepository = new AnamnesisRepository();
-            //anamnesis = _anamnesisRepository.Anamneses;
             _userRepository = new UserRepository();
-            //users = _userRepository.Users;
             _notificationAboutCancelledAppointmentRepository = new NotificationAboutCancelledAppointmentRepository();
-            //notificationAboutCancelledAppointment = _notificationAboutCancelledAppointmentRepository.LoadAll();
         }
 
         public AnamnesisRepository AnamnesisRepository { get => _anamnesisRepository; }

@@ -157,7 +157,6 @@ namespace ZdravoCorp
                 if (medicalRecord != null)
                 {
                     addToMedicalRecords(medicalRecord);
-
                 }
                 addToPatients(patient);
                 addToUsers(patient);
@@ -218,7 +217,7 @@ namespace ZdravoCorp
             AnamnesisView anamnesis;
             if (doctor)
             {
-                Anamnesis findAnamnesis = findAnamnesisById(selectedAppointment);
+                Anamnesis findAnamnesis = Singleton.Instance.AnamnesisRepository.findAnamnesisById(selectedAppointment);
                 if (findAnamnesis == null)
                 {
                     MessageBox.Show("The patient must first check in with the nurse.");
@@ -241,18 +240,6 @@ namespace ZdravoCorp
                 return true;
             }
             return false;
-        }
-
-        public Anamnesis findAnamnesisById(Appointment selectedAppointment)
-        {
-            foreach (Anamnesis anamnesis in Singleton.Instance.AnamnesisRepository.Anamneses)
-            {
-                if (anamnesis.AppointmentId == selectedAppointment.Id)
-                {
-                    return anamnesis;
-                }
-            }
-            return null;
         }
     }
 }

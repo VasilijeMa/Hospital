@@ -23,7 +23,6 @@ namespace ZdravoCorp.Servieces
             {
                 closestTimeSlots = GetClosestTimeSlotsByPriorityDoctor(appointmentRequest, patientId);
                 if (closestTimeSlots != null) return GetAppointmentsFromTimeSlot(patientId, appointmentRequest.Doctor, closestTimeSlots[0]);
-
             }
             else
             {
@@ -39,20 +38,28 @@ namespace ZdravoCorp.Servieces
             for (DateTime i = DateTime.Now.AddMinutes(15); ; i = i.AddMinutes(1))
             {
                 if (closestAppointments.Count() == 3) break;
-                foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
-                {
-                    TimeSlot freeTimeSlot = new TimeSlot(i, APPOINTMENT_DURATION);
-                    DoctorService doctorService = new DoctorService();
-                    PatientService patientService = new PatientService();
-                    if (!doctorService.IsAvailable(freeTimeSlot, doctor.Id) || !patientService.IsAvailable(freeTimeSlot, patient.Id)) continue;
-                    if (!AppointmentTimeOverlaps(closestAppointments, freeTimeSlot, doctor.Id)) continue;
-                    Appointment appointment = new Appointment(scheduleRepository.getLastId() + 1, freeTimeSlot, doctor.Id, patientId, "");
-                    closestAppointments.Add(appointment);
-                    if (closestAppointments.Count() == 3) break;
-                }
+                GetAppointmentsForDuration(patientId, i, closestAppointments);
             }
             return closestAppointments;
         }
+
+        private void GetAppointmentsForDuration(int patientId, DateTime dateTime, List<Appointment> closestAppointments)
+        {
+            DoctorService doctorService = new DoctorService();
+            PatientService patientService = new PatientService();
+            TimeSlot freeTimeSlot = new TimeSlot(dateTime, APPOINTMENT_DURATION);
+            foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
+            {
+                if (!doctorService.IsAvailable(freeTimeSlot, doctor.Id) ||
+                    !patientService.IsAvailable(freeTimeSlot, patientId)) continue;
+                if (!AppointmentTimeOverlaps(closestAppointments, freeTimeSlot, doctor.Id)) continue;
+                Appointment appointment =
+                    new Appointment(scheduleRepository.getLastId() + 1, freeTimeSlot, doctor.Id, patientId, "");
+                closestAppointments.Add(appointment);
+                if (closestAppointments.Count() == 3) break;
+            }
+        }
+
         //funkcija koja proverava da li se TimeSlot preklapa sa nekim od TimeSlotova u listi Appointmenta
         public bool AppointmentTimeOverlaps(List<Appointment> appointments, TimeSlot timeSlot, int doctorId)
         {
@@ -139,15 +146,21 @@ namespace ZdravoCorp.Servieces
                 if (founded == null) continue;
                 var timeSlotService = new TimeSlotService(freeTimeSlots[i]);
                 var tempTimeSlots = timeSlotService.Split(founded);
-                freeTimeSlots.Remove(freeTimeSlots[i]);
-                for (int j = 0; j < tempTimeSlots.Count; j++)
-                {
-                    freeTimeSlots.Insert(i + j, tempTimeSlots[j]);
-                }
+                UpdateTimeSlots(freeTimeSlots, i, tempTimeSlots);
                 return founded;
             }
             return null;
         }
+
+        private static void UpdateTimeSlots(List<TimeSlot> freeTimeSlots, int i, List<TimeSlot> tempTimeSlots)
+        {
+            freeTimeSlots.Remove(freeTimeSlots[i]);
+            for (int j = 0; j < tempTimeSlots.Count; j++)
+            {
+                freeTimeSlots.Insert(i + j, tempTimeSlots[j]);
+            }
+        }
+
         public TimeSlot MakeTimeSlotForPatient(TimeSlot timeSlot, int patientId)
         {
             Patient patient = Singleton.Instance.PatientRepository.getById(patientId);

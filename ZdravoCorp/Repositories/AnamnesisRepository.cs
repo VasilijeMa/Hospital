@@ -25,5 +25,28 @@ namespace ZdravoCorp.Repositories
             string json = JsonConvert.SerializeObject(anamnesis, Formatting.Indented);
             File.WriteAllText("./../../../data/anamneses.json", json);
         }
+        public List<Anamnesis> GetAnamnesesContainingSubstring(string keyword)
+        {
+            List<Anamnesis> tempAnamneses = new List<Anamnesis>();
+            foreach (Anamnesis anamnesis in Anamneses)
+            {
+                if (anamnesis.DoctorsObservation.ToUpper().Contains(keyword) || anamnesis.DoctorsConclusion.ToUpper().Contains(keyword))
+                {
+                    tempAnamneses.Add(anamnesis);
+                }
+            }
+            return tempAnamneses;
+        }
+        public Anamnesis findAnamnesisById(Appointment selectedAppointment)
+        {
+            foreach (Anamnesis anamnesis in Anamneses)
+            {
+                if (anamnesis.AppointmentId == selectedAppointment.Id)
+                {
+                    return anamnesis;
+                }
+            }
+            return null;
+        }
     }
 }

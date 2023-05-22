@@ -65,7 +65,7 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
             scheduleRepository.WriteAllAppointmens();
         }
     }

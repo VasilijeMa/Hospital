@@ -49,8 +49,8 @@ namespace ZdravoCorp
         public void LoadData()
         {
             DataTable dt = CreateDataTable();
-            records = Singleton.Instance.medicalRecords;
-            patients = Singleton.Instance.patients;
+            records = Singleton.Instance.MedicalRecordRepository.Records;
+            patients = Singleton.Instance.PatientRepository.Patients;
             foreach (Patient patient in patients)
             {
                 foreach (MedicalRecord record in records)
@@ -86,7 +86,7 @@ namespace ZdravoCorp
             }
             else
             {
-                Patient selectedPatient = Singleton.Instance.patients[selectedIndex];
+                Patient selectedPatient = Singleton.Instance.PatientRepository.Patients[selectedIndex];
                 //CreateMedicalRecordWindow createMedicalRecordWindow = new CreateMedicalRecordWindow(false,selectedPatient , false);
                 //createMedicalRecordWindow.ShowDialog();
                 CreatePatientWindow createPatientWindow = new CreatePatientWindow(false, selectedPatient, false);
@@ -109,10 +109,10 @@ namespace ZdravoCorp
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this patient? ", "Question", MessageBoxButtons.YesNo);
                 if (dialogResult.ToString() == "Yes")
                 {
-                    Patient selectedPatient = Singleton.Instance.patients[selectedIndex];
+                    Patient selectedPatient = Singleton.Instance.PatientRepository.Patients[selectedIndex];
                     MedicalRecord selectedRecord = null;
                     int recordId = selectedPatient.MedicalRecordId;
-                    foreach (MedicalRecord record in Singleton.Instance.medicalRecords)
+                    foreach (MedicalRecord record in Singleton.Instance.MedicalRecordRepository.Records)
                     {
                         if (recordId == record.Id)
                         {
@@ -121,12 +121,12 @@ namespace ZdravoCorp
                         }
                     }
 
-                    Singleton.Instance.patients.Remove(selectedPatient);
-                    Singleton.Instance.medicalRecords.Remove(selectedRecord);
-                    UserRepository.RemoveUser(selectedPatient.Username);
-                    UserRepository.WriteAll(Singleton.Instance.users);
-                    patientController.WriteAll(Singleton.Instance.patients);
-                    medicalRecordController.WriteAll(Singleton.Instance.medicalRecords);
+                    Singleton.Instance.PatientRepository.Patients.Remove(selectedPatient);
+                    Singleton.Instance.MedicalRecordRepository.Records.Remove(selectedRecord);
+                    Singleton.Instance.UserRepository.RemoveUser(selectedPatient.Username);
+                    Singleton.Instance.UserRepository.WriteAll();
+                    patientController.WriteAll(Singleton.Instance.PatientRepository.Patients);
+                    medicalRecordController.WriteAll(Singleton.Instance.MedicalRecordRepository.Records);
                     LoadData();
                 }
             }

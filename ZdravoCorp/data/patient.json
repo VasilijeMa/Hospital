@@ -1,16 +1,5 @@
 [
   {
-    "Id": 1,
-    "FirstName": "Milos",
-    "LastName": "Milosevic",
-    "BirthDate": "1990-05-20",
-    "MedicalRecordId": 1,
-    "IsBlocked": false,
-    "Username": "milos",
-    "Password": "milos",
-    "Type": "patient"
-  },
-  {
     "Id": 3,
     "FirstName": "Ana",
     "LastName": "Antic",
@@ -41,6 +30,28 @@
     "IsBlocked": false,
     "Username": "pera123",
     "Password": "pera123",
+    "Type": "patient"
+  },
+  {
+    "Id": 1,
+    "FirstName": "Milos",
+    "LastName": "Milosevic",
+    "BirthDate": "1990-05-20",
+    "MedicalRecordId": 1,
+    "IsBlocked": false,
+    "Username": "milos",
+    "Password": "milos",
+    "Type": "patient"
+  },
+  {
+    "Id": 1,
+    "FirstName": "Milos",
+    "LastName": "Milosevic",
+    "BirthDate": "1990-05-20",
+    "MedicalRecordId": 1,
+    "IsBlocked": false,
+    "Username": "milos",
+    "Password": "milos",
     "Type": "patient"
   }
 ]

@@ -7,11 +7,11 @@ namespace ZdravoCorp.Repositories
 {
     public class MedicalRecordRepository
     {
-        private List<MedicalRecord> Records { get; set; }
-
+        private List<MedicalRecord> records;
+        public List<MedicalRecord> Records { get => records; }
         public MedicalRecordRepository()
         {
-            LoadAll();
+            records = LoadAll();
         }
         public void WriteAll(List<MedicalRecord> newlistofrecords)
         {
@@ -23,8 +23,7 @@ namespace ZdravoCorp.Repositories
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/medicalRecords.json");
             var json = reader.ReadToEnd();
-            Records = JsonConvert.DeserializeObject<List<MedicalRecord>>(json);
-            return Records;
+            return JsonConvert.DeserializeObject<List<MedicalRecord>>(json);
         }
         public MedicalRecord GetMedicalRecord(int medicalRecordId)
         {

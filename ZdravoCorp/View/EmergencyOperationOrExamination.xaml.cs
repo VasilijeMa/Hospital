@@ -34,14 +34,14 @@ namespace ZdravoCorp
         }
         private void addSpecializationsToComboBox()
         {
-            foreach (Doctor doctor in Singleton.Instance.doctors)
+            foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
             {
                 specialization.Items.Add(doctor.Specialization);
             }
         }
         private void addPatientToComboBox()
         {
-            foreach (Patient patient in Singleton.Instance.patients)
+            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
             {
                 patients.Items.Add(patient.Username);
             }
@@ -165,21 +165,19 @@ namespace ZdravoCorp
             }
             else
             {
-                ScheduleRepository scheduleRepository = new ScheduleRepository();
                 Appointment selectedAppointment = this.appointmentsToCancel[selectedIndex];
                 selectedAppointment.IsCanceled = true;
-                DoctorRepository doctorRepository = new DoctorRepository();
-                Appointment emergencyAppointment = scheduleRepository.CreateAppointment(selectedAppointment.TimeSlot,
-                            doctorRepository.getDoctor(selectedAppointment.DoctorId), PatientService.getByUsername(this.selectedPatient));
+                Appointment emergencyAppointment = Singleton.Instance.ScheduleRepository.CreateAppointment(selectedAppointment.TimeSlot,
+                    Singleton.Instance.DoctorRepository.getDoctor(selectedAppointment.DoctorId), Singleton.Instance.PatientRepository.getByUsername(this.selectedPatient));
                 NotificationAboutCancelledAppointment notification = new NotificationAboutCancelledAppointment
                     (emergencyAppointment.Id, emergencyAppointment.DoctorId, false);
-                Singleton.Instance.notificationAboutCancelledAppointment.Add(notification);
+                Singleton.Instance.NotificationAboutCancelledAppointmentRepository.Add(notification);
 
-                MessageBox.Show(Singleton.Instance.notificationAboutCancelledAppointment.Count().ToString());
-                NotificarionAboutCancelledAppointmentRepository.WriteAll(Singleton.Instance.notificationAboutCancelledAppointment);
+                MessageBox.Show(Singleton.Instance.NotificationAboutCancelledAppointmentRepository.Notifications.Count().ToString());
+                NotificationAboutCancelledAppointmentRepository.WriteAll(Singleton.Instance.NotificationAboutCancelledAppointmentRepository.Notifications);
                 if (emergencyAppointment != null)
                 {
-                    scheduleRepository.WriteAllAppointmens();
+                    Singleton.Instance.ScheduleRepository.WriteAllAppointmens();
                     MessageBox.Show("Emergency appointment added successfully.");
                     this.Close();
                 }

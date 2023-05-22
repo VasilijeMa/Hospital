@@ -13,8 +13,8 @@ namespace ZdravoCorp.Repositories
 {
     public class ScheduleRepository
     {
-        public Schedule schedule;
-
+        private Schedule schedule;
+        public Schedule Schedule { get => schedule; }
         public ScheduleRepository()
         {
             schedule = new Schedule();

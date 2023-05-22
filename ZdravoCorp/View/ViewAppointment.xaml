@@ -6,8 +6,15 @@
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
         Title="ViewAppointment" Height="450" Width="810" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
-
-
+    <Window.Resources>
+        <DataTemplate x:Key="patientTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding FirstName}" Margin="5"/>
+                <TextBlock Text="{Binding LastName}" Margin="5"/>
+                <TextBlock Text="{Binding Id}" Margin="5"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <DataGrid ColumnWidth="115" RowHeight="20" ItemsSource="{Binding Appointment}" IsReadOnly="True" x:Name="dataGrid" Margin="0,62,0,91">
         </DataGrid>

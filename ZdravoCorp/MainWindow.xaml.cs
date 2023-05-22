@@ -16,7 +16,7 @@ namespace ZdravoCorp
         {
             InitializeComponent();
             singleton = Singleton.Instance;
-            users = singleton.users;
+            users = singleton.UserRepository.Users;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

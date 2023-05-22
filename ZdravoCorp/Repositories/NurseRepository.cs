@@ -7,13 +7,18 @@ namespace ZdravoCorp.Repositories
 {
     public class NurseRepository
     {
-        public static List<Nurse> LoadAll()
+        private List<Nurse> nurses;
+        public List<Nurse> Nurses { get => nurses; }
+        public NurseRepository()
+        {
+            nurses = LoadAll();
+        }
+        public List<Nurse> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/nurse.json");
             var json = reader.ReadToEnd();
-            List<Nurse> nurses = JsonConvert.DeserializeObject<List<Nurse>>(json);
-            return nurses;
+            return JsonConvert.DeserializeObject<List<Nurse>>(json);
         }
     }
 }

@@ -51,16 +51,17 @@ namespace ZdravoCorp.Controllers
 
         public void showNotification(int doctorId)
         {
-            NotificarionAboutCancelledAppointmentRepository notificationAppointmentRepository =
-                new NotificarionAboutCancelledAppointmentRepository();
-            foreach (NotificationAboutCancelledAppointment notification in notificationAppointmentRepository.notifications)
+            NotificationAboutCancelledAppointmentRepository notificationAppointmentRepository =
+                new NotificationAboutCancelledAppointmentRepository();
+
+            foreach (NotificationAboutCancelledAppointment notification in Singleton.Instance.NotificationAboutCancelledAppointmentRepository.Notifications)
             {
                 if ((notification.DoctorId == doctorId) && (!notification.isShown))
                 {
                     MessageBox.Show("Your appointment with id: " + notification.AppointmenntId.ToString() + " is cancalled.");
                     notification.isShown = true;
                     notificationAppointmentRepository.Add(notification);
-                    NotificarionAboutCancelledAppointmentRepository.WriteAll(notificationAppointmentRepository.notifications);
+                    NotificationAboutCancelledAppointmentRepository.WriteAll(notificationAppointmentRepository.Notifications);
                     return;
                 }
             }

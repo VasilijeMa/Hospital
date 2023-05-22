@@ -1,77 +1,32 @@
 [
   {
     "Appointment": {
-      "Id": 14,
+      "Id": 36,
       "TimeSlot": {
-        "start": "2023-05-28T12:00:00",
-        "duration": 15
-      },
-      "DoctorId": 2,
-      "PatientId": 1,
-      "IsCanceled": false,
-      "IdRoom": null
-    },
-    "DateTime": "2023-05-08T18:43:57.7035704+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 22,
-      "TimeSlot": {
-        "start": "2023-05-11T12:00:00",
-        "duration": 15
-      },
-      "DoctorId": 2,
-      "PatientId": 1,
-      "IsCanceled": false,
-      "IdRoom": "Examination Room 1"
-    },
-    "DateTime": "2023-05-10T14:16:52.0314448+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 23,
-      "TimeSlot": {
-        "start": "2023-05-11T13:00:00",
-        "duration": 15
-      },
-      "DoctorId": 2,
-      "PatientId": 1,
-      "IsCanceled": false,
-      "IdRoom": "Examination Room 1"
-    },
-    "DateTime": "2023-05-10T14:32:00.4783523+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 24,
-      "TimeSlot": {
-        "start": "2023-05-11T16:00:00",
-        "duration": 15
-      },
-      "DoctorId": 3,
-      "PatientId": 1,
-      "IsCanceled": false,
-      "IdRoom": "Examination Room 1"
-    },
-    "DateTime": "2023-05-10T14:33:03.9755632+02:00",
-    "Type": "make"
-  },
-  {
-    "Appointment": {
-      "Id": 34,
-      "TimeSlot": {
-        "start": "2023-05-20T14:34:47.1618154+02:00",
+        "start": "2023-06-09T11:11:00",
         "duration": 15
       },
       "DoctorId": 1,
       "PatientId": 1,
-      "IsCanceled": false,
-      "IdRoom": ""
+      "IsCanceled": true,
+      "IdRoom": "Examination Room 1"
     },
-    "DateTime": "2023-05-20T14:19:51.7616004+02:00",
-    "Type": "make"
+    "DateTime": "2023-05-22T20:24:29.3937744+02:00",
+    "Type": "updateCancel"
+  },
+  {
+    "Appointment": {
+      "Id": 36,
+      "TimeSlot": {
+        "start": "2023-06-09T11:11:00",
+        "duration": 15
+      },
+      "DoctorId": 1,
+      "PatientId": 1,
+      "IsCanceled": true,
+      "IdRoom": "Examination Room 1"
+    },
+    "DateTime": "2023-05-22T20:24:42.6388037+02:00",
+    "Type": "updateCancel"
   }
 ]

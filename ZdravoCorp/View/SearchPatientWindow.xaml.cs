@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Threading;
 using System.Windows;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Servieces;
@@ -21,7 +23,7 @@ namespace ZdravoCorp
         {
             DataTable dt = AddColumns();
 
-            foreach (Patient patient in Singleton.Instance.patients)
+            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
             {
                 string birthDate = patient.BirthDate.ToString("yyyy-MM-dd");
                 dt.Rows.Add(patient.Id, patient.FirstName, patient.LastName, birthDate, patient.IsBlocked);
@@ -48,7 +50,7 @@ namespace ZdravoCorp
                 MessageBox.Show("Patient is not selected.");
             }
             int id = (int)item.Row["PatientID"];
-            Patient selected = PatientService.getById(id);
+            Patient selected = Singleton.Instance.PatientRepository.getById(id);
             DisplayMedicalRecord(selected);
         }
 
@@ -57,10 +59,23 @@ namespace ZdravoCorp
             if (patientIdtext.Text == "")
             {
                 MessageBox.Show("Please enter id to search.");
+                return;
             }
-            int id = int.Parse(patientIdtext.Text);
-            Patient searched = PatientService.getById(id);
-            DisplayMedicalRecord(searched);
+
+            try
+            {
+                int id = int.Parse(patientIdtext.Text);
+                Patient searched = Singleton.Instance.PatientRepository.getById(id);
+                if (searched == null) throw new ArgumentNullException();
+                DisplayMedicalRecord(searched);
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("Patient with choosen id doesn't exists.");
+            }catch
+            {
+                MessageBox.Show("Wrong input!");
+            }
         }
 
         private void DisplayMedicalRecord(Patient patient)

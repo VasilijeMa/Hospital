@@ -36,10 +36,10 @@ namespace ZdravoCorp
         public void LoadData()
         {
             DataTable dt = CreateDataTable();
-            foreach (Appointment appointment in Singleton.Instance.Schedule.TodaysAppointments)
+            foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.TodaysAppointments)
             {
-                DoctorRepository doctorRepository = new DoctorRepository();
-                PatientRepository patientRepository = new PatientRepository();
+                DoctorRepository doctorRepository = Singleton.Instance.DoctorRepository;
+                PatientRepository patientRepository = Singleton.Instance.PatientRepository;
                 Doctor doctor = doctorRepository.getDoctor(appointment.DoctorId);
                 Patient patient = patientRepository.getPatient(appointment.PatientId);
                 dt.Rows.Add(appointment.Id.ToString()
@@ -64,7 +64,7 @@ namespace ZdravoCorp
                 return;
             }
 
-            Appointment selectedAppointment = Singleton.Instance.Schedule.TodaysAppointments[selectedIndex];
+            Appointment selectedAppointment = Singleton.Instance.ScheduleRepository.Schedule.TodaysAppointments[selectedIndex];
             AppointmentService appointmentService = new AppointmentService();
             if (!appointmentService.IsAbleToStart(selectedAppointment))
             {
@@ -72,7 +72,7 @@ namespace ZdravoCorp
                 return;
             }
             //isAlreadyExsist(selectedAppointment.Id);
-            PatientRepository patientRepository = new PatientRepository();
+            PatientRepository patientRepository = Singleton.Instance.PatientRepository;
             Patient patient = patientRepository.getPatient(selectedAppointment.PatientId);
             CreateMedicalRecordWindow medicalRecordWindow = new CreateMedicalRecordWindow(false, patient, false, selectedAppointment);
             //AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,true);

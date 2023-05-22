@@ -14,7 +14,7 @@ namespace ZdravoCorp.Servieces
         private const int TIME_SLOT_TOLERANCE = 1;
         private const int APPOINTMENT_DURATION = 15;
 
-        ScheduleRepository scheduleRepository = new ScheduleRepository();
+        ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
         public List<Appointment> GetAppointmentsByRequest(AppointmentRequest appointmentRequest, int patientId)
         {
             List<TimeSlot> closestTimeSlots = GetClosestTimeSlots(appointmentRequest, patientId);
@@ -34,12 +34,12 @@ namespace ZdravoCorp.Servieces
         }
         public List<Appointment> GetClosestAppointments(int patientId)
         {
-            Patient patient = PatientService.getById(patientId);
+            Patient patient = Singleton.Instance.PatientRepository.getById(patientId);
             List<Appointment> closestAppointments = new List<Appointment>();
             for (DateTime i = DateTime.Now.AddMinutes(15); ; i = i.AddMinutes(1))
             {
                 if (closestAppointments.Count() == 3) break;
-                foreach (Doctor doctor in Singleton.Instance.doctors)
+                foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
                 {
                     TimeSlot freeTimeSlot = new TimeSlot(i, APPOINTMENT_DURATION);
                     DoctorService doctorService = new DoctorService();
@@ -58,7 +58,7 @@ namespace ZdravoCorp.Servieces
         {
             foreach (Appointment appointment in appointments)
             {
-                TimeSlotService timeSlotService = new TimeSlotService(timeSlot);
+                TimeSlotService timeSlotService = new TimeSlotService(appointment.TimeSlot);
                 if (timeSlotService.OverlapWith(timeSlot)) return false;
             }
             return true;
@@ -67,14 +67,14 @@ namespace ZdravoCorp.Servieces
         {
             for (DateTime currentDate = DateTime.Now; currentDate.Date <= appointmentRequest.LatestDate.Date; currentDate = currentDate.AddDays(1))
             {
-                foreach (Doctor doctor in Singleton.Instance.doctors)
+                foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
                 {
                     if (doctor.Id == appointmentRequest.Doctor.Id) continue;
                     DateTime startTime = GetStartTime(currentDate, appointmentRequest.EarliesTime);
                     DateTime endTime = GetEndTime(currentDate, appointmentRequest.LatestTime);
                     int duration = (endTime - startTime).Minutes;
                     List<TimeSlot> timeSlots = new List<TimeSlot>() { new TimeSlot(startTime, duration) };
-                    if (scheduleRepository.schedule.DailyAppointments.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(scheduleRepository.schedule.DailyAppointments[currentDate.Date], timeSlots, doctor.Id);
+                    if (scheduleRepository.Schedule.DailyAppointments.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(scheduleRepository.Schedule.DailyAppointments[currentDate.Date], timeSlots, doctor.Id);
                     TimeSlot? timeSlot = GetFirstFreeTimeSlot(timeSlots, patientId);
                     if (timeSlot != null) return GetAppointmentsFromTimeSlot(patientId, doctor, timeSlot);
                 }
@@ -107,7 +107,7 @@ namespace ZdravoCorp.Servieces
                 int duration = (int)(endTime - startTime).TotalMinutes;
                 if (duration <= 0) continue;
                 List<TimeSlot> timeSlots = new List<TimeSlot>() { new TimeSlot(startTime, duration) };
-                if (scheduleRepository.schedule.DailyAppointments.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(scheduleRepository.schedule.DailyAppointments[currentDate.Date], timeSlots, appointmentRequest.Doctor.Id);
+                if (scheduleRepository.Schedule.DailyAppointments.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(scheduleRepository.Schedule.DailyAppointments[currentDate.Date], timeSlots, appointmentRequest.Doctor.Id);
                 TimeSlot? timeSlot = GetFirstFreeTimeSlot(timeSlots, patientId);
                 if (timeSlot != null) return new List<TimeSlot> { timeSlot };
             }
@@ -150,7 +150,7 @@ namespace ZdravoCorp.Servieces
         }
         public TimeSlot MakeTimeSlotForPatient(TimeSlot timeSlot, int patientId)
         {
-            Patient patient = PatientService.getById(patientId);
+            Patient patient = Singleton.Instance.PatientRepository.getById(patientId);
             for (DateTime currentDate = timeSlot.start; currentDate <= timeSlot.start.AddMinutes(timeSlot.duration - 15); currentDate = currentDate.AddMinutes(1))
             {
                 TimeSlot founded = new TimeSlot(currentDate, APPOINTMENT_DURATION);

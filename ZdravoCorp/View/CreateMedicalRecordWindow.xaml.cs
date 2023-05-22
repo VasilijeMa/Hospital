@@ -171,7 +171,7 @@ namespace ZdravoCorp
             if (!create)
             {
                 setAttributes(selectedRecord);
-                medicalRecordController.WriteAll(Singleton.Instance.medicalRecords);
+                medicalRecordController.WriteAll(Singleton.Instance.MedicalRecordRepository.Records);
                 return null;
             }
             MedicalRecord newMedicalRecord = new MedicalRecord();
@@ -192,28 +192,25 @@ namespace ZdravoCorp
         {
             if (!create)
             {
-                Singleton.Instance.patients.Remove(patient);
-                patientController.WriteAll(Singleton.Instance.patients);
-                UserRepository.RemoveUser(patient.Username);
-                UserRepository.WriteAll(Singleton.Instance.users);
+                Singleton.Instance.PatientRepository.Patients.Remove(patient);
+                patientController.WriteAll(Singleton.Instance.PatientRepository.Patients);
+                Singleton.Instance.UserRepository.RemoveUser(patient.Username);
+                Singleton.Instance.UserRepository.WriteAll();
             }
-            else
-            {
-                Singleton.Instance.patients.Add(newPatient);
-                patientController.WriteAll(Singleton.Instance.patients);
-            }
+            Singleton.Instance.PatientRepository.Patients.Add(newPatient);
+            patientController.WriteAll(Singleton.Instance.PatientRepository.Patients);
         }
 
         public void addToMedicalRecords(MedicalRecord newMedicalRecord)
         {
-            Singleton.Instance.medicalRecords.Add(newMedicalRecord);
-            medicalRecordController.WriteAll(Singleton.Instance.medicalRecords);
+            Singleton.Instance.MedicalRecordRepository.Records.Add(newMedicalRecord);
+            medicalRecordController.WriteAll(Singleton.Instance.MedicalRecordRepository.Records);
         }
 
         public void addToUsers(Patient newPatient)
         {
-            Singleton.Instance.users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
-            UserRepository.WriteAll(Singleton.Instance.users);
+            Singleton.Instance.UserRepository.Users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
+            Singleton.Instance.UserRepository.WriteAll();
         }
 
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
@@ -248,7 +245,7 @@ namespace ZdravoCorp
 
         public Anamnesis findAnamnesisById(Appointment selectedAppointment)
         {
-            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
+            foreach (Anamnesis anamnesis in Singleton.Instance.AnamnesisRepository.Anamneses)
             {
                 if (anamnesis.AppointmentId == selectedAppointment.Id)
                 {

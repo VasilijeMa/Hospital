@@ -24,7 +24,7 @@ namespace ZdravoCorp
             InitializeComponent();
             this.patient = patient;
             singleton = Singleton.Instance;
-            anamneses = singleton.anamnesis;
+            anamneses = singleton.AnamnesisRepository.Anamneses;
             LoadAppointmentsInDataGrid();
             LoadMedicalRecordInToxtBox();
         }
@@ -108,14 +108,14 @@ namespace ZdravoCorp
         {
             if (tbSearch.Text == "")
             {
-                anamneses = singleton.anamnesis;
+                anamneses = singleton.AnamnesisRepository.Anamneses;
             }
             else
             {
                 anamneses = GetAnamnesesContainingSubstring(tbSearch.Text.ToUpper());
             }
             LoadAppointmentsInDataGrid();
-            anamneses = singleton.anamnesis;
+            anamneses = singleton.AnamnesisRepository.Anamneses;
         }
 
         private List<Anamnesis> GetAnamnesesContainingSubstring(string keyword)

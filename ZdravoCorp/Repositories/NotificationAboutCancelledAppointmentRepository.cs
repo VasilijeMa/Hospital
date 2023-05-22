@@ -5,16 +5,20 @@ using ZdravoCorp.Domain;
 
 namespace ZdravoCorp.Repositories
 {
-    public class NotificarionAboutCancelledAppointmentRepository
+    public class NotificationAboutCancelledAppointmentRepository
     {
-        public List<NotificationAboutCancelledAppointment> notifications;
+        private List<NotificationAboutCancelledAppointment> notifications;
+        public List<NotificationAboutCancelledAppointment> Notifications { get => notifications; }
+        public NotificationAboutCancelledAppointmentRepository()
+        {
+            notifications = LoadAll();
+        }
         public  List<NotificationAboutCancelledAppointment> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/notifications.json");
             var json = reader.ReadToEnd();
-            notifications = JsonConvert.DeserializeObject<List<NotificationAboutCancelledAppointment>>(json);
-            return notifications;
+            return JsonConvert.DeserializeObject<List<NotificationAboutCancelledAppointment>>(json);
         }
 
         public static void WriteAll(List<NotificationAboutCancelledAppointment> notifications)

@@ -7,17 +7,22 @@ namespace ZdravoCorp.Repositories
 {
     public class AnamnesisRepository
     {
-        public static List<Anamnesis> LoadAll()
+        private List<Anamnesis> anamnesis;
+        public List<Anamnesis> Anamneses { get => anamnesis; }
+        public AnamnesisRepository()
+        {
+            anamnesis = LoadAll();
+        }
+        public List<Anamnesis> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/anamneses.json");
             var json = reader.ReadToEnd();
-            List<Anamnesis> anamnesis = JsonConvert.DeserializeObject<List<Anamnesis>>(json);
-            return anamnesis;
+            return JsonConvert.DeserializeObject<List<Anamnesis>>(json);
         }
-        public static void WriteAll(List<Anamnesis> collectionOfAnamnesis)
+        public void WriteAll()
         {
-            string json = JsonConvert.SerializeObject(collectionOfAnamnesis, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(anamnesis, Formatting.Indented);
             File.WriteAllText("./../../../data/anamneses.json", json);
         }
     }

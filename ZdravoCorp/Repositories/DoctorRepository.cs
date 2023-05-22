@@ -9,18 +9,17 @@ namespace ZdravoCorp.Repositories
     public class DoctorRepository
     {
         private List<Doctor> doctors;
-
+        public List<Doctor> Doctors { get => doctors; }
         public DoctorRepository()
         {
-            LoadAll();
+            doctors = LoadAll();
         }
         public List<Doctor> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/doctor.json");
             var json = reader.ReadToEnd();
-            doctors = JsonConvert.DeserializeObject<List<Doctor>>(json);
-            return doctors;
+            return JsonConvert.DeserializeObject<List<Doctor>>(json);
         }
         public List<Doctor> GetDoctorBySpecialization(string specialization)
         {

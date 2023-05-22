@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
 
 namespace ZdravoCorp.Servieces
@@ -13,7 +14,7 @@ namespace ZdravoCorp.Servieces
 
         public MedicalRecordService()
         {
-            this.medicalRecordRepository = new MedicalRecordRepository();
+            this.medicalRecordRepository = Singleton.Instance.MedicalRecordRepository;
         }
 
         public MedicalRecord GeMedicalRecord(int medicalRecordId)

@@ -4,28 +4,34 @@ namespace ZdravoCorp.Servieces
 {
     public class LogService
     {
-
         public static void Count(int patientId)
         {
-            foreach (var element in Singleton.Instance.Log.Elements)
+            try
             {
-                if (element.Appointment.PatientId == patientId)
+                foreach (var element in Singleton.Instance.LogRepository.Log.Elements)
                 {
-                    if (element.Type.Equals("make"))
+                    if (element.Appointment.PatientId == patientId)
                     {
-                        Singleton.Instance.Log.MakeCounter++;
-                    }
-                    else
-                    {
-                        Singleton.Instance.Log.UpdateCancelCounter++;
+                        if (element.Type.Equals("make"))
+                        {
+                            Singleton.Instance.LogRepository.Log.MakeCounter++;
+                        }
+                        else
+                        {
+                            Singleton.Instance.LogRepository.Log.UpdateCancelCounter++;
+                        }
                     }
                 }
+            }
+            catch
+            {
+
             }
         }
 
         public static void CheckConditions(Patient patient)
         {
-            if (Singleton.Instance.Log.MakeCounter > 8 || Singleton.Instance.Log.UpdateCancelCounter >= 5)
+            if (Singleton.Instance.LogRepository.Log.MakeCounter > 8 || Singleton.Instance.LogRepository.Log.UpdateCancelCounter >= 5)
             {
                 patient.IsBlocked = true;
             }

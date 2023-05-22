@@ -28,6 +28,7 @@ namespace ZdravoCorp
                 btnChangeEquipment.Visibility = Visibility.Visible;
                 DoctorConclusion.IsReadOnly = true;
                 DoctorObservation.IsReadOnly = true;
+                btnChangeEquipment.Visibility = Visibility.Hidden;
             }
             else if (role == ConfigRoles.Doctor)
             {
@@ -42,6 +43,7 @@ namespace ZdravoCorp
                 DoctorConclusion.IsReadOnly = true;
                 btnCancel.Visibility = Visibility.Hidden;
                 btnSubmit.Visibility = Visibility.Hidden;
+                btnChangeEquipment.Visibility = Visibility.Hidden;
                 anamnesis = findAnamnesisById(selectedAppointment);
                 LoadFields(anamnesis);
             }
@@ -59,7 +61,7 @@ namespace ZdravoCorp
                 {
                     anamnesis.DoctorsConclusion = DoctorConclusion.Text;
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
-                    AnamnesisRepository.WriteAll(Singleton.Instance.anamnesis);
+                    Singleton.Instance.AnamnesisRepository.WriteAll();
                 }
                 MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 this.Close();
@@ -116,7 +118,7 @@ namespace ZdravoCorp
 
         public Anamnesis findAnamnesisById(Appointment selectedAppointment)
         {
-            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
+            foreach (Anamnesis anamnesis in Singleton.Instance.AnamnesisRepository.Anamneses)
             {
                 if (anamnesis.AppointmentId == selectedAppointment.Id)
                 {
@@ -128,7 +130,7 @@ namespace ZdravoCorp
 
         private bool isAlreadyExsist(int appointmentId)
         {
-            foreach (Anamnesis anamnesis in Singleton.Instance.anamnesis)
+            foreach (Anamnesis anamnesis in Singleton.Instance.AnamnesisRepository.Anamneses)
             {
                 if (anamnesis.AppointmentId == appointmentId)
                 {
@@ -141,7 +143,7 @@ namespace ZdravoCorp
 
         public Patient getPatient()
         {
-            foreach (Patient patient in Singleton.Instance.patients)
+            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
             {
                 if (patient.Id == anamnesis.PatientId)
                 {
@@ -168,8 +170,8 @@ namespace ZdravoCorp
                                                        ""
                                                        );
             this.anamnesis = anamnesis;
-            Singleton.Instance.anamnesis.Add(anamnesis);
-            AnamnesisRepository.WriteAll(Singleton.Instance.anamnesis);
+            Singleton.Instance.AnamnesisRepository.Anamneses.Add(anamnesis);
+            Singleton.Instance.AnamnesisRepository.WriteAll();
         }
 
         private void useUpDynamicEquipment(object sender, RoutedEventArgs e)

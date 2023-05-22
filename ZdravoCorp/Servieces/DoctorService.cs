@@ -14,15 +14,15 @@ namespace ZdravoCorp.Servieces
 
         public DoctorService()
         {
-            this.doctorRepository = new DoctorRepository();
+            this.doctorRepository = Singleton.Instance.DoctorRepository;
         }
 
         public bool IsAvailable(TimeSlot timeSlot, int doctorId, int appointmentId = -1)
         {
-            foreach (Appointment appointment in Singleton.Instance.Schedule.Appointments)
+            foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
             {
                 if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
-                TimeSlotService timeSlotService = new TimeSlotService(timeSlot);
+                TimeSlotService timeSlotService = new TimeSlotService(appointment.TimeSlot);
                 if (doctorId == appointment.DoctorId && timeSlotService.OverlapWith(timeSlot))
                 {
                     return false;
@@ -32,7 +32,7 @@ namespace ZdravoCorp.Servieces
         }
         public bool IsAlreadyExamined(int patientId, int doctorId)
         {
-            foreach (Appointment appointment in Singleton.Instance.Schedule.Appointments)
+            foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
             {
                 if (appointment.IsCanceled) continue;
                 if (appointment.PatientId == patientId && appointment.DoctorId == doctorId)
@@ -51,7 +51,7 @@ namespace ZdravoCorp.Servieces
             DateTime timeAfterTwoHours = DateTime.Now.AddHours(2);
             List<Appointment> appointmentsInNextTwoHours = new List<Appointment>();
 
-            foreach (Appointment appointment in Singleton.Instance.Schedule.Appointments)
+            foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
             {
                 if (appointment.TimeSlot.start.Date == timeAfterTwoHours.Date)
                 {
@@ -69,7 +69,7 @@ namespace ZdravoCorp.Servieces
 
             while (startDate <= endDate)
             {
-                foreach (Appointment appointment in Singleton.Instance.Schedule.Appointments)
+                foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
                 {
                     if (appointment.TimeSlot.start.Date == startDate && appointment.DoctorId == doctorId)
                     {
@@ -108,7 +108,7 @@ namespace ZdravoCorp.Servieces
                     {
                         ScheduleRepository scheduleRepository = new ScheduleRepository();
                         Appointment appointment = scheduleRepository.CreateAppointment(doctorsTimeSlot,
-                            qualifiedDoctor, PatientService.getByUsername(patientUsername));
+                            qualifiedDoctor, Singleton.Instance.PatientRepository.getByUsername(patientUsername));
                         if (appointment != null)
                         {
                             scheduleRepository.WriteAllAppointmens();

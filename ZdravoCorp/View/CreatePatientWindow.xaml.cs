@@ -47,7 +47,7 @@ namespace ZdravoCorp
 
         private List<String> usedUsernames()
         {
-            foreach (User user in Singleton.Instance.users)
+            foreach (User user in Singleton.Instance.UserRepository.Users)
             {
                 if (selectedPatient != null && selectedPatient.Username == user.Username) continue;
                 usernames.Add(user.Username);
@@ -83,7 +83,7 @@ namespace ZdravoCorp
 
         private List<int> usedPatientsIds()
         {
-            foreach (Patient patient in Singleton.Instance.patients)
+            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
             {
                 patientsIds.Add(patient.Id);
             }
@@ -92,7 +92,7 @@ namespace ZdravoCorp
 
         private List<int> usedMedicalRecordsIds()
         {
-            foreach (MedicalRecord record in Singleton.Instance.medicalRecords)
+            foreach (MedicalRecord record in Singleton.Instance.MedicalRecordRepository.Records)
             {
                 recordsIds.Add(record.Id);
             }

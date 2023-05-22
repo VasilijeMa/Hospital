@@ -34,7 +34,7 @@ namespace ZdravoCorp.Domain
             switch (user.Type)
             {
                 case "doctor":
-                    foreach (Doctor doctor in Singleton.Instance.doctors)
+                    foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
                     {
                         if (user.Username == doctor.Username)
                         {
@@ -46,7 +46,7 @@ namespace ZdravoCorp.Domain
                     break;
 
                 case "nurse":
-                    foreach (Nurse nurse in Singleton.Instance.nurses)
+                    foreach (Nurse nurse in Singleton.Instance.NurseRepository.Nurses)
                     {
                         if (user.Username == nurse.Username)
                         {
@@ -62,7 +62,7 @@ namespace ZdravoCorp.Domain
                     managerWindow.ShowDialog();
                     break;
                 case "patient":
-                    foreach (Patient patient in Singleton.Instance.patients)
+                    foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
                     {
                         if (user.Username == patient.Username)
                         {
@@ -73,7 +73,7 @@ namespace ZdravoCorp.Domain
                                 if (patient.IsBlocked)
                                 {
                                     PatientController patientController = new PatientController();
-                                    patientController.WriteAll(Singleton.Instance.patients);
+                                    patientController.WriteAll(Singleton.Instance.PatientRepository.Patients);
                                 }
                                 break;
                             }

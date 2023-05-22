@@ -19,12 +19,14 @@ namespace ZdravoCorp
         Singleton singleton;
         Patient patient;
         List<Appointment> recommendedAppointments;
+        private ScheduleRepository scheduleRepository;
         public RecommendingAppointmentsForm(Patient patient)
         {
             InitializeComponent();
             this.patient = patient;
             singleton = Singleton.Instance;
-            cmbDoctors.ItemsSource = singleton.doctors;
+            scheduleRepository = singleton.ScheduleRepository;
+            cmbDoctors.ItemsSource = singleton.DoctorRepository.Doctors;
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
             cmbDoctors.SelectedValuePath = "Id";
             dpLDate.DisplayDateStart = DateTime.Now;
@@ -60,15 +62,24 @@ namespace ZdravoCorp
             if (!inputValidation()) return;
             AppointmentRequest appointmentRequest = CreateAppointmentRequest();
             if (appointmentRequest == null) return;
+            
+            
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
             ScheduleService scheduleService = new ScheduleService();
             recommendedAppointments = scheduleService.GetAppointmentsByRequest(appointmentRequest, patient.Id);
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
             dgAppointments.ItemsSource = null;
             LoadAppointmentsInDataGrid(recommendedAppointments);
             if (recommendedAppointments.Count() == 1)
             {
-                ScheduleRepository scheduleRepository = new ScheduleRepository();
                 scheduleRepository.CreateAppointment(recommendedAppointments[0]);
-                LogRepository.AddElement(recommendedAppointments[0], patient);
+                singleton.LogRepository.AddElement(recommendedAppointments[0], patient);
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
             }
@@ -118,9 +129,8 @@ namespace ZdravoCorp
                 return;
             }
             Appointment appointment = GetAppointmentFromSelectedRow();
-            ScheduleRepository scheduleRepository = new ScheduleRepository();
             scheduleRepository.CreateAppointment(appointment);
-            LogRepository.AddElement(appointment, patient);
+            singleton.LogRepository.AddElement(appointment, patient);
             MessageBox.Show("Appointment successfully created.");
             this.Close();
             return;

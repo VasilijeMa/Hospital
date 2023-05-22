@@ -25,7 +25,7 @@ namespace ZdravoCorp
             dpDate.SelectedDate = appointment.TimeSlot.start.Date;
             dpDate.DisplayDateStart = DateTime.Now;
             tbTime.Text = appointment.TimeSlot.start.ToString("HH:mm");
-            cmbDoctors.ItemsSource = singleton.doctors;
+            cmbDoctors.ItemsSource = singleton.DoctorRepository.Doctors;
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
             cmbDoctors.SelectedValuePath = "Id";
             cmbDoctors.SelectedValue = appointment.DoctorId;
@@ -66,9 +66,9 @@ namespace ZdravoCorp
                 MessageBox.Show("Patient is not available at choosen date and time.");
                 return;
             }
-            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             scheduleRepository.UpdateAppointment(appointment.Id, timeSlot, (int)cmbDoctors.SelectedValue);
-            LogRepository.UpdateCancelElement(appointment, patient);
+            singleton.LogRepository.UpdateCancelElement(appointment, patient);
             MessageBox.Show("Appointment successfully updated.");
             this.Close();
         }

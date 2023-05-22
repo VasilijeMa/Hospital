@@ -91,10 +91,10 @@ namespace ZdravoCorp
             }
 
             MakeAppointmentDoctor window = new MakeAppointmentDoctor(doctor, true, appointment.Id);
-            window.tbTime.Text = appointment.TimeSlot.start.TimeOfDay.ToString();
+            window.tbTime.Text = appointment.TimeSlot.start.ToString("HH:mm");
             window.dpDate.SelectedDate = appointment.TimeSlot.start.Date;
             window.tbDuration.Text = appointment.TimeSlot.duration.ToString();
-            window.cmbPatients.ItemsSource = singleton.patients;
+            window.cmbPatients.ItemsSource = singleton.PatientRepository.Patients;
             window.cmbPatients.ItemTemplate = (DataTemplate)FindResource("patientTemplate");
             window.cmbPatients.SelectedValuePath = "Id";
             window.cmbPatients.SelectedValue = appointment.PatientId;
@@ -121,7 +121,7 @@ namespace ZdravoCorp
             if (MessageBox.Show("Are you sure you want to cancel the appointment? ", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 appointment.IsCanceled = true;
-                ScheduleRepository scheduleRepository = new ScheduleRepository();
+                ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
                 scheduleRepository.CancelAppointment(appointment.Id);
                 MessageBox.Show("Appointment successfully cancelled!");
                 DataGridLoadAppointments();
@@ -136,7 +136,6 @@ namespace ZdravoCorp
             Patient patient = patientRepository.getPatient(appointment.PatientId);
             CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true, null);
             medicalRecord.ShowDialog();
-
         }
 
         private Appointment GetSelectedAppointment(DataRowView item)
@@ -146,7 +145,8 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return null;
             }
-            ScheduleRepository scheduleRepository = new ScheduleRepository();
+
+            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             Appointment appointment = scheduleRepository.GetAppointment((int)item.Row["AppointmentID"]);
 
             return appointment;

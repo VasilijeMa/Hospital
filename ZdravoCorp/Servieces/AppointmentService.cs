@@ -14,10 +14,10 @@ namespace ZdravoCorp.Servieces
             foreach (var room in examinationRooms)
             {
                 bool check = true;
-                foreach (Appointment appointment in Singleton.Instance.Schedule.Appointments)
+                foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
                 {
                     if (appointment.IsCanceled) continue;
-                    TimeSlotService timeSlotService = new TimeSlotService(timeSlot);
+                    TimeSlotService timeSlotService = new TimeSlotService(appointment.TimeSlot);
                     if (timeSlotService.OverlapWith(timeSlot) && appointment.IdRoom == room.Key)
                     {
                         check = false;

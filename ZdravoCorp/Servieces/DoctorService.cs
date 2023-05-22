@@ -106,7 +106,7 @@ namespace ZdravoCorp.Servieces
                     TimeSlot doctorsTimeSlot = new TimeSlot(currentTime, duration);
                     if (IsAvailable(doctorsTimeSlot, qualifiedDoctor.Id))
                     {
-                        ScheduleRepository scheduleRepository = new ScheduleRepository();
+                        ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
                         Appointment appointment = scheduleRepository.CreateAppointment(doctorsTimeSlot,
                             qualifiedDoctor, Singleton.Instance.PatientRepository.getByUsername(patientUsername));
                         if (appointment != null)

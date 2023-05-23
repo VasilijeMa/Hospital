@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZdravoCorp.EquipmentGroup
 {
@@ -19,7 +14,7 @@ namespace ZdravoCorp.EquipmentGroup
         {
             Name = name;
             MaxQuantity = maxQuantity;
-            SelectedQuantity=0;
+            SelectedQuantity = 0;
         }
 
         [JsonConstructor]

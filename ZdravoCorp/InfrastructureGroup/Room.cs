@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
-using System.IO;
 using System.Reflection;
-using System.Windows.Documents;
 namespace ZdravoCorp.InfrastructureGroup
 {
     public enum RoomType
@@ -26,7 +22,7 @@ namespace ZdravoCorp.InfrastructureGroup
         {
             this.TypeOfRoom = (RoomType)typeOfRoom;
         }
-        
+
         public static Dictionary<string, Room> LoadAllExaminationRoom()
         {
             Dictionary<string, Room> examinationRooms = new Dictionary<string, Room>();

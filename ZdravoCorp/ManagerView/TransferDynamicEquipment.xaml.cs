@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ZdravoCorp.EquipmentGroup;
 using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.ManagerView
@@ -53,7 +41,7 @@ namespace ZdravoCorp.ManagerView
             RoomsShortOfEquipment.Clear();
             List<FunctionalItem> allCombinations = FunctionalItemRepository.LoadDynamicWithHidden();
 
-            foreach(FunctionalItem item in allCombinations)
+            foreach (FunctionalItem item in allCombinations)
             {
                 if (item.GetAmount() < 5)
                 {

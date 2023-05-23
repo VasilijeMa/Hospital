@@ -50,11 +50,6 @@
     "Amount": 3
   },
   {
-    "Where": "Examination Room 4",
-    "What": "Stethoscope",
-    "Amount": 1
-  },
-  {
     "Where": "Infirmary 1",
     "What": "Bed",
     "Amount": 3

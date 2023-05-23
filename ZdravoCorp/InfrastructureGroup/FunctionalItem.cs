@@ -1,12 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows;
-using System.Xml.Linq;
-using ZdravoCorp.EquipmentGroup;
-
-namespace ZdravoCorp.InfrastructureGroup
+﻿namespace ZdravoCorp.InfrastructureGroup
 {
     public class FunctionalItem
     {

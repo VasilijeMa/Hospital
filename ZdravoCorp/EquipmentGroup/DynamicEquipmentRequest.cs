@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace ZdravoCorp.EquipmentGroup
 {
@@ -37,7 +32,7 @@ namespace ZdravoCorp.EquipmentGroup
         }
         public string ToString()
         {
-            return ItemName + " " + ItemQuantity + " " + OrderDate.ToString() + " " + Finished.ToString() ;
+            return ItemName + " " + ItemQuantity + " " + OrderDate.ToString() + " " + Finished.ToString();
         }
 
         public bool IsFinished()

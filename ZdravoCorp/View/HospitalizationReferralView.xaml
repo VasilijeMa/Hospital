@@ -1,0 +1,20 @@
+﻿<Window x:Class="ZdravoCorp.View.HospitalizationReferralView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.View"
+        mc:Ignorable="d"
+        Title="HospitalizationReferralView" Height="350" Width="600">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="140,56,0,0" TextWrapping="Wrap" Text="Duration: " VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="140,145,0,0" TextWrapping="Wrap" Text="Initial therapy: " VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="140,101,0,0" TextWrapping="Wrap" Text="Additional testing: " VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDuration" HorizontalAlignment="Left" Margin="268,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="txtAdditionalTesting" HorizontalAlignment="Left" Margin="268,145,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="txtInitalTherapy" HorizontalAlignment="Left" Margin="268,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="Submit" Content="Submit" HorizontalAlignment="Left" Margin="214,235,0,0" VerticalAlignment="Top" Click="Submit_Click"/>
+        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="292,235,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

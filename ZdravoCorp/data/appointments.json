@@ -8,7 +8,8 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 2,
@@ -19,7 +20,8 @@
     "DoctorId": 1,
     "PatientId": 2,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 3,
@@ -30,7 +32,8 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 4,
@@ -41,7 +44,8 @@
     "DoctorId": 2,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 5,
@@ -52,7 +56,8 @@
     "DoctorId": 2,
     "PatientId": 2,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 6,
@@ -63,7 +68,8 @@
     "DoctorId": 2,
     "PatientId": 2,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 7,
@@ -74,7 +80,8 @@
     "DoctorId": 1,
     "PatientId": 2,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 8,
@@ -85,7 +92,8 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 9,
@@ -96,7 +104,8 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 10,
@@ -107,7 +116,8 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 11,
@@ -118,7 +128,8 @@
     "DoctorId": 2,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 14,
@@ -129,7 +140,8 @@
     "DoctorId": 2,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 15,
@@ -140,7 +152,8 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 16,
@@ -151,7 +164,8 @@
     "DoctorId": 2,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 17,
@@ -162,7 +176,8 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 18,
@@ -173,7 +188,8 @@
     "DoctorId": 2,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 19,
@@ -184,7 +200,8 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 20,
@@ -195,7 +212,8 @@
     "DoctorId": 2,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 2"
+    "IdRoom": "Examination Room 2",
+    "ExaminationId": 0
   },
   {
     "Id": 21,
@@ -206,7 +224,8 @@
     "DoctorId": 3,
     "PatientId": 2,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 3"
+    "IdRoom": "Examination Room 3",
+    "ExaminationId": 0
   },
   {
     "Id": 22,
@@ -217,7 +236,8 @@
     "DoctorId": 2,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 23,
@@ -228,7 +248,8 @@
     "DoctorId": 2,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 24,
@@ -239,7 +260,8 @@
     "DoctorId": 3,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 25,
@@ -250,7 +272,8 @@
     "DoctorId": 1,
     "PatientId": 2,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 26,
@@ -261,7 +284,8 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 27,
@@ -272,7 +296,8 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 28,
@@ -283,7 +308,8 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 29,
@@ -294,7 +320,8 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 30,
@@ -305,7 +332,8 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 31,
@@ -316,7 +344,8 @@
     "DoctorId": 1,
     "PatientId": 3,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 32,
@@ -327,7 +356,8 @@
     "DoctorId": 1,
     "PatientId": 2,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 33,
@@ -338,7 +368,8 @@
     "DoctorId": 1,
     "PatientId": 2,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   },
   {
     "Id": 34,
@@ -349,7 +380,8 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 4"
+    "IdRoom": "Examination Room 4",
+    "ExaminationId": 0
   },
   {
     "Id": 35,
@@ -360,7 +392,8 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": false,
-    "IdRoom": "Examination Room 4"
+    "IdRoom": "Examination Room 4",
+    "ExaminationId": 0
   },
   {
     "Id": 36,
@@ -371,6 +404,31 @@
     "DoctorId": 1,
     "PatientId": 1,
     "IsCanceled": true,
-    "IdRoom": "Examination Room 1"
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
+  },
+  {
+    "Id": 37,
+    "TimeSlot": {
+      "start": "2023-05-23T19:00:00",
+      "duration": 20
+    },
+    "DoctorId": 1,
+    "PatientId": 3,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
+  },
+  {
+    "Id": 38,
+    "TimeSlot": {
+      "start": "2023-05-23T21:00:00",
+      "duration": 20
+    },
+    "DoctorId": 1,
+    "PatientId": 3,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 2
   }
 ]

@@ -9,7 +9,8 @@
       "DoctorId": 1,
       "PatientId": 1,
       "IsCanceled": true,
-      "IdRoom": "Examination Room 1"
+      "IdRoom": "Examination Room 1",
+      "ExaminationId": 0
     },
     "DateTime": "2023-05-22T20:24:29.3937744+02:00",
     "Type": "updateCancel"
@@ -24,7 +25,8 @@
       "DoctorId": 1,
       "PatientId": 1,
       "IsCanceled": true,
-      "IdRoom": "Examination Room 1"
+      "IdRoom": "Examination Room 1",
+      "ExaminationId": 0
     },
     "DateTime": "2023-05-22T20:24:42.6388037+02:00",
     "Type": "updateCancel"

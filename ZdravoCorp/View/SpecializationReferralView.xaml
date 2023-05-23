@@ -1,0 +1,34 @@
+﻿<Window x:Class="ZdravoCorp.View.SpecializationReferralView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.View"
+        mc:Ignorable="d"
+        Title="SpecializationReferral" Height="350" Width="600" WindowStartupLocation="CenterScreen" Icon="/icon.png">
+    <Window.Resources>
+        <DataTemplate x:Key="specializationTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Specialization}" Margin="5"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="doctorTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding FirstName}" Margin="5"/>
+                <TextBlock Text="{Binding LastName}" Margin="5"/>
+                <TextBlock Text="{Binding Id}" Margin="5"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+
+    <Grid>
+
+        <Button Name="btnSchedule" Content="Refer" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="231,260,0,0" Click="btnRefer_Click"/>
+        <RadioButton Name="rbSpecialization" Content="Specialization" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Checked="rbSpecialization_Checked"/>
+        <RadioButton x:Name="rbDoctor" Content="Doctor" HorizontalAlignment="Left" Margin="339,103,0,0" VerticalAlignment="Top" Checked="rbDoctor_Checked"/>
+        <ComboBox Name="cmbSpecialization" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="236,0,0,0"/>
+        <ComboBox Name="cmbDoctor" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="236,0,0,0"/>
+        <ComboBox Name="cmbEmpty" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="236,0,0,0"/>
+    </Grid>
+</Window>

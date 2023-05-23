@@ -16,6 +16,7 @@ namespace ZdravoCorp.Domain
         private readonly PatientRepository _patientRepository;
         private readonly ScheduleRepository _scheduleRepository;
         private readonly UserRepository _userRepository;
+        private readonly ExaminationRepository _examinationRepository;
 
         private static Singleton instance;
 
@@ -41,6 +42,7 @@ namespace ZdravoCorp.Domain
             _anamnesisRepository = new AnamnesisRepository();
             _userRepository = new UserRepository();
             _notificationAboutCancelledAppointmentRepository = new NotificationAboutCancelledAppointmentRepository();
+            _examinationRepository = new ExaminationRepository();
         }
 
         public AnamnesisRepository AnamnesisRepository { get => _anamnesisRepository; }
@@ -52,5 +54,6 @@ namespace ZdravoCorp.Domain
         public PatientRepository PatientRepository { get => _patientRepository; }
         public ScheduleRepository ScheduleRepository { get => _scheduleRepository; }
         public UserRepository UserRepository { get => _userRepository; }
+        public ExaminationRepository ExaminationRepository { get => _examinationRepository; }
     }
 }

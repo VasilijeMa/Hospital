@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "SpecializationRefferal": {
+      "Specialization": 1,
+      "DoctorId": -1
+    },
+    "HospitalizationRefferal": null,
+    "Prescription": null
+  },
+  {
+    "Id": 2,
+    "SpecializationRefferal": {
+      "Specialization": null,
+      "DoctorId": 2
+    },
+    "HospitalizationRefferal": null,
+    "Prescription": null
+  }
+]

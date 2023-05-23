@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Domain.Enums;
 using ZdravoCorp.Repositories;
+using ZdravoCorp.View;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
@@ -27,10 +28,11 @@ namespace ZdravoCorp
         {
             if (role == ConfigRoles.Nurse)
             {
-                btnChangeEquipment.Visibility = Visibility.Visible;
                 DoctorConclusion.IsReadOnly = true;
                 DoctorObservation.IsReadOnly = true;
                 btnChangeEquipment.Visibility = Visibility.Hidden;
+                btnHospitalizationRefer.Visibility = Visibility.Hidden;
+                btnSpecializationRefer.Visibility = Visibility.Hidden;
             }
             else if (role == ConfigRoles.Doctor)
             {
@@ -46,6 +48,8 @@ namespace ZdravoCorp
                 btnCancel.Visibility = Visibility.Hidden;
                 btnSubmit.Visibility = Visibility.Hidden;
                 btnChangeEquipment.Visibility = Visibility.Hidden;
+                btnHospitalizationRefer.Visibility = Visibility.Hidden;
+                btnSpecializationRefer.Visibility = Visibility.Hidden;
                 anamnesis = findAnamnesisById(selectedAppointment);
                 LoadFields(anamnesis);
             }
@@ -182,5 +186,16 @@ namespace ZdravoCorp
             used.ShowDialog();
         }
 
+        private void HospitalizatinRefer_Click(object sender, RoutedEventArgs e)
+        {
+            HospitalizationReferralView hospitalizationReferralView = new HospitalizationReferralView();
+            hospitalizationReferralView.ShowDialog();
+        }
+
+        private void SpecializationRefer_Click(object sender, RoutedEventArgs e)
+        {
+            SpecializationReferralView specializationReferralView = new SpecializationReferralView(selectedAppointment);
+            specializationReferralView.ShowDialog();
+        }
     }
 }

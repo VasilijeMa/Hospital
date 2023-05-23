@@ -10,7 +10,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="140,56,0,0" TextWrapping="Wrap" Text="Duration: " VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="140,145,0,0" TextWrapping="Wrap" Text="Initial therapy: " VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="140,101,0,0" TextWrapping="Wrap" Text="Additional testing: " VerticalAlignment="Top"/>
-        <TextBox x:Name="txtDuration" HorizontalAlignment="Left" Margin="268,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="txtDuration" HorizontalAlignment="Left" Margin="268,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtAdditionalTesting" HorizontalAlignment="Left" Margin="268,145,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox Name="txtInitalTherapy" HorizontalAlignment="Left" Margin="268,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="Submit" Content="Submit" HorizontalAlignment="Left" Margin="214,235,0,0" VerticalAlignment="Top" Click="Submit_Click"/>

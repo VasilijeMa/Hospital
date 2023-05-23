@@ -64,9 +64,9 @@ namespace ZdravoCorp
             }
 
             int id = (int)item.Row["AppointmentId"];
-            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             Appointment selectedAppointment = scheduleRepository.GetAppointment(id);
-            PatientRepository patientRepository = new PatientRepository();
+            PatientRepository patientRepository = singleton.PatientRepository;
             Patient patient = patientRepository.getPatient(selectedAppointment.PatientId);
             AppointmentService appointmentService = new AppointmentService();
             if (!appointmentService.IsAbleToStart(selectedAppointment))

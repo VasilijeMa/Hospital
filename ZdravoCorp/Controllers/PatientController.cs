@@ -12,9 +12,9 @@ namespace ZdravoCorp.Controllers
     {
         private PatientService patientService = new PatientService();
 
-        public void WriteAll(List<Patient> patients)
+        public void WriteAll()
         {
-            patientService.WriteAll(patients);
+            patientService.WriteAll();
         }
     }
 }

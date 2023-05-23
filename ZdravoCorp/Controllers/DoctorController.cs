@@ -13,11 +13,10 @@ namespace ZdravoCorp.Controllers
     public class DoctorController
     {
         private DoctorService doctorService = new DoctorService();
-
+        private ScheduleService scheduleService = new ScheduleService();
         public void ViewOneDayAppointment(Doctor doctor)
         {
-            DoctorService doctorService = new DoctorService();
-            var appointments = doctorService.GetAllAppointments(DateTime.Now.Date, DateTime.Now.Date, doctor.Id);
+            var appointments = scheduleService.GetAllAppointmentsForDoctor(DateTime.Now.Date, DateTime.Now.Date, doctor.Id);
             ViewAppointment appointmentDoctor = new ViewAppointment(appointments, doctor, 1);
             appointmentDoctor.Show();
         }
@@ -25,14 +24,14 @@ namespace ZdravoCorp.Controllers
         public void ViewThreeDayAppointment(Doctor doctor)
         {
             DateTime endDate = DateTime.Now.AddDays(3);
-            var appointments = doctorService.GetAllAppointments(DateTime.Now.Date, endDate.Date, doctor.Id);
+            var appointments = scheduleService.GetAllAppointmentsForDoctor(DateTime.Now.Date, endDate.Date, doctor.Id);
             ViewAppointment appointmentDoctor = new ViewAppointment(appointments, doctor, 3);
             appointmentDoctor.Show();
         }
 
         public void DailySchedule(Doctor doctor)
         {
-            var appointments = doctorService.GetAllAppointments(DateTime.Now.Date, DateTime.Now.Date, doctor.Id);
+            var appointments = scheduleService.GetAllAppointmentsForDoctor(DateTime.Now.Date, DateTime.Now.Date, doctor.Id);
             DailyAppointmentView dailySchedule = new DailyAppointmentView(appointments, doctor);
             dailySchedule.ShowDialog();
         }

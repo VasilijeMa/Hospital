@@ -20,9 +20,9 @@ namespace ZdravoCorp.Repositories
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Patient>>(json);
         }
-        public void WriteAll(List<Patient> newlistofpatients)
+        public void WriteAll()
         {
-            string json = JsonConvert.SerializeObject(newlistofpatients, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(patients, Formatting.Indented);
             File.WriteAllText("./../../../data/patient.json", json);
         }
         public Patient getPatient(int patientId)

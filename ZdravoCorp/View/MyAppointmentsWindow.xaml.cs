@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
+using ZdravoCorp.Servieces;
 
 namespace ZdravoCorp
 {
@@ -16,12 +17,14 @@ namespace ZdravoCorp
         List<Appointment> appointments;
         Singleton singleton;
         Patient patient;
+        private ScheduleRepository scheduleRepository;
         public MyAppointmentsWindow(Patient patient)
         {
             InitializeComponent();
             this.patient = patient;
             singleton = Singleton.Instance;
             appointments = singleton.ScheduleRepository.Schedule.Appointments;
+            scheduleRepository = singleton.ScheduleRepository;
             LoadAppointmentsInDataGrid();
         }
 
@@ -67,7 +70,6 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             Appointment appointment = scheduleRepository.GetAppointment((int)item.Row["Id"]);
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
@@ -80,7 +82,9 @@ namespace ZdravoCorp
                 ((DataRowView)dgAppointments.SelectedItem).Row["IsCanceled"] = true;
                 btnCancel.IsEnabled = false;
                 scheduleRepository.CancelAppointment(appointment.Id);
-                singleton.LogRepository.UpdateCancelElement(appointment, patient);
+
+                LogService logService = new LogService();
+                logService.UpdateCancelElement(appointment, patient);
                 if (patient.IsBlocked)
                 {
                     this.Close();
@@ -107,7 +111,6 @@ namespace ZdravoCorp
                 return;
             }
             int id = (int)item.Row["Id"];
-            ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
             Appointment appointment = scheduleRepository.GetAppointment(id);
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
@@ -126,7 +129,6 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             scheduleRepository.WriteAllAppointmens();
         }
 

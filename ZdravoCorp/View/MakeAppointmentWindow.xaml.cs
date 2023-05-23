@@ -59,7 +59,8 @@ namespace ZdravoCorp
             ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             Appointment appointment = scheduleRepository.CreateAppointment(timeSlot, doctor, patient);
 
-            singleton.LogRepository.AddElement(appointment, patient);
+            LogService logService = new LogService();
+            logService.AddElement(appointment, patient);
             MessageBox.Show("Appointment successfully created.");
             this.Close();
         }

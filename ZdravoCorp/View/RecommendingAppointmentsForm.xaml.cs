@@ -79,7 +79,9 @@ namespace ZdravoCorp
             if (recommendedAppointments.Count() == 1)
             {
                 scheduleRepository.CreateAppointment(recommendedAppointments[0]);
-                singleton.LogRepository.AddElement(recommendedAppointments[0], patient);
+
+                LogService logService = new LogService();
+                logService.AddElement(recommendedAppointments[0], patient);
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
             }
@@ -130,7 +132,9 @@ namespace ZdravoCorp
             }
             Appointment appointment = GetAppointmentFromSelectedRow();
             scheduleRepository.CreateAppointment(appointment);
-            singleton.LogRepository.AddElement(appointment, patient);
+
+            LogService logService = new LogService();
+            logService.AddElement(appointment, patient);
             MessageBox.Show("Appointment successfully created.");
             this.Close();
             return;

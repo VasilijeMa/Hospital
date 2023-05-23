@@ -27,11 +27,11 @@ namespace ZdravoCorp.Repositories
         }
         public void RemoveUser(string username)
         {
-            foreach (User user in Singleton.Instance.UserRepository.Users)
+            foreach (User user in users)
             {
                 if (username == user.Username)
                 {
-                    Singleton.Instance.UserRepository.Users.Remove(user);
+                    users.Remove(user);
                     return;
                 }
             }

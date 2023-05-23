@@ -73,7 +73,7 @@ namespace ZdravoCorp.Domain
                                 if (patient.IsBlocked)
                                 {
                                     PatientController patientController = new PatientController();
-                                    patientController.WriteAll(Singleton.Instance.PatientRepository.Patients);
+                                    patientController.WriteAll();
                                 }
                                 break;
                             }

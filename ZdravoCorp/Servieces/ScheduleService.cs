@@ -197,5 +197,23 @@ namespace ZdravoCorp.Servieces
                 }
             }
         }
+
+        public List<Appointment> GetAllAppointmentsForDoctor(DateTime startDate, DateTime endDate, int doctorId)
+        {
+            List<Appointment> doctorsAppointments = new List<Appointment>();
+
+            while (startDate <= endDate)
+            {
+                foreach (Appointment appointment in scheduleRepository.Schedule.Appointments)
+                {
+                    if (appointment.TimeSlot.start.Date == startDate && appointment.DoctorId == doctorId)
+                    {
+                        doctorsAppointments.Add(appointment);
+                    }
+                }
+                startDate = startDate.AddDays(1);
+            }
+            return doctorsAppointments;
+        }
     }
 }

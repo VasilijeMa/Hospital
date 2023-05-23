@@ -25,9 +25,9 @@ namespace ZdravoCorp.Servieces
             return true;
         }
 
-        public void WriteAll(List<Patient> patients)
+        public void WriteAll()
         {
-            patientRepository.WriteAll(patients);
+            patientRepository.WriteAll();
         }
     }
 }

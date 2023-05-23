@@ -1,24 +1,31 @@
-﻿using ZdravoCorp.Domain;
+﻿using System;
+using ZdravoCorp.Domain;
+using ZdravoCorp.Repositories;
 
 namespace ZdravoCorp.Servieces
 {
     public class LogService
     {
-        public static void Count(int patientId)
+        private LogRepository logRepository;
+        public LogService()
+        {
+            logRepository = Singleton.Instance.LogRepository;
+        }
+        public void Count(int patientId)
         {
             try
             {
-                foreach (var element in Singleton.Instance.LogRepository.Log.Elements)
+                foreach (var element in logRepository.Log.Elements)
                 {
                     if (element.Appointment.PatientId == patientId)
                     {
                         if (element.Type.Equals("make"))
                         {
-                            Singleton.Instance.LogRepository.Log.MakeCounter++;
+                            logRepository.Log.MakeCounter++;
                         }
                         else
                         {
-                            Singleton.Instance.LogRepository.Log.UpdateCancelCounter++;
+                            logRepository.Log.UpdateCancelCounter++;
                         }
                     }
                 }
@@ -29,9 +36,9 @@ namespace ZdravoCorp.Servieces
             }
         }
 
-        public static void CheckConditions(Patient patient)
+        public void CheckConditions(Patient patient)
         {
-            if (Singleton.Instance.LogRepository.Log.MakeCounter > 8 || Singleton.Instance.LogRepository.Log.UpdateCancelCounter >= 5)
+            if (logRepository.Log.MakeCounter > 8 || logRepository.Log.UpdateCancelCounter >= 5)
             {
                 patient.IsBlocked = true;
             }
@@ -39,6 +46,17 @@ namespace ZdravoCorp.Servieces
             {
                 patient.IsBlocked = false;
             }
+        }
+
+        public void AddElement(Appointment appointment, Patient patient)
+        {
+            logRepository.AddElement(appointment, patient);
+            CheckConditions(patient);
+        }
+        public void UpdateCancelElement(Appointment appointment, Patient patient)
+        {
+            logRepository.UpdateCancelElement(appointment, patient);
+            CheckConditions(patient);
         }
     }
 }

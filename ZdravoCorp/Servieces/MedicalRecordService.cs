@@ -22,9 +22,9 @@ namespace ZdravoCorp.Servieces
             return medicalRecordRepository.GetMedicalRecord(medicalRecordId);
         }
 
-        public void WriteAll(List<MedicalRecord> medicalRecords)
+        public void WriteAll()
         {
-            medicalRecordRepository.WriteAll(medicalRecords);
+            medicalRecordRepository.WriteAll();
         }
     }
 }

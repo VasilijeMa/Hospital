@@ -68,7 +68,9 @@ namespace ZdravoCorp
             }
             ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             scheduleRepository.UpdateAppointment(appointment.Id, timeSlot, (int)cmbDoctors.SelectedValue);
-            singleton.LogRepository.UpdateCancelElement(appointment, patient);
+            
+            LogService logService = new LogService();
+            logService.UpdateCancelElement(appointment, patient);
             MessageBox.Show("Appointment successfully updated.");
             this.Close();
         }

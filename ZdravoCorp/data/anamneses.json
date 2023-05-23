@@ -26,19 +26,5 @@
     "Symptoms": "bol",
     "DoctorsObservation": "ssss",
     "DoctorsConclusion": "aaaa"
-  },
-  {
-    "AppointmentId": 35,
-    "PatientId": 1,
-    "Symptoms": "ssss",
-    "DoctorsObservation": "",
-    "DoctorsConclusion": ""
-  },
-  {
-    "AppointmentId": 35,
-    "PatientId": 1,
-    "Symptoms": "sss",
-    "DoctorsObservation": "",
-    "DoctorsConclusion": ""
   }
 ]

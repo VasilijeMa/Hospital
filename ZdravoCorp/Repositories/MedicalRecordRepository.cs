@@ -13,9 +13,9 @@ namespace ZdravoCorp.Repositories
         {
             records = LoadAll();
         }
-        public void WriteAll(List<MedicalRecord> newlistofrecords)
+        public void WriteAll()
         {
-            string json = JsonConvert.SerializeObject(newlistofrecords, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(records, Formatting.Indented);
             File.WriteAllText("./../../../data/medicalRecords.json", json);
         }
         public List<MedicalRecord> LoadAll()

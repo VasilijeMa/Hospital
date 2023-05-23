@@ -18,9 +18,9 @@ namespace ZdravoCorp.Controllers
             return medicalRecordService.GeMedicalRecord(medicalRecordId);
         }
 
-        public void WriteAll(List<MedicalRecord> medicalRecords)
+        public void WriteAll()
         {
-            medicalRecordService.WriteAll(medicalRecords);
+            medicalRecordService.WriteAll();
         }
     }
 }

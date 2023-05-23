@@ -12,12 +12,14 @@ namespace ZdravoCorp
         private Appointment selectedAppointment;
         private ConfigRoles role;
         private Anamnesis anamnesis;
+        private AnamnesisRepository anamnesisRepository;
         public AnamnesisView(Appointment selectedAppointment, ConfigRoles role)
         {
 
             InitializeComponent();
             this.selectedAppointment = selectedAppointment;
             this.role = role;
+            anamnesisRepository = Singleton.Instance.AnamnesisRepository;
             setWindow();
         }
 
@@ -61,7 +63,7 @@ namespace ZdravoCorp
                 {
                     anamnesis.DoctorsConclusion = DoctorConclusion.Text;
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
-                    Singleton.Instance.AnamnesisRepository.WriteAll();
+                    anamnesisRepository.WriteAll();
                 }
                 MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 this.Close();
@@ -118,7 +120,7 @@ namespace ZdravoCorp
 
         public Anamnesis findAnamnesisById(Appointment selectedAppointment)
         {
-            foreach (Anamnesis anamnesis in Singleton.Instance.AnamnesisRepository.Anamneses)
+            foreach (Anamnesis anamnesis in anamnesisRepository.Anamneses)
             {
                 if (anamnesis.AppointmentId == selectedAppointment.Id)
                 {
@@ -130,7 +132,7 @@ namespace ZdravoCorp
 
         private bool isAlreadyExsist(int appointmentId)
         {
-            foreach (Anamnesis anamnesis in Singleton.Instance.AnamnesisRepository.Anamneses)
+            foreach (Anamnesis anamnesis in anamnesisRepository.Anamneses)
             {
                 if (anamnesis.AppointmentId == appointmentId)
                 {
@@ -170,8 +172,8 @@ namespace ZdravoCorp
                                                        ""
                                                        );
             this.anamnesis = anamnesis;
-            Singleton.Instance.AnamnesisRepository.Anamneses.Add(anamnesis);
-            Singleton.Instance.AnamnesisRepository.WriteAll();
+            anamnesisRepository.Anamneses.Add(anamnesis);
+            anamnesisRepository.WriteAll();
         }
 
         private void useUpDynamicEquipment(object sender, RoutedEventArgs e)

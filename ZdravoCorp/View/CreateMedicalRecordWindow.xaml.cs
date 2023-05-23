@@ -21,12 +21,14 @@ namespace ZdravoCorp
         Appointment selectedAppointment;
         private MedicalRecordController medicalRecordController;
         private PatientController patientController;
+        private UserRepository userRepository;
 
         public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment = null, bool update = false)
         {
             InitializeComponent();
             medicalRecordController = new MedicalRecordController();
             patientController = new PatientController();
+            userRepository = Singleton.Instance.UserRepository;
             this.doctor = doctor;
             this.create = create;
             this.patient = patient;
@@ -170,7 +172,7 @@ namespace ZdravoCorp
             if (!create)
             {
                 setAttributes(selectedRecord);
-                medicalRecordController.WriteAll(Singleton.Instance.MedicalRecordRepository.Records);
+                medicalRecordController.WriteAll();
                 return null;
             }
             MedicalRecord newMedicalRecord = new MedicalRecord();
@@ -192,24 +194,24 @@ namespace ZdravoCorp
             if (!create)
             {
                 Singleton.Instance.PatientRepository.Patients.Remove(patient);
-                patientController.WriteAll(Singleton.Instance.PatientRepository.Patients);
-                Singleton.Instance.UserRepository.RemoveUser(patient.Username);
-                Singleton.Instance.UserRepository.WriteAll();
+                patientController.WriteAll();
+                userRepository.RemoveUser(patient.Username);
+                userRepository.WriteAll();
             }
             Singleton.Instance.PatientRepository.Patients.Add(newPatient);
-            patientController.WriteAll(Singleton.Instance.PatientRepository.Patients);
+            patientController.WriteAll();
         }
 
         public void addToMedicalRecords(MedicalRecord newMedicalRecord)
         {
             Singleton.Instance.MedicalRecordRepository.Records.Add(newMedicalRecord);
-            medicalRecordController.WriteAll(Singleton.Instance.MedicalRecordRepository.Records);
+            medicalRecordController.WriteAll();
         }
 
         public void addToUsers(Patient newPatient)
         {
-            Singleton.Instance.UserRepository.Users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
-            Singleton.Instance.UserRepository.WriteAll();
+            userRepository.Users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
+            userRepository.WriteAll();
         }
 
         public void addAnamnesisClick(object sender, RoutedEventArgs e)

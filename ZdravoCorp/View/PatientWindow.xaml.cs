@@ -18,7 +18,8 @@ namespace ZdravoCorp
             this.patient = patient;
             lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
             singleton.LogRepository.Log = new Log();
-            LogService.Count(patient.Id);
+            LogService logService = new LogService();
+            logService.Count(patient.Id);
         }
 
         private void miMake_Click(object sender, RoutedEventArgs e)

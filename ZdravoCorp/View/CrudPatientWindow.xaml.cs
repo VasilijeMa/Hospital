@@ -86,7 +86,7 @@ namespace ZdravoCorp
             }
             else
             {
-                Patient selectedPatient = Singleton.Instance.PatientRepository.Patients[selectedIndex];
+                Patient selectedPatient = patients[selectedIndex];
                 //CreateMedicalRecordWindow createMedicalRecordWindow = new CreateMedicalRecordWindow(false,selectedPatient , false);
                 //createMedicalRecordWindow.ShowDialog();
                 CreatePatientWindow createPatientWindow = new CreatePatientWindow(false, selectedPatient, false);
@@ -109,10 +109,10 @@ namespace ZdravoCorp
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this patient? ", "Question", MessageBoxButtons.YesNo);
                 if (dialogResult.ToString() == "Yes")
                 {
-                    Patient selectedPatient = Singleton.Instance.PatientRepository.Patients[selectedIndex];
+                    Patient selectedPatient = patients[selectedIndex];
                     MedicalRecord selectedRecord = null;
                     int recordId = selectedPatient.MedicalRecordId;
-                    foreach (MedicalRecord record in Singleton.Instance.MedicalRecordRepository.Records)
+                    foreach (MedicalRecord record in records)
                     {
                         if (recordId == record.Id)
                         {
@@ -121,12 +121,12 @@ namespace ZdravoCorp
                         }
                     }
 
-                    Singleton.Instance.PatientRepository.Patients.Remove(selectedPatient);
-                    Singleton.Instance.MedicalRecordRepository.Records.Remove(selectedRecord);
+                    patients.Remove(selectedPatient);
+                    records.Remove(selectedRecord);
                     Singleton.Instance.UserRepository.RemoveUser(selectedPatient.Username);
                     Singleton.Instance.UserRepository.WriteAll();
-                    patientController.WriteAll(Singleton.Instance.PatientRepository.Patients);
-                    medicalRecordController.WriteAll(Singleton.Instance.MedicalRecordRepository.Records);
+                    patientController.WriteAll();
+                    medicalRecordController.WriteAll();
                     LoadData();
                 }
             }

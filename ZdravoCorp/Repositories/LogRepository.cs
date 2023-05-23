@@ -39,7 +39,6 @@ namespace ZdravoCorp.Repositories
             Log.Elements.Add(new LogElement(appointment, DateTime.Now, "make"));
             Log.MakeCounter++;
             Write();
-            LogService.CheckConditions(patient);
         }
 
         public void UpdateCancelElement(Appointment appointment, Patient patient)
@@ -47,7 +46,6 @@ namespace ZdravoCorp.Repositories
             Log.Elements.Add(new LogElement(appointment, DateTime.Now, "updateCancel"));
             Log.UpdateCancelCounter++;
             Write();
-            LogService.CheckConditions(patient);
         }
         public void Refresh()
         {

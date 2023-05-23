@@ -106,11 +106,7 @@ namespace ZdravoCorp
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (tbSearch.Text == "")
-            {
-                anamneses = singleton.AnamnesisRepository.Anamneses;
-            }
-            else
+            if (tbSearch.Text != "")
             {
                 anamneses = singleton.AnamnesisRepository.GetAnamnesesContainingSubstring(tbSearch.Text.ToUpper());
             }

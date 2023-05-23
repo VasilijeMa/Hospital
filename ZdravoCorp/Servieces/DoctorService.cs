@@ -11,15 +11,16 @@ namespace ZdravoCorp.Servieces
     public class DoctorService
     {
         private DoctorRepository doctorRepository;
-
+        private ScheduleRepository scheduleRepository;
         public DoctorService()
         {
             this.doctorRepository = Singleton.Instance.DoctorRepository;
+            this.scheduleRepository = Singleton.Instance.ScheduleRepository;
         }
 
         public bool IsAvailable(TimeSlot timeSlot, int doctorId, int appointmentId = -1)
         {
-            foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
+            foreach (Appointment appointment in scheduleRepository.Schedule.Appointments)
             {
                 if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
                 TimeSlotService timeSlotService = new TimeSlotService(appointment.TimeSlot);
@@ -32,7 +33,7 @@ namespace ZdravoCorp.Servieces
         }
         public bool IsAlreadyExamined(int patientId, int doctorId)
         {
-            foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
+            foreach (Appointment appointment in scheduleRepository.Schedule.Appointments)
             {
                 if (appointment.IsCanceled) continue;
                 if (appointment.PatientId == patientId && appointment.DoctorId == doctorId)
@@ -51,7 +52,7 @@ namespace ZdravoCorp.Servieces
             DateTime timeAfterTwoHours = DateTime.Now.AddHours(2);
             List<Appointment> appointmentsInNextTwoHours = new List<Appointment>();
 
-            foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
+            foreach (Appointment appointment in scheduleRepository.Schedule.Appointments)
             {
                 if (appointment.TimeSlot.start.Date == timeAfterTwoHours.Date)
                 {
@@ -62,23 +63,6 @@ namespace ZdravoCorp.Servieces
                 }
             }
             return appointmentsInNextTwoHours;
-        }
-        public List<Appointment> GetAllAppointments(DateTime startDate, DateTime endDate, int doctorId)
-        {
-            List<Appointment> appointments = new List<Appointment>();
-
-            while (startDate <= endDate)
-            {
-                foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
-                {
-                    if (appointment.TimeSlot.start.Date == startDate && appointment.DoctorId == doctorId)
-                    {
-                        appointments.Add(appointment);
-                    }
-                }
-                startDate = startDate.AddDays(1);
-            }
-            return appointments;
         }
         public List<Doctor> GetDoctorBySpecialization(string specialization)
         {
@@ -106,7 +90,6 @@ namespace ZdravoCorp.Servieces
                     TimeSlot doctorsTimeSlot = new TimeSlot(currentTime, duration);
                     if (IsAvailable(doctorsTimeSlot, qualifiedDoctor.Id))
                     {
-                        ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
                         Appointment appointment = scheduleRepository.CreateAppointment(doctorsTimeSlot,
                             qualifiedDoctor, Singleton.Instance.PatientRepository.getByUsername(patientUsername));
                         if (appointment != null)

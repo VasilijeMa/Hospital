@@ -6,7 +6,11 @@
     "Specialization": "Surgeon",
     "Username": "vanja",
     "Password": "vanja",
-    "Type": "doctor"
+    "Type": "doctor",
+    "Ratings": [
+      4.7,
+      1.2
+    ]
   },
   {
     "Id": 2,
@@ -15,7 +19,11 @@
     "Specialization": "Dentist",
     "Username": "nikola",
     "Password": "nikola",
-    "Type": "doctor"
+    "Type": "doctor",
+    "Ratings": [
+      5.0,
+      3.7
+    ]
   },
   {
     "Id": 3,
@@ -24,6 +32,10 @@
     "Specialization": "Cardiologist",
     "Username": "nina",
     "Password": "nina",
-    "Type": "doctor"
+    "Type": "doctor",
+    "Ratings": [
+      4.0,
+      4.2
+    ]
   }
 ]

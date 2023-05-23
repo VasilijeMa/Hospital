@@ -132,7 +132,7 @@ namespace ZdravoCorp
         {
             DataRowView item = dataGrid.SelectedItem as DataRowView;
             Appointment appointment = GetSelectedAppointment(item);
-            PatientRepository patientRepository = new PatientRepository();
+            PatientRepository patientRepository = singleton.PatientRepository;
             Patient patient = patientRepository.getPatient(appointment.PatientId);
             CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true, null);
             medicalRecord.ShowDialog();
@@ -154,7 +154,7 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ScheduleRepository scheduleRepository = new ScheduleRepository();
+            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             scheduleRepository.WriteAllAppointmens();
         }
     }

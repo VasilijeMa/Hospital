@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
@@ -14,7 +15,7 @@ namespace ZdravoCorp
         const int APPOINTMENT_DURATION = 15;
         Singleton singleton;
         Patient patient;
-        public MakeAppointmentWindow(Patient patient)
+        public MakeAppointmentWindow(Patient patient, Doctor doctor = null)
         {
             InitializeComponent();
             this.patient = patient;
@@ -22,7 +23,16 @@ namespace ZdravoCorp
             cmbDoctors.ItemsSource = singleton.DoctorRepository.Doctors;
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
             cmbDoctors.SelectedValuePath = "Id";
+            SetDoctor(doctor);
             dpDate.DisplayDateStart = DateTime.Now;
+        }
+
+        private void SetDoctor(Doctor doctor)
+        {
+            if (doctor != null)
+                cmbDoctors.SelectedItem = singleton.DoctorRepository.Doctors.FirstOrDefault(
+                    selectedDoctor =>
+                        selectedDoctor.FirstName == doctor.FirstName && selectedDoctor.LastName == doctor.LastName);
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

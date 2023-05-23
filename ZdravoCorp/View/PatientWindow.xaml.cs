@@ -2,6 +2,7 @@
 using ZdravoCorp.Domain;
 using ZdravoCorp.Repositories;
 using ZdravoCorp.Servieces;
+using ZdravoCorp.View;
 
 namespace ZdravoCorp
 {
@@ -69,6 +70,12 @@ namespace ZdravoCorp
         {
             PatientAppointmentsView patientAppointmentsView = new PatientAppointmentsView(patient);
             patientAppointmentsView.ShowDialog();
+        }
+
+        private void miDoctorsSearch_Click(object sender, RoutedEventArgs e)
+        {
+            SearchDoctorWindow searchDoctorWindow = new SearchDoctorWindow(patient);
+            searchDoctorWindow.ShowDialog();
         }
     }
 }

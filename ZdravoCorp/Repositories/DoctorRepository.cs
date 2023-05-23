@@ -36,5 +36,20 @@ namespace ZdravoCorp.Repositories
             }
             return null;
         }
+
+        public double GetAverageRating(Doctor doctor)
+        {
+            return doctor.Ratings.Average();
+        }
+
+        public List<Doctor> SearchDoctors(string keyword)
+        {
+            return doctors.Where(doctor => Contains(keyword, doctor)).ToList();
+        }
+
+        private static bool Contains(string keyword, Doctor doctor)
+        {
+            return doctor.FirstName.ToUpper().Contains(keyword) || doctor.LastName.ToUpper().Contains(keyword) || doctor.Specialization.ToString().ToUpper().Contains(keyword);
+        }
     }
 }

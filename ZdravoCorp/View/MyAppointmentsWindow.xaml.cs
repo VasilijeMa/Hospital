@@ -70,7 +70,7 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
-            Appointment appointment = scheduleRepository.GetAppointment((int)item.Row["Id"]);
+            Appointment appointment = scheduleRepository.GetAppointmentById((int)item.Row["Id"]);
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
                 MessageBox.Show("The selected appointment must not changed.");
@@ -111,7 +111,7 @@ namespace ZdravoCorp
                 return;
             }
             int id = (int)item.Row["Id"];
-            Appointment appointment = scheduleRepository.GetAppointment(id);
+            Appointment appointment = scheduleRepository.GetAppointmentById(id);
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
                 MessageBox.Show("The selected appointment must not changed.");

@@ -20,11 +20,10 @@ namespace ZdravoCorp.Servieces
 
         public bool IsAvailable(TimeSlot timeSlot, int doctorId, int appointmentId = -1)
         {
-            foreach (Appointment appointment in scheduleRepository.Schedule.Appointments)
+            foreach (Appointment appointment in scheduleRepository.GetAppointmentsForDoctor(doctorId))
             {
                 if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
-                TimeSlotService timeSlotService = new TimeSlotService(appointment.TimeSlot);
-                if (doctorId == appointment.DoctorId && timeSlotService.OverlapWith(timeSlot))
+                if (appointment.TimeSlot.OverlapWith(timeSlot))
                 {
                     return false;
                 }
@@ -33,15 +32,12 @@ namespace ZdravoCorp.Servieces
         }
         public bool IsAlreadyExamined(int patientId, int doctorId)
         {
-            foreach (Appointment appointment in scheduleRepository.Schedule.Appointments)
+            foreach (Appointment appointment in scheduleRepository.GetAppointmentsForPatientAndDoctor(patientId, doctorId))
             {
                 if (appointment.IsCanceled) continue;
-                if (appointment.PatientId == patientId && appointment.DoctorId == doctorId)
+                if (appointment.TimeSlot.start < DateTime.Now)
                 {
-                    if (appointment.TimeSlot.start < DateTime.Now)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;
@@ -52,11 +48,11 @@ namespace ZdravoCorp.Servieces
             DateTime timeAfterTwoHours = DateTime.Now.AddHours(2);
             List<Appointment> appointmentsInNextTwoHours = new List<Appointment>();
 
-            foreach (Appointment appointment in scheduleRepository.Schedule.Appointments)
+            foreach (Appointment appointment in scheduleRepository.GetAppointmentsForDoctor(doctorId))
             {
                 if (appointment.TimeSlot.start.Date == timeAfterTwoHours.Date)
                 {
-                    if (TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1 && appointment.DoctorId == doctorId)
+                    if (TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1)
                     {
                         appointmentsInNextTwoHours.Add(appointment);
                     }

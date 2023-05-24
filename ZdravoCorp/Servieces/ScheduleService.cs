@@ -65,8 +65,7 @@ namespace ZdravoCorp.Servieces
         {
             foreach (Appointment appointment in appointments)
             {
-                TimeSlotService timeSlotService = new TimeSlotService(appointment.TimeSlot);
-                if (timeSlotService.OverlapWith(timeSlot)) return false;
+                if (appointment.TimeSlot.OverlapWith(timeSlot)) return false;
             }
             return true;
         }
@@ -144,8 +143,7 @@ namespace ZdravoCorp.Servieces
                 if (freeTimeSlots[i].duration < APPOINTMENT_DURATION) continue;
                 var founded = MakeTimeSlotForPatient(freeTimeSlots[i], patientId);
                 if (founded == null) continue;
-                var timeSlotService = new TimeSlotService(freeTimeSlots[i]);
-                var tempTimeSlots = timeSlotService.Split(founded);
+                var tempTimeSlots = freeTimeSlots[i].Split(founded);
                 UpdateTimeSlots(freeTimeSlots, i, tempTimeSlots);
                 return founded;
             }
@@ -175,9 +173,12 @@ namespace ZdravoCorp.Servieces
         }
         public void GetFreeDoctorsTimeSlots(List<Appointment> appointments, List<TimeSlot> timeSlots, int doctorId)
         {
-            foreach (Appointment appointment in appointments)
+            //foreach (Appointment appointment in appointments)
+            //    if (doctorId != appointment.DoctorId || appointment.IsCanceled) continue;
+            //    SplitTimeSlot(appointment, timeSlots
+            foreach (Appointment appointment in scheduleRepository.GetAppointmentsForDoctor(doctorId))
             {
-                if (doctorId != appointment.DoctorId || appointment.IsCanceled) continue;
+                if (appointment.IsCanceled) continue;
                 SplitTimeSlot(appointment, timeSlots);
             }
         }
@@ -185,10 +186,9 @@ namespace ZdravoCorp.Servieces
         {
             for (int i = 0; i < timeSlots.Count; i++)
             {
-                TimeSlotService timeSlotService = new TimeSlotService(timeSlots[i]);
-                if (timeSlotService.OverlapWith(appointment.TimeSlot))
+                if (timeSlots[i].OverlapWith(appointment.TimeSlot))
                 {
-                    List<TimeSlot> tempTimeSlots = timeSlotService.Split(appointment.TimeSlot);
+                    List<TimeSlot> tempTimeSlots = timeSlots[i].Split(appointment.TimeSlot);
                     timeSlots.Remove(timeSlots[i]);
                     for (int j = 0; j < tempTimeSlots.Count; j++)
                     {
@@ -204,9 +204,9 @@ namespace ZdravoCorp.Servieces
 
             while (startDate <= endDate)
             {
-                foreach (Appointment appointment in scheduleRepository.Schedule.Appointments)
+                foreach (Appointment appointment in scheduleRepository.GetAppointmentsForDoctor(doctorId))
                 {
-                    if (appointment.TimeSlot.start.Date == startDate && appointment.DoctorId == doctorId)
+                    if (appointment.TimeSlot.start.Date == startDate)
                     {
                         doctorsAppointments.Add(appointment);
                     }

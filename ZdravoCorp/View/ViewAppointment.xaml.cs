@@ -147,7 +147,7 @@ namespace ZdravoCorp
             }
 
             ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            Appointment appointment = scheduleRepository.GetAppointment((int)item.Row["AppointmentID"]);
+            Appointment appointment = scheduleRepository.GetAppointmentById((int)item.Row["AppointmentID"]);
 
             return appointment;
         }

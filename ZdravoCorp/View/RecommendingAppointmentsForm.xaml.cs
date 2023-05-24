@@ -149,7 +149,7 @@ namespace ZdravoCorp
                 int.Parse(date.Split("-")[2]), int.Parse(time.Split(":")[0]), int.Parse(time.Split(":")[1]), 0);
             TimeSlot appointmentTimeSlot = new TimeSlot(dateTime, 15);
             int doctorId = (int)((DataRowView)dgAppointments.SelectedItem).Row["DoctorID"];
-            string roomId = AppointmentService.TakeRoom(appointmentTimeSlot);
+            string roomId = Appointment.TakeRoom(appointmentTimeSlot);
             return new Appointment(appointmentId, appointmentTimeSlot, doctorId, patient.Id, roomId);
         }
 

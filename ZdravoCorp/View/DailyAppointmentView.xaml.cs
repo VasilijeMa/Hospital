@@ -65,11 +65,10 @@ namespace ZdravoCorp
 
             int id = (int)item.Row["AppointmentId"];
             ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            Appointment selectedAppointment = scheduleRepository.GetAppointment(id);
+            Appointment selectedAppointment = scheduleRepository.GetAppointmentById(id);
             PatientRepository patientRepository = singleton.PatientRepository;
             Patient patient = patientRepository.getPatient(selectedAppointment.PatientId);
-            AppointmentService appointmentService = new AppointmentService();
-            if (!appointmentService.IsAbleToStart(selectedAppointment))
+            if (!selectedAppointment.IsAbleToStart())
             {
                 MessageBox.Show("You cannot start a appointment.");
                 return;

@@ -53,7 +53,7 @@ namespace ZdravoCorp
                 if (anamnesis.PatientId == patient.Id)
                 {
                     ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-                    Appointment appointment = scheduleRepository.GetAppointment(anamnesis.AppointmentId);
+                    Appointment appointment = scheduleRepository.GetAppointmentById(anamnesis.AppointmentId);
                     DoctorRepository doctorRepository = new DoctorRepository();
                     Doctor doctor = doctorRepository.getDoctor(appointment.DoctorId);
                     if (appointment.TimeSlot.start.Date > DateTime.Now.Date) continue;
@@ -86,7 +86,7 @@ namespace ZdravoCorp
                 return;
             }
             ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            Appointment appointment = scheduleRepository.GetAppointment((int)item.Row["Id"]);
+            Appointment appointment = scheduleRepository.GetAppointmentById((int)item.Row["Id"]);
             AnamnesisView anamnesisView = new AnamnesisView(appointment, ConfigRoles.Patient);
             anamnesisView.ShowDialog();
         }

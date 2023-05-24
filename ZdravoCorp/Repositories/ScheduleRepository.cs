@@ -25,7 +25,7 @@ namespace ZdravoCorp.Repositories
 
         public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
         {
-            string roomId = AppointmentService.TakeRoom(timeSlot);
+            string roomId = Appointment.TakeRoom(timeSlot);
             if (roomId == "")
             {
                 MessageBox.Show("All rooms are full.");
@@ -138,7 +138,7 @@ namespace ZdravoCorp.Repositories
             }
             return todayAppointments;
         }
-        public Appointment GetAppointment(int id)
+        public Appointment GetAppointmentById(int id)
         {
             foreach (var appointment in schedule.Appointments)
             {
@@ -148,6 +148,21 @@ namespace ZdravoCorp.Repositories
                 }
             }
             return null;
+        }
+
+        public List<Appointment> GetAppointmentsForPatient(int patientId)
+        {
+            return schedule.Appointments.Where(appointment => patientId == appointment.PatientId).ToList();
+        }
+
+        public List<Appointment> GetAppointmentsForDoctor(int doctorId)
+        {
+            return schedule.Appointments.Where(appointment => doctorId == appointment.DoctorId).ToList();
+        }
+
+        public List<Appointment> GetAppointmentsForPatientAndDoctor(int patientId, int doctorId)
+        {
+            return schedule.Appointments.Where(appointment => patientId == appointment.PatientId && doctorId == appointment.DoctorId).ToList();
         }
     }
 }

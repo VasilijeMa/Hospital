@@ -65,8 +65,7 @@ namespace ZdravoCorp
             }
 
             Appointment selectedAppointment = Singleton.Instance.ScheduleRepository.Schedule.TodaysAppointments[selectedIndex];
-            AppointmentService appointmentService = new AppointmentService();
-            if (!appointmentService.IsAbleToStart(selectedAppointment))
+            if (!selectedAppointment.IsAbleToStart())
             {
                 MessageBox.Show("You cannot start a appointment.");
                 return;

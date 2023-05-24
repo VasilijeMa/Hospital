@@ -1,34 +1,18 @@
 [
   {
     "Appointment": {
-      "Id": 36,
+      "Id": 39,
       "TimeSlot": {
-        "start": "2023-06-09T11:11:00",
+        "start": "2023-07-21T11:11:00",
         "duration": 15
       },
-      "DoctorId": 1,
+      "DoctorId": 2,
       "PatientId": 1,
-      "IsCanceled": true,
+      "IsCanceled": false,
       "IdRoom": "Examination Room 1",
       "ExaminationId": 0
     },
-    "DateTime": "2023-05-22T20:24:29.3937744+02:00",
-    "Type": "updateCancel"
-  },
-  {
-    "Appointment": {
-      "Id": 36,
-      "TimeSlot": {
-        "start": "2023-06-09T11:11:00",
-        "duration": 15
-      },
-      "DoctorId": 1,
-      "PatientId": 1,
-      "IsCanceled": true,
-      "IdRoom": "Examination Room 1",
-      "ExaminationId": 0
-    },
-    "DateTime": "2023-05-22T20:24:42.6388037+02:00",
-    "Type": "updateCancel"
+    "DateTime": "2023-05-24T19:09:03.2901748+02:00",
+    "Type": "make"
   }
 ]

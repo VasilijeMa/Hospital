@@ -30,6 +30,10 @@
     <Resource Include="user.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GUI\ValidationRule\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 

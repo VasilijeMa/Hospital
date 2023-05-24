@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using ZdravoCorp.Core.Domain;
 //using System.Collections;
-using ZdravoCorp.Domain;
 
 namespace ZdravoCorp
 {

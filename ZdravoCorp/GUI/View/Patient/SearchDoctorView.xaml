@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp.View"
-        xmlns:patientviewmodels="clr-namespace:ZdravoCorp.GUI.ViewModel"
         mc:Ignorable="d"
         Title="SearchDoctorWindow" Height="450" Width="793" WindowStartupLocation="CenterScreen" Icon="/icon.png">
     <Grid>

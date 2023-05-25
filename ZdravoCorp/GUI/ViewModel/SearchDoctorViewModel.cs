@@ -58,7 +58,7 @@ namespace ZdravoCorp.GUI.ViewModel
         public SearchDoctorViewModel(Patient patient)
         {
             this.patient = patient;
-            doctorRepository = new DoctorRepository();
+            doctorRepository = Singleton.Instance.DoctorRepository;
             doctors = doctorRepository.Doctors;
             DoctorItems = new ObservableCollection<DoctorListItem>();
             FillData(doctors);

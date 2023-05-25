@@ -15,6 +15,7 @@
             </MenuItem>
             <MenuItem Header="Medical record" Name="MedicalRecord" Click="MedicalRecord_Click"></MenuItem>
             <MenuItem Header="Search doctors" Name="miDoctorsSearch" Click="miDoctorsSearch_Click"/>
+            <MenuItem Header="Notifications" Name="miNotifications" Click="miNotifications_Click"/>
             <MenuItem Header="Log out" Name="miLogOut" Click="miLogOut_Click" Margin="730,-20,0,0"/>
         </Menu>
         <Label Name="lblWelcome" Content="" Margin="10,200,0,0" FontSize="25"/>

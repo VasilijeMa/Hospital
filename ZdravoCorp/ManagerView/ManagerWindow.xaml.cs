@@ -47,6 +47,12 @@ namespace ZdravoCorp.ManagerView
             TransferDynamicEquipment newWindow = new TransferDynamicEquipment();
             newWindow.ShowDialog();
         }
+
+        private void SimpleRenovationClick(object sender, RoutedEventArgs e)
+        {
+            RenovationView newWindow = new RenovationView();
+            newWindow.ShowDialog();
+        }
         private void LogOutClick(object sender, RoutedEventArgs e)
         {
             this.Close();

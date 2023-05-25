@@ -22,7 +22,7 @@ namespace ZdravoCorp.Core.Repositories
             schedule.TodaysAppointments = GetTodaysAppontments();
         }
 
-        public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient)
+        public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient, int idExamination=0)
         {
             string roomId = Appointment.TakeRoom(timeSlot);
             if (roomId == "")

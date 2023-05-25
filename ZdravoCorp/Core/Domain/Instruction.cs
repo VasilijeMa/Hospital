@@ -9,10 +9,12 @@ namespace ZdravoCorp.Core.Domain
 {
     public class Instruction
     {
-        private int TimePerDay { get; set; }
-        private TimeForMedicament TimeForMedicament { get; set; }
+        public int TimePerDay { get; set; }
+        public TimeForMedicament? TimeForMedicament { get; set; }
 
-        public Instruction(int timePerDay, TimeForMedicament timeForMedicament)
+        public Instruction() { }
+
+        public Instruction(int timePerDay, TimeForMedicament? timeForMedicament)
         {
             TimePerDay = timePerDay;
             TimeForMedicament = timeForMedicament;

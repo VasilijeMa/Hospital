@@ -9,11 +9,14 @@ namespace ZdravoCorp.Core.Commands
 {
     public abstract class BaseCommand:ICommand
     {
-        public bool CanExecute(object? parameter)
+        public virtual bool CanExecute(object? parameter)
         {
             return true;
         }
-
+        public virtual void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
         public abstract void Execute(object? parameter);
 
         public event EventHandler? CanExecuteChanged;

@@ -32,6 +32,42 @@ namespace ZdravoCorp.Core.Repositories
             string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
             File.WriteAllText("./../../../data/patientNotifications.json", json);
         }
+        public int getNextId()
+        {
+            try
+            {
+                return notifications.Max(notification => notification.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
+        }
+        public Notification GetNotification(int notificationId)
+        {
+            return notifications.FirstOrDefault(notification => notification.Id == notificationId);
+        }
 
+        public void CreateNotification(string title, int patientId, int timesPerDay, int minutesBefore)
+        {
+            int id = getNextId();
+            notifications.Add(new Notification(id, patientId, title, timesPerDay, minutesBefore));
+            WriteAll();
+        }
+
+        public void UpdateNotification(int id, string title, int timesPerDay, int minutesBefore)
+        {
+            Notification notification = GetNotification(id);
+            notification.Title = title;
+            notification.TimesPerDay = timesPerDay;
+            notification.MinutesBefore = minutesBefore;
+            WriteAll();
+        }
+
+        public void DeleteNotification(Notification notification)
+        {
+            notifications.Remove(notification);
+            WriteAll();
+        }
     }
 }

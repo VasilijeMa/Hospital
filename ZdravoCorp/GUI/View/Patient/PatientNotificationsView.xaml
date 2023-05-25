@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp.GUI.View.Patient"
         mc:Ignorable="d"
-        Title="PatientNotificationsView" Height="450" Width="800">
+        Title="PatientNotificationsView" Height="450" Width="800" Icon="/icon.png" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid AutoGenerateColumns="True" ColumnWidth="155" RowHeight="20" ItemsSource="{Binding Notidications, Mode=TwoWay}" SelectedItem="{Binding Notification, Mode=TwoWay}" IsReadOnly="True" x:Name="dataGrid" Margin="0,8,0,145">
+        <DataGrid AutoGenerateColumns="True" ColumnWidth="155" RowHeight="20" ItemsSource="{Binding Notifications, Mode=TwoWay}" SelectedItem="{Binding Notification, Mode=TwoWay}" IsReadOnly="True" x:Name="dataGrid" Margin="0,8,0,145">
         </DataGrid>
+        <Button IsEnabled="True" Command="{Binding AddCommand}" Name="btnAdd" Content="Add" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="168,362,0,0"/>
+        <Button IsEnabled="True" Command="{Binding UpdateCommand}" Name="btnUpdate" Content="Update" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="327,362,0,0"/>
+        <Button IsEnabled="True" Command="{Binding DeleteCommand}" Name="btnDelete" Content="Delete" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="483,362,0,0"/>
+
     </Grid>
 </Window>

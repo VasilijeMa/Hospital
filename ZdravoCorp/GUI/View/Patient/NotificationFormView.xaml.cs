@@ -11,19 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZdravoCorp.Core.Domain;
 using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.GUI.View.Patient
 {
     /// <summary>
-    /// Interaction logic for PatientNotificationsView.xaml
+    /// Interaction logic for NotificationFormView.xaml
     /// </summary>
-    public partial class PatientNotificationsView : Window
+    public partial class NotificationFormView : Window
     {
-        public PatientNotificationsView(Core.Domain.Patient patient)
+        public NotificationFormView(Core.Domain.Patient patient, Notification notification = null)
         {
             InitializeComponent();
-            DataContext = new PatientNotificationsViewModel(patient);
+            DataContext = new NotificationFormViewModel(patient, this, notification);
         }
     }
 }

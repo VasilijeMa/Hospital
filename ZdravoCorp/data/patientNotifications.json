@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "Id": 1,
+    "PatientId": 1,
+    "Title": "lek",
+    "TimesPerDay": 2,
+    "MinutesBefore": 15
+  },
+  {
+    "Id": 3,
+    "PatientId": 1,
+    "Title": "analgin",
+    "TimesPerDay": 2,
+    "MinutesBefore": 15
+  }
+]

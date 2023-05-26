@@ -105,7 +105,7 @@ namespace ZdravoCorp.GUI.ViewModel
 
         public ICommand SubmitCommand
         {
-            get { return _submitCommand ??= new HospitalizationReferralCommand(this, Appointment); }
+            get { return _submitCommand ??= new HospitalizationReferralCommand(this); }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Domain.Enums;
 
 namespace ZdravoCorp.Core.Repositories
 {
@@ -50,6 +52,17 @@ namespace ZdravoCorp.Core.Repositories
         private static bool Contains(string keyword, Doctor doctor)
         {
             return doctor.FirstName.ToUpper().Contains(keyword) || doctor.LastName.ToUpper().Contains(keyword) || doctor.Specialization.ToString().ToUpper().Contains(keyword);
+        }
+
+        public List<Specialization> GetSpecializationOfDoctors()
+        {
+            List<Specialization> specializations = new List<Specialization>();
+            foreach (var doctor in doctors)
+            {
+                if (!specializations.Contains(doctor.Specialization)) specializations.Add(doctor.Specialization);
+            }
+
+            return specializations;
         }
     }
 }

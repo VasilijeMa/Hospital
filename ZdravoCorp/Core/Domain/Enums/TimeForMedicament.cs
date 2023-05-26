@@ -2,9 +2,9 @@
 {
     public enum TimeForMedicament
     {
-        BEFORE,
-        AFTER,
-        DURING,
+        BEFORE_MEAL,
+        AFTER_MEAL,
+        DURING_MEAL,
         NOT_SPECIFIED
     }
 }

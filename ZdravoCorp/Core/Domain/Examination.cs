@@ -22,6 +22,12 @@ namespace ZdravoCorp.Core.Domain
         {
             HospitalizationRefferal = hospitalizationRefferal;
         }
+
+        public Examination(Prescription prescription)
+        {
+            Prescription = prescription;
+        }
+
         public Examination(int Id, SpecializationReferral specializationRefferal, HospitalizationReferral hospitalizationRefferal, Prescription prescription)
         {
             this.Id = Id;

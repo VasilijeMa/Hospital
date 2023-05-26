@@ -11,10 +11,27 @@
   {
     "Id": 2,
     "SpecializationRefferal": {
-      "Specialization": null,
-      "DoctorId": 2
+      "Specialization": 1,
+      "DoctorId": -1
     },
-    "HospitalizationRefferal": null,
+    "HospitalizationRefferal": {
+      "Duration": 11,
+      "AdditionalTesting": "wfsf",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ]
+        },
+        "Instruction": {
+          "TimePerDay": 2,
+          "TimeForMedicament": 1
+        }
+      }
+    },
     "Prescription": null
   }
 ]

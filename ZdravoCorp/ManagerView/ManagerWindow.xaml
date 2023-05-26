@@ -17,6 +17,8 @@
             </MenuItem>
             <MenuItem Header="Transfer Dynamic Equipment" FontSize="16" Click="DynamicTransferClick">
             </MenuItem>
+            <MenuItem Header="Simple Room Renovation" FontSize="16" Click="SimpleRenovationClick">
+            </MenuItem>
             <MenuItem Header="LogOut" FontSize="16" Click="LogOutClick"></MenuItem>
         </Menu>
     </Grid>

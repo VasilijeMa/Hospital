@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.GUI.View.Patient;
 using ZdravoCorp.GUI.ViewModel;
@@ -21,9 +22,9 @@ namespace ZdravoCorp.Core.Commands
 
         public override void Execute(object? parameter)
         {
-            if (viewModel.Notification == null)
+            if (viewModel.Notification.Date != null)
             {
-                MessageBox.Show("Notification is not selected!");
+                MessageBox.Show("The notification cannot be changed!");
                 return;
             }
             NotificationFormView notificationFormView =
@@ -31,6 +32,7 @@ namespace ZdravoCorp.Core.Commands
             notificationFormView.ShowDialog();
             viewModel.Notifications =
                 new ObservableCollection<Notification>(Singleton.Instance.NotificationRepository.Notifications);
+            viewModel.Notification = null;
         }
     }
 }

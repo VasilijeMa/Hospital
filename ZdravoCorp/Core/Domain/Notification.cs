@@ -10,17 +10,21 @@ namespace ZdravoCorp.Core.Domain
     {
         public int Id { get; set; }
         public int PatientId { get; set; }
-        public string Title { get; set; }
+        public string Message { get; set; }
         public int TimesPerDay { get; set; }
         public int MinutesBefore { get; set; }
+        public DateTime? Date { get; set; }
+        public bool IsActive { get; set; }
         public Notification(){}
-        public Notification(int id, int patientId, string title, int timesPerDay, int minutesBefore)
+        public Notification(int id, int patientId, string message, int timesPerDay, int minutesBefore, DateTime? date)
         {
             Id = id;
             PatientId = patientId;
-            Title = title;
+            Message = message;
             TimesPerDay = timesPerDay;
             MinutesBefore = minutesBefore;
+            Date = date;
+            IsActive = true;
         }
     }
 }

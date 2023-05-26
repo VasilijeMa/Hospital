@@ -19,6 +19,7 @@ namespace ZdravoCorp.GUI.ViewModel
         private ICommand _addCommand;
         private ICommand _updateCommand;
         private ICommand _deleteCommand;
+        private bool _enable;
         private ObservableCollection<Notification> _notifications;
         private Notification _notification = null;
         public Patient Patient { get; set; }
@@ -38,6 +39,16 @@ namespace ZdravoCorp.GUI.ViewModel
             get { return _deleteCommand ??= new DeleteNotificationCommand(this); }
         }
 
+        public bool Enable
+        {
+            get { return _enable; }
+            set
+            {
+                _enable = value;
+                OnPropertyChanged(nameof(Enable));
+            }
+        }
+
         public ObservableCollection<Notification> Notifications
         {
             get { return _notifications; }
@@ -55,7 +66,13 @@ namespace ZdravoCorp.GUI.ViewModel
             {
                 _notification = value;
                 OnPropertyChanged(nameof(Notification));
+                UpdateButtonEnabled();
             }
+        }
+
+        private void UpdateButtonEnabled()
+        {
+            Enable = Notification != null;
         }
 
         public PatientNotificationsViewModel(Patient patient)

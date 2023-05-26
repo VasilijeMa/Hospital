@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories;
+
+namespace ZdravoCorp.Core.Servieces
+{
+    public class NotificationService
+    {
+        private NotificationRepository _notificationRepository;
+        private List<Notification> _notifications;
+        private CancellationTokenSource _cancellationTokenSource;
+        public NotificationService(int patientId)
+        {
+            _notificationRepository = Singleton.Instance.NotificationRepository;
+            _notifications = _notificationRepository.GetPatientNotifications(patientId);
+        }
+
+        public void Start()
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = _cancellationTokenSource.Token;
+
+            Thread thread = new Thread(() => NotificationThread(cancellationToken));
+            thread.IsBackground = true;
+            thread.Start();
+        }
+        public void Stop()
+        {
+            _cancellationTokenSource?.Cancel();
+        }
+        private void NotificationThread(CancellationToken cancellationToken)
+        {
+            while (true)
+            {
+                //mzd ovde ucitati _notifications ako se doda nova
+                GoThroughNotifications();
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
+                Thread.Sleep(60000); // 1 minute interval
+            }
+        }
+
+        private void GoThroughNotifications()
+        {
+            DateTime now = DateTime.Now;
+            foreach (var notification in _notifications)
+            {
+                if (notification.Date == null) CheckMedicamentNotification(notification, now);
+                else CheckPatientNotification(notification, now);
+            }
+        }
+
+        private void CheckPatientNotification(Notification notification, DateTime now)
+        {
+            if (notification.Date.Value.Date == now.Date && notification.IsActive)
+            {
+                MessageBox.Show(notification.Message);
+                notification.IsActive = false;
+                _notificationRepository.WriteAll();
+            }
+        }
+
+        private static void CheckMedicamentNotification(Notification notification, DateTime now)
+        {
+            int minutes = 24 * 60 / notification.TimesPerDay;
+            if (((int)now.TimeOfDay.TotalMinutes - notification.MinutesBefore) % minutes == 0)
+            {
+                MessageBox.Show(notification.Message);
+            }
+        }
+    }
+}

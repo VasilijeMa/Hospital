@@ -2,15 +2,37 @@
   {
     "Id": 1,
     "PatientId": 1,
-    "Title": "lek",
-    "TimesPerDay": 2,
-    "MinutesBefore": 15
+    "Message": "lek",
+    "TimesPerDay": 1,
+    "MinutesBefore": 2,
+    "Date": null,
+    "IsActive": true
+  },
+  {
+    "Id": 2,
+    "PatientId": 1,
+    "Message": "analgin",
+    "TimesPerDay": 1,
+    "MinutesBefore": 1,
+    "Date": null,
+    "IsActive": true
   },
   {
     "Id": 3,
     "PatientId": 1,
-    "Title": "analgin",
-    "TimesPerDay": 2,
-    "MinutesBefore": 15
+    "Message": "zakazati pregled",
+    "TimesPerDay": 0,
+    "MinutesBefore": 0,
+    "Date": "2023-05-26T12:10:00",
+    "IsActive": false
+  },
+  {
+    "Id": 4,
+    "PatientId": 1,
+    "Message": "predaja projekta",
+    "TimesPerDay": 0,
+    "MinutesBefore": 0,
+    "Date": "2023-05-30T00:00:00",
+    "IsActive": true
   }
 ]

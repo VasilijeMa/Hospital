@@ -29,6 +29,7 @@ namespace ZdravoCorp.Core.Commands
             viewModel.Notifications =
                 new ObservableCollection<Notification>(Singleton.Instance.NotificationRepository.Notifications);
             MessageBox.Show("Successfully deleted notification!");
+            viewModel.Notification = null;
         }
     }
 }

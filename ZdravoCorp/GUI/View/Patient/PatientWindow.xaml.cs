@@ -14,6 +14,7 @@ namespace ZdravoCorp
     {
         private Patient patient;
         Singleton singleton = Singleton.Instance;
+        private NotificationService notificationService;
         public PatientWindow(Patient patient)
         {
             InitializeComponent();
@@ -22,6 +23,8 @@ namespace ZdravoCorp
             singleton.LogRepository.Log = new Log();
             LogService logService = new LogService();
             logService.Count(patient.Id);
+            notificationService = new NotificationService(patient.Id);
+            notificationService.Start();
         }
 
         private void miMake_Click(object sender, RoutedEventArgs e)
@@ -63,6 +66,7 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            notificationService.Stop();
             ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             scheduleRepository.WriteAllAppointmens();
         }

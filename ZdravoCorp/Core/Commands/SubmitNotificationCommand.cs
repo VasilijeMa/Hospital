@@ -20,13 +20,18 @@ namespace ZdravoCorp.Core.Commands
         {
             if (viewModel.Notification == null)
             {
-                Singleton.Instance.NotificationRepository.CreateNotification(viewModel.Title, viewModel.Patient.Id,
-                    viewModel.TimesPerDay, viewModel.MinutesBefore);
+                if (!viewModel.IsValid())
+                {
+                    MessageBox.Show("Fill in all fields with valid data");
+                    return;
+                }
+                Singleton.Instance.NotificationRepository.CreateNotification(viewModel.Message, viewModel.Patient.Id,
+                    viewModel.TimesPerDay, viewModel.MinutesBefore, viewModel.Date);
                 MessageBox.Show("Successfully created notification!");
             }
             else
             {
-                Singleton.Instance.NotificationRepository.UpdateNotification(viewModel.Notification.Id, viewModel.Title,
+                Singleton.Instance.NotificationRepository.UpdateNotification(viewModel.Notification.Id, viewModel.Message,
                     viewModel.TimesPerDay, viewModel.MinutesBefore);
                 MessageBox.Show("Successfully updated notification!");
             }

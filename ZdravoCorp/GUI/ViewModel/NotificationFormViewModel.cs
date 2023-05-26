@@ -16,9 +16,10 @@ namespace ZdravoCorp.GUI.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private ICommand _submitCommand;
-        private string _title;
+        private string _message;
         private int _timesPerDay;
         private int _minutesBefore;
+        private DateTime _date;
 
         public Patient Patient { get; set; }
         public Notification Notification { get; set; }
@@ -29,13 +30,13 @@ namespace ZdravoCorp.GUI.ViewModel
             get { return _submitCommand ??= new SubmitNotificationCommand(this); }
         }
 
-        public string Title
+        public string Message
         {
-            get { return _title; }
+            get { return _message; }
             set
             {
-                _title = value;
-                OnPropertyChanged(nameof(Title));
+                _message = value;
+                OnPropertyChanged(nameof(Message));
             }
         }
 
@@ -59,17 +60,33 @@ namespace ZdravoCorp.GUI.ViewModel
             }
         }
 
+        public DateTime Date
+        {
+            get { return _date; }
+            set
+            {
+                _date = value;
+                OnPropertyChanged(nameof(Date));
+            }
+        }
+
         public NotificationFormViewModel(Patient patient, NotificationFormView view, Notification notification = null)
         {
             Patient = patient;
             Notification = notification;
             View = view;
+            Date = DateTime.Now;
             if (notification != null)
             {
-                Title = notification.Title;
+                Message = notification.Message;
                 TimesPerDay = notification.TimesPerDay;
                 MinutesBefore = notification.MinutesBefore;
             }
+        }
+
+        public bool IsValid()
+        {
+            return Date > DateTime.Now && Message != "" && Message != null && MinutesBefore >= 0;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

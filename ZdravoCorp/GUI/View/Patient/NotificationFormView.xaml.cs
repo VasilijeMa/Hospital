@@ -24,7 +24,20 @@ namespace ZdravoCorp.GUI.View.Patient
         public NotificationFormView(Core.Domain.Patient patient, Notification notification = null)
         {
             InitializeComponent();
+            dpDate.DisplayDateStart = DateTime.Now;
             DataContext = new NotificationFormViewModel(patient, this, notification);
+            if (notification != null)
+            {
+                tbMessage.Visibility = Visibility.Hidden;
+                dpDate.Visibility = Visibility.Hidden;
+                lblMessage.Visibility = Visibility.Hidden;
+                lblDate.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                lblMinutesBefore.Visibility = Visibility.Hidden;
+                tbMinutesBefore.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

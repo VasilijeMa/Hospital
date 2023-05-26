@@ -48,17 +48,17 @@ namespace ZdravoCorp.Core.Repositories
             return notifications.FirstOrDefault(notification => notification.Id == notificationId);
         }
 
-        public void CreateNotification(string title, int patientId, int timesPerDay, int minutesBefore)
+        public void CreateNotification(string title, int patientId, int timesPerDay, int minutesBefore, DateTime date)
         {
             int id = getNextId();
-            notifications.Add(new Notification(id, patientId, title, timesPerDay, minutesBefore));
+            notifications.Add(new Notification(id, patientId, title, timesPerDay, minutesBefore, date));
             WriteAll();
         }
 
-        public void UpdateNotification(int id, string title, int timesPerDay, int minutesBefore)
+        public void UpdateNotification(int id, string message, int timesPerDay, int minutesBefore)
         {
             Notification notification = GetNotification(id);
-            notification.Title = title;
+            notification.Message = message;
             notification.TimesPerDay = timesPerDay;
             notification.MinutesBefore = minutesBefore;
             WriteAll();
@@ -68,6 +68,11 @@ namespace ZdravoCorp.Core.Repositories
         {
             notifications.Remove(notification);
             WriteAll();
+        }
+
+        public List<Notification> GetPatientNotifications(int patinetId)
+        {
+            return notifications.Where(notification => notification.PatientId == patinetId).ToList();
         }
     }
 }

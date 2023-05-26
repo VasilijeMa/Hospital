@@ -27,6 +27,7 @@ namespace ZdravoCorp.GUI.ViewModel
         private List<Doctor> doctors;
         private DoctorListItem selectedDoctor;
         private String searchBy = "";
+        private bool _enable;
         public String SearchBy
         {
             get { return searchBy; }
@@ -53,8 +54,24 @@ namespace ZdravoCorp.GUI.ViewModel
             {
                 selectedDoctor = value;
                 OnPropertyChanged();
+                UpdateButtonEnabled();
             }
         }
+        public bool Enable
+        {
+            get { return _enable; }
+            set
+            {
+                _enable = value;
+                OnPropertyChanged(nameof(Enable));
+            }
+        }
+
+        private void UpdateButtonEnabled()
+        {
+            Enable = SelectedDoctor != null;
+        }
+
         public SearchDoctorViewModel(Patient patient)
         {
             this.patient = patient;

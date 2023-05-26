@@ -6,8 +6,8 @@ namespace ZdravoCorp.InfrastructureGroup
 {
     public enum RoomType
     {
-        [Description("Operating Theatre")]
-        OperatingTheatre = 1,
+        [Description("Operating Theater")]
+        OperatingTheater = 1,
         [Description("Examination Room")]
         ExaminationRoom = 2,
         [Description("Infirmary")]
@@ -50,6 +50,16 @@ namespace ZdravoCorp.InfrastructureGroup
             DescriptionAttribute attribute = field.GetCustomAttribute<DescriptionAttribute>();
 
             return attribute == null ? value.ToString() : attribute.Description;
+        }
+
+        public static List<string> LoadAllRoomTypes()
+        {
+            List<string> roomTypes = new List<string>();
+            foreach (RoomType roomType in Enum.GetValues(typeof(RoomType)))
+            {
+                roomTypes.Add(GetTypeDescription(roomType));
+            }
+            return roomTypes;
         }
     }
 }

@@ -188,7 +188,7 @@ namespace ZdravoCorp
 
         private void HospitalizatinRefer_Click(object sender, RoutedEventArgs e)
         {
-            HospitalizationReferralView hospitalizationReferralView = new HospitalizationReferralView();
+            HospitalizationReferralView hospitalizationReferralView = new HospitalizationReferralView(selectedAppointment);
             hospitalizationReferralView.ShowDialog();
         }
 

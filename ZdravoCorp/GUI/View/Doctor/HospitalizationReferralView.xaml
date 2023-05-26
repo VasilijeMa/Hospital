@@ -5,16 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp.View"
         mc:Ignorable="d"
-        Title="HospitalizationReferralView" Height="350" Width="600">
+        Title="HospitalizationReferralView" Height="350" Width="600" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <DataTemplate x:Key="timeTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding TimeForMedicament}" Margin="5"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="medicamentTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" Margin="5"/>
+                <TextBlock Text="{Binding Id}" Margin="5"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="140,56,0,0" TextWrapping="Wrap" Text="Duration: " VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="140,145,0,0" TextWrapping="Wrap" Text="Initial therapy: " VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="140,101,0,0" TextWrapping="Wrap" Text="Additional testing: " VerticalAlignment="Top"/>
-        <TextBox x:Name="txtDuration" HorizontalAlignment="Left" Margin="268,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtAdditionalTesting" HorizontalAlignment="Left" Margin="268,145,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="txtInitalTherapy" HorizontalAlignment="Left" Margin="268,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="Submit" Content="Submit" HorizontalAlignment="Left" Margin="214,235,0,0" VerticalAlignment="Top" Click="Submit_Click"/>
-        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="292,235,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="140,39,0,0" TextWrapping="Wrap" Text="Duration: " VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="140,118,0,0" TextWrapping="Wrap" Text="Initial therapy " VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="140,78,0,0" TextWrapping="Wrap" Text="Additional testing: " VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDuration" Text="{Binding Duration, Mode=TwoWay}" HorizontalAlignment="Left" Margin="268,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Height="23"/>
+        <TextBox Name="txtInitalTherapy" Text="{Binding Testing, Mode=TwoWay}" HorizontalAlignment="Left" Margin="268,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Height="23"/>
+        <Button Command="{Binding SubmitCommand}" x:Name="Submit" Content="Submit" HorizontalAlignment="Center" Margin="0,278,0,0" VerticalAlignment="Top" Height="23" Width="90"/>
+        <TextBox x:Name="txtInitalTherapy_Copy1" Text="{Binding PerDay, Mode=TwoWay}" HorizontalAlignment="Left" Margin="268,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Height="23"/>
+        <TextBlock HorizontalAlignment="Left" Margin="164,155,0,0" TextWrapping="Wrap" Text="Medicament: " VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="164,191,0,0" TextWrapping="Wrap" Text="Time per day: " VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding Medicaments}" ItemTemplate="{StaticResource medicamentTemplate}" SelectedItem="{Binding SelectedMedicament, Mode=TwoWay}" HorizontalAlignment="Left" Margin="268,150,0,0" VerticalAlignment="Top" Width="144" Height="23"/>
+        <TextBlock HorizontalAlignment="Left" Margin="164,224,0,0" TextWrapping="Wrap" Text="When: " VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding TimeForMedicaments}" SelectedItem="{Binding SelectedTime, Mode=TwoWay}" HorizontalAlignment="Left" Margin="268,222,0,0" VerticalAlignment="Top" Width="72" Height="22"/>
 
     </Grid>
 </Window>

@@ -13,7 +13,7 @@ namespace ZdravoCorp.Core.Commands
     public class SearchDoctorCommand:BaseCommand
     {
         SearchDoctorViewModel viewModel;
-        private DoctorRepository doctorRepository = new DoctorRepository();
+        private DoctorRepository doctorRepository = Singleton.Instance.DoctorRepository;
         public SearchDoctorCommand(SearchDoctorViewModel viewModel)
         {
             this.viewModel = viewModel;

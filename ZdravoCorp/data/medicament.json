@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Amoksicilin",
+    "Allergens": [ "a", "b" ]
+  },
+  {
+    "Id": 2,
+    "Name": "Panklav",
+    "Allergens": [ "a" ]
+  },
+  {
+    "Id": 3,
+    "Name": "Paracetamol",
+    "Allergens": [ "a", "c" ]
+  }
+]

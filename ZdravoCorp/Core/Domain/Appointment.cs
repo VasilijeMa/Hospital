@@ -21,6 +21,7 @@ namespace ZdravoCorp.Core.Domain
             PatientId = patientId;
             IsCanceled = false;
             IdRoom = idRoom;
+            //ExaminationId = Id;
         }
         public Appointment() { }
         public static string TakeRoom(TimeSlot timeSlot)

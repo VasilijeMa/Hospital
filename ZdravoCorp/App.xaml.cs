@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using ZdravoCorp.EquipmentGroup;
+using ZdravoCorp.InfrastructureGroup;
 using ZdravoCorp.ManagerView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ZdravoCorp
 {
@@ -15,12 +20,14 @@ namespace ZdravoCorp
     {
         private Timer DynamicEquipmentAdder;
         private Timer StaticEquipmentMover;
+        private Timer _renovator;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             DynamicEquipmentAdder = new Timer(AddAndUpdateDynamicEquipment, null, TimeSpan.Zero, TimeSpan.FromMinutes(5)); // Thread timers
             StaticEquipmentMover = new Timer(TransferEquipmentService.MoveAllStaticEquipment, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            _renovator = new Timer(Renovate, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -28,6 +35,12 @@ namespace ZdravoCorp
             base.OnExit(e);
             DynamicEquipmentAdder.Dispose();
             StaticEquipmentMover.Dispose();
+            _renovator.Dispose();
+        }
+        private void Renovate(object state)
+        {
+            RenovationService renovationService = new RenovationService();
+            renovationService.UpdateRenovations();
         }
 
         private void AddAndUpdateDynamicEquipment(object state)

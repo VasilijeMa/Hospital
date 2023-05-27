@@ -1,14 +1,10 @@
 [
   {
-    "StartDate": "2023-05-26T00:00:00",
-    "EndDate": "2023-05-27T00:00:00",
-    "RoomName": "Operating Theater 1",
-    "EndType": 1
-  },
-  {
-    "StartDate": "2023-05-29T00:00:00",
-    "EndDate": "2023-05-31T00:00:00",
-    "RoomName": "Examination Room 3",
-    "EndType": 1
+    "IsFinished": true,
+    "HasStarted": true,
+    "StartDate": "2023-05-25T00:00:00",
+    "EndDate": "2023-05-26T00:00:00",
+    "RoomName": "Infirmary 1",
+    "EndType": 3
   }
 ]

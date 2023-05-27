@@ -1,10 +1,5 @@
 [
   {
-    "Where": "Operating Theater 1",
-    "What": "Bed",
-    "Amount": 3
-  },
-  {
     "Where": "Operating Theater 2",
     "What": "Shelf",
     "Amount": 5
@@ -50,16 +45,6 @@
     "Amount": 3
   },
   {
-    "Where": "Infirmary 1",
-    "What": "Bed",
-    "Amount": 3
-  },
-  {
-    "Where": "Infirmary 1",
-    "What": "IV",
-    "Amount": 1
-  },
-  {
     "Where": "Infirmary 2",
     "What": "Wardrobe",
     "Amount": 2
@@ -90,13 +75,13 @@
     "Amount": 4
   },
   {
-    "Where": "Operating Theater 1",
-    "What": "Wardrobe",
-    "Amount": 3
-  },
-  {
     "Where": "Operating Theater 2",
     "What": "Scalpel",
-    "Amount": 2
+    "Amount": 1
+  },
+  {
+    "Where": "Infirmary 5",
+    "What": "Scalpel",
+    "Amount": 1
   }
 ]

@@ -53,9 +53,12 @@ namespace ZdravoCorp.ManagerView
             NotInWarehouseOptions = new List<string>() { "All", "NotInWarehouse" };
 
             AllEquipment = EquipmentRepository.LoadAll();
-            AllRooms = RoomRepository.LoadAll();
-            AllFunctionalItems = FunctionalItemRepository.LoadAll();
-            AllStoredItems = WarehouseRepository.Load();
+            RoomRepository roomRepository = new RoomRepository();
+            AllRooms = roomRepository.LoadAll();
+            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            AllFunctionalItems = functionalItemRepository.LoadAll();
+            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            AllStoredItems = warehouseRepository.Load();
 
             EquipmentOrganization = new Dictionary<string, EquipmentQuantity>();
             EquipmentGridItems = new ObservableCollection<EquipmentQuantity>();

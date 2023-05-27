@@ -40,10 +40,19 @@ namespace ZdravoCorp.InfrastructureGroup
             SaveAll();
         }
 
+        public void AddAll(List<Renovation> renovations)
+        {
+            if (renovations.Count == 0) { return; }
+            foreach (var renovation in renovations)
+            {
+                _renovations.Add(renovation);
+            }
+            SaveAll();
+        }
 
         public bool IsRoomScheduledForRenovation(string roomName)
         {
-            foreach(var renovation in _renovations)
+            foreach (var renovation in _renovations)
             {
                 if (renovation.RoomName == roomName) //extra condition for Extended
                 {
@@ -52,6 +61,48 @@ namespace ZdravoCorp.InfrastructureGroup
             }
             return false;
         }
+
+        public List<Renovation> ExtractNotYetExecutedRenovations(bool onlyNotYetStarted)
+        {
+            bool shouldExtract;
+            List<Renovation> extractedRenovations = new List<Renovation>();
+            List<Renovation> remainingRenovations = new List<Renovation>();
+            foreach (Renovation renovation in _renovations)
+            {
+                shouldExtract = (renovation.IsEligibleToStart() && onlyNotYetStarted) || (renovation.IsEligibleToFinish() && !onlyNotYetStarted);
+                if (shouldExtract)
+                {
+                    extractedRenovations.Add(renovation);
+                }
+                else
+                {
+                    remainingRenovations.Add(renovation);
+                }
+            }
+            _renovations = remainingRenovations;
+            return extractedRenovations;
+        }
+
+        //public List<Renovation> ExtractNotYetFinishedRenovations()
+        //{
+        //    List<Renovation> extractedRenovations = new List<Renovation>();
+        //    List<Renovation> remainingRenovations = new List<Renovation>();
+        //    foreach (Renovation renovation in _renovations)
+        //    {
+        //        if (renovation.IsEligibleToFinish())
+        //        {
+        //            extractedRenovations.Add(renovation);
+        //        }
+        //        else
+        //        {
+        //            remainingRenovations.Add(renovation);
+        //        }
+        //    }
+        //    _renovations = remainingRenovations;
+        //    return extractedRenovations;
+        //}
+
+
 
     }
 }

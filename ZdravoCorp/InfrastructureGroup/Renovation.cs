@@ -9,17 +9,30 @@ namespace ZdravoCorp.InfrastructureGroup
 {
     public class Renovation
     {
+        public bool IsFinished;
+        public bool HasStarted;
         public DateTime StartDate;
         public DateTime EndDate;
         public string RoomName;
         public RoomType EndType;
 
-        [JsonConstructor]
-        public Renovation(DateTime startDate, DateTime endDate, string roomName, int endType) {
+        public Renovation(DateTime startDate, DateTime endDate, string roomName, int endType)
+        {
+            IsFinished = false;
+            HasStarted = false;
             StartDate = startDate;
             EndDate = endDate;
             RoomName = roomName;
             EndType = (RoomType)endType;
+        }
+        public bool IsEligibleToStart()
+        {
+            return !HasStarted && (StartDate <= DateTime.Today);
+        }
+
+        public bool IsEligibleToFinish()
+        {
+            return !IsFinished && (EndDate <= DateTime.Today);
         }
     }
 }

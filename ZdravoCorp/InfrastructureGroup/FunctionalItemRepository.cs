@@ -1,15 +1,16 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Security;
 using ZdravoCorp.EquipmentGroup;
 
 namespace ZdravoCorp.InfrastructureGroup
 {
-    internal class FunctionalItemRepository
+    public class FunctionalItemRepository
     {
-        public static List<FunctionalItem> LoadAll()
+        private List<FunctionalItem> _functionalItems;
+        public List<FunctionalItem> LoadAll()
         {
-
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/functionalItems.json");
             var json = reader.ReadToEnd();
@@ -17,45 +18,51 @@ namespace ZdravoCorp.InfrastructureGroup
 
             return allFunctionalItems;
         }
-
-        public static void SaveAll(List<FunctionalItem> allRequests)
+        public FunctionalItemRepository()
         {
-            string json = JsonConvert.SerializeObject(allRequests, Formatting.Indented);
-
-            File.WriteAllText("./../../../data/functionalItems.json", json);
+            _functionalItems = LoadAll();
         }
 
-        public static List<FunctionalItem> LoadDynamicWithHidden()
+        public FunctionalItem FindOrMakeCombination(string roomName, string equipmentName)
         {
-            List<FunctionalItem> allPossibleCombinations = new List<FunctionalItem>();
-
-            List<FunctionalItem> allFunctionalItems = LoadAll();
-            Dictionary<string, Room> rooms = RoomRepository.LoadAll();
-            Dictionary<string, EquipmentQuantity> dynamicEquipment = EquipmentRepository.LoadOnlyStaticOrDynamic(true);
-            bool found = false;
-            foreach (string roomName in rooms.Keys)
+            foreach (FunctionalItem functionalItem in _functionalItems)
             {
-                foreach (string equipmentName in dynamicEquipment.Keys)
+                if (functionalItem.GetWhere() == roomName && functionalItem.GetWhat() == equipmentName)
                 {
-                    found = false;
-                    foreach (FunctionalItem functionalItem in allFunctionalItems)
-                    {
-                        if (functionalItem.GetWhere() == roomName && functionalItem.GetWhat() == equipmentName)
-                        {
-                            allPossibleCombinations.Add(functionalItem);
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found)
-                    {
-                        allPossibleCombinations.Add(new FunctionalItem(roomName, equipmentName, 0));
-                    }
+                    return functionalItem;
                 }
             }
-            return allPossibleCombinations;
+            return new FunctionalItem(roomName, equipmentName, 0);
+        }
 
-
+        private void SaveAll()
+        {
+            string json = JsonConvert.SerializeObject(_functionalItems, Formatting.Indented);
+            File.WriteAllText("./../../../data/functionalItems.json", json);
+        }
+        public void SaveAll(List<FunctionalItem> allRequests)
+        {
+            _functionalItems = allRequests;
+            SaveAll();
+        }
+        
+        public Dictionary<string, int> EmptyOutRoom(string roomName)
+        {
+            Dictionary<string, int> removedItems = new Dictionary<string, int>();
+            List<FunctionalItem> remainingItems = new List<FunctionalItem>();
+            foreach (FunctionalItem functionalItem in _functionalItems)
+            {
+                if (functionalItem.GetWhere() == roomName)
+                {
+                    removedItems.Add(functionalItem.GetWhat(), functionalItem.GetAmount());
+                }
+                else
+                {
+                    remainingItems.Add(functionalItem);
+                }
+            }
+            SaveAll(remainingItems);
+            return removedItems;
         }
     }
 }

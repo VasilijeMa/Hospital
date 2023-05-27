@@ -26,7 +26,8 @@ namespace ZdravoCorp.Core.Domain
         public Appointment() { }
         public static string TakeRoom(TimeSlot timeSlot)
         {
-            Dictionary<string, Room> examinationRooms = Room.LoadAllExaminationRoom();
+            RoomRepository roomRepository = new RoomRepository();
+            Dictionary<string, Room> examinationRooms = roomRepository.LoadAllExaminationRooms();
             foreach (var room in examinationRooms)
             {
                 bool check = true;

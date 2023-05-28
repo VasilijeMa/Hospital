@@ -1,0 +1,53 @@
+﻿<Window x:Class="ZdravoCorp.GUI.View.Doctor.PrescriptionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.GUI.View.Doctor" xmlns:validationrule="clr-namespace:ZdravoCorp.GUI.ValidationRule"
+        mc:Ignorable="d"
+        Title="PrescriptionView" Height="350" Width="600" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <DataTemplate x:Key="timeTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding TimeForMedicament}" Margin="5"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="medicamentTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" Margin="5"/>
+                <TextBlock Text="{Binding Id}" Margin="5"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,89,0,0" TextWrapping="Wrap" Text="Medicament: " VerticalAlignment="Top" Height="18" Width="90"/>
+        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,142,0,0" TextWrapping="Wrap" Text="Time per day: " VerticalAlignment="Top" Width="90"/>
+        <ComboBox Padding="0" Name="cmbMedicament" ItemsSource="{Binding Medicaments}" ItemTemplate="{StaticResource medicamentTemplate}" SelectedItem="{Binding SelectedMedicament, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="285,84,0,0" VerticalAlignment="Top" Width="157" Height="28">
+        </ComboBox>
+        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,192,0,0" TextWrapping="Wrap" Text="When: " VerticalAlignment="Top" Height="18" Width="90"/>
+        <ComboBox ItemsSource="{Binding TimeForMedicaments}" SelectedItem="{Binding SelectedTime, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" Height="27" Margin="285,188,0,0"/>
+        <TextBox x:Name="timePerDay" Padding="2 1.5" HorizontalAlignment="Left" Margin="285,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="25" RenderTransformOrigin="0.13,0.355">
+            <TextBox.Text>
+                <Binding Path="PerDay" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validationrule:TimePerDayValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Command="{Binding PrescriptionCommand}" Content="Sumbit" HorizontalAlignment="Center" Margin="0,268,0,0" VerticalAlignment="Top" Width="65" Height="26">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=timePerDay, Path=(Validation.HasError)}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+    </Grid>
+</Window>

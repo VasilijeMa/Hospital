@@ -1,0 +1,26 @@
+[
+  {
+    "AppointmentId": 0,
+    "MedicamentId": 1,
+    "Instruction": {
+      "TimePerDay": 2,
+      "TimeForMedicament": 0
+    }
+  },
+  {
+    "AppointmentId": 0,
+    "MedicamentId": 2,
+    "Instruction": {
+      "TimePerDay": 3,
+      "TimeForMedicament": 2
+    }
+  },
+  {
+    "AppointmentId": 31,
+    "MedicamentId": 2,
+    "Instruction": {
+      "TimePerDay": 5,
+      "TimeForMedicament": 1
+    }
+  }
+]

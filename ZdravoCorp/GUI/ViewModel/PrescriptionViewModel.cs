@@ -1,32 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 using ZdravoCorp.Core.Commands;
+using System.Windows.Input;
 using ZdravoCorp.Core.Domain;
+using System.Collections.ObjectModel;
 using ZdravoCorp.Core.Domain.Enums;
-using ZdravoCorp.Core.Repositories;
 
 namespace ZdravoCorp.GUI.ViewModel
 {
-    public class HospitalizationReferralViewModel:INotifyPropertyChanged
+    internal class PrescriptionViewModel : INotifyPropertyChanged
     {
-        private ICommand _submitCommand;
+        private ICommand _prescriptionCommand;
         public ObservableCollection<Medicament> medicaments;
         public ObservableCollection<TimeForMedicament> timeForMedicaments;
         public Medicament selectedMedicament;
         public TimeForMedicament? selectedTime = null;
         public Appointment Appointment { get; set; }
-
-        private int duration;
         private int perDay;
-        private string testing="";
 
         public ObservableCollection<Medicament> Medicaments
         {
@@ -47,16 +40,6 @@ namespace ZdravoCorp.GUI.ViewModel
                 OnPropertyChanged(nameof(TimeForMedicaments));
             }
         }
-
-        public int Duration
-        {
-            get { return duration; }
-            set
-            {
-                duration = value;
-                OnPropertyChanged(nameof(Duration));
-            }
-        }
         public int PerDay
         {
             get { return perDay; }
@@ -64,15 +47,6 @@ namespace ZdravoCorp.GUI.ViewModel
             {
                 perDay = value;
                 OnPropertyChanged(nameof(PerDay));
-            }
-        }
-        public string Testing
-        {
-            get { return testing; }
-            set
-            {
-                testing = value;
-                OnPropertyChanged(nameof(Testing));
             }
         }
 
@@ -96,7 +70,7 @@ namespace ZdravoCorp.GUI.ViewModel
             }
         }
 
-        public HospitalizationReferralViewModel(Appointment appointment)
+        public PrescriptionViewModel(Appointment appointment)
         {
             Appointment = appointment;
             medicaments = new ObservableCollection<Medicament>(Singleton.Instance.MedicamentRepository.Medicaments);
@@ -105,12 +79,12 @@ namespace ZdravoCorp.GUI.ViewModel
 
         public bool IsValid()
         {
-            return perDay > 0 && selectedMedicament != null && selectedTime != null && duration > 0;
+            return perDay > 0 && selectedMedicament != null && selectedTime != null;
         }
 
-        public ICommand SubmitCommand
+        public ICommand PrescriptionCommand
         {
-            get { return _submitCommand ??= new HospitalizationReferralCommand(this); }
+            get { return _prescriptionCommand ??= new PrescriptionCommand(this); }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

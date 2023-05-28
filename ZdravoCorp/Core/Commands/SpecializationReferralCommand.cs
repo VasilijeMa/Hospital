@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
@@ -10,6 +11,7 @@ namespace ZdravoCorp.Core.Commands
         private SpecializationReferralViewModel viewModel;
         int selectedDoctorId = -1;
         Specialization? selectedSpecialization = null;
+        private ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
 
         public SpecializationReferralCommand(SpecializationReferralViewModel viewModel)
         {
@@ -41,7 +43,7 @@ namespace ZdravoCorp.Core.Commands
             }
             SpecializationReferral specializationReferral = CreateSpecializationReferral();
             CreateExamination(specializationReferral);
-
+            MessageBox.Show("You have successfully create referral!");
         }
 
         private void CreateExamination(SpecializationReferral specializationReferral)
@@ -52,6 +54,7 @@ namespace ZdravoCorp.Core.Commands
                 examination = new Examination(specializationReferral);
                 Singleton.Instance.ExaminationRepository.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
+                scheduleRepository.WriteAllAppointmens();
             }
             else
             {

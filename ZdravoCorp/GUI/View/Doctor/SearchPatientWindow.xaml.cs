@@ -11,6 +11,7 @@ namespace ZdravoCorp
     public partial class SearchPatientWindow : Window
     {
         Doctor doctor;
+        private PatientService patientService = new PatientService();
 
         public SearchPatientWindow(Doctor doctor)
         {
@@ -23,7 +24,7 @@ namespace ZdravoCorp
         {
             DataTable dt = AddColumns();
 
-            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
+            foreach (Patient patient in patientService.GetPatients())
             {
                 string birthDate = patient.BirthDate.ToString("yyyy-MM-dd");
                 dt.Rows.Add(patient.Id, patient.FirstName, patient.LastName, birthDate, patient.IsBlocked);
@@ -50,7 +51,7 @@ namespace ZdravoCorp
                 MessageBox.Show("Patient is not selected.");
             }
             int id = (int)item.Row["PatientID"];
-            Patient selected = Singleton.Instance.PatientRepository.getById(id);
+            Patient selected = patientService.GetById(id);
             DisplayMedicalRecord(selected);
         }
 
@@ -65,7 +66,7 @@ namespace ZdravoCorp
             try
             {
                 int id = int.Parse(patientIdtext.Text);
-                Patient searched = Singleton.Instance.PatientRepository.getById(id);
+                Patient searched = patientService.GetById(id);
                 if (searched == null) throw new ArgumentNullException();
                 DisplayMedicalRecord(searched);
             }

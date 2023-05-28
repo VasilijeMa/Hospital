@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
@@ -13,6 +14,7 @@ namespace ZdravoCorp.Core.Commands
     public class DeleteNotificationCommand : BaseCommand
     {
         private PatientNotificationsViewModel viewModel;
+        private NotificationService notificationService;
         public DeleteNotificationCommand(PatientNotificationsViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -25,9 +27,11 @@ namespace ZdravoCorp.Core.Commands
                 MessageBox.Show("Notification is not selected!");
                 return;
             }
-            Singleton.Instance.NotificationRepository.DeleteNotification(viewModel.Notification);
+
+            notificationService = new NotificationService(viewModel.Patient.Id);
+            notificationService.DeleteNotification(viewModel.Notification);
             viewModel.Notifications =
-                new ObservableCollection<Notification>(Singleton.Instance.NotificationRepository.Notifications);
+                new ObservableCollection<Notification>(notificationService.GetPatientNotifications());
             MessageBox.Show("Successfully deleted notification!");
             viewModel.Notification = null;
         }

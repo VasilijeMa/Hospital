@@ -17,11 +17,13 @@ namespace ZdravoCorp
         private String selectedSpecialization;
         private String selectedPatient;
         private List<Appointment> appointmentsToCancel;
-        private DoctorService doctorService;
+        private DoctorService doctorService = new DoctorService();
+        private PatientService patientService = new PatientService();
+        private ScheduleService scheduleService = new ScheduleService();
+        private NotificationAboutCancelledAppointmentService notificationService = new NotificationAboutCancelledAppointmentService();
         public EmergencyOperationOrExamination()
         {
             InitializeComponent();
-            doctorService = new DoctorService();
             delayButton.Visibility = Visibility.Hidden;
             fillCheckBoxes();
         }
@@ -33,14 +35,14 @@ namespace ZdravoCorp
         }
         private void addSpecializationsToComboBox()
         {
-            foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
+            foreach (Doctor doctor in doctorService.GetDoctors())
             {
                 specialization.Items.Add(doctor.Specialization);
             }
         }
         private void addPatientToComboBox()
         {
-            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
+            foreach (Patient patient in patientService.GetPatients())
             {
                 patients.Items.Add(patient.Username);
             }
@@ -166,17 +168,17 @@ namespace ZdravoCorp
             {
                 Appointment selectedAppointment = this.appointmentsToCancel[selectedIndex];
                 selectedAppointment.IsCanceled = true;
-                Appointment emergencyAppointment = Singleton.Instance.ScheduleRepository.CreateAppointment(selectedAppointment.TimeSlot,
-                    Singleton.Instance.DoctorRepository.getDoctor(selectedAppointment.DoctorId), Singleton.Instance.PatientRepository.getByUsername(this.selectedPatient));
+                Appointment emergencyAppointment = scheduleService.CreateAppointment(selectedAppointment.TimeSlot,
+                    doctorService.GetDoctor(selectedAppointment.DoctorId), patientService.GetByUsername(this.selectedPatient));
                 NotificationAboutCancelledAppointment notification = new NotificationAboutCancelledAppointment
                     (emergencyAppointment.Id, emergencyAppointment.DoctorId, false);
-                Singleton.Instance.NotificationAboutCancelledAppointmentRepository.Add(notification);
+                notificationService.AddNotification(notification);
 
-                MessageBox.Show(Singleton.Instance.NotificationAboutCancelledAppointmentRepository.Notifications.Count().ToString());
-                NotificationAboutCancelledAppointmentRepository.WriteAll(Singleton.Instance.NotificationAboutCancelledAppointmentRepository.Notifications);
+                MessageBox.Show(notificationService.GetNotifications().Count().ToString());
+                notificationService.WriteAll(notificationService.GetNotifications());
                 if (emergencyAppointment != null)
                 {
-                    Singleton.Instance.ScheduleRepository.WriteAllAppointmens();
+                    scheduleService.WriteAllAppointmens();
                     MessageBox.Show("Emergency appointment added successfully.");
                     this.Close();
                 }

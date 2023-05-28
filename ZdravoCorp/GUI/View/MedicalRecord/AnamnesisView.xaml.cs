@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.View;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -13,14 +14,14 @@ namespace ZdravoCorp
         private Appointment selectedAppointment;
         private ConfigRoles role;
         private Anamnesis anamnesis;
-        private AnamnesisRepository anamnesisRepository;
+        private AnamnesisService anamnesisService = new AnamnesisService();
+
         public AnamnesisView(Appointment selectedAppointment, ConfigRoles role)
         {
 
             InitializeComponent();
             this.selectedAppointment = selectedAppointment;
             this.role = role;
-            anamnesisRepository = Singleton.Instance.AnamnesisRepository;
             setWindow();
         }
 
@@ -67,7 +68,7 @@ namespace ZdravoCorp
                 {
                     anamnesis.DoctorsConclusion = DoctorConclusion.Text;
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
-                    anamnesisRepository.WriteAll();
+                    anamnesisService.WriteAll();
                 }
                 MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 this.Close();
@@ -124,7 +125,7 @@ namespace ZdravoCorp
 
         public Anamnesis findAnamnesisById(Appointment selectedAppointment)
         {
-            foreach (Anamnesis anamnesis in anamnesisRepository.Anamneses)
+            foreach (Anamnesis anamnesis in anamnesisService.GetAnamneses())
             {
                 if (anamnesis.AppointmentId == selectedAppointment.Id)
                 {
@@ -143,8 +144,8 @@ namespace ZdravoCorp
                                                        ""
                                                        );
             this.anamnesis = anamnesis;
-            anamnesisRepository.Anamneses.Add(anamnesis);
-            anamnesisRepository.WriteAll();
+            anamnesisService.AddAnamnesis(anamnesis);
+            anamnesisService.WriteAll();
         }
 
         private void useUpDynamicEquipment(object sender, RoutedEventArgs e)

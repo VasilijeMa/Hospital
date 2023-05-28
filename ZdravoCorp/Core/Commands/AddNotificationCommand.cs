@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.View.Patient;
 using ZdravoCorp.GUI.ViewModel;
 
@@ -14,6 +15,7 @@ namespace ZdravoCorp.Core.Commands
     public class AddNotificationCommand : BaseCommand
     {
         private PatientNotificationsViewModel viewModel;
+        private NotificationService notificationService;
         public AddNotificationCommand(PatientNotificationsViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -23,8 +25,9 @@ namespace ZdravoCorp.Core.Commands
         {
             NotificationFormView notificationFormView = new NotificationFormView(viewModel.Patient);
             notificationFormView.ShowDialog();
+            notificationService = new NotificationService(viewModel.Patient.Id);
             viewModel.Notifications =
-                new ObservableCollection<Notification>(Singleton.Instance.NotificationRepository.Notifications);
+                new ObservableCollection<Notification>(notificationService.GetPatientNotifications());
         }
     }
 }

@@ -8,18 +8,21 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Repositories
 {
-    public class NotificationRepository
+    public class NotificationRepository : INotificationRepository
     {
         private List<Notification> notifications;
+
         public List<Notification> Notifications { get => notifications;}
 
         public NotificationRepository()
         {
             notifications = LoadAll();
         }
+
         public List<Notification> LoadAll()
         {
             var serializer = new JsonSerializer();
@@ -27,11 +30,13 @@ namespace ZdravoCorp.Core.Repositories
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Notification>>(json);
         }
+
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
             File.WriteAllText("./../../../data/patientNotifications.json", json);
         }
+
         public int getNextId()
         {
             try
@@ -43,6 +48,7 @@ namespace ZdravoCorp.Core.Repositories
                 return 1;
             }
         }
+
         public Notification GetNotification(int notificationId)
         {
             return notifications.FirstOrDefault(notification => notification.Id == notificationId);

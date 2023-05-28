@@ -17,12 +17,12 @@ namespace ZdravoCorp
         List<MedicalRecord> records;
         List<Patient> patients;
         private Nurse nurse;
-        private MedicalRecordService medicalRecordController;
+        private MedicalRecordService medicalRecordService;
         private PatientService patientService;
         public CrudPatientWindow(Nurse nurse)
         {
             InitializeComponent();
-            medicalRecordController = new MedicalRecordService();
+            medicalRecordService = new MedicalRecordService();
             patientService = new PatientService();
             this.nurse = nurse;
             LoadData();
@@ -48,8 +48,8 @@ namespace ZdravoCorp
         public void LoadData()
         {
             DataTable dt = CreateDataTable();
-            records = Singleton.Instance.MedicalRecordRepository.Records;
-            patients = Singleton.Instance.PatientRepository.Patients;
+            records = medicalRecordService.GetMedicalRecords();
+            patients = patientService.GetPatients();
             foreach (Patient patient in patients)
             {
                 foreach (MedicalRecord record in records)
@@ -67,8 +67,6 @@ namespace ZdravoCorp
         }
         public void createButton(object sender, RoutedEventArgs e)
         {
-            //CreateMedicalRecordWindow createMedicalRecordWindow = new CreateMedicalRecordWindow(true,null,false);
-            //createMedicalRecordWindow.ShowDialog();
             CreatePatientWindow createPatientWindow = new CreatePatientWindow(true, null, false);
             createPatientWindow.ShowDialog();
             LoadData();
@@ -86,8 +84,6 @@ namespace ZdravoCorp
             else
             {
                 Patient selectedPatient = patients[selectedIndex];
-                //CreateMedicalRecordWindow createMedicalRecordWindow = new CreateMedicalRecordWindow(false,selectedPatient , false);
-                //createMedicalRecordWindow.ShowDialog();
                 CreatePatientWindow createPatientWindow = new CreatePatientWindow(false, selectedPatient, false);
                 createPatientWindow.ShowDialog();
                 LoadData();
@@ -125,7 +121,7 @@ namespace ZdravoCorp
                     Singleton.Instance.UserRepository.RemoveUser(selectedPatient.Username);
                     Singleton.Instance.UserRepository.WriteAll();
                     patientService.WriteAll();
-                    medicalRecordController.WriteAll();
+                    medicalRecordService.WriteAll();
                     LoadData();
                 }
             }

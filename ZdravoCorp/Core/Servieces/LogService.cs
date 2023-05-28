@@ -1,12 +1,13 @@
 ﻿using System;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class LogService
     {
-        private LogRepository logRepository;
+        private ILogRepository logRepository;
         public LogService()
         {
             logRepository = Singleton.Instance.LogRepository;
@@ -15,17 +16,17 @@ namespace ZdravoCorp.Core.Servieces
         {
             try
             {
-                foreach (var element in logRepository.Log.Elements)
+                foreach (var element in logRepository.GetLog().Elements)
                 {
                     if (element.Appointment.PatientId == patientId)
                     {
                         if (element.Type.Equals("make"))
                         {
-                            logRepository.Log.MakeCounter++;
+                            logRepository.GetLog().MakeCounter++;
                         }
                         else
                         {
-                            logRepository.Log.UpdateCancelCounter++;
+                            logRepository.GetLog().UpdateCancelCounter++;
                         }
                     }
                 }
@@ -38,7 +39,7 @@ namespace ZdravoCorp.Core.Servieces
 
         public void CheckConditions(Patient patient)
         {
-            if (logRepository.Log.MakeCounter > 8 || logRepository.Log.UpdateCancelCounter >= 5)
+            if (logRepository.GetLog().MakeCounter > 8 || logRepository.GetLog().UpdateCancelCounter >= 5)
             {
                 patient.IsBlocked = true;
             }

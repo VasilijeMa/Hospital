@@ -1,8 +1,10 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Windows;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
@@ -12,9 +14,14 @@ namespace ZdravoCorp
     /// </summary>
     public partial class PatientAdmissionWindow : Window
     {
+        private ScheduleService scheduleService = new ScheduleService();
+        private PatientService patientService = new PatientService();
+        private DoctorService doctorService = new DoctorService();
+        private List<Appointment> todaysAppointments;
         public PatientAdmissionWindow()
         {
             InitializeComponent();
+            todaysAppointments = scheduleService.GetTodaysAppointments();
             LoadData();
         }
 
@@ -35,12 +42,10 @@ namespace ZdravoCorp
         public void LoadData()
         {
             DataTable dt = CreateDataTable();
-            foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.TodaysAppointments)
+            foreach (Appointment appointment in todaysAppointments)
             {
-                DoctorRepository doctorRepository = Singleton.Instance.DoctorRepository;
-                PatientRepository patientRepository = Singleton.Instance.PatientRepository;
-                Doctor doctor = doctorRepository.getDoctor(appointment.DoctorId);
-                Patient patient = patientRepository.getPatient(appointment.PatientId);
+                Doctor doctor = doctorService.GetDoctor(appointment.DoctorId);
+                Patient patient = patientService.GetById(appointment.PatientId);
                 dt.Rows.Add(appointment.Id.ToString()
                     , appointment.TimeSlot.start.ToString()
                     , doctor.Username
@@ -63,17 +68,14 @@ namespace ZdravoCorp
                 return;
             }
 
-            Appointment selectedAppointment = Singleton.Instance.ScheduleRepository.Schedule.TodaysAppointments[selectedIndex];
+            Appointment selectedAppointment = todaysAppointments[selectedIndex];
             if (!selectedAppointment.IsAbleToStart())
             {
                 MessageBox.Show("You cannot start a appointment.");
                 return;
             }
-            //isAlreadyExsist(selectedAppointment.Id);
-            PatientRepository patientRepository = Singleton.Instance.PatientRepository;
-            Patient patient = patientRepository.getPatient(selectedAppointment.PatientId);
+            Patient patient = patientService.GetById(selectedAppointment.PatientId);
             CreateMedicalRecordWindow medicalRecordWindow = new CreateMedicalRecordWindow(false, patient, false, selectedAppointment);
-            //AnamnesisView anamnesisView = new AnamnesisView(selectedAppointment,true);
             medicalRecordWindow.ShowDialog();
         }
     }

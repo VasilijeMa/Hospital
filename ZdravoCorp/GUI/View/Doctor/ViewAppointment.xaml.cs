@@ -13,14 +13,13 @@ namespace ZdravoCorp
     {
         private List<Appointment> appointments;
         private Doctor doctor;
-        Singleton singleton;
         private int days;
+        private ScheduleService scheduleService = new ScheduleService();
+        private PatientService patientService = new PatientService();
 
         public ViewAppointment(List<Appointment> appointments, Doctor doctor, int days)
         {
             InitializeComponent();
-
-            this.singleton = Singleton.Instance;
             this.doctor = doctor;
             this.appointments = appointments;
             this.days = days;
@@ -94,7 +93,7 @@ namespace ZdravoCorp
             window.tbTime.Text = appointment.TimeSlot.start.ToString("HH:mm");
             window.dpDate.SelectedDate = appointment.TimeSlot.start.Date;
             window.tbDuration.Text = appointment.TimeSlot.duration.ToString();
-            window.cmbPatients.ItemsSource = singleton.PatientRepository.Patients;
+            window.cmbPatients.ItemsSource = patientService.GetPatients();
             window.cmbPatients.ItemTemplate = (DataTemplate)FindResource("patientTemplate");
             window.cmbPatients.SelectedValuePath = "Id";
             window.cmbPatients.SelectedValue = appointment.PatientId;
@@ -121,8 +120,7 @@ namespace ZdravoCorp
             if (MessageBox.Show("Are you sure you want to cancel the appointment? ", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 appointment.IsCanceled = true;
-                ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-                scheduleRepository.CancelAppointment(appointment.Id);
+                scheduleService.CancelAppointment(appointment.Id);
                 MessageBox.Show("Appointment successfully cancelled!");
                 DataGridLoadAppointments();
             }
@@ -132,8 +130,7 @@ namespace ZdravoCorp
         {
             DataRowView item = dataGrid.SelectedItem as DataRowView;
             Appointment appointment = GetSelectedAppointment(item);
-            PatientRepository patientRepository = singleton.PatientRepository;
-            Patient patient = patientRepository.getPatient(appointment.PatientId);
+            Patient patient = patientService.GetById(appointment.PatientId);
             CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true, null);
             medicalRecord.ShowDialog();
         }
@@ -145,17 +142,14 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return null;
             }
-
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            Appointment appointment = scheduleRepository.GetAppointmentById((int)item.Row["AppointmentID"]);
+            Appointment appointment = scheduleService.GetAppointmentById((int)item.Row["AppointmentID"]);
 
             return appointment;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            scheduleRepository.WriteAllAppointmens();
+            scheduleService.WriteAllAppointmens();
         }
     }
 }

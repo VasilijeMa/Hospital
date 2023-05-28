@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class MedicalRecordService
     {
-        private MedicalRecordRepository medicalRecordRepository;
-        private PatientRepository patientRepository;
+        private IMedicalRecordRepository medicalRecordRepository;
+        private IPatientRepository patientRepository;
 
         public MedicalRecordService()
         {
@@ -40,6 +41,16 @@ namespace ZdravoCorp.Core.Servieces
             MedicalRecord medicalRecord = GetPatientMedicalRecord(patientid);
             List<string> allergies = medicalRecord.Allergens;
             return allergies.Any(medicament.Allergens.Contains);
+        }
+
+        public List<MedicalRecord> GetMedicalRecords()
+        {
+            return medicalRecordRepository.GetMedicalRecords();
+        }
+
+        public void AddMedicalRecord(MedicalRecord medicalRecord)
+        {
+            medicalRecordRepository.AddMedicalRecord(medicalRecord);
         }
     }
 }

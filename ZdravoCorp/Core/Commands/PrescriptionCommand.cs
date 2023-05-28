@@ -10,8 +10,10 @@ namespace ZdravoCorp.Core.Commands
     internal class PrescriptionCommand : BaseCommand
     {
         private MedicalRecordService medicalRecordService = new MedicalRecordService();
-        private ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
-        private NotificationRepository notificationRepository = Singleton.Instance.NotificationRepository;
+        private ScheduleService scheduleService = new ScheduleService();
+
+        private NotificationService notificationService;
+        //private NotificationRepository notificationRepository = Singleton.Instance.NotificationRkepository;
         private PrescriptionViewModel viewModel;
 
         public PrescriptionCommand(PrescriptionViewModel viewModel)
@@ -45,7 +47,7 @@ namespace ZdravoCorp.Core.Commands
                 examination = new Examination(prescription);
                 Singleton.Instance.ExaminationRepository.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
-                scheduleRepository.WriteAllAppointmens();
+                scheduleService.WriteAllAppointmens();
             }
             else
             {
@@ -61,7 +63,8 @@ namespace ZdravoCorp.Core.Commands
             Medicament medicament = viewModel.SelectedMedicament;
             Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime);
             Prescription prescription = new Prescription(medicament, instruction);
-            notificationRepository.CreateNotification(medicament.Name, viewModel.Appointment.PatientId, instruction.TimePerDay, 0, null);
+            notificationService = new NotificationService(viewModel.Appointment.PatientId);
+            notificationService.CreateNotification(medicament.Name, viewModel.Appointment.PatientId, instruction.TimePerDay, 0, null);
             return prescription;
         }
     }

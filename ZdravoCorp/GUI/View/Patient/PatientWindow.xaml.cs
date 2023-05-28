@@ -20,7 +20,7 @@ namespace ZdravoCorp
             InitializeComponent();
             this.patient = patient;
             lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
-            singleton.LogRepository.Log = new Log();
+            singleton.LogRepository.SetLog(new Log());
             LogService logService = new LogService();
             logService.Count(patient.Id);
             notificationService = new NotificationService(patient.Id);
@@ -67,8 +67,8 @@ namespace ZdravoCorp
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             notificationService.Stop();
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            scheduleRepository.WriteAllAppointmens();
+            ScheduleService scheduleService= new ScheduleService();
+            scheduleService.WriteAllAppointmens();
         }
 
         private void MedicalRecord_Click(object sender, RoutedEventArgs e)

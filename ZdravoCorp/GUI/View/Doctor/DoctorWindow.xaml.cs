@@ -16,6 +16,9 @@ namespace ZdravoCorp
         
         private DoctorService doctorService = new DoctorService();
         private ScheduleService scheduleService = new ScheduleService();
+
+        private NotificationAboutCancelledAppointmentService notifications =
+            new NotificationAboutCancelledAppointmentService();
         public DoctorWindow(Doctor doctor)
         {
             InitializeComponent();
@@ -25,17 +28,14 @@ namespace ZdravoCorp
         }
         public void showNotification(int doctorId)
         {
-            NotificationAboutCancelledAppointmentRepository notificationAppointmentRepository =
-                new NotificationAboutCancelledAppointmentRepository();
-
-            foreach (NotificationAboutCancelledAppointment notification in Singleton.Instance.NotificationAboutCancelledAppointmentRepository.Notifications)
+            foreach (NotificationAboutCancelledAppointment notification in notifications.GetNotifications())
             {
                 if ((notification.DoctorId == doctorId) && (!notification.isShown))
                 {
                     MessageBox.Show("Your appointment with id: " + notification.AppointmenntId.ToString() + " is cancalled.");
                     notification.isShown = true;
-                    notificationAppointmentRepository.Add(notification);
-                    NotificationAboutCancelledAppointmentRepository.WriteAll(notificationAppointmentRepository.Notifications);
+                    notifications.AddNotification(notification);
+                    notifications.WriteAll(notifications.GetNotifications());
                     return;
                 }
             }
@@ -88,8 +88,7 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
-            scheduleRepository.WriteAllAppointmens();
+            scheduleService.WriteAllAppointmens();
         }
     }
 }

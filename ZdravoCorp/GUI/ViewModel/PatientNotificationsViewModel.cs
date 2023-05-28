@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp.GUI.ViewModel
@@ -16,6 +17,7 @@ namespace ZdravoCorp.GUI.ViewModel
     public class PatientNotificationsViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        private NotificationService _notificationService;
         private ICommand _addCommand;
         private ICommand _updateCommand;
         private ICommand _deleteCommand;
@@ -77,8 +79,9 @@ namespace ZdravoCorp.GUI.ViewModel
 
         public PatientNotificationsViewModel(Patient patient)
         {
+            _notificationService = new NotificationService(patient.Id);
             Notifications =
-                new ObservableCollection<Notification>(Singleton.Instance.NotificationRepository.Notifications);
+                new ObservableCollection<Notification>(_notificationService.GetPatientNotifications());
             Patient = patient;
         }
 

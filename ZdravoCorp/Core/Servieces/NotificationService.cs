@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class NotificationService
     {
-        private NotificationRepository _notificationRepository;
+        private INotificationRepository _notificationRepository;
         private List<Notification> _notifications;
         private CancellationTokenSource _cancellationTokenSource;
         private int patientId;
+
         public NotificationService(int patientId)
         {
             this.patientId = patientId;
@@ -31,10 +33,12 @@ namespace ZdravoCorp.Core.Servieces
             thread.IsBackground = true;
             thread.Start();
         }
+
         public void Stop()
         {
             _cancellationTokenSource?.Cancel();
         }
+
         private void NotificationThread(CancellationToken cancellationToken)
         {
             while (true)
@@ -76,6 +80,22 @@ namespace ZdravoCorp.Core.Servieces
             {
                 MessageBox.Show(notification.Message);
             }
+        }
+
+        public List<Notification> GetPatientNotifications()
+        {
+            return _notificationRepository.GetPatientNotifications(patientId);
+        }
+
+        public void CreateNotification(string message, int patientId, int timesPerDay, int minutesBefore,
+            DateTime? date)
+        {
+            _notificationRepository.CreateNotification(message, patientId, timesPerDay, minutesBefore, date);
+        }
+
+        public void DeleteNotification(Notification notification)
+        {
+            _notificationRepository.DeleteNotification(notification);
         }
     }
 }

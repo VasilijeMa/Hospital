@@ -8,12 +8,14 @@ using System.Windows.Input;
 using ZdravoCorp.Core.Domain;
 using System.Collections.ObjectModel;
 using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorp.GUI.ViewModel
 {
     internal class PrescriptionViewModel : INotifyPropertyChanged
     {
         private ICommand _prescriptionCommand;
+        private MedicamentService _medicamentService = new MedicamentService();
         public ObservableCollection<Medicament> medicaments;
         public ObservableCollection<TimeForMedicament> timeForMedicaments;
         public Medicament selectedMedicament;
@@ -73,7 +75,7 @@ namespace ZdravoCorp.GUI.ViewModel
         public PrescriptionViewModel(Appointment appointment)
         {
             Appointment = appointment;
-            medicaments = new ObservableCollection<Medicament>(Singleton.Instance.MedicamentRepository.Medicaments);
+            medicaments = new ObservableCollection<Medicament>(_medicamentService.GetMedicaments());
             timeForMedicaments = new ObservableCollection<TimeForMedicament>(Enum.GetValues(typeof(TimeForMedicament)).Cast<TimeForMedicament>().ToList());
         }
 

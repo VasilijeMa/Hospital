@@ -134,39 +134,6 @@ namespace ZdravoCorp
             return null;
         }
 
-        private bool isAlreadyExsist(int appointmentId)
-        {
-            foreach (Anamnesis anamnesis in anamnesisRepository.Anamneses)
-            {
-                if (anamnesis.AppointmentId == appointmentId)
-                {
-                    MessageBox.Show("There is already an anamnesis in this appointemnt.");
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public Patient getPatient()
-        {
-            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
-            {
-                if (patient.Id == anamnesis.PatientId)
-                {
-                    return patient;
-                }
-            }
-            return null;
-        }
-
-
-        /*private void refreshMedicalRecord()
-        {
-            Patient patient = getPatient();
-            MedicalRecord medicalRecord = patient.getMedicalRecord();
-            medicalRecord.WriteAll(Singleton.Instance.medicalRecords);
-        }*/
-
         private void createAnamnesisObject()
         {
             Anamnesis anamnesis = new Anamnesis(selectedAppointment.Id,

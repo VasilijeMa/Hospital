@@ -350,8 +350,8 @@
   {
     "Id": 32,
     "TimeSlot": {
-      "start": "2023-05-19T18:00:00",
-      "duration": 15
+      "start": "2023-05-27T22:00:00",
+      "duration": 150
     },
     "DoctorId": 1,
     "PatientId": 2,
@@ -451,6 +451,18 @@
     },
     "DoctorId": 1,
     "PatientId": 1,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
+  },
+  {
+    "Id": 41,
+    "TimeSlot": {
+      "start": "2023-05-27T19:13:22.8587023+02:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 4,
     "IsCanceled": false,
     "IdRoom": "Examination Room 1",
     "ExaminationId": 0

@@ -48,10 +48,10 @@ namespace ZdravoCorp.Core.Repositories
             return notifications.FirstOrDefault(notification => notification.Id == notificationId);
         }
 
-        public void CreateNotification(string title, int patientId, int timesPerDay, int minutesBefore, DateTime date)
+        public void CreateNotification(string message, int patientId, int timesPerDay, int minutesBefore, DateTime date)
         {
             int id = getNextId();
-            notifications.Add(new Notification(id, patientId, title, timesPerDay, minutesBefore, date));
+            notifications.Add(new Notification(id, patientId, message, timesPerDay, minutesBefore, date));
             WriteAll();
         }
 

@@ -4,9 +4,9 @@
              xmlns:local="clr-namespace:ZdravoCorp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
+         <ResourceDictionary>
+             <ResourceDictionary.MergedDictionaries>
+                 <ResourceDictionary>
                     <Style TargetType="TextBox">
                         <Setter Property="Padding" Value="2 1" />
                         <Setter Property="BorderBrush" Value="LightGray" />
@@ -45,7 +45,7 @@
                         </Setter>
                     </Style>
                 </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+             </ResourceDictionary.MergedDictionaries>
+         </ResourceDictionary>
     </Application.Resources>
 </Application>

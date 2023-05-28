@@ -1,15 +1,19 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
 {
-    internal class HospitalizationReferralCommand:BaseCommand
+    internal class PrescriptionCommand : BaseCommand
     {
-        private HospitalizationReferralViewModel viewModel;
+        private MedicalRecordService medicalRecordService = new MedicalRecordService();
         private ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
-        public HospitalizationReferralCommand(HospitalizationReferralViewModel viewModel)
+        private PrescriptionViewModel viewModel;
+
+        public PrescriptionCommand(PrescriptionViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
@@ -22,18 +26,22 @@ namespace ZdravoCorp.Core.Commands
                 return;
             }
             Prescription prescription = CreatePrescription();
-            HospitalizationReferral hospitalizationReferral = new HospitalizationReferral(viewModel.Duration,
-                prescription, viewModel.Testing);
-            CreateExamination(hospitalizationReferral);
-            MessageBox.Show("You have successfully create referral!");
+            //prescriptionService.AddPrescription(prescription);
+            if (medicalRecordService.IsAllergic(viewModel.Appointment.PatientId, viewModel.SelectedMedicament))
+            {
+                MessageBox.Show("The patient has an allergy to the medicament");
+                return ;
+            }
+            Examination examination =  CreateExamination(prescription);
+            MessageBox.Show("You have successfully added a prescription!");
         }
 
-        private void CreateExamination(HospitalizationReferral hospitalizationReferral)
+        private Examination CreateExamination(Prescription prescription)
         {
             Examination examination;
             if (viewModel.Appointment.ExaminationId == 0)
             {
-                examination = new Examination(hospitalizationReferral);
+                examination = new Examination(prescription);
                 Singleton.Instance.ExaminationRepository.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
                 scheduleRepository.WriteAllAppointmens();
@@ -41,15 +49,17 @@ namespace ZdravoCorp.Core.Commands
             else
             {
                 examination = Singleton.Instance.ExaminationRepository.GetExaminationById(viewModel.Appointment.ExaminationId);
-                examination.HospitalizationRefferal = hospitalizationReferral;
+                examination.Prescription = prescription;
                 Singleton.Instance.ExaminationRepository.WriteAll();
             }
+            return examination;
         }
 
-        private Prescription CreatePrescription()
+        public Prescription CreatePrescription()
         {
+            Medicament medicament = viewModel.SelectedMedicament;
             Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime);
-            Prescription prescription = new Prescription(viewModel.SelectedMedicament, instruction);
+            Prescription prescription = new Prescription(medicament, instruction);
             return prescription;
         }
     }

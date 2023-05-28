@@ -36,5 +36,13 @@ namespace ZdravoCorp.Core.Repositories
             }
             return null;
         }
+
+        public List<string> GetAllergyForPatient(int medicalRecordId)
+        {
+            MedicalRecord medicalRecord = GetMedicalRecord(medicalRecordId);
+            List<string> allergies = medicalRecord.Allergens;
+            allergies.ForEach(s => s = s.ToUpper());
+            return allergies;
+        }
     }
 }

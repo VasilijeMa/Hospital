@@ -91,6 +91,11 @@ namespace ZdravoCorp.GUI.ViewModel
             specializations = new ObservableCollection<Specialization>(doctorRepository.GetSpecializationOfDoctors());
         }
 
+        public bool IsValid()
+        {
+            return isDoctor == false && isSpecialization == false;
+        }
+
         public ICommand ReferCommand
         {
             get { return _refereCommand ??= new SpecializationReferralCommand(this); }

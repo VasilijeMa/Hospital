@@ -7,6 +7,7 @@ using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.GUI.View.Doctor;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
@@ -54,7 +55,7 @@ namespace ZdravoCorp
         }
         private void LoadFields()
         {
-            this.selectedRecord = medicalRecordService.GetMedicalRecord(patient.MedicalRecordId);
+            this.selectedRecord = medicalRecordService.GetMedicalRecordById(patient.MedicalRecordId);
             height.Text = selectedRecord.Height.ToString();
             weight.Text = selectedRecord.Weight.ToString();
             foreach (string oneAnamnesis in selectedRecord.EarlierIllnesses)
@@ -242,6 +243,12 @@ namespace ZdravoCorp
                 return true;
             }
             return false;
+        }
+
+        private void addPrescription_Click(object sender, RoutedEventArgs e)
+        {
+            PrescriptionView prescriptionView = new PrescriptionView(selectedAppointment);
+            prescriptionView.ShowDialog();
         }
     }
 }

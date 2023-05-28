@@ -7,11 +7,11 @@
   {
     "Id": 2,
     "Name": "Panklav",
-    "Allergens": [ "a" ]
+    "Allergens": [ "polen" ]
   },
   {
     "Id": 3,
     "Name": "Paracetamol",
-    "Allergens": [ "a", "c" ]
+    "Allergens": [ "polen", "c" ]
   }
 ]

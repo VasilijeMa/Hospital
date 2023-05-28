@@ -58,5 +58,17 @@ namespace ZdravoCorp.Core.Repositories
             }
             return null;
         }
+
+        public int GetMedicalRecordId(int patientId)
+        {
+            foreach (var patient in patients)
+            {
+                if (patient.Id == patientId)
+                {
+                    return patient.MedicalRecordId;
+                }
+            }
+            return -1;
+        }
     }
 }

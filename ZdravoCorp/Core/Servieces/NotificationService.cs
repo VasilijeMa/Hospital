@@ -45,11 +45,11 @@ namespace ZdravoCorp.Core.Servieces
             {
                 _notifications = _notificationRepository.GetPatientNotifications(patientId);
                 GoThroughNotifications();
+                Thread.Sleep(60000); // 1 minute interval
                 if (cancellationToken.IsCancellationRequested)
                 {
                     return;
                 }
-                Thread.Sleep(60000); // 1 minute interval
             }
         }
 

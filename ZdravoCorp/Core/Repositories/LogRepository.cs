@@ -66,7 +66,7 @@ namespace ZdravoCorp.Core.Repositories
 
         public Log GetLog()
         {
-            return log;
+            return Log;
         }
 
         public void SetLog(Log log)

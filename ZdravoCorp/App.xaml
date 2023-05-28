@@ -43,7 +43,6 @@
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
-                        <Setter Property="Background" Value="White"/>
                     </Style>
                 </ResourceDictionary>
              </ResourceDictionary.MergedDictionaries>

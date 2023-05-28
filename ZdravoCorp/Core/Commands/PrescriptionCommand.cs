@@ -11,9 +11,8 @@ namespace ZdravoCorp.Core.Commands
     {
         private MedicalRecordService medicalRecordService = new MedicalRecordService();
         private ScheduleService scheduleService = new ScheduleService();
-
+        private ExaminationService examinationService = new ExaminationService();
         private NotificationService notificationService;
-        //private NotificationRepository notificationRepository = Singleton.Instance.NotificationRkepository;
         private PrescriptionViewModel viewModel;
 
         public PrescriptionCommand(PrescriptionViewModel viewModel)
@@ -45,15 +44,15 @@ namespace ZdravoCorp.Core.Commands
             if (viewModel.Appointment.ExaminationId == 0)
             {
                 examination = new Examination(prescription);
-                Singleton.Instance.ExaminationRepository.Add(examination);
+                examinationService.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
                 scheduleService.WriteAllAppointmens();
             }
             else
             {
-                examination = Singleton.Instance.ExaminationRepository.GetExaminationById(viewModel.Appointment.ExaminationId);
+                examination = examinationService.GetExaminationById(viewModel.Appointment.ExaminationId);
                 examination.Prescription = prescription;
-                Singleton.Instance.ExaminationRepository.WriteAll();
+                examinationService.WriteAll();
             }
             return examination;
         }

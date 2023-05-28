@@ -10,6 +10,7 @@ namespace ZdravoCorp.Core.Commands
     {
         private HospitalizationReferralViewModel viewModel;
         private ScheduleService scheduleService = new ScheduleService();
+        private ExaminationService examinationService = new ExaminationService();
         public HospitalizationReferralCommand(HospitalizationReferralViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -35,15 +36,15 @@ namespace ZdravoCorp.Core.Commands
             if (viewModel.Appointment.ExaminationId == 0)
             {
                 examination = new Examination(hospitalizationReferral);
-                Singleton.Instance.ExaminationRepository.Add(examination);
+                examinationService.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
                 scheduleService.WriteAllAppointmens();
             }
             else
             {
-                examination = Singleton.Instance.ExaminationRepository.GetExaminationById(viewModel.Appointment.ExaminationId);
+                examination = examinationService.GetExaminationById(viewModel.Appointment.ExaminationId);
                 examination.HospitalizationRefferal = hospitalizationReferral;
-                Singleton.Instance.ExaminationRepository.WriteAll();
+                examinationService.WriteAll();
             }
         }
 

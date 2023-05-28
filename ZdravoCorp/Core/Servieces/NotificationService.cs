@@ -97,5 +97,10 @@ namespace ZdravoCorp.Core.Servieces
         {
             _notificationRepository.DeleteNotification(notification);
         }
+
+        public void UpdateNotification(int id, string message, int timesPerDay, int minutesBefore)
+        {
+            _notificationRepository.UpdateNotification(id, message, timesPerDay, minutesBefore);
+        }
     }
 }

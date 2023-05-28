@@ -36,5 +36,10 @@ namespace ZdravoCorp.Core.Servieces
         {
             _anamnesisRepository.AddAnamnesis(anamnesis);
         }
+
+        public Anamnesis findAnamnesisById(Appointment selectedAppointment)
+        {
+            return _anamnesisRepository.findAnamnesisById(selectedAppointment);
+        }
     }
 }

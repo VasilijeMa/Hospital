@@ -23,6 +23,7 @@ namespace ZdravoCorp
         private MedicalRecordService medicalRecordService;
         private PatientService patientService;
         private UserService userService;
+        private AnamnesisService anamnesisService;
 
         public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment = null, bool update = false)
         {
@@ -30,6 +31,7 @@ namespace ZdravoCorp
             medicalRecordService = new MedicalRecordService();
             patientService = new PatientService();
             userService = new UserService();
+            anamnesisService = new AnamnesisService();
             this.doctor = doctor;
             this.create = create;
             this.patient = patient;
@@ -220,7 +222,7 @@ namespace ZdravoCorp
             AnamnesisView anamnesis;
             if (doctor)
             {
-                Anamnesis findAnamnesis = Singleton.Instance.AnamnesisRepository.findAnamnesisById(selectedAppointment);
+                Anamnesis findAnamnesis = anamnesisService.findAnamnesisById(selectedAppointment);
                 if (findAnamnesis == null)
                 {
                     MessageBox.Show("The patient must first check in with the nurse.");

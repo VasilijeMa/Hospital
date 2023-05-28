@@ -8,15 +8,15 @@ namespace ZdravoCorp.Core.Domain
 {
     public class Medicament
     {
-        public string Name;
-        public List<string> allergens;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<string> Allergens { get; set; }
 
-        public Medicament(string name, List<string> allergens)
+        public Medicament(int id, string name, List<string> allergens)
         {
+            Id = id;
             Name = name;
-            this.allergens = allergens;
+            Allergens = allergens;
         }
-
-
     }
 }

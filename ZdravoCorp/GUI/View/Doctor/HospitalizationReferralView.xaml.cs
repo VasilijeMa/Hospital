@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using ZdravoCorp.Core.Domain;
+using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.View
 {
@@ -19,19 +9,12 @@ namespace ZdravoCorp.View
     /// </summary>
     public partial class HospitalizationReferralView : Window
     {
-        public HospitalizationReferralView()
+        public HospitalizationReferralView(Appointment appointment)
         {
             InitializeComponent();
+            DataContext = new HospitalizationReferralViewModel(appointment);
         }
 
-        private void Submit_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

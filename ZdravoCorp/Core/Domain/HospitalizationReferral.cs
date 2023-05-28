@@ -12,11 +12,11 @@ namespace ZdravoCorp.Core.Domain
 
         public string AdditionalTesting { get; set; }
 
-        public List<Medicament> InitialTherapy { get; set; }
+        public Prescription InitialTherapy { get; set; }
 
         public HospitalizationReferral() { }
 
-        public HospitalizationReferral(int duration, List<Medicament> initialTherapy, string additionalTesting)
+        public HospitalizationReferral(int duration, Prescription initialTherapy, string additionalTesting)
         {
             Duration = duration;
             InitialTherapy = initialTherapy;

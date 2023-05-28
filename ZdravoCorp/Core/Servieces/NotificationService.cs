@@ -15,10 +15,11 @@ namespace ZdravoCorp.Core.Servieces
         private NotificationRepository _notificationRepository;
         private List<Notification> _notifications;
         private CancellationTokenSource _cancellationTokenSource;
+        private int patientId;
         public NotificationService(int patientId)
         {
+            this.patientId = patientId;
             _notificationRepository = Singleton.Instance.NotificationRepository;
-            _notifications = _notificationRepository.GetPatientNotifications(patientId);
         }
 
         public void Start()
@@ -38,7 +39,7 @@ namespace ZdravoCorp.Core.Servieces
         {
             while (true)
             {
-                //mzd ovde ucitati _notifications ako se doda nova
+                _notifications = _notificationRepository.GetPatientNotifications(patientId);
                 GoThroughNotifications();
                 if (cancellationToken.IsCancellationRequested)
                 {

@@ -1,20 +1,41 @@
 [
   {
-    "Id": 1,
+    "Id": 5,
     "SpecializationRefferal": {
-      "Specialization": 1,
+      "Specialization": 6,
       "DoctorId": -1
     },
-    "HospitalizationRefferal": null,
-    "Prescription": null
-  },
-  {
-    "Id": 2,
-    "SpecializationRefferal": {
-      "Specialization": null,
-      "DoctorId": 2
+    "HospitalizationRefferal": {
+      "Duration": 15,
+      "AdditionalTesting": "vanja",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ]
+        },
+        "Instruction": {
+          "TimePerDay": 15,
+          "TimeForMedicament": 2
+        }
+      }
     },
-    "HospitalizationRefferal": null,
-    "Prescription": null
+    "Prescription": {
+      "Medicament": {
+        "Id": 1,
+        "Name": "Amoksicilin",
+        "Allergens": [
+          "a",
+          "b"
+        ]
+      },
+      "Instruction": {
+        "TimePerDay": 1440,
+        "TimeForMedicament": 0
+      }
+    }
   }
 ]

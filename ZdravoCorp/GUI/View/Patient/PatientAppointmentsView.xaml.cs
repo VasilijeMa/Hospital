@@ -31,7 +31,7 @@ namespace ZdravoCorp
         private void LoadMedicalRecordInToxtBox()
         {
             MedicalRecordService medicalRecordService = new MedicalRecordService();
-            MedicalRecord medicalRecord = medicalRecordService.GetMedicalRecord(patient.MedicalRecordId);
+            MedicalRecord medicalRecord = medicalRecordService.GetMedicalRecordById(patient.MedicalRecordId);
             tbAllergens.Text = ListToString(medicalRecord.Allergens);
             tbEarlierIllnesses.Text = ListToString(medicalRecord.EarlierIllnesses);
             tbHeight.Text = medicalRecord.Height.ToString();

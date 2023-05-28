@@ -11,15 +11,16 @@
         <Label Content="Height: " HorizontalAlignment="Left" Height="33" Margin="57,84,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
         <Label Content="Weight: " HorizontalAlignment="Left" Height="33" Margin="57,134,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
         <Label Content="Earlier illnesses: " HorizontalAlignment="Left" Height="33" Margin="57,184,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <TextBox Padding="2 3.5" x:Name="height" HorizontalAlignment="Left" Margin="402,84,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400"/>
-        <TextBox Padding="2 3.5" x:Name="weight" HorizontalAlignment="Left" Margin="402,134,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400"/>
-        <TextBox Padding="2 3.55" x:Name="earlyIlnness" HorizontalAlignment="Left" Margin="402,184,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" />
-        <Button x:Name="confirm" Content="Submit" HorizontalAlignment="Left" Height="33" Margin="93,300,0,0" VerticalAlignment="Top" Width="200" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="confirm_Click"/>
-        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Height="33" Margin="327,300,0,0" VerticalAlignment="Top" Width="200" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="cancel_Click"/>
-        <Button x:Name="addAnamnesis" Click="addAnamnesisClick" Content="Add anamnesis" HorizontalAlignment="Left" Margin="562,299,0,0" Height="33" Width="200" VerticalAlignment="Top"/>
+        <TextBox Padding="2 3.5" x:Name="height" HorizontalAlignment="Left" Margin="402,84,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox Padding="2 3.5" x:Name="weight" HorizontalAlignment="Left" Margin="402,134,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox Padding="2 3.5" x:Name="earlyIlnness" HorizontalAlignment="Left" Margin="402,184,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>
+        <Button x:Name="confirm" Content="Submit" HorizontalAlignment="Left" Height="33" Margin="69,300,0,0" VerticalAlignment="Top" Width="164" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="confirm_Click"/>
+        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Height="33" Margin="253,300,0,0" VerticalAlignment="Top" Width="164" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="cancel_Click"/>
+        <Button x:Name="addAnamnesis" Click="addAnamnesisClick" Content="Add anamnesis" HorizontalAlignment="Left" Margin="621,299,0,0" Height="33" Width="164" VerticalAlignment="Top"/>
         <Label Content="Alergies: " HorizontalAlignment="Left" Height="33" Margin="57,234,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <TextBox Padding="2 3.55" x:Name="alergy" HorizontalAlignment="Left" Margin="402,234,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>
-        <Button x:Name="addIll" Click="addEarlyIllness" Content="Add" HorizontalAlignment="Left" Margin="754,184,0,0" VerticalAlignment="Top" Height="33" Width="48"/>
-        <Button x:Name="addAlergy" Click="addAlergyClick"  Content="Add" HorizontalAlignment="Left" Margin="754,234,0,0" VerticalAlignment="Top" Height="33" Width="48"/>
+        <TextBox Padding="2 3.5" x:Name="alergy" HorizontalAlignment="Left" Margin="402,234,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5"/>
+        <Button x:Name="addIll" Click="addEarlyIllness" Content="Add" HorizontalAlignment="Left" Margin="754,183,0,0" VerticalAlignment="Top" Height="33" Width="48"/>
+        <Button x:Name="addAlergy" Click="addAlergyClick"  Content="Add" HorizontalAlignment="Left" Margin="754,233,0,0" VerticalAlignment="Top" Height="33" Width="48"/>
+        <Button x:Name="addPrescription" Content="Prescription" HorizontalAlignment="Left" Margin="436,300,0,0" VerticalAlignment="Top" Width="164" Height="33" Click="addPrescription_Click"/>
     </Grid>
 </Window>

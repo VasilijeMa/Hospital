@@ -24,11 +24,11 @@
 
     <Grid>
 
-        <Button Name="btnSchedule" Content="Refer" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="231,260,0,0" Click="btnRefer_Click"/>
-        <RadioButton Name="rbSpecialization" Content="Specialization" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Checked="rbSpecialization_Checked"/>
-        <RadioButton x:Name="rbDoctor" Content="Doctor" HorizontalAlignment="Left" Margin="339,103,0,0" VerticalAlignment="Top" Checked="rbDoctor_Checked"/>
-        <ComboBox Name="cmbSpecialization" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="236,0,0,0"/>
-        <ComboBox Name="cmbDoctor" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="236,0,0,0"/>
+        <Button Command="{Binding ReferCommand}" Name="btnSchedule" Content="Refer" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="231,260,0,0"/>
+        <RadioButton Name="rbSpecialization" Content="Specialization" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Checked="rbSpecialization_Checked" IsChecked="{Binding IsSpecialization}"/>
+        <RadioButton x:Name="rbDoctor" Content="Doctor" HorizontalAlignment="Left" Margin="339,103,0,0" VerticalAlignment="Top" Checked="rbDoctor_Checked" IsChecked="{Binding IsDoctor}"/>
+        <ComboBox ItemsSource="{Binding Specializations}" SelectedItem="{Binding SelectedSpecialization, Mode=TwoWay}" Name="cmbSpecialization" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="236,0,0,0"/>
+        <ComboBox ItemsSource="{Binding Doctors}" ItemTemplate="{StaticResource doctorTemplate}" SelectedValue="{Binding SelectedDoctor}" Name="cmbDoctor" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="236,0,0,0"/>
         <ComboBox Name="cmbEmpty" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="236,0,0,0"/>
     </Grid>
 </Window>

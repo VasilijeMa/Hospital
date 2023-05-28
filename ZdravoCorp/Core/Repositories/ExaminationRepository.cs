@@ -31,7 +31,6 @@ namespace ZdravoCorp.Core.Repositories
             string json = JsonConvert.SerializeObject(examinations, Formatting.Indented);
             File.WriteAllText("./../../../data/examination.json", json);
         }
-
         public int getLastId()
         {
             try
@@ -49,6 +48,16 @@ namespace ZdravoCorp.Core.Repositories
             examination.Id = getLastId() + 1;
             examinations.Add(examination);
             WriteAll();
+        }
+
+
+        public Examination GetExaminationById(int examinationId)
+        {
+            foreach (var examination in examinations)
+            {
+                if (examination.Id == examinationId) return examination;
+            }
+            return null;
         }
     }
 }

@@ -9,14 +9,22 @@ namespace ZdravoCorp.Core.Domain
 {
     public class Prescription
     {
-        public List<Medicament> Medicaments { get; set; }
+        //public int AppointmentId { get; set; }
+        public Medicament Medicament { get; set; }
         public Instruction Instruction { get; set; }
 
         public Prescription() { }
 
-        public Prescription(List<Medicament> medicaments, Instruction instruction)
+        //public Prescription(int medicament, Instruction instruction)
+        //{
+        //    MedicamentId = medicament;
+        //    Instruction = instruction;
+        //}
+
+        public Prescription(Medicament medicament, Instruction instruction)
         {
-            Medicaments = medicaments;
+            //AppointmentId = appointmentId;
+            Medicament = medicament;
             Instruction = instruction;
         }
     }

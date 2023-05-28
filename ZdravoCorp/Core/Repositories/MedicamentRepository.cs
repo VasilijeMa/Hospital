@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.IO;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 
 namespace ZdravoCorp.Core.Repositories
 {
-    public class MedicamentRepository
+    public class MedicamentRepository : IMedicamentRepository
     {
         private List<Medicament> medicaments;
 
         public List<Medicament> Medicaments { get => medicaments; }
-
 
         public MedicamentRepository()
         {
             medicaments = LoadAll();
         }
 
-        private List<Medicament> LoadAll()
+        public List<Medicament> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/medicament.json");
@@ -26,7 +26,7 @@ namespace ZdravoCorp.Core.Repositories
             return JsonConvert.DeserializeObject<List<Medicament>>(json);
         }
 
-        private void WriteAll()
+        public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(medicaments, Formatting.Indented);
             File.WriteAllText("./../../../data/medicament.json", json);
@@ -39,6 +39,11 @@ namespace ZdravoCorp.Core.Repositories
                 if (medicament.Id == id) return medicament;
             }
             return null;
+        }
+
+        public List<Medicament> GetMedicaments()
+        {
+            return Medicaments;
         }
     }
 }

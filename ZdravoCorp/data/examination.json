@@ -33,8 +33,8 @@
         ]
       },
       "Instruction": {
-        "TimePerDay": 15,
-        "TimeForMedicament": 3
+        "TimePerDay": 1440,
+        "TimeForMedicament": 0
       }
     }
   }

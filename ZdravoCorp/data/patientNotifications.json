@@ -34,5 +34,14 @@
     "MinutesBefore": 0,
     "Date": "2023-05-30T00:00:00",
     "IsActive": true
+  },
+  {
+    "Id": 5,
+    "PatientId": 1,
+    "Message": "Amoksicilin",
+    "TimesPerDay": 1440,
+    "MinutesBefore": 0,
+    "Date": null,
+    "IsActive": true
   }
 ]

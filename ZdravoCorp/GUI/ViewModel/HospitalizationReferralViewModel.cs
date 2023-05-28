@@ -12,12 +12,14 @@ using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorp.GUI.ViewModel
 {
     public class HospitalizationReferralViewModel:INotifyPropertyChanged
     {
         private ICommand _submitCommand;
+        private MedicamentService _medicamentService = new MedicamentService();
         public ObservableCollection<Medicament> medicaments;
         public ObservableCollection<TimeForMedicament> timeForMedicaments;
         public Medicament selectedMedicament;
@@ -99,7 +101,7 @@ namespace ZdravoCorp.GUI.ViewModel
         public HospitalizationReferralViewModel(Appointment appointment)
         {
             Appointment = appointment;
-            medicaments = new ObservableCollection<Medicament>(Singleton.Instance.MedicamentRepository.Medicaments);
+            medicaments = new ObservableCollection<Medicament>(_medicamentService.GetMedicaments());
             timeForMedicaments = new ObservableCollection<TimeForMedicament>(Enum.GetValues(typeof(TimeForMedicament)).Cast<TimeForMedicament>().ToList());
         }
 

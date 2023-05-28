@@ -16,17 +16,15 @@ namespace ZdravoCorp
     /// </summary>
     public partial class RecommendingAppointmentsForm : Window
     {
-        Singleton singleton;
         Patient patient;
         List<Appointment> recommendedAppointments;
-        private ScheduleRepository scheduleRepository;
+        private DoctorService doctorService = new DoctorService();
+        ScheduleService scheduleService = new ScheduleService();
         public RecommendingAppointmentsForm(Patient patient)
         {
             InitializeComponent();
             this.patient = patient;
-            singleton = Singleton.Instance;
-            scheduleRepository = singleton.ScheduleRepository;
-            cmbDoctors.ItemsSource = singleton.DoctorRepository.Doctors;
+            cmbDoctors.ItemsSource = doctorService.GetDoctors();
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
             cmbDoctors.SelectedValuePath = "Id";
             dpLDate.DisplayDateStart = DateTime.Now;
@@ -62,23 +60,12 @@ namespace ZdravoCorp
             if (!inputValidation()) return;
             AppointmentRequest appointmentRequest = CreateAppointmentRequest();
             if (appointmentRequest == null) return;
-            
-            
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-            ScheduleService scheduleService = new ScheduleService();
             recommendedAppointments = scheduleService.GetAppointmentsByRequest(appointmentRequest, patient.Id);
-
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
             dgAppointments.ItemsSource = null;
             LoadAppointmentsInDataGrid(recommendedAppointments);
             if (recommendedAppointments.Count() == 1)
             {
-                scheduleRepository.CreateAppointment(recommendedAppointments[0]);
+                scheduleService.CreateAppointment(recommendedAppointments[0]);
 
                 LogService logService = new LogService();
                 logService.AddElement(recommendedAppointments[0], patient);
@@ -131,7 +118,7 @@ namespace ZdravoCorp
                 return;
             }
             Appointment appointment = GetAppointmentFromSelectedRow();
-            scheduleRepository.CreateAppointment(appointment);
+            scheduleService.CreateAppointment(appointment);
 
             LogService logService = new LogService();
             logService.AddElement(appointment, patient);
@@ -149,7 +136,7 @@ namespace ZdravoCorp
                 int.Parse(date.Split("-")[2]), int.Parse(time.Split(":")[0]), int.Parse(time.Split(":")[1]), 0);
             TimeSlot appointmentTimeSlot = new TimeSlot(dateTime, 15);
             int doctorId = (int)((DataRowView)dgAppointments.SelectedItem).Row["DoctorID"];
-            string roomId = Appointment.TakeRoom(appointmentTimeSlot);
+            string roomId = scheduleService.TakeRoom(appointmentTimeSlot);
             return new Appointment(appointmentId, appointmentTimeSlot, doctorId, patient.Id, roomId);
         }
 

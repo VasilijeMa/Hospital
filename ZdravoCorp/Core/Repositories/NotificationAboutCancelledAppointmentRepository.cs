@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.IO;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Repositories
 {
-    public class NotificationAboutCancelledAppointmentRepository
+    public class NotificationAboutCancelledAppointmentRepository : INotificationAboutCancelledAppointmentRepository
     {
         private List<NotificationAboutCancelledAppointment> notifications;
+
         public List<NotificationAboutCancelledAppointment> Notifications { get => notifications; }
+
         public NotificationAboutCancelledAppointmentRepository()
         {
             notifications = LoadAll();
         }
+ 
         public List<NotificationAboutCancelledAppointment> LoadAll()
         {
             var serializer = new JsonSerializer();
@@ -21,7 +25,7 @@ namespace ZdravoCorp.Core.Repositories
             return JsonConvert.DeserializeObject<List<NotificationAboutCancelledAppointment>>(json);
         }
 
-        public static void WriteAll(List<NotificationAboutCancelledAppointment> notifications)
+        public void WriteAll(List<NotificationAboutCancelledAppointment> notifications)
         {
             string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
             File.WriteAllText("./../../../data/notifications.json", json);
@@ -30,6 +34,11 @@ namespace ZdravoCorp.Core.Repositories
         public void Add(NotificationAboutCancelledAppointment notificationAboutCancelledAppointment)
         {
             notifications.Add(notificationAboutCancelledAppointment);
+        }
+
+        public List<NotificationAboutCancelledAppointment> GetNotifications()
+        {
+            return Notifications;
         }
     }
 }

@@ -12,17 +12,18 @@ using System.Windows.Input;
 using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace ZdravoCorp.GUI.ViewModel
 {
-    public class SearchDoctorViewModel:INotifyPropertyChanged
+    public class SearchDoctorViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private ICommand _searchCommand;
         private ICommand _scheduleCommand;
         private Patient patient;
-        private DoctorRepository doctorRepository;
+        private DoctorService doctorService = new DoctorService();
         private ObservableCollection<DoctorListItem> doctorItems;
         private List<Doctor> doctors;
         private DoctorListItem selectedDoctor;
@@ -75,8 +76,7 @@ namespace ZdravoCorp.GUI.ViewModel
         public SearchDoctorViewModel(Patient patient)
         {
             this.patient = patient;
-            doctorRepository = Singleton.Instance.DoctorRepository;
-            doctors = doctorRepository.Doctors;
+            doctors = doctorService.GetDoctors();
             DoctorItems = new ObservableCollection<DoctorListItem>();
             FillData(doctors);
         }

@@ -16,14 +16,16 @@ namespace ZdravoCorp
     public partial class PatientAppointmentsView : Window
     {
         List<Anamnesis> anamneses;
-        Singleton singleton;
+        //Singleton singleton;
         Patient patient;
+        AnamnesisService anamnesisService = new AnamnesisService();
+        private ScheduleService scheduleService = new ScheduleService();
+
         public PatientAppointmentsView(Patient patient)
         {
             InitializeComponent();
             this.patient = patient;
-            singleton = Singleton.Instance;
-            anamneses = singleton.AnamnesisRepository.Anamneses;
+            anamneses = anamnesisService.GetAnamneses();
             LoadAppointmentsInDataGrid();
             LoadMedicalRecordInToxtBox();
         }
@@ -51,8 +53,7 @@ namespace ZdravoCorp
             {
                 if (anamnesis.PatientId == patient.Id)
                 {
-                    ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-                    Appointment appointment = scheduleRepository.GetAppointmentById(anamnesis.AppointmentId);
+                    Appointment appointment = scheduleService.GetAppointmentById(anamnesis.AppointmentId);
                     DoctorRepository doctorRepository = new DoctorRepository();
                     Doctor doctor = doctorRepository.getDoctor(appointment.DoctorId);
                     if (appointment.TimeSlot.start.Date > DateTime.Now.Date) continue;
@@ -84,8 +85,7 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            Appointment appointment = scheduleRepository.GetAppointmentById((int)item.Row["Id"]);
+            Appointment appointment = scheduleService.GetAppointmentById((int)item.Row["Id"]);
             AnamnesisView anamnesisView = new AnamnesisView(appointment, ConfigRoles.Patient);
             anamnesisView.ShowDialog();
         }
@@ -107,10 +107,10 @@ namespace ZdravoCorp
         {
             if (tbSearch.Text != "")
             {
-                anamneses = singleton.AnamnesisRepository.GetAnamnesesContainingSubstring(tbSearch.Text.ToUpper());
+                anamneses = anamnesisService.GetAnamnesesContainingSubstring(tbSearch.Text.ToUpper());
             }
             LoadAppointmentsInDataGrid();
-            anamneses = singleton.AnamnesisRepository.Anamneses;
+            anamneses = anamnesisService.GetAnamneses();
         }
     }
 }

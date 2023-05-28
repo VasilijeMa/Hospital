@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
@@ -8,7 +9,8 @@ namespace ZdravoCorp.Core.Commands
     internal class HospitalizationReferralCommand:BaseCommand
     {
         private HospitalizationReferralViewModel viewModel;
-        private ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
+        private ScheduleService scheduleService = new ScheduleService();
+        private ExaminationService examinationService = new ExaminationService();
         public HospitalizationReferralCommand(HospitalizationReferralViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -34,15 +36,15 @@ namespace ZdravoCorp.Core.Commands
             if (viewModel.Appointment.ExaminationId == 0)
             {
                 examination = new Examination(hospitalizationReferral);
-                Singleton.Instance.ExaminationRepository.Add(examination);
+                examinationService.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
-                scheduleRepository.WriteAllAppointmens();
+                scheduleService.WriteAllAppointmens();
             }
             else
             {
-                examination = Singleton.Instance.ExaminationRepository.GetExaminationById(viewModel.Appointment.ExaminationId);
+                examination = examinationService.GetExaminationById(viewModel.Appointment.ExaminationId);
                 examination.HospitalizationRefferal = hospitalizationReferral;
-                Singleton.Instance.ExaminationRepository.WriteAll();
+                examinationService.WriteAll();
             }
         }
 

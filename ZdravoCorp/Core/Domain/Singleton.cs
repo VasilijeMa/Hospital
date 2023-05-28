@@ -1,22 +1,22 @@
 ﻿using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Domain
 {
     public class Singleton
     {
-        private readonly AnamnesisRepository _anamnesisRepository;
-        private readonly DoctorRepository _doctorRepository;
-        private readonly LogRepository _logRepository;
-        private readonly MedicalRecordRepository _medicalRecordRepository;
-        private readonly NotificationAboutCancelledAppointmentRepository _notificationAboutCancelledAppointmentRepository;
-        private readonly NurseRepository _nurseRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly ScheduleRepository _scheduleRepository;
-        private readonly UserRepository _userRepository;
-        private readonly ExaminationRepository _examinationRepository;
-        private readonly NotificationRepository _notificationRepository;
-        private readonly MedicamentRepository _medicamentRepository;
-        private readonly PrescriptionRepository _prescriptionRepository;
+        private readonly IAnamnesisRepository _anamnesisRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly ILogRepository _logRepository;
+        private readonly IMedicalRecordRepository _medicalRecordRepository;
+        private readonly INotificationAboutCancelledAppointmentRepository _notificationAboutCancelledAppointmentRepository;
+        private readonly INurseRepository _nurseRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IScheduleRepository _scheduleRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IExaminationRepository _examinationRepository;
+        private readonly INotificationRepository _notificationRepository;
+        private readonly IMedicamentRepository _medicamentRepository;
 
 
         private static Singleton instance;
@@ -46,21 +46,30 @@ namespace ZdravoCorp.Core.Domain
             _examinationRepository = new ExaminationRepository();
             _notificationRepository = new NotificationRepository();
             _medicamentRepository = new MedicamentRepository();
-            _prescriptionRepository = new PrescriptionRepository();
         }
 
-        public AnamnesisRepository AnamnesisRepository { get => _anamnesisRepository; }
-        public DoctorRepository DoctorRepository { get => _doctorRepository; }
-        public LogRepository LogRepository { get => _logRepository; }
-        public MedicalRecordRepository MedicalRecordRepository { get => _medicalRecordRepository; }
-        public NotificationAboutCancelledAppointmentRepository NotificationAboutCancelledAppointmentRepository { get => _notificationAboutCancelledAppointmentRepository; }
-        public NurseRepository NurseRepository { get => _nurseRepository; }
-        public PatientRepository PatientRepository { get => _patientRepository; }
-        public ScheduleRepository ScheduleRepository { get => _scheduleRepository; }
-        public UserRepository UserRepository { get => _userRepository; }
-        public ExaminationRepository ExaminationRepository { get => _examinationRepository; }
-        public NotificationRepository NotificationRepository { get => _notificationRepository; }
-        public MedicamentRepository MedicamentRepository { get => _medicamentRepository; }
-        public PrescriptionRepository PrescriptionRepository { get => _prescriptionRepository; }
+        public IAnamnesisRepository AnamnesisRepository { get => _anamnesisRepository; }
+
+        public IDoctorRepository DoctorRepository { get => _doctorRepository; }
+
+        public ILogRepository LogRepository { get => _logRepository; }
+
+        public IMedicalRecordRepository MedicalRecordRepository { get => _medicalRecordRepository; }
+
+        public INotificationAboutCancelledAppointmentRepository NotificationAboutCancelledAppointmentRepository { get => _notificationAboutCancelledAppointmentRepository; }
+
+        public INurseRepository NurseRepository { get => _nurseRepository; }
+
+        public IPatientRepository PatientRepository { get => _patientRepository; }
+
+        public IScheduleRepository ScheduleRepository { get => _scheduleRepository; }
+
+        public IUserRepository UserRepository { get => _userRepository; }
+
+        public IExaminationRepository ExaminationRepository { get => _examinationRepository; }
+
+        public INotificationRepository NotificationRepository { get => _notificationRepository; }
+
+        public IMedicamentRepository MedicamentRepository { get => _medicamentRepository; }
     }
 }

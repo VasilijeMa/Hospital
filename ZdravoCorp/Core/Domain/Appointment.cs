@@ -24,28 +24,7 @@ namespace ZdravoCorp.Core.Domain
             //ExaminationId = Id;
         }
         public Appointment() { }
-        public static string TakeRoom(TimeSlot timeSlot)
-        {
-            Dictionary<string, Room> examinationRooms = Room.LoadAllExaminationRoom();
-            foreach (var room in examinationRooms)
-            {
-                bool check = true;
-                foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
-                {
-                    if (appointment.IsCanceled) continue;
-                    if (appointment.TimeSlot.OverlapWith(timeSlot) && appointment.IdRoom == room.Key)
-                    {
-                        check = false;
-                        break;
-                    }
-                }
-                if (check)
-                {
-                    return room.Key;
-                }
-            }
-            return "";
-        }
+
         public bool IsAbleToStart()
         {
             DateTime earliestStart = TimeSlot.start.Add(new TimeSpan(0, -15, 0));

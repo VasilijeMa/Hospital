@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Servieces;
+
 //using System.Collections;
 
 namespace ZdravoCorp
@@ -11,12 +13,12 @@ namespace ZdravoCorp
     public partial class MainWindow : Window
     {
         List<User> users;
-        Singleton singleton;
+        private UserService userService;
         public MainWindow()
         {
             InitializeComponent();
-            singleton = Singleton.Instance;
-            users = singleton.UserRepository.Users;
+            userService = new UserService();
+            users = userService.GetUsers();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -26,7 +28,7 @@ namespace ZdravoCorp
                 if (tbUsername.Text == user.Username && pbPassword.Password == user.Password)
                 {
                     this.Visibility = Visibility.Hidden;
-                    User.DisplayWindow(user);
+                    userService.DisplayWindow(user);
                     this.Visibility = Visibility.Visible;
                     tbUsername.Text = "";
                     pbPassword.Password = "";

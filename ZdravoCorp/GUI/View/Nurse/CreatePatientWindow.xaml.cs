@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp
@@ -18,6 +19,10 @@ namespace ZdravoCorp
         List<int> recordsIds = new List<int>();
         Patient selectedPatient;
         bool doctorornurse;
+        private UserService userService = new UserService();
+        private PatientService patientService = new PatientService();
+        private MedicalRecordService medicalRecordService = new MedicalRecordService();
+
         public CreatePatientWindow(bool createoredit, Patient selectedPatient, bool doctorornurse)
         {
             InitializeComponent();
@@ -47,7 +52,7 @@ namespace ZdravoCorp
 
         private List<String> usedUsernames()
         {
-            foreach (User user in Singleton.Instance.UserRepository.Users)
+            foreach (User user in userService.GetUsers())
             {
                 if (selectedPatient != null && selectedPatient.Username == user.Username) continue;
                 usernames.Add(user.Username);
@@ -83,7 +88,7 @@ namespace ZdravoCorp
 
         private List<int> usedPatientsIds()
         {
-            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
+            foreach (Patient patient in patientService.GetPatients())
             {
                 patientsIds.Add(patient.Id);
             }
@@ -92,7 +97,7 @@ namespace ZdravoCorp
 
         private List<int> usedMedicalRecordsIds()
         {
-            foreach (MedicalRecord record in Singleton.Instance.MedicalRecordRepository.Records)
+            foreach (MedicalRecord record in medicalRecordService.GetMedicalRecords())
             {
                 recordsIds.Add(record.Id);
             }

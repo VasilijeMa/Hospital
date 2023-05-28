@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.Core.Servieces
 {
@@ -14,7 +17,15 @@ namespace ZdravoCorp.Core.Servieces
         private const int TIME_SLOT_TOLERANCE = 1;
         private const int APPOINTMENT_DURATION = 15;
 
-        ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
+        private IScheduleRepository scheduleRepository;
+        private IDoctorRepository doctorRepository;
+
+        public ScheduleService()
+        {
+            scheduleRepository = Singleton.Instance.ScheduleRepository;
+            doctorRepository = Singleton.Instance.DoctorRepository;
+        }
+        
         public List<Appointment> GetAppointmentsByRequest(AppointmentRequest appointmentRequest, int patientId)
         {
             List<TimeSlot> closestTimeSlots = GetClosestTimeSlots(appointmentRequest, patientId);
@@ -31,6 +42,7 @@ namespace ZdravoCorp.Core.Servieces
             }
             return GetClosestAppointments(patientId);
         }
+
         public List<Appointment> GetClosestAppointments(int patientId)
         {
             Patient patient = Singleton.Instance.PatientRepository.getById(patientId);
@@ -48,7 +60,7 @@ namespace ZdravoCorp.Core.Servieces
             DoctorService doctorService = new DoctorService();
             PatientService patientService = new PatientService();
             TimeSlot freeTimeSlot = new TimeSlot(dateTime, APPOINTMENT_DURATION);
-            foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
+            foreach (Doctor doctor in doctorRepository.GetDoctors())
             {
                 if (!doctorService.IsAvailable(freeTimeSlot, doctor.Id) ||
                     !patientService.IsAvailable(freeTimeSlot, patientId)) continue;
@@ -69,24 +81,26 @@ namespace ZdravoCorp.Core.Servieces
             }
             return true;
         }
+ 
         public List<Appointment> GetClosestAppointmentsByTimeInterval(AppointmentRequest appointmentRequest, int patientId)
         {
             for (DateTime currentDate = DateTime.Now; currentDate.Date <= appointmentRequest.LatestDate.Date; currentDate = currentDate.AddDays(1))
             {
-                foreach (Doctor doctor in Singleton.Instance.DoctorRepository.Doctors)
+                foreach (Doctor doctor in doctorRepository.GetDoctors())
                 {
                     if (doctor.Id == appointmentRequest.Doctor.Id) continue;
                     DateTime startTime = GetStartTime(currentDate, appointmentRequest.EarliesTime);
                     DateTime endTime = GetEndTime(currentDate, appointmentRequest.LatestTime);
                     int duration = (endTime - startTime).Minutes;
                     List<TimeSlot> timeSlots = new List<TimeSlot>() { new TimeSlot(startTime, duration) };
-                    if (scheduleRepository.Schedule.DailyAppointments.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(scheduleRepository.Schedule.DailyAppointments[currentDate.Date], timeSlots, doctor.Id);
+                    if (scheduleRepository.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(scheduleRepository.GetAppointmentsByDate(currentDate.Date), timeSlots, doctor.Id);
                     TimeSlot? timeSlot = GetFirstFreeTimeSlot(timeSlots, patientId);
                     if (timeSlot != null) return GetAppointmentsFromTimeSlot(patientId, doctor, timeSlot);
                 }
             }
             return null;
         }
+
         private List<Appointment> GetAppointmentsFromTimeSlot(int patientId, Doctor doctor, TimeSlot timeSlot)
         {
             List<TimeSlot> tempTimeSlot = new List<TimeSlot>() { timeSlot };
@@ -97,6 +111,7 @@ namespace ZdravoCorp.Core.Servieces
             }
             return closestAppointments;
         }
+
         public List<TimeSlot> GetClosestTimeSlotsByPriorityDoctor(AppointmentRequest appointmentRequest, int patientId)
         {
             appointmentRequest.LatestDate = appointmentRequest.LatestDate.AddDays(TIME_SLOT_TOLERANCE);
@@ -104,6 +119,7 @@ namespace ZdravoCorp.Core.Servieces
             appointmentRequest.LatestTime = new TimeOnly(23, 59);
             return GetClosestTimeSlots(appointmentRequest, patientId);
         }
+
         public List<TimeSlot> GetClosestTimeSlots(AppointmentRequest appointmentRequest, int patientId)
         {
             for (DateTime currentDate = DateTime.Now; currentDate.Date <= appointmentRequest.LatestDate; currentDate = currentDate.AddDays(1))
@@ -113,12 +129,13 @@ namespace ZdravoCorp.Core.Servieces
                 int duration = (int)(endTime - startTime).TotalMinutes;
                 if (duration <= 0) continue;
                 List<TimeSlot> timeSlots = new List<TimeSlot>() { new TimeSlot(startTime, duration) };
-                if (scheduleRepository.Schedule.DailyAppointments.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(scheduleRepository.Schedule.DailyAppointments[currentDate.Date], timeSlots, appointmentRequest.Doctor.Id);
+                if (scheduleRepository.ContainsKey(currentDate.Date)) GetFreeDoctorsTimeSlots(scheduleRepository.GetAppointmentsByDate(currentDate.Date), timeSlots, appointmentRequest.Doctor.Id);
                 TimeSlot? timeSlot = GetFirstFreeTimeSlot(timeSlots, patientId);
                 if (timeSlot != null) return new List<TimeSlot> { timeSlot };
             }
             return null;
         }
+ 
         private DateTime GetStartTime(DateTime currentDate, TimeOnly earliestTime)
         {
             DateTime startTime = new DateTime();
@@ -132,10 +149,12 @@ namespace ZdravoCorp.Core.Servieces
             }
             return startTime;
         }
+
         private DateTime GetEndTime(DateTime currentDate, TimeOnly latestTime)
         {
             return currentDate.Date.Add(latestTime.ToTimeSpan());
         }
+
         public TimeSlot? GetFirstFreeTimeSlot(List<TimeSlot> freeTimeSlots, int patientId)
         {
             for (int i = 0; i < freeTimeSlots.Count; i++)
@@ -171,6 +190,7 @@ namespace ZdravoCorp.Core.Servieces
             }
             return null;
         }
+
         public void GetFreeDoctorsTimeSlots(List<Appointment> appointments, List<TimeSlot> timeSlots, int doctorId)
         {
             //foreach (Appointment appointment in appointments)
@@ -182,6 +202,7 @@ namespace ZdravoCorp.Core.Servieces
                 SplitTimeSlot(appointment, timeSlots);
             }
         }
+
         public void SplitTimeSlot(Appointment appointment, List<TimeSlot> timeSlots)
         {
             for (int i = 0; i < timeSlots.Count; i++)
@@ -214,6 +235,83 @@ namespace ZdravoCorp.Core.Servieces
                 startDate = startDate.AddDays(1);
             }
             return doctorsAppointments;
+        }
+
+
+
+
+
+
+
+        public Appointment UpdateAppointment(int appointmentId, TimeSlot timeSlot, int doctorId, Patient patient = null)
+        {
+            return scheduleRepository.UpdateAppointment(appointmentId, timeSlot, doctorId, patient);
+        }
+
+        public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient, int idExamination = 0)
+        {
+            string roomId = TakeRoom(timeSlot);
+            if (roomId == "")
+            {
+                MessageBox.Show("All rooms are full.");
+                return null;
+            }
+            return scheduleRepository.CreateAppointment(timeSlot, doctor, patient, roomId, idExamination);
+        }
+
+
+        public string TakeRoom(TimeSlot timeSlot)
+        {
+            Dictionary<string, Room> examinationRooms = Room.LoadAllExaminationRoom();
+            foreach (var room in examinationRooms)
+            {
+                bool check = true;
+                foreach (Appointment appointment in scheduleRepository.GetAppointments())
+                {
+                    if (appointment.IsCanceled) continue;
+                    if (appointment.TimeSlot.OverlapWith(timeSlot) && appointment.IdRoom == room.Key)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+                if (check)
+                {
+                    return room.Key;
+                }
+            }
+            return "";
+        }
+
+
+        public Appointment CreateAppointment(Appointment appointment)
+        {
+            return scheduleRepository.CreateAppointment(appointment);
+        }
+
+        public void WriteAllAppointmens()
+        {
+            scheduleRepository.WriteAllAppointmens();
+        }
+
+        public Appointment GetAppointmentById(int id)
+        {
+            return scheduleRepository.GetAppointmentById(id);
+        }
+
+        public List<Appointment> GetAppointmentsForPatient(int patientId)
+        {
+            return scheduleRepository.GetAppointmentsForPatient(patientId);
+        }
+
+        public Appointment CancelAppointment(int appointmentId)
+        {
+            return scheduleRepository.CancelAppointment(appointmentId);
+        }
+
+        public List<Appointment> GetTodaysAppointments()
+        {
+            return scheduleRepository.GetTodaysAppointments();
         }
     }
 }

@@ -11,18 +11,19 @@ namespace ZdravoCorp
     /// </summary>
     public partial class MakeAppointmentDoctor : Window
     {
-        Singleton singleton;
         Doctor doctor;
         bool update;
         int appointmentId;
+        private PatientService patientService = new PatientService();
+        private ScheduleService scheduleService = new ScheduleService();
+
         public MakeAppointmentDoctor(Doctor doctor, bool update = false, int appointentId = -1)
         {
             this.doctor = doctor;
             this.appointmentId = appointentId;
-            singleton = Singleton.Instance;
             this.update = update;
             InitializeComponent();
-            cmbPatients.ItemsSource = singleton.PatientRepository.Patients;
+            cmbPatients.ItemsSource = patientService.GetPatients();
             cmbPatients.ItemTemplate = (DataTemplate)FindResource("patientTemplate");
             cmbPatients.SelectedValuePath = "Id";
             dpDate.DisplayDateStart = DateTime.Now;
@@ -53,17 +54,16 @@ namespace ZdravoCorp
                 MessageBox.Show("Patient is not available at choosen date and time.");
                 return;
             }
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
             if (update)
             {
-                scheduleRepository.UpdateAppointment(appointmentId, timeSlot, doctor.Id, (Patient)cmbPatients.SelectedItem);
+                scheduleService.UpdateAppointment(appointmentId, timeSlot, doctor.Id, (Patient)cmbPatients.SelectedItem);
                 MessageBox.Show("Appointment successfully updated.");
                 this.Close();
                 return;
             }
             else
             {
-                scheduleRepository.CreateAppointment(timeSlot, doctor, (Patient)cmbPatients.SelectedItem);
+                scheduleService.CreateAppointment(timeSlot, doctor, (Patient)cmbPatients.SelectedItem);
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
             }

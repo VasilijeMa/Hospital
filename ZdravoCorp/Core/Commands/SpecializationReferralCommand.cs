@@ -2,6 +2,7 @@
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
@@ -11,7 +12,8 @@ namespace ZdravoCorp.Core.Commands
         private SpecializationReferralViewModel viewModel;
         int selectedDoctorId = -1;
         Specialization? selectedSpecialization = null;
-        private ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
+        private ScheduleService scheduleService = new ScheduleService();
+        private ExaminationService examinationService = new ExaminationService();
 
         public SpecializationReferralCommand(SpecializationReferralViewModel viewModel)
         {
@@ -52,15 +54,15 @@ namespace ZdravoCorp.Core.Commands
             if (viewModel.Appointment.ExaminationId == 0)
             {
                 examination = new Examination(specializationReferral);
-                Singleton.Instance.ExaminationRepository.Add(examination);
+                examinationService.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
-                scheduleRepository.WriteAllAppointmens();
+                scheduleService.WriteAllAppointmens();
             }
             else
             {
-                examination = Singleton.Instance.ExaminationRepository.GetExaminationById(viewModel.Appointment.ExaminationId);
+                examination = examinationService.GetExaminationById(viewModel.Appointment.ExaminationId);
                 examination.SpecializationRefferal = specializationReferral;
-                Singleton.Instance.ExaminationRepository.WriteAll();
+                examinationService.WriteAll();
             }
         }
 

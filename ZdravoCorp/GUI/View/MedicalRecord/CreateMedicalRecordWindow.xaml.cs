@@ -22,14 +22,16 @@ namespace ZdravoCorp
         Appointment selectedAppointment;
         private MedicalRecordService medicalRecordService;
         private PatientService patientService;
-        private UserRepository userRepository;
+        private UserService userService;
+        private AnamnesisService anamnesisService;
 
         public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment = null, bool update = false)
         {
             InitializeComponent();
             medicalRecordService = new MedicalRecordService();
             patientService = new PatientService();
-            userRepository = Singleton.Instance.UserRepository;
+            userService = new UserService();
+            anamnesisService = new AnamnesisService();
             this.doctor = doctor;
             this.create = create;
             this.patient = patient;
@@ -194,25 +196,25 @@ namespace ZdravoCorp
         {
             if (!create)
             {
-                Singleton.Instance.PatientRepository.Patients.Remove(patient);
+                patientService.RemovePatient(patient);
                 patientService.WriteAll();
-                userRepository.RemoveUser(patient.Username);
-                userRepository.WriteAll();
+                userService.RemoveUser(patient.Username);
+                userService.WriteAll();
             }
-            Singleton.Instance.PatientRepository.Patients.Add(newPatient);
+            patientService.AddPatient(newPatient);
             patientService.WriteAll();
         }
 
         public void addToMedicalRecords(MedicalRecord newMedicalRecord)
         {
-            Singleton.Instance.MedicalRecordRepository.Records.Add(newMedicalRecord);
+            medicalRecordService.AddMedicalRecord(newMedicalRecord);
             medicalRecordService.WriteAll();
         }
 
         public void addToUsers(Patient newPatient)
         {
-            userRepository.Users.Add(new User(newPatient.Username, newPatient.Password, "patient"));
-            userRepository.WriteAll();
+            userService.AddUser(new User(newPatient.Username, newPatient.Password, "patient"));
+            userService.WriteAll();
         }
 
         public void addAnamnesisClick(object sender, RoutedEventArgs e)
@@ -220,7 +222,7 @@ namespace ZdravoCorp
             AnamnesisView anamnesis;
             if (doctor)
             {
-                Anamnesis findAnamnesis = Singleton.Instance.AnamnesisRepository.findAnamnesisById(selectedAppointment);
+                Anamnesis findAnamnesis = anamnesisService.findAnamnesisById(selectedAppointment);
                 if (findAnamnesis == null)
                 {
                     MessageBox.Show("The patient must first check in with the nurse.");

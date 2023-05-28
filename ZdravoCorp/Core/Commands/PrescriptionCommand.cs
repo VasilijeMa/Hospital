@@ -10,7 +10,9 @@ namespace ZdravoCorp.Core.Commands
     internal class PrescriptionCommand : BaseCommand
     {
         private MedicalRecordService medicalRecordService = new MedicalRecordService();
-        private ScheduleRepository scheduleRepository = Singleton.Instance.ScheduleRepository;
+        private ScheduleService scheduleService = new ScheduleService();
+        private ExaminationService examinationService = new ExaminationService();
+        private NotificationService notificationService;
         private PrescriptionViewModel viewModel;
 
         public PrescriptionCommand(PrescriptionViewModel viewModel)
@@ -42,15 +44,15 @@ namespace ZdravoCorp.Core.Commands
             if (viewModel.Appointment.ExaminationId == 0)
             {
                 examination = new Examination(prescription);
-                Singleton.Instance.ExaminationRepository.Add(examination);
+                examinationService.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
-                scheduleRepository.WriteAllAppointmens();
+                scheduleService.WriteAllAppointmens();
             }
             else
             {
-                examination = Singleton.Instance.ExaminationRepository.GetExaminationById(viewModel.Appointment.ExaminationId);
+                examination = examinationService.GetExaminationById(viewModel.Appointment.ExaminationId);
                 examination.Prescription = prescription;
-                Singleton.Instance.ExaminationRepository.WriteAll();
+                examinationService.WriteAll();
             }
             return examination;
         }
@@ -60,6 +62,8 @@ namespace ZdravoCorp.Core.Commands
             Medicament medicament = viewModel.SelectedMedicament;
             Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime);
             Prescription prescription = new Prescription(medicament, instruction);
+            notificationService = new NotificationService(viewModel.Appointment.PatientId);
+            notificationService.CreateNotification(medicament.Name, viewModel.Appointment.PatientId, instruction.TimePerDay, 0, null);
             return prescription;
         }
     }

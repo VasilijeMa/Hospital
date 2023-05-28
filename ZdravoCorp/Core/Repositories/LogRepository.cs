@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Repositories
 {
-    public class LogRepository
+    public class LogRepository : ILogRepository
     {
         private Log log;
+
         public Log Log { get; set; }
+
         public LogRepository()
         {
             Log = new Log();
@@ -20,6 +23,7 @@ namespace ZdravoCorp.Core.Repositories
             Log.MakeCounter = 0;
             Log.UpdateCancelCounter = 0;
         }
+
         public List<LogElement> Load()
         {
             var serializer = new JsonSerializer();
@@ -27,6 +31,7 @@ namespace ZdravoCorp.Core.Repositories
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<LogElement>>(json);
         }
+
         public void Write()
         {
             string json = JsonConvert.SerializeObject(Log.Elements, Formatting.Indented);
@@ -46,6 +51,7 @@ namespace ZdravoCorp.Core.Repositories
             Log.UpdateCancelCounter++;
             Write();
         }
+
         public void Refresh()
         {
             for (int i = 0; i < Log.Elements.Count; i++)
@@ -56,6 +62,16 @@ namespace ZdravoCorp.Core.Repositories
                     i--;
                 }
             }
+        }
+
+        public Log GetLog()
+        {
+            return Log;
+        }
+
+        public void SetLog(Log log)
+        {
+            Log = log;
         }
     }
 }

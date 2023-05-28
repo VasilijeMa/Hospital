@@ -7,13 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.Core.Repositories
 {
-    public class ScheduleRepository
+    public class ScheduleRepository : IScheduleRepository
     {
         private Schedule schedule;
+
         public Schedule Schedule { get => schedule; }
+
         public ScheduleRepository()
         {
             schedule = new Schedule();
@@ -22,14 +26,8 @@ namespace ZdravoCorp.Core.Repositories
             schedule.TodaysAppointments = GetTodaysAppontments();
         }
 
-        public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient, int idExamination=0)
+        public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient, string roomId = "", int idExamination = 0)
         {
-            string roomId = Appointment.TakeRoom(timeSlot);
-            if (roomId == "")
-            {
-                MessageBox.Show("All rooms are full.");
-                return null;
-            }
             int id = getLastId() + 1;
             Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id, roomId);
             schedule.Appointments.Add(appointment);
@@ -37,6 +35,7 @@ namespace ZdravoCorp.Core.Repositories
             CreateAppointmentsMap();
             return appointment;
         }
+
         public int getLastId()
         {
             try
@@ -48,6 +47,7 @@ namespace ZdravoCorp.Core.Repositories
                 return 0;
             }
         }
+
         public Appointment CreateAppointment(Appointment appointment)
         {
             schedule.Appointments.Add(appointment);
@@ -100,6 +100,7 @@ namespace ZdravoCorp.Core.Repositories
             string json = JsonConvert.SerializeObject(schedule.Appointments, Formatting.Indented);
             File.WriteAllText("./../../../data/appointments.json", json);
         }
+
         public void CreateAppointmentsMap()
         {
             schedule.DailyAppointments = new Dictionary<DateTime, List<Appointment>>();
@@ -125,6 +126,7 @@ namespace ZdravoCorp.Core.Repositories
                 }
             }
         }
+
         public List<Appointment> GetTodaysAppontments()
         {
             List<Appointment> todayAppointments = new List<Appointment>();
@@ -137,6 +139,7 @@ namespace ZdravoCorp.Core.Repositories
             }
             return todayAppointments;
         }
+
         public Appointment GetAppointmentById(int id)
         {
             foreach (var appointment in schedule.Appointments)
@@ -162,6 +165,26 @@ namespace ZdravoCorp.Core.Repositories
         public List<Appointment> GetAppointmentsForPatientAndDoctor(int patientId, int doctorId)
         {
             return schedule.Appointments.Where(appointment => patientId == appointment.PatientId && doctorId == appointment.DoctorId).ToList();
+        }
+
+        public bool ContainsKey(DateTime date)
+        {
+            return schedule.DailyAppointments.ContainsKey(date);
+        }
+
+        public List<Appointment> GetAppointmentsByDate(DateTime date)
+        {
+            return schedule.DailyAppointments[date];
+        }
+
+        public List<Appointment> GetTodaysAppointments()
+        {
+            return schedule.TodaysAppointments;
+        }
+
+        public List<Appointment> GetAppointments()
+        {
+            return schedule.Appointments;
         }
     }
 }

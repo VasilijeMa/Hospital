@@ -19,11 +19,13 @@ namespace ZdravoCorp.Core.Servieces
 
         private IScheduleRepository scheduleRepository;
         private IDoctorRepository doctorRepository;
+        private IPatientRepository patientRepository;
 
         public ScheduleService()
         {
             scheduleRepository = Singleton.Instance.ScheduleRepository;
             doctorRepository = Singleton.Instance.DoctorRepository;
+            patientRepository = Singleton.Instance.PatientRepository;
         }
         
         public List<Appointment> GetAppointmentsByRequest(AppointmentRequest appointmentRequest, int patientId)
@@ -45,7 +47,7 @@ namespace ZdravoCorp.Core.Servieces
 
         public List<Appointment> GetClosestAppointments(int patientId)
         {
-            Patient patient = Singleton.Instance.PatientRepository.getById(patientId);
+            Patient patient = patientRepository.getById(patientId);
             List<Appointment> closestAppointments = new List<Appointment>();
             for (DateTime i = DateTime.Now.AddMinutes(15); ; i = i.AddMinutes(1))
             {
@@ -180,7 +182,7 @@ namespace ZdravoCorp.Core.Servieces
 
         public TimeSlot MakeTimeSlotForPatient(TimeSlot timeSlot, int patientId)
         {
-            Patient patient = Singleton.Instance.PatientRepository.getById(patientId);
+            Patient patient = patientRepository.getById(patientId);
             for (DateTime currentDate = timeSlot.start; currentDate <= timeSlot.start.AddMinutes(timeSlot.duration - 15); currentDate = currentDate.AddMinutes(1))
             {
                 TimeSlot founded = new TimeSlot(currentDate, APPOINTMENT_DURATION);

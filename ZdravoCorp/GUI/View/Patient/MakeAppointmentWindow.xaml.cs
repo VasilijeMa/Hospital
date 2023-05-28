@@ -15,7 +15,6 @@ namespace ZdravoCorp
     public partial class MakeAppointmentWindow : Window
     {
         const int APPOINTMENT_DURATION = 15;
-        Singleton singleton;
         Patient patient;
         List<Doctor> doctors;
         private DoctorService doctorService = new DoctorService();
@@ -24,7 +23,6 @@ namespace ZdravoCorp
         {
             InitializeComponent();
             this.patient = patient;
-            singleton = Singleton.Instance;
             doctors = doctorService.GetDoctors();
             cmbDoctors.ItemsSource = doctors;
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");

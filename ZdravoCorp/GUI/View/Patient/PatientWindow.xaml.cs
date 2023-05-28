@@ -13,15 +13,14 @@ namespace ZdravoCorp
     public partial class PatientWindow : Window
     {
         private Patient patient;
-        Singleton singleton = Singleton.Instance;
         private NotificationService notificationService;
         public PatientWindow(Patient patient)
         {
             InitializeComponent();
             this.patient = patient;
             lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
-            singleton.LogRepository.SetLog(new Log());
             LogService logService = new LogService();
+            logService.SetLog(new Log());
             logService.Count(patient.Id);
             notificationService = new NotificationService(patient.Id);
             notificationService.Start();

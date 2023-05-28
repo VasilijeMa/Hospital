@@ -23,22 +23,34 @@ namespace ZdravoCorp.Core.Commands
             notificationService = new NotificationService(viewModel.Patient.Id);
             if (viewModel.Notification == null)
             {
-                if (!viewModel.IsValid())
-                {
-                    MessageBox.Show("Fill in all fields with valid data");
-                    return;
-                }
-                notificationService.CreateNotification(viewModel.Message, viewModel.Patient.Id,
-                    viewModel.TimesPerDay, viewModel.MinutesBefore, viewModel.Date);
-                MessageBox.Show("Successfully created notification!");
+                if (CreateNotification()) return;
             }
             else
             {
-                notificationService.UpdateNotification(viewModel.Notification.Id, viewModel.Message,
-                    viewModel.TimesPerDay, viewModel.MinutesBefore);
-                MessageBox.Show("Successfully updated notification!");
+                UpdateNotification();
             }
             viewModel.View.Close();
+        }
+
+        private void UpdateNotification()
+        {
+            notificationService.UpdateNotification(viewModel.Notification.Id, viewModel.Message,
+                viewModel.TimesPerDay, viewModel.MinutesBefore);
+            MessageBox.Show("Successfully updated notification!");
+        }
+
+        private bool CreateNotification()
+        {
+            if (!viewModel.IsValid())
+            {
+                MessageBox.Show("Fill in all fields with valid data");
+                return true;
+            }
+
+            notificationService.CreateNotification(viewModel.Message, viewModel.Patient.Id,
+                viewModel.TimesPerDay, viewModel.MinutesBefore, viewModel.Date);
+            MessageBox.Show("Successfully created notification!");
+            return false;
         }
     }
 }

@@ -1,45 +1,5 @@
 [
   {
-    "Where": "Operating Theater 2",
-    "What": "Shelf",
-    "Amount": 5
-  },
-  {
-    "Where": "Operating Theater 2",
-    "What": "Wardrobe",
-    "Amount": 2
-  },
-  {
-    "Where": "Examination Room 1",
-    "What": "Stethoscope",
-    "Amount": 1
-  },
-  {
-    "Where": "Examination Room 1",
-    "What": "Chair",
-    "Amount": 3
-  },
-  {
-    "Where": "Examination Room 2",
-    "What": "Bed",
-    "Amount": 2
-  },
-  {
-    "Where": "Examination Room 2",
-    "What": "Table",
-    "Amount": 2
-  },
-  {
-    "Where": "Examination Room 3",
-    "What": "Bench",
-    "Amount": 3
-  },
-  {
-    "Where": "Examination Room 3",
-    "What": "Shelf",
-    "Amount": 5
-  },
-  {
     "Where": "Examination Room 4",
     "What": "Wardrobe",
     "Amount": 3
@@ -73,11 +33,6 @@
     "Where": "Infirmary 4",
     "What": "IV",
     "Amount": 4
-  },
-  {
-    "Where": "Operating Theater 2",
-    "What": "Scalpel",
-    "Amount": 1
   },
   {
     "Where": "Infirmary 5",

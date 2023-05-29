@@ -20,10 +20,13 @@ namespace ZdravoCorp.ManagerView
     /// </summary>
     public partial class RenovationView : Window
     {
-        public RenovationView()
+        public RenovationView(int type)
         {
-            DataContext = new RenovationViewModel();
+            RenovationViewModel viewModel = new RenovationViewModel(type);
+            DataContext = viewModel;
             InitializeComponent();
+            viewModel.ShouldRunCommands = true;
+            DataContext = viewModel;
         }
 
     }

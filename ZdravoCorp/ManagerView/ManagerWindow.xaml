@@ -19,6 +19,10 @@
             </MenuItem>
             <MenuItem Header="Simple Room Renovation" FontSize="16" Click="SimpleRenovationClick">
             </MenuItem>
+            <MenuItem Header="Merging Room Renovation" FontSize="16" Click="MergeRenovationClick">
+            </MenuItem>
+            <MenuItem Header="Splitting Room Renovation" FontSize="16" Click="SplitRenovationClick">
+            </MenuItem>
             <MenuItem Header="LogOut" FontSize="16" Click="LogOutClick"></MenuItem>
         </Menu>
     </Grid>

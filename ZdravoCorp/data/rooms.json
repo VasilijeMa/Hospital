@@ -3,14 +3,6 @@
     "typeOfRoom": 2,
     "name": "Examination Room 1"
   },
-  "Examination Room 2": {
-    "typeOfRoom": 2,
-    "name": "Examination Room 2"
-  },
-  "Examination Room 3": {
-    "typeOfRoom": 2,
-    "name": "Examination Room 3"
-  },
   "Examination Room 4": {
     "typeOfRoom": 2,
     "name": "Examination Room 4"
@@ -35,8 +27,20 @@
     "typeOfRoom": 3,
     "name": "Infirmary 5"
   },
+  "Infirmary 6": {
+    "typeOfRoom": 3,
+    "name": "Infirmary 6"
+  },
+  "Operating Theater 1": {
+    "typeOfRoom": 1,
+    "name": "Operating Theater 1"
+  },
   "Operating Theater 2": {
     "typeOfRoom": 1,
     "name": "Operating Theater 2"
+  },
+  "Operating Theater 3": {
+    "typeOfRoom": 1,
+    "name": "Operating Theater 3"
   }
 }

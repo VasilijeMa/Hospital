@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ZdravoCorp.Commands;
@@ -20,19 +16,30 @@ namespace ZdravoCorp.ManagerView
         public int RoomNamePosition { get; set; }
         public int EndType { get; set; }
         public ICommand RecordRenovationCommand { get; }
-        public RenovationViewModel()
+        public bool IsMerging { get; set; }
+        public int SecondRoomNamePosition { get; set; }
+        public bool IsSplitting { get; set; }
+        public int SecondEndType { get; set; }
+        public bool ShouldRunCommands { get; set; }
+
+        public RenovationViewModel(int type)
         {
-            RenovationService renovationService = new RenovationService();
+            RenovationRecordingService renovationService = new RenovationRecordingService();
             RoomNames = renovationService.LoadAllRooms();
             RoomTypes = Room.LoadAllRoomTypes();
             StartDate = DateTime.Now;
             EndDate = DateTime.Now;
             RoomNamePosition = 0;
             EndType = 0;
+            IsMerging = type == 1;
+            IsSplitting = type == 2;
+            SecondRoomNamePosition = 0;
+            SecondEndType = 0;
+            ShouldRunCommands = false;
             RecordRenovationCommand = new RelayCommand(RecordRenovation, CanRecordRenovation);
         }
 
-        string CheckDates(DateTime startDate, DateTime endDate)
+        private string CheckDates(DateTime startDate, DateTime endDate)
         {
             if (startDate >= endDate)
             {
@@ -44,40 +51,73 @@ namespace ZdravoCorp.ManagerView
             }
             return null;
         }
-        
-        private string CheckAvailability(DateTime startDate, DateTime endDate, string roomName)
+
+        private string ValidateConditions()
         {
-            RenovationService renovationService = new RenovationService();
-            bool isTaken = renovationService.IsRoomScheduledForRenovation(roomName); //change this function in Service for Extended
-            if (isTaken)
+            bool isMergingTheSameRoom = IsMerging && RoomNamePosition == SecondRoomNamePosition;
+            if (isMergingTheSameRoom)
             {
-                return "This room is already scheduled for renovation.";
+                return "Cannot merge a room with itself.";
             }
-            //search through appointments as well
+            string error = CheckDates(StartDate, EndDate);
+            if (error != null)
+            {
+                return error;
+            }
+            RenovationRecordingService renovationService = new RenovationRecordingService();
+            error = renovationService.CheckRoomAvailability(RoomNames[RoomNamePosition]);
+            if(error != null)
+            {
+                return error;
+            }
+            if (IsMerging)
+            {
+                return renovationService.CheckRoomAvailability(RoomNames[SecondRoomNamePosition]);
+            }
             return null;
+        }
+
+        private void SaveRenovation()
+        {
+            RenovationRecordingService renovationService = new RenovationRecordingService();
+            if (IsMerging)
+            {
+                MergeRenovation mergeRenovation = new MergeRenovation(StartDate, EndDate, RoomNames[RoomNamePosition], EndType + 1, RoomNames[SecondRoomNamePosition]);
+                renovationService.SaveRenovation(mergeRenovation);
+                return;
+            }
+            if (IsSplitting)
+            {
+                SplitRenovation splitRenovation = new SplitRenovation(StartDate, EndDate, RoomNames[RoomNamePosition], EndType + 1, SecondEndType + 1);
+                renovationService.SaveRenovation(splitRenovation);
+                return;
+            }
+            Renovation renovation = new Renovation(StartDate, EndDate, RoomNames[RoomNamePosition], EndType + 1);
+            renovationService.SaveRenovation(renovation);
         }
 
         private void RecordRenovation(object obj)
         {
-            Renovation renovation = new Renovation(StartDate, EndDate, RoomNames[RoomNamePosition], EndType+1); //different for Extended
-            RenovationService renovationService = new RenovationService();
-            renovationService.SaveRenovation(renovation);
+            if (!ShouldRunCommands)
+            {
+                return;
+            }
+            SaveRenovation();
             MessageBox.Show("Renovation successfully recorded.");
         }
 
         private bool CanRecordRenovation(object obj)
         {
-            string error = CheckDates(StartDate, EndDate);
-            if (error == null)
+            if(!ShouldRunCommands)
             {
-                error = CheckAvailability(StartDate, EndDate, RoomNames[RoomNamePosition]);
+                return true;
             }
+            string error = ValidateConditions();
             if (error != null)
             {
                 MessageBox.Show(error);
-                return false;
             }
-            return true;
+            return error == null;
         }
     }
 }

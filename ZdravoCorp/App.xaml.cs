@@ -39,7 +39,7 @@ namespace ZdravoCorp
         }
         private void Renovate(object state)
         {
-            RenovationService renovationService = new RenovationService();
+            RenovationExecutionService renovationService = new RenovationExecutionService();
             renovationService.UpdateRenovations();
         }
 

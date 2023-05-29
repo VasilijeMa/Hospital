@@ -9,7 +9,7 @@ using ZdravoCorp.EquipmentGroup;
 
 namespace ZdravoCorp.InfrastructureGroup
 {
-    public class RenovationRepository
+    public class SimpleRenovationRepository
     {
         private List<Renovation> _renovations;
 
@@ -23,12 +23,12 @@ namespace ZdravoCorp.InfrastructureGroup
             return allRenovations;
         }
 
-        public RenovationRepository()
+        public SimpleRenovationRepository()
         {
             _renovations = LoadAll();
         }
 
-        private void SaveAll() //different for Extended
+        private void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_renovations, Formatting.Indented);
             File.WriteAllText("./../../../data/simpleRenovations.json", json);
@@ -54,7 +54,11 @@ namespace ZdravoCorp.InfrastructureGroup
         {
             foreach (var renovation in _renovations)
             {
-                if (renovation.RoomName == roomName) //extra condition for Extended
+                if (renovation.IsFinished)
+                {
+                    continue;
+                }
+                if (renovation.RoomName == roomName)
                 {
                     return true;
                 }
@@ -73,36 +77,12 @@ namespace ZdravoCorp.InfrastructureGroup
                 if (shouldExtract)
                 {
                     extractedRenovations.Add(renovation);
+                    continue;
                 }
-                else
-                {
-                    remainingRenovations.Add(renovation);
-                }
+                remainingRenovations.Add(renovation);
             }
             _renovations = remainingRenovations;
             return extractedRenovations;
         }
-
-        //public List<Renovation> ExtractNotYetFinishedRenovations()
-        //{
-        //    List<Renovation> extractedRenovations = new List<Renovation>();
-        //    List<Renovation> remainingRenovations = new List<Renovation>();
-        //    foreach (Renovation renovation in _renovations)
-        //    {
-        //        if (renovation.IsEligibleToFinish())
-        //        {
-        //            extractedRenovations.Add(renovation);
-        //        }
-        //        else
-        //        {
-        //            remainingRenovations.Add(renovation);
-        //        }
-        //    }
-        //    _renovations = remainingRenovations;
-        //    return extractedRenovations;
-        //}
-
-
-
     }
 }

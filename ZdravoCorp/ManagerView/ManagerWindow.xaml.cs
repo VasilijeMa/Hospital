@@ -38,7 +38,17 @@ namespace ZdravoCorp.ManagerView
 
         private void SimpleRenovationClick(object sender, RoutedEventArgs e)
         {
-            RenovationView newWindow = new RenovationView();
+            RenovationView newWindow = new RenovationView(0);
+            newWindow.ShowDialog();
+        }
+        private void MergeRenovationClick(object sender, RoutedEventArgs e)
+        {
+            RenovationView newWindow = new RenovationView(1);
+            newWindow.ShowDialog();
+        }
+        private void SplitRenovationClick(object sender, RoutedEventArgs e)
+        {
+            RenovationView newWindow = new RenovationView(2);
             newWindow.ShowDialog();
         }
         private void LogOutClick(object sender, RoutedEventArgs e)

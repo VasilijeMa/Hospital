@@ -52,14 +52,12 @@ namespace ZdravoCorp.InfrastructureGroup
             List<FunctionalItem> remainingItems = new List<FunctionalItem>();
             foreach (FunctionalItem functionalItem in _functionalItems)
             {
-                if (functionalItem.GetWhere() == roomName)
-                {
-                    removedItems.Add(functionalItem.GetWhat(), functionalItem.GetAmount());
-                }
-                else
+                if (functionalItem.GetWhere() != roomName)
                 {
                     remainingItems.Add(functionalItem);
+                    continue;
                 }
+                removedItems.Add(functionalItem.GetWhat(), functionalItem.GetAmount());
             }
             SaveAll(remainingItems);
             return removedItems;

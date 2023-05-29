@@ -17,6 +17,8 @@ namespace ZdravoCorp.Core.Servieces
         private IScheduleRepository scheduleRepository;
         private IDoctorRepository doctorRepository;
         private IPatientRepository patientRepository;
+        DoctorService doctorService = new DoctorService();
+        PatientService patientService = new PatientService();
 
         public RecommendingAppointmentsService()
         {
@@ -56,8 +58,6 @@ namespace ZdravoCorp.Core.Servieces
 
         private void GetAppointmentsForDuration(int patientId, DateTime dateTime, List<Appointment> closestAppointments)
         {
-            DoctorService doctorService = new DoctorService();
-            PatientService patientService = new PatientService();
             TimeSlot freeTimeSlot = new TimeSlot(dateTime, APPOINTMENT_DURATION);
             foreach (Doctor doctor in doctorRepository.GetDoctors())
             {
@@ -183,7 +183,6 @@ namespace ZdravoCorp.Core.Servieces
             for (DateTime currentDate = timeSlot.start; currentDate <= timeSlot.start.AddMinutes(timeSlot.duration - 15); currentDate = currentDate.AddMinutes(1))
             {
                 TimeSlot founded = new TimeSlot(currentDate, APPOINTMENT_DURATION);
-                PatientService patientService = new PatientService();
                 if (!patientService.IsAvailable(founded, patient.Id)) continue;
                 return founded;
             }

@@ -14,7 +14,7 @@ namespace ZdravoCorp.GUI.ViewModel
         public string FirstName => _doctor.FirstName;
         public string LastName => _doctor.LastName;
         public string Specialization => _doctor.Specialization.ToString();
-        public double Rating => Singleton.Instance.DoctorRepository.GetAverageRating(_doctor);
+        public double Rating => _doctor.Ratings.Average();
 
         public DoctorListItem(Doctor doctor)
         {

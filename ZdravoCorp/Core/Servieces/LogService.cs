@@ -59,5 +59,10 @@ namespace ZdravoCorp.Core.Servieces
             logRepository.UpdateCancelElement(appointment, patient);
             CheckConditions(patient);
         }
+
+        public void SetLog(Log log)
+        {
+            logRepository.SetLog(log);
+        }
     }
 }

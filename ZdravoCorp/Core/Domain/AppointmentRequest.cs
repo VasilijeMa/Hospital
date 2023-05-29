@@ -10,6 +10,7 @@ namespace ZdravoCorp.Core.Domain
         public TimeOnly LatestTime { get; set; }
         public DateTime LatestDate { get; set; }
         public Priority Priority { get; set; }
+
         public AppointmentRequest() { }
 
         public AppointmentRequest(Doctor doctor, TimeOnly earliestHour, TimeOnly latestHour, DateTime latestDate, Priority priority)

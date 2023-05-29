@@ -7,6 +7,7 @@
         public string LastName { get; set; }
 
         public Nurse() : base() { }
+ 
         public Nurse(int id, string firstName, string lastName, string username, string password, string type) : base(username, password, type)
         {
             Id = id;

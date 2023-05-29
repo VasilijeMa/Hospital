@@ -7,8 +7,10 @@ namespace ZdravoCorp.Core.Domain
     {
         public List<Appointment> TodaysAppointments { get; set; }
         public List<Appointment> Appointments { get; set; }
-        public Dictionary<DateTime, List<Appointment>> DailyAppointments { get; set; }
+        public Dictionary<DateTime, List<Appointment>> DailyAppointments { get; set; } 
+
         public Schedule() { }
+
         public Schedule(List<Appointment> appointments)
         {
             this.Appointments = appointments;

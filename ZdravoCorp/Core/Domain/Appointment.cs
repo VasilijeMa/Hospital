@@ -13,6 +13,7 @@ namespace ZdravoCorp.Core.Domain
         public bool IsCanceled { get; set; }
         public string IdRoom { get; set; }
         public int ExaminationId { get; set; }
+
         public Appointment(int id, TimeSlot timeSlot, int doctorId, int patientId, string idRoom)
         {
             Id = id;
@@ -23,6 +24,7 @@ namespace ZdravoCorp.Core.Domain
             IdRoom = idRoom;
             //ExaminationId = Id;
         }
+
         public Appointment() { }
 
         public bool IsAbleToStart()

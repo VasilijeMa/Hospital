@@ -8,11 +8,11 @@
       },
       "DoctorId": 1,
       "PatientId": 1,
-      "IsCanceled": false,
+      "IsCanceled": true,
       "IdRoom": "Examination Room 1",
       "ExaminationId": 0
     },
-    "DateTime": "2023-05-28T17:07:05.4521834+02:00",
-    "Type": "make"
+    "DateTime": "2023-05-29T18:44:56.0718705+02:00",
+    "Type": "updateCancel"
   }
 ]

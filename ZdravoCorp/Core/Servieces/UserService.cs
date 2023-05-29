@@ -52,56 +52,65 @@ namespace ZdravoCorp.Core.Servieces
             switch (user.Type)
             {
                 case "doctor":
-                    foreach (Doctor doctor in _doctorRepository.GetDoctors())
-                    {
-                        if (user.Username == doctor.Username)
-                        {
-                            DoctorWindow doctorWindow = new DoctorWindow(doctor);
-                            doctorWindow.ShowDialog();
-                            break;
-                        }
-                    }
+                    OpenDoctorWindow(user);
                     break;
-
                 case "nurse":
-                    foreach (Nurse nurse in _nurseRepository.GetNurses())
-                    {
-                        if (user.Username == nurse.Username)
-                        {
-                            NurseWindow nurseWindow = new NurseWindow(nurse);
-                            nurseWindow.ShowDialog();
-                            break;
-                        }
-                    }
+                    OpenNurseWindow(user);
                     break;
-
                 case "manager":
                     ManagerWindow managerWindow = new ManagerWindow();
                     managerWindow.ShowDialog();
                     break;
                 case "patient":
-                    foreach (Patient patient in _patientRepository.GetPatients())
-                    {
-                        if (user.Username == patient.Username)
-                        {
-                            if (!patient.IsBlocked)
-                            {
-                                PatientWindow patientWindow = new PatientWindow(patient);
-                                patientWindow.ShowDialog();
-                                if (patient.IsBlocked)
-                                {
-                                    PatientService patientService = new PatientService();
-                                    patientService.WriteAll();
-                                }
-                                break;
-                            }
-                            MessageBox.Show("Your account is blocked.");
-                        }
-                    }
+                    OpenPatientWindow(user);
                     break;
                 default:
                     break;
             }
+        }
+
+        private void OpenDoctorWindow(User user)
+        {
+            foreach (Doctor doctor in _doctorRepository.GetDoctors())
+            {
+                if (user.Username == doctor.Username)
+                {
+                    DoctorWindow doctorWindow = new DoctorWindow(doctor);
+                    doctorWindow.ShowDialog();
+                    break;
+                }
+            }
+        }
+
+        private void OpenNurseWindow(User user)
+        {
+            foreach (Nurse nurse in _nurseRepository.GetNurses())
+            {
+                if (user.Username == nurse.Username)
+                {
+                    NurseWindow nurseWindow = new NurseWindow(nurse);
+                    nurseWindow.ShowDialog();
+                    break;
+                }
+            }
+        }
+
+        private void OpenPatientWindow(User user)
+        {
+            Patient patient = _patientRepository.getByUsername(user.Username);
+            if (!patient.IsBlocked)
+            {
+                PatientWindow patientWindow = new PatientWindow(patient);
+                patientWindow.ShowDialog();
+                if (patient.IsBlocked)
+                {
+                    WriteAll();
+                }
+
+                return;
+            }
+
+            MessageBox.Show("Your account is blocked.");
         }
     }
 }

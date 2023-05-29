@@ -29,31 +29,46 @@ namespace ZdravoCorp
         {
             if (role == ConfigRoles.Nurse)
             {
-                DoctorConclusion.IsReadOnly = true;
-                DoctorObservation.IsReadOnly = true;
-                btnChangeEquipment.Visibility = Visibility.Hidden;
-                btnHospitalizationRefer.Visibility = Visibility.Hidden;
-                btnSpecializationRefer.Visibility = Visibility.Hidden;
+                SetNurseWindow();
             }
             else if (role == ConfigRoles.Doctor)
             {
-                this.anamnesis = findAnamnesisById(selectedAppointment);
-                Symptoms.Text = anamnesis.Symptoms;
-                Symptoms.IsReadOnly = true;
+                SetDoctorWindow();
             }
             else
             {
-                Symptoms.IsReadOnly = true;
-                DoctorObservation.IsReadOnly = true;
-                DoctorConclusion.IsReadOnly = true;
-                btnCancel.Visibility = Visibility.Hidden;
-                btnSubmit.Visibility = Visibility.Hidden;
-                btnChangeEquipment.Visibility = Visibility.Hidden;
-                btnHospitalizationRefer.Visibility = Visibility.Hidden;
-                btnSpecializationRefer.Visibility = Visibility.Hidden;
-                anamnesis = findAnamnesisById(selectedAppointment);
-                LoadFields(anamnesis);
+                SetPatientWindow();
             }
+        }
+
+        private void SetPatientWindow()
+        {
+            Symptoms.IsReadOnly = true;
+            DoctorObservation.IsReadOnly = true;
+            DoctorConclusion.IsReadOnly = true;
+            btnCancel.Visibility = Visibility.Hidden;
+            btnSubmit.Visibility = Visibility.Hidden;
+            btnChangeEquipment.Visibility = Visibility.Hidden;
+            btnHospitalizationRefer.Visibility = Visibility.Hidden;
+            btnSpecializationRefer.Visibility = Visibility.Hidden;
+            anamnesis = findAnamnesisById(selectedAppointment);
+            LoadFields(anamnesis);
+        }
+
+        private void SetDoctorWindow()
+        {
+            this.anamnesis = findAnamnesisById(selectedAppointment);
+            Symptoms.Text = anamnesis.Symptoms;
+            Symptoms.IsReadOnly = true;
+        }
+
+        private void SetNurseWindow()
+        {
+            DoctorConclusion.IsReadOnly = true;
+            DoctorObservation.IsReadOnly = true;
+            btnChangeEquipment.Visibility = Visibility.Hidden;
+            btnHospitalizationRefer.Visibility = Visibility.Hidden;
+            btnSpecializationRefer.Visibility = Visibility.Hidden;
         }
 
         private void SubmitClick(object sender, RoutedEventArgs e)

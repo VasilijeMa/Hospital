@@ -73,7 +73,6 @@ namespace ZdravoCorp
             {
                 endTime = startDate;
             }
-            ScheduleService scheduleService = new ScheduleService();
             this.appointments = scheduleService.GetAllAppointmentsForDoctor(startDate, endTime, doctor.Id);
             DataGridLoadAppointments();
         }

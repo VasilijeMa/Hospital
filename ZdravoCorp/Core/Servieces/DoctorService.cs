@@ -20,6 +20,7 @@ namespace ZdravoCorp.Core.Servieces
         {
             doctorRepository = Singleton.Instance.DoctorRepository;
             scheduleRepository = Singleton.Instance.ScheduleRepository;
+            patientRepository = Singleton.Instance.PatientRepository;
         }
 
         public bool IsAvailable(TimeSlot timeSlot, int doctorId, int appointmentId = -1)
@@ -58,13 +59,18 @@ namespace ZdravoCorp.Core.Servieces
             {
                 if (appointment.TimeSlot.start.Date == timeAfterTwoHours.Date)
                 {
-                    if (TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1)
+                    if (IsAppointmentInNextTwoHours(appointment, timeAfterTwoHours, currentTime))
                     {
                         appointmentsInNextTwoHours.Add(appointment);
                     }
                 }
             }
             return appointmentsInNextTwoHours;
+        }
+
+        private static bool IsAppointmentInNextTwoHours(Appointment appointment, DateTime timeAfterTwoHours, DateTime currentTime)
+        {
+            return TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1;
         }
 
         public List<Doctor> GetDoctorBySpecialization(string specialization)
@@ -99,7 +105,7 @@ namespace ZdravoCorp.Core.Servieces
                         string roomId = scheduleService.TakeRoom(doctorsTimeSlot);
                         //TakeRoom
                         Appointment appointment = scheduleRepository.CreateAppointment(doctorsTimeSlot,
-                            qualifiedDoctor, patientRepository.getByUsername(patientUsername));
+                            qualifiedDoctor.Id, patientRepository.getByUsername(patientUsername).Id);
                         if (appointment != null)
                         {
                             scheduleRepository.WriteAllAppointmens();

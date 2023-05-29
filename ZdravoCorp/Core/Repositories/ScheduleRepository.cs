@@ -26,16 +26,6 @@ namespace ZdravoCorp.Core.Repositories
             schedule.TodaysAppointments = GetTodaysAppontments();
         }
 
-        public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient, string roomId = "", int idExamination = 0)
-        {
-            int id = getLastId() + 1;
-            Appointment appointment = new Appointment(id, timeSlot, doctor.Id, patient.Id, roomId);
-            schedule.Appointments.Add(appointment);
-            if (appointment.TimeSlot.start.Date == DateTime.Now.Date) schedule.TodaysAppointments.Add(appointment);
-            CreateAppointmentsMap();
-            return appointment;
-        }
-
         public int getLastId()
         {
             try
@@ -48,6 +38,16 @@ namespace ZdravoCorp.Core.Repositories
             }
         }
 
+        public Appointment CreateAppointment(TimeSlot timeSlot, int doctorId, int patientId, string roomId = "", int idExamination = 0)
+        {
+            int id = getLastId() + 1;
+            Appointment appointment = new Appointment(id, timeSlot, doctorId, patientId, roomId);
+            schedule.Appointments.Add(appointment);
+            if (appointment.TimeSlot.start.Date == DateTime.Now.Date) schedule.TodaysAppointments.Add(appointment);
+            CreateAppointmentsMap();
+            return appointment;
+        }
+
         public Appointment CreateAppointment(Appointment appointment)
         {
             schedule.Appointments.Add(appointment);
@@ -57,33 +57,21 @@ namespace ZdravoCorp.Core.Repositories
 
         public Appointment UpdateAppointment(int appointmentId, TimeSlot timeSlot, int doctorId, Patient patient = null)
         {
-            foreach (var appointment in schedule.Appointments)
+            Appointment appointment = GetAppointmentById(appointmentId);
+            appointment.TimeSlot = timeSlot;
+            appointment.DoctorId = doctorId;
+            if (patient != null)
             {
-                if (appointment.Id == appointmentId)
-                {
-                    appointment.TimeSlot = timeSlot;
-                    appointment.DoctorId = doctorId;
-                    if (patient != null)
-                    {
-                        appointment.PatientId = patient.Id;
-                    }
-                    return appointment;
-                }
+                appointment.PatientId = patient.Id;
             }
-            return null;
+            return appointment;
         }
 
         public Appointment CancelAppointment(int appointmentId)
         {
-            foreach (var appointment in schedule.Appointments)
-            {
-                if (appointment.Id == appointmentId)
-                {
-                    appointment.IsCanceled = true;
-                    return appointment;
-                }
-            }
-            return null;
+            Appointment appointment = GetAppointmentById(appointmentId);
+            appointment.IsCanceled = true;
+            return appointment;
         }
 
         public List<Appointment> LoadAllAppointments()
@@ -106,25 +94,19 @@ namespace ZdravoCorp.Core.Repositories
             schedule.DailyAppointments = new Dictionary<DateTime, List<Appointment>>();
             foreach (var appointment in schedule.Appointments)
             {
-                if (schedule.DailyAppointments.ContainsKey(appointment.TimeSlot.start.Date))
-                {
-                    schedule.DailyAppointments[appointment.TimeSlot.start.Date].Add(appointment);
-                }
-                else
-                {
-                    schedule.DailyAppointments.Add(appointment.TimeSlot.start.Date, new List<Appointment>());
-                    schedule.DailyAppointments[appointment.TimeSlot.start.Date].Add(appointment);
-                }
-                if (schedule.DailyAppointments.ContainsKey(appointment.TimeSlot.start.AddMinutes(appointment.TimeSlot.duration).Date))
-                {
-                    schedule.DailyAppointments[appointment.TimeSlot.start.AddMinutes(appointment.TimeSlot.duration).Date].Add(appointment);
-                }
-                else
-                {
-                    schedule.DailyAppointments.Add(appointment.TimeSlot.start.AddMinutes(appointment.TimeSlot.duration).Date, new List<Appointment>());
-                    schedule.DailyAppointments[appointment.TimeSlot.start.AddMinutes(appointment.TimeSlot.duration).Date].Add(appointment);
-                }
+                AddAppointmentToDailyMap(appointment.TimeSlot.start.Date, appointment);
+                AddAppointmentToDailyMap(appointment.TimeSlot.start.AddMinutes(appointment.TimeSlot.duration).Date,
+                    appointment);
             }
+        }
+
+        public void AddAppointmentToDailyMap(DateTime date, Appointment appointment)
+        {
+            if (!schedule.DailyAppointments.ContainsKey(date))
+            {
+                schedule.DailyAppointments.Add(date, new List<Appointment>());
+            }
+            schedule.DailyAppointments[date].Add(appointment);
         }
 
         public List<Appointment> GetTodaysAppontments()
@@ -142,14 +124,7 @@ namespace ZdravoCorp.Core.Repositories
 
         public Appointment GetAppointmentById(int id)
         {
-            foreach (var appointment in schedule.Appointments)
-            {
-                if (appointment.Id == id)
-                {
-                    return appointment;
-                }
-            }
-            return null;
+            return schedule.Appointments.FirstOrDefault(appointment => appointment.Id == id);
         }
 
         public List<Appointment> GetAppointmentsForPatient(int patientId)

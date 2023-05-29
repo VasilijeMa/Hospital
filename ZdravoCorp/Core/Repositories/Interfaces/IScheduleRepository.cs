@@ -9,7 +9,7 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
 {
     public interface IScheduleRepository
     {
-        public Appointment CreateAppointment(TimeSlot timeSlot, Doctor doctor, Patient patient, string roomId = "", int idExamination = 0);
+        public Appointment CreateAppointment(TimeSlot timeSlot, int doctorId, int patientId, string roomId = "", int idExamination = 0);
 
         public Appointment CreateAppointment(Appointment appointment);
 
@@ -23,6 +23,8 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
         public void WriteAllAppointmens();
 
         public void CreateAppointmentsMap();
+
+        public void AddAppointmentToDailyMap(DateTime date, Appointment appointment);
 
         public List<Appointment> GetTodaysAppontments();
 

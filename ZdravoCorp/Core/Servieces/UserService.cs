@@ -62,13 +62,7 @@ namespace ZdravoCorp.Core.Servieces
                     managerWindow.ShowDialog();
                     break;
                 case "patient":
-                    //foreach (Patient patient in _patientRepository.GetPatients())
-                    //{
-                    //    if (user.Username == patient.Username)
-                    //    {
                     OpenPatientWindow(user);
-                    //    }
-                    //}
                     break;
                 default:
                     break;

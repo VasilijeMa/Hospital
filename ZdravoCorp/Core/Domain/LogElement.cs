@@ -14,6 +14,7 @@ namespace ZdravoCorp.Core.Domain
             DateTime = dateTime;
             Type = type;
         }
+ 
         public LogElement() { }
     }
 }

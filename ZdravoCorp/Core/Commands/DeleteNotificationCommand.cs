@@ -15,6 +15,7 @@ namespace ZdravoCorp.Core.Commands
     {
         private PatientNotificationsViewModel viewModel;
         private NotificationService notificationService;
+
         public DeleteNotificationCommand(PatientNotificationsViewModel viewModel)
         {
             this.viewModel = viewModel;

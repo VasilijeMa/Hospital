@@ -14,10 +14,12 @@ namespace ZdravoCorp.Core.Commands
     {
         private NotificationFormViewModel viewModel;
         private NotificationService notificationService;
+
         public SubmitNotificationCommand(NotificationFormViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
+
         public override void Execute(object? parameter)
         {
             notificationService = new NotificationService(viewModel.Patient.Id);

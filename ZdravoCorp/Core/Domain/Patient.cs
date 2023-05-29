@@ -10,6 +10,7 @@ namespace ZdravoCorp.Core.Domain
         public DateOnly BirthDate { get; set; }
         public int MedicalRecordId { get; set; }
         public bool IsBlocked { get; set; }
+
         public Patient(int id, string firstName, string lastName, DateOnly birthDate, int medicalRecordId, string username, string password, string type, bool isBlocked) : base(username, password, type)
         {
             Id = id;
@@ -19,6 +20,7 @@ namespace ZdravoCorp.Core.Domain
             MedicalRecordId = medicalRecordId;
             IsBlocked = isBlocked;
         }
+
         public Patient() : base() { }
 
         public override string ToString()

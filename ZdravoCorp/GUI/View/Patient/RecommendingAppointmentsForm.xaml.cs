@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
-using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorp
@@ -20,6 +19,7 @@ namespace ZdravoCorp
         List<Appointment> recommendedAppointments;
         private DoctorService doctorService = new DoctorService();
         ScheduleService scheduleService = new ScheduleService();
+        private RecommendingAppointmentsService recommendingAppointmentsService = new RecommendingAppointmentsService();
         public RecommendingAppointmentsForm(Patient patient)
         {
             InitializeComponent();
@@ -60,7 +60,7 @@ namespace ZdravoCorp
             if (!inputValidation()) return;
             AppointmentRequest appointmentRequest = CreateAppointmentRequest();
             if (appointmentRequest == null) return;
-            recommendedAppointments = scheduleService.GetAppointmentsByRequest(appointmentRequest, patient.Id);
+            recommendedAppointments = recommendingAppointmentsService.GetAppointmentsByRequest(appointmentRequest, patient.Id);
             dgAppointments.ItemsSource = null;
             LoadAppointmentsInDataGrid(recommendedAppointments);
             if (recommendedAppointments.Count() == 1)

@@ -45,7 +45,11 @@
   },
   {
     "Id": 10,
-    "SpecializationRefferal": null,
+    "SpecializationRefferal": {
+      "Specialization": 0,
+      "DoctorId": -1,
+      "IsUsed": true
+    },
     "HospitalizationRefferal": {
       "Duration": 10,
       "AdditionalTesting": "vanja",
@@ -79,9 +83,9 @@
         "Quantity": 10
       },
       "Instruction": {
-        "TimePerDay": 1440,
+        "TimePerDay": 1,
         "TimeForMedicament": 3,
-        "Duration": 5
+        "Duration": 10
       },
       "DateOfGiving": "2023-05-30",
       "IsUsed": false

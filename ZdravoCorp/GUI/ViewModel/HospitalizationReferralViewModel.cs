@@ -128,6 +128,7 @@ namespace ZdravoCorp.GUI.ViewModel
                     _medicamentService.GetMedicamentById(examination.HospitalizationRefferal.InitialTherapy.Medicament
                         .Id);
                 SelectedMedicament = medicament;
+                DurationForMedicament = examination.HospitalizationRefferal.InitialTherapy.Instruction.Duration;
             }
         }
 

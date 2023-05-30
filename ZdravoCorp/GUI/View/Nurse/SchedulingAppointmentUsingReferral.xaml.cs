@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.Globalization;
 using static Xceed.Wpf.Toolkit.Calculator;
+using Newtonsoft.Json.Linq;
 
 namespace ZdravoCorp
 {
@@ -122,12 +123,21 @@ namespace ZdravoCorp
                     MessageBox.Show("Date is in past.", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
                     return false;
                 }
+                if (!Int32.TryParse(operationDuration.Text, out int time))
+                {
+                    MessageBox.Show("Duration is not number", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
+                    return false;
+                }
             }
             return true;
         }
 
         private bool isOperationSelected() 
         {
+            if (examinationOrOperation.SelectedItem == null)
+            {
+                return false;
+            }
             if (examinationOrOperation.SelectedItem.ToString().Equals("Operation"))
             {
                 return true;

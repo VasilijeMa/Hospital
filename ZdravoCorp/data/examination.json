@@ -46,7 +46,28 @@
   {
     "Id": 10,
     "SpecializationRefferal": null,
-    "HospitalizationRefferal": null,
+    "HospitalizationRefferal": {
+      "Duration": 10,
+      "AdditionalTesting": "vanja",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ],
+          "Quantity": 10
+        },
+        "Instruction": {
+          "TimePerDay": 10,
+          "TimeForMedicament": 2,
+          "Duration": 10
+        },
+        "DateOfGiving": "2023-05-30",
+        "IsUsed": false
+      }
+    },
     "Prescription": {
       "Medicament": {
         "Id": 1,

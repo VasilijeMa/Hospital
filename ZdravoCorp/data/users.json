@@ -30,12 +30,6 @@
     "IsBlocked": false
   },
   {
-    "Username": "pera",
-    "Password": "pera",
-    "Type": "patient",
-    "IsBlocked": false
-  },
-  {
     "Username": "pera123",
     "Password": "pera123",
     "Type": "patient",
@@ -50,6 +44,12 @@
   {
     "Username": "anica123",
     "Password": "Ana123",
+    "Type": "patient",
+    "IsBlocked": false
+  },
+  {
+    "Username": "pera",
+    "Password": "pera",
     "Type": "patient",
     "IsBlocked": false
   }

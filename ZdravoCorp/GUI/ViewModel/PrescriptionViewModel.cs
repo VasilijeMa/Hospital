@@ -24,6 +24,7 @@ namespace ZdravoCorp.GUI.ViewModel
         public TimeForMedicament? selectedTime = null;
         public Appointment Appointment { get; set; }
         private int perDay;
+        private int durationForMedicament;
 
         public ObservableCollection<Medicament> Medicaments
         {
@@ -51,6 +52,16 @@ namespace ZdravoCorp.GUI.ViewModel
             {
                 perDay = value;
                 OnPropertyChanged(nameof(PerDay));
+            }
+        }
+
+        public int DurationForMedicament
+        {
+            get { return durationForMedicament; }
+            set
+            {
+                durationForMedicament = value;
+                OnPropertyChanged(nameof(DurationForMedicament));
             }
         }
 

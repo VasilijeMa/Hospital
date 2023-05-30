@@ -57,7 +57,7 @@ namespace ZdravoCorp.Core.Commands
 
         private Prescription CreatePrescription()
         {
-            Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime,5);
+            Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime,viewModel.DurationForMedicament);
             Prescription prescription = new Prescription(viewModel.SelectedMedicament, instruction,DateOnly.FromDateTime(DateTime.Now),false);
             return prescription;
         }

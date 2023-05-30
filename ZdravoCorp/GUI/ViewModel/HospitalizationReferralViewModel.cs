@@ -30,6 +30,7 @@ namespace ZdravoCorp.GUI.ViewModel
         private int duration;
         private int perDay;
         private string testing="";
+        private int durationForMedicament;
 
         public ObservableCollection<Medicament> Medicaments
         {
@@ -56,6 +57,16 @@ namespace ZdravoCorp.GUI.ViewModel
             {
                 duration = value;
                 OnPropertyChanged(nameof(Duration));
+            }
+        }
+        
+        public int DurationForMedicament
+        {
+            get { return durationForMedicament; }
+            set
+            {
+                durationForMedicament = value;
+                OnPropertyChanged(nameof(DurationForMedicament));
             }
         }
         public int PerDay

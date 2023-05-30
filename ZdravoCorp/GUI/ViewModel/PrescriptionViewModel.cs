@@ -109,6 +109,7 @@ namespace ZdravoCorp.GUI.ViewModel
                 Medicament medicament =
                     _medicamentService.GetMedicamentById(examination.Prescription.Medicament.Id);
                 SelectedMedicament = medicament;
+                DurationForMedicament = examination.Prescription.Instruction.Duration;
             }
         }
 

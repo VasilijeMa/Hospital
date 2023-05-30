@@ -95,7 +95,9 @@ namespace ZdravoCorp.GUI.ViewModel
             {
                 PerDay = examination.Prescription.Instruction.TimePerDay;
                 SelectedTime = examination.Prescription.Instruction.TimeForMedicament;
-                SelectedMedicament = examination.Prescription.Medicament;
+                Medicament medicament =
+                    _medicamentService.GetMedicamentById(examination.Prescription.Medicament.Id);
+                SelectedMedicament = medicament;
             }
         }
 

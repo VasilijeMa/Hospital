@@ -14,6 +14,7 @@ namespace ZdravoCorp.GUI.ValidationRule
         {
             if (Int32.TryParse(value.ToString(), out int time) && time>0)
             {
+                if (time > 60 * 24 || time < 0) return new ValidationResult(false, "Out of range");
                 return ValidationResult.ValidResult;
             }
             return new ValidationResult(false, "Not integer");

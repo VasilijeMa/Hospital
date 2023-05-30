@@ -54,5 +54,19 @@
     "Symptoms": "simptom",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 46,
+    "PatientId": 4,
+    "Symptoms": "bol",
+    "DoctorsObservation": "aaa",
+    "DoctorsConclusion": "aaa"
+  },
+  {
+    "AppointmentId": 10,
+    "PatientId": 1,
+    "Symptoms": "bol",
+    "DoctorsObservation": "a",
+    "DoctorsConclusion": "a"
   }
 ]

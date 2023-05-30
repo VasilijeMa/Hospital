@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class PatientService
     {
-        PatientRepository patientRepository;
-        ScheduleRepository scheduleRepository;
+        IPatientRepository patientRepository;
+        IScheduleRepository scheduleRepository;
         public PatientService()
         {
             patientRepository = Singleton.Instance.PatientRepository;
@@ -29,6 +30,31 @@ namespace ZdravoCorp.Core.Servieces
         public void WriteAll()
         {
             patientRepository.WriteAll();
+        }
+
+        public Patient GetById(int id)
+        {
+            return patientRepository.getById(id);
+        }
+
+        public List<Patient> GetPatients()
+        {
+            return patientRepository.GetPatients();
+        }
+
+        public void AddPatient(Patient patient)
+        {
+            patientRepository.AddPatient(patient);
+        }
+
+        public void RemovePatient(Patient patient)
+        {
+            patientRepository.RemovePatient(patient);
+        }
+
+        public Patient GetByUsername(string username)
+        {
+            return patientRepository.getByUsername(username);
         }
     }
 }

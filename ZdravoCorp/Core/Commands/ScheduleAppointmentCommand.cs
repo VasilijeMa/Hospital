@@ -13,11 +13,13 @@ namespace ZdravoCorp.Core.Commands
     {
         SearchDoctorViewModel viewModel;
         Patient patient;
+
         public ScheduleAppointmentCommand(SearchDoctorViewModel viewModel, Patient patient)
         {
             this.viewModel = viewModel;
             this.patient = patient;
         }
+
         public override void Execute(object? parameter)
         {
             MakeAppointmentWindow makeAppointmentWindow = new MakeAppointmentWindow(patient, viewModel.SelectedDoctor);

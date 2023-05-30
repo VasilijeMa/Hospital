@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Repositories
 {
-    public class ExaminationRepository
+    public class ExaminationRepository : IExaminationRepository
     {
         List<Examination> examinations;
 
@@ -31,6 +32,7 @@ namespace ZdravoCorp.Core.Repositories
             string json = JsonConvert.SerializeObject(examinations, Formatting.Indented);
             File.WriteAllText("./../../../data/examination.json", json);
         }
+
         public int getLastId()
         {
             try
@@ -49,7 +51,6 @@ namespace ZdravoCorp.Core.Repositories
             examinations.Add(examination);
             WriteAll();
         }
-
 
         public Examination GetExaminationById(int examinationId)
         {

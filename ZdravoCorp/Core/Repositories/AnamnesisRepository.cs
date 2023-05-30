@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.IO;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Repositories
 {
-    public class AnamnesisRepository
+    public class AnamnesisRepository : IAnamnesisRepository
     {
         private List<Anamnesis> anamnesis;
+
         public List<Anamnesis> Anamneses { get => anamnesis; }
+
         public AnamnesisRepository()
         {
             anamnesis = LoadAll();
         }
+
         public List<Anamnesis> LoadAll()
         {
             var serializer = new JsonSerializer();
@@ -20,11 +24,13 @@ namespace ZdravoCorp.Core.Repositories
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Anamnesis>>(json);
         }
+
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(anamnesis, Formatting.Indented);
             File.WriteAllText("./../../../data/anamneses.json", json);
         }
+
         public List<Anamnesis> GetAnamnesesContainingSubstring(string keyword)
         {
             List<Anamnesis> tempAnamneses = new List<Anamnesis>();
@@ -37,6 +43,7 @@ namespace ZdravoCorp.Core.Repositories
             }
             return tempAnamneses;
         }
+
         public Anamnesis findAnamnesisById(Appointment selectedAppointment)
         {
             foreach (Anamnesis anamnesis in Anamneses)
@@ -47,6 +54,16 @@ namespace ZdravoCorp.Core.Repositories
                 }
             }
             return null;
+        }
+
+        public List<Anamnesis> GetAnamneses()
+        {
+            return anamnesis;
+        }
+
+        public void AddAnamnesis(Anamnesis anamnesis)
+        {
+            Anamneses.Add(anamnesis);
         }
     }
 }

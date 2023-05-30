@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
@@ -10,6 +12,8 @@ namespace ZdravoCorp.Core.Commands
         private SpecializationReferralViewModel viewModel;
         int selectedDoctorId = -1;
         Specialization? selectedSpecialization = null;
+        private ScheduleService scheduleService = new ScheduleService();
+        private ExaminationService examinationService = new ExaminationService();
 
         public SpecializationReferralCommand(SpecializationReferralViewModel viewModel)
         {
@@ -41,7 +45,7 @@ namespace ZdravoCorp.Core.Commands
             }
             SpecializationReferral specializationReferral = CreateSpecializationReferral();
             CreateExamination(specializationReferral);
-
+            MessageBox.Show("You have successfully create referral!");
         }
 
         private void CreateExamination(SpecializationReferral specializationReferral)
@@ -50,14 +54,15 @@ namespace ZdravoCorp.Core.Commands
             if (viewModel.Appointment.ExaminationId == 0)
             {
                 examination = new Examination(specializationReferral);
-                Singleton.Instance.ExaminationRepository.Add(examination);
+                examinationService.Add(examination);
                 viewModel.Appointment.ExaminationId = examination.Id;
+                scheduleService.WriteAllAppointmens();
             }
             else
             {
-                examination = Singleton.Instance.ExaminationRepository.GetExaminationById(viewModel.Appointment.ExaminationId);
+                examination = examinationService.GetExaminationById(viewModel.Appointment.ExaminationId);
                 examination.SpecializationRefferal = specializationReferral;
-                Singleton.Instance.ExaminationRepository.WriteAll();
+                examinationService.WriteAll();
             }
         }
 
@@ -73,7 +78,7 @@ namespace ZdravoCorp.Core.Commands
                 selectedSpecialization = viewModel.SelectedSpecialization;
                 selectedDoctorId = -1;
             }
-            return new SpecializationReferral(selectedSpecialization, selectedDoctorId);
+            return new SpecializationReferral(selectedSpecialization, selectedDoctorId,false);
         }
     }
 }

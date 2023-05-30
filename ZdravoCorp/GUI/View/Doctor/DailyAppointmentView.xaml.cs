@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorp
 {
@@ -11,12 +12,12 @@ namespace ZdravoCorp
     {
         private List<Appointment> appointments;
         private Doctor doctor;
-        Singleton singleton;
+        private PatientService patientService = new PatientService();
+        private ScheduleService scheduleService = new ScheduleService();
 
         public DailyAppointmentView(List<Appointment> appointments, Doctor doctor)
         {
             InitializeComponent();
-            this.singleton = Singleton.Instance;
             this.doctor = doctor;
             this.appointments = appointments;
             LoadDataGrid();
@@ -63,10 +64,8 @@ namespace ZdravoCorp
             }
 
             int id = (int)item.Row["AppointmentId"];
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            Appointment selectedAppointment = scheduleRepository.GetAppointmentById(id);
-            PatientRepository patientRepository = singleton.PatientRepository;
-            Patient patient = patientRepository.getPatient(selectedAppointment.PatientId);
+            Appointment selectedAppointment = scheduleService.GetAppointmentById(id);
+            Patient patient = patientService.GetById(selectedAppointment.PatientId);
             if (!selectedAppointment.IsAbleToStart())
             {
                 MessageBox.Show("You cannot start a appointment.");

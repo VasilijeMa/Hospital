@@ -40,5 +40,19 @@
     "Symptoms": "faf",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 8,
+    "PatientId": 3,
+    "Symptoms": "simptop",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 8,
+    "PatientId": 3,
+    "Symptoms": "simptom",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
   }
 ]

@@ -15,16 +15,14 @@ namespace ZdravoCorp
     public partial class MyAppointmentsWindow : Window
     {
         List<Appointment> appointments;
-        Singleton singleton;
         Patient patient;
-        private ScheduleRepository scheduleRepository;
+        private ScheduleService scheduleService = new ScheduleService();
+        //private ScheduleRepository scheduleRepository;
         public MyAppointmentsWindow(Patient patient)
         {
             InitializeComponent();
             this.patient = patient;
-            singleton = Singleton.Instance;
-            appointments = singleton.ScheduleRepository.Schedule.Appointments;
-            scheduleRepository = singleton.ScheduleRepository;
+            appointments = scheduleService.GetAppointmentsForPatient(patient.Id);
             LoadAppointmentsInDataGrid();
         }
 
@@ -38,10 +36,7 @@ namespace ZdravoCorp
             dt.Columns.Add("IsCanceled", typeof(bool));
             foreach (Appointment appointment in appointments)
             {
-                if (appointment.PatientId == patient.Id)
-                {
-                    dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(), appointment.DoctorId, appointment.IsCanceled);
-                }
+                dt.Rows.Add(appointment.Id, appointment.TimeSlot.start.Date.ToString("yyyy-MM-dd"), appointment.TimeSlot.start.TimeOfDay.ToString(), appointment.DoctorId, appointment.IsCanceled);
             }
             dgAppointments.ItemsSource = dt.DefaultView;
         }
@@ -70,7 +65,7 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment is not selected.");
                 return;
             }
-            Appointment appointment = scheduleRepository.GetAppointmentById((int)item.Row["Id"]);
+            Appointment appointment = scheduleService.GetAppointmentById((int)item.Row["Id"]);
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
                 MessageBox.Show("The selected appointment must not changed.");
@@ -81,7 +76,7 @@ namespace ZdravoCorp
             {
                 ((DataRowView)dgAppointments.SelectedItem).Row["IsCanceled"] = true;
                 btnCancel.IsEnabled = false;
-                scheduleRepository.CancelAppointment(appointment.Id);
+                scheduleService.CancelAppointment(appointment.Id);
 
                 LogService logService = new LogService();
                 logService.UpdateCancelElement(appointment, patient);
@@ -111,7 +106,7 @@ namespace ZdravoCorp
                 return;
             }
             int id = (int)item.Row["Id"];
-            Appointment appointment = scheduleRepository.GetAppointmentById(id);
+            Appointment appointment = scheduleService.GetAppointmentById(id);
             if (appointment.TimeSlot.start <= DateTime.Now.AddDays(1))
             {
                 MessageBox.Show("The selected appointment must not changed.");
@@ -129,7 +124,7 @@ namespace ZdravoCorp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            scheduleRepository.WriteAllAppointmens();
+            scheduleService.WriteAllAppointmens();
         }
 
     }

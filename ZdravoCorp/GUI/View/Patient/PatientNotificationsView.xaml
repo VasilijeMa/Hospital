@@ -1,0 +1,59 @@
+﻿<Window x:Class="ZdravoCorp.GUI.View.Patient.PatientNotificationsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.GUI.View.Patient"
+        mc:Ignorable="d"
+        Title="PatientNotificationsView" Height="450" Width="800" Icon="/icon.png" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" ColumnWidth="155" RowHeight="20" ItemsSource="{Binding Notifications, Mode=TwoWay}" SelectedItem="{Binding Notification, Mode=TwoWay}" IsReadOnly="True" x:Name="dataGrid" Margin="0,8,0,145">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Message">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Message}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Times per day">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding TimesPerDay}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Minutes before">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding MinutesBefore}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Date">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <Binding Path="Date" StringFormat="yyyy/MM/dd" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button IsEnabled="True" Command="{Binding AddCommand}" Name="btnAdd" Content="Add" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="168,362,0,0"/>
+        <Button IsEnabled="{Binding Enable, Mode=TwoWay}" Command="{Binding UpdateCommand}" Name="btnUpdate" Content="Update" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="327,362,0,0"/>
+        <Button IsEnabled="{Binding Enable, Mode=TwoWay}" Command="{Binding DeleteCommand}" Name="btnDelete" Content="Delete" Height="26" Width="130" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="483,362,0,0"/>
+
+    </Grid>
+</Window>

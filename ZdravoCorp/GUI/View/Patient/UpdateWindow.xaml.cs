@@ -12,20 +12,20 @@ namespace ZdravoCorp
     public partial class UpdateWindow : Window
     {
         const int APPOINTMENT_DURATION = 15;
-        Singleton singleton;
+        private DoctorService doctorService = new DoctorService();
         Appointment appointment;
         Patient patient;
+
         public UpdateWindow(Appointment appointment, Patient patient)
         {
             InitializeComponent();
             this.appointment = appointment;
             this.patient = patient;
-            singleton = Singleton.Instance;
             tbId.Text = appointment.Id.ToString();
             dpDate.SelectedDate = appointment.TimeSlot.start.Date;
             dpDate.DisplayDateStart = DateTime.Now;
             tbTime.Text = appointment.TimeSlot.start.ToString("HH:mm");
-            cmbDoctors.ItemsSource = singleton.DoctorRepository.Doctors;
+            cmbDoctors.ItemsSource = doctorService.GetDoctors();
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
             cmbDoctors.SelectedValuePath = "Id";
             cmbDoctors.SelectedValue = appointment.DoctorId;
@@ -66,8 +66,8 @@ namespace ZdravoCorp
                 MessageBox.Show("Patient is not available at choosen date and time.");
                 return;
             }
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            scheduleRepository.UpdateAppointment(appointment.Id, timeSlot, (int)cmbDoctors.SelectedValue);
+            ScheduleService scheduleService = new ScheduleService();
+            scheduleService.UpdateAppointment(appointment.Id, timeSlot, (int)cmbDoctors.SelectedValue);
             
             LogService logService = new LogService();
             logService.UpdateCancelElement(appointment, patient);

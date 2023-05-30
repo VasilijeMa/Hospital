@@ -12,13 +12,14 @@ using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorp.GUI.ViewModel
 {
     public class SpecializationReferralViewModel : INotifyPropertyChanged
     {
         private ICommand _refereCommand;
-        private DoctorRepository doctorRepository = Singleton.Instance.DoctorRepository;
+        private DoctorService doctorService = new DoctorService();
         private ObservableCollection<Doctor> doctors;
         private Doctor selectedDoctor = null;
         private Specialization? selectedSpecialization = null;
@@ -87,8 +88,13 @@ namespace ZdravoCorp.GUI.ViewModel
         public SpecializationReferralViewModel(Appointment appointment)
         {
             Appointment = appointment;
-            doctors = new ObservableCollection<Doctor>(doctorRepository.Doctors);
-            specializations = new ObservableCollection<Specialization>(doctorRepository.GetSpecializationOfDoctors());
+            doctors = new ObservableCollection<Doctor>(doctorService.GetDoctors());
+            specializations = new ObservableCollection<Specialization>(doctorService.GetSpecializationOfDoctors());
+        }
+
+        public bool IsValid()
+        {
+            return isDoctor == false && isSpecialization == false;
         }
 
         public ICommand ReferCommand

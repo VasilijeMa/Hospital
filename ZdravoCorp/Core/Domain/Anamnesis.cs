@@ -6,8 +6,8 @@
         public int PatientId { get; set; }
         public string Symptoms { get; set; }
         public string DoctorsObservation { get; set; }
-
         public string DoctorsConclusion { get; set; }
+
         public Anamnesis() { }
 
         public Anamnesis(int appointmentId, int patientId, string symptoms,

@@ -1,21 +1,27 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class DoctorService
     {
-        private DoctorRepository doctorRepository;
-        private ScheduleRepository scheduleRepository;
+        private IDoctorRepository doctorRepository;
+        private IScheduleRepository scheduleRepository;
+        private IPatientRepository patientRepository;
+        private ScheduleService scheduleService = new ScheduleService();
         public DoctorService()
         {
             doctorRepository = Singleton.Instance.DoctorRepository;
             scheduleRepository = Singleton.Instance.ScheduleRepository;
+            patientRepository = Singleton.Instance.PatientRepository;
         }
 
         public bool IsAvailable(TimeSlot timeSlot, int doctorId, int appointmentId = -1)
@@ -30,6 +36,7 @@ namespace ZdravoCorp.Core.Servieces
             }
             return true;
         }
+
         public bool IsAlreadyExamined(int patientId, int doctorId)
         {
             foreach (Appointment appointment in scheduleRepository.GetAppointmentsForPatientAndDoctor(patientId, doctorId))
@@ -42,6 +49,7 @@ namespace ZdravoCorp.Core.Servieces
             }
             return false;
         }
+
         public List<Appointment> GetAppointmentsInNextTwoHours(int doctorId)
         {
             DateTime currentTime = DateTime.Now;
@@ -52,7 +60,7 @@ namespace ZdravoCorp.Core.Servieces
             {
                 if (appointment.TimeSlot.start.Date == timeAfterTwoHours.Date)
                 {
-                    if (TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1)
+                    if (IsAppointmentInNextTwoHours(appointment, timeAfterTwoHours, currentTime))
                     {
                         appointmentsInNextTwoHours.Add(appointment);
                     }
@@ -60,10 +68,17 @@ namespace ZdravoCorp.Core.Servieces
             }
             return appointmentsInNextTwoHours;
         }
+
+        private static bool IsAppointmentInNextTwoHours(Appointment appointment, DateTime timeAfterTwoHours, DateTime currentTime)
+        {
+            return TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, timeAfterTwoHours.TimeOfDay) == -1 && TimeSpan.Compare(appointment.TimeSlot.start.TimeOfDay, currentTime.TimeOfDay) == 1;
+        }
+
         public List<Doctor> GetDoctorBySpecialization(string specialization)
         {
             return doctorRepository.GetDoctorBySpecialization(specialization);
         }
+
         public List<Appointment> getAppointmentsInNextTwoHours(List<Doctor> qualifiedDoctors)
         {
             List<Appointment> allAppointments = new List<Appointment>();
@@ -74,6 +89,23 @@ namespace ZdravoCorp.Core.Servieces
                 allAppointments.AddRange(appointmentsForOne);
             }
             return allAppointments;
+        }
+
+        public Doctor GetSpecializedDoctor(String specialization,DateTime firstDate,DateTime secondDate) 
+        {
+            List<Doctor> doctors = GetDoctorBySpecialization(specialization);
+            int minimalNumberOfAppointments = 100;
+            Doctor selectedDoctor = null;
+            foreach (Doctor doctor in doctors)
+            {
+                List<Appointment> appointments = scheduleService.GetAllAppointmentsForDoctor(firstDate,secondDate, doctor.Id);
+                if (minimalNumberOfAppointments > appointments.Count())
+                {
+                    minimalNumberOfAppointments = appointments.Count();
+                    selectedDoctor = doctor;
+                }
+            }
+            return selectedDoctor;
         }
         public Doctor getFirstFreeDoctor(List<Doctor> qualifiedDoctors, int duration, string patientUsername)
         {
@@ -86,8 +118,11 @@ namespace ZdravoCorp.Core.Servieces
                     TimeSlot doctorsTimeSlot = new TimeSlot(currentTime, duration);
                     if (IsAvailable(doctorsTimeSlot, qualifiedDoctor.Id))
                     {
+
+                        string roomId = scheduleService.TakeRoom(doctorsTimeSlot);
+                        //TakeRoom
                         Appointment appointment = scheduleRepository.CreateAppointment(doctorsTimeSlot,
-                            qualifiedDoctor, Singleton.Instance.PatientRepository.getByUsername(patientUsername));
+                            qualifiedDoctor.Id, patientRepository.getByUsername(patientUsername).Id);
                         if (appointment != null)
                         {
                             scheduleRepository.WriteAllAppointmens();
@@ -97,6 +132,26 @@ namespace ZdravoCorp.Core.Servieces
                 }
             }
             return null;
+        }
+
+        public List<Doctor> GetDoctors()
+        {
+            return doctorRepository.GetDoctors();
+        }
+
+        public List<Specialization> GetSpecializationOfDoctors()
+        {
+            return doctorRepository.GetSpecializationOfDoctors();
+        }
+
+        public Doctor GetDoctor(int doctorId)
+        {
+            return doctorRepository.getDoctor(doctorId);
+        }
+
+        public List<Doctor> SearchDoctors(string keyword)
+        {
+            return doctorRepository.SearchDoctors(keyword);
         }
     }
 }

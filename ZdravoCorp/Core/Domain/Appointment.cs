@@ -13,6 +13,7 @@ namespace ZdravoCorp.Core.Domain
         public bool IsCanceled { get; set; }
         public string IdRoom { get; set; }
         public int ExaminationId { get; set; }
+
         public Appointment(int id, TimeSlot timeSlot, int doctorId, int patientId, string idRoom)
         {
             Id = id;
@@ -23,30 +24,9 @@ namespace ZdravoCorp.Core.Domain
             IdRoom = idRoom;
             //ExaminationId = Id;
         }
+
         public Appointment() { }
-        public static string TakeRoom(TimeSlot timeSlot)
-        {
-            RoomRepository roomRepository = new RoomRepository();
-            Dictionary<string, Room> examinationRooms = roomRepository.LoadAllExaminationRooms();
-            foreach (var room in examinationRooms)
-            {
-                bool check = true;
-                foreach (Appointment appointment in Singleton.Instance.ScheduleRepository.Schedule.Appointments)
-                {
-                    if (appointment.IsCanceled) continue;
-                    if (appointment.TimeSlot.OverlapWith(timeSlot) && appointment.IdRoom == room.Key)
-                    {
-                        check = false;
-                        break;
-                    }
-                }
-                if (check)
-                {
-                    return room.Key;
-                }
-            }
-            return "";
-        }
+      
         public bool IsAbleToStart()
         {
             DateTime earliestStart = TimeSlot.start.Add(new TimeSpan(0, -15, 0));

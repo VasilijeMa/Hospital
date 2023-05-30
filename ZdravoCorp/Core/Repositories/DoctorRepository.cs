@@ -5,17 +5,21 @@ using System.IO;
 using System.Linq;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Repositories
 {
-    public class DoctorRepository
+    public class DoctorRepository : IDoctorRepository
     {
         private List<Doctor> doctors;
+
         public List<Doctor> Doctors { get => doctors; }
+
         public DoctorRepository()
         {
             doctors = LoadAll();
         }
+
         public List<Doctor> LoadAll()
         {
             var serializer = new JsonSerializer();
@@ -23,10 +27,12 @@ namespace ZdravoCorp.Core.Repositories
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Doctor>>(json);
         }
+
         public List<Doctor> GetDoctorBySpecialization(string specialization)
         {
             return doctors.Where(doctor => doctor.Specialization.ToString() == specialization).ToList();
         }
+
         public Doctor getDoctor(int doctorId)
         {
             foreach (Doctor doctor in doctors)
@@ -49,7 +55,7 @@ namespace ZdravoCorp.Core.Repositories
             return doctors.Where(doctor => Contains(keyword, doctor)).ToList();
         }
 
-        private static bool Contains(string keyword, Doctor doctor)
+        public bool Contains(string keyword, Doctor doctor)
         {
             return doctor.FirstName.ToUpper().Contains(keyword) || doctor.LastName.ToUpper().Contains(keyword) || doctor.Specialization.ToString().ToUpper().Contains(keyword);
         }
@@ -63,6 +69,11 @@ namespace ZdravoCorp.Core.Repositories
             }
 
             return specializations;
+        }
+
+        public List<Doctor> GetDoctors()
+        {
+            return Doctors;
         }
     }
 }

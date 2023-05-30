@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.View;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -13,14 +14,14 @@ namespace ZdravoCorp
         private Appointment selectedAppointment;
         private ConfigRoles role;
         private Anamnesis anamnesis;
-        private AnamnesisRepository anamnesisRepository;
+        private AnamnesisService anamnesisService = new AnamnesisService();
+
         public AnamnesisView(Appointment selectedAppointment, ConfigRoles role)
         {
 
             InitializeComponent();
             this.selectedAppointment = selectedAppointment;
             this.role = role;
-            anamnesisRepository = Singleton.Instance.AnamnesisRepository;
             setWindow();
         }
 
@@ -28,31 +29,46 @@ namespace ZdravoCorp
         {
             if (role == ConfigRoles.Nurse)
             {
-                DoctorConclusion.IsReadOnly = true;
-                DoctorObservation.IsReadOnly = true;
-                btnChangeEquipment.Visibility = Visibility.Hidden;
-                btnHospitalizationRefer.Visibility = Visibility.Hidden;
-                btnSpecializationRefer.Visibility = Visibility.Hidden;
+                SetNurseWindow();
             }
             else if (role == ConfigRoles.Doctor)
             {
-                this.anamnesis = findAnamnesisById(selectedAppointment);
-                Symptoms.Text = anamnesis.Symptoms;
-                Symptoms.IsReadOnly = true;
+                SetDoctorWindow();
             }
             else
             {
-                Symptoms.IsReadOnly = true;
-                DoctorObservation.IsReadOnly = true;
-                DoctorConclusion.IsReadOnly = true;
-                btnCancel.Visibility = Visibility.Hidden;
-                btnSubmit.Visibility = Visibility.Hidden;
-                btnChangeEquipment.Visibility = Visibility.Hidden;
-                btnHospitalizationRefer.Visibility = Visibility.Hidden;
-                btnSpecializationRefer.Visibility = Visibility.Hidden;
-                anamnesis = findAnamnesisById(selectedAppointment);
-                LoadFields(anamnesis);
+                SetPatientWindow();
             }
+        }
+
+        private void SetPatientWindow()
+        {
+            Symptoms.IsReadOnly = true;
+            DoctorObservation.IsReadOnly = true;
+            DoctorConclusion.IsReadOnly = true;
+            btnCancel.Visibility = Visibility.Hidden;
+            btnSubmit.Visibility = Visibility.Hidden;
+            btnChangeEquipment.Visibility = Visibility.Hidden;
+            btnHospitalizationRefer.Visibility = Visibility.Hidden;
+            btnSpecializationRefer.Visibility = Visibility.Hidden;
+            anamnesis = findAnamnesisById(selectedAppointment);
+            LoadFields(anamnesis);
+        }
+
+        private void SetDoctorWindow()
+        {
+            this.anamnesis = findAnamnesisById(selectedAppointment);
+            Symptoms.Text = anamnesis.Symptoms;
+            Symptoms.IsReadOnly = true;
+        }
+
+        private void SetNurseWindow()
+        {
+            DoctorConclusion.IsReadOnly = true;
+            DoctorObservation.IsReadOnly = true;
+            btnChangeEquipment.Visibility = Visibility.Hidden;
+            btnHospitalizationRefer.Visibility = Visibility.Hidden;
+            btnSpecializationRefer.Visibility = Visibility.Hidden;
         }
 
         private void SubmitClick(object sender, RoutedEventArgs e)
@@ -67,7 +83,7 @@ namespace ZdravoCorp
                 {
                     anamnesis.DoctorsConclusion = DoctorConclusion.Text;
                     anamnesis.DoctorsObservation = DoctorObservation.Text;
-                    anamnesisRepository.WriteAll();
+                    anamnesisService.WriteAll();
                 }
                 MessageBox.Show("You successefully added anamnesis.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
                 this.Close();
@@ -124,7 +140,7 @@ namespace ZdravoCorp
 
         public Anamnesis findAnamnesisById(Appointment selectedAppointment)
         {
-            foreach (Anamnesis anamnesis in anamnesisRepository.Anamneses)
+            foreach (Anamnesis anamnesis in anamnesisService.GetAnamneses())
             {
                 if (anamnesis.AppointmentId == selectedAppointment.Id)
                 {
@@ -133,39 +149,6 @@ namespace ZdravoCorp
             }
             return null;
         }
-
-        private bool isAlreadyExsist(int appointmentId)
-        {
-            foreach (Anamnesis anamnesis in anamnesisRepository.Anamneses)
-            {
-                if (anamnesis.AppointmentId == appointmentId)
-                {
-                    MessageBox.Show("There is already an anamnesis in this appointemnt.");
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public Patient getPatient()
-        {
-            foreach (Patient patient in Singleton.Instance.PatientRepository.Patients)
-            {
-                if (patient.Id == anamnesis.PatientId)
-                {
-                    return patient;
-                }
-            }
-            return null;
-        }
-
-
-        /*private void refreshMedicalRecord()
-        {
-            Patient patient = getPatient();
-            MedicalRecord medicalRecord = patient.getMedicalRecord();
-            medicalRecord.WriteAll(Singleton.Instance.medicalRecords);
-        }*/
 
         private void createAnamnesisObject()
         {
@@ -176,8 +159,8 @@ namespace ZdravoCorp
                                                        ""
                                                        );
             this.anamnesis = anamnesis;
-            anamnesisRepository.Anamneses.Add(anamnesis);
-            anamnesisRepository.WriteAll();
+            anamnesisService.AddAnamnesis(anamnesis);
+            anamnesisService.WriteAll();
         }
 
         private void useUpDynamicEquipment(object sender, RoutedEventArgs e)

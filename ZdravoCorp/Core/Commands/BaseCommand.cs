@@ -14,6 +14,11 @@ namespace ZdravoCorp.Core.Commands
             return true;
         }
 
+        public virtual void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         public abstract void Execute(object? parameter);
 
         public event EventHandler? CanExecuteChanged;

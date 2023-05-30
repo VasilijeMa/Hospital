@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Documents;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
@@ -13,14 +15,23 @@ namespace ZdravoCorp
     public partial class MakeAppointmentWindow : Window
     {
         const int APPOINTMENT_DURATION = 15;
-        Singleton singleton;
         Patient patient;
+        List<Doctor> doctors;
+        private DoctorService doctorService = new DoctorService();
+        private ScheduleService scheduleService = new ScheduleService();
+        private PatientService patientService = new PatientService();
+        private LogService logService = new LogService();
         public MakeAppointmentWindow(Patient patient, Doctor doctor = null)
         {
             InitializeComponent();
             this.patient = patient;
-            singleton = Singleton.Instance;
-            cmbDoctors.ItemsSource = singleton.DoctorRepository.Doctors;
+            LoadData(doctor);
+        }
+
+        private void LoadData(Doctor doctor)
+        {
+            doctors = doctorService.GetDoctors();
+            cmbDoctors.ItemsSource = doctors;
             cmbDoctors.ItemTemplate = (DataTemplate)FindResource("doctorTemplate");
             cmbDoctors.SelectedValuePath = "Id";
             SetDoctor(doctor);
@@ -30,7 +41,7 @@ namespace ZdravoCorp
         private void SetDoctor(Doctor doctor)
         {
             if (doctor != null)
-                cmbDoctors.SelectedItem = singleton.DoctorRepository.Doctors.FirstOrDefault(
+                cmbDoctors.SelectedItem = doctors.FirstOrDefault(
                     selectedDoctor =>
                         selectedDoctor.FirstName == doctor.FirstName && selectedDoctor.LastName == doctor.LastName);
         }
@@ -46,33 +57,42 @@ namespace ZdravoCorp
             {
                 return;
             }
-            TimeSlot timeSlot = MakeTimeSlot();
-            if (timeSlot.start <= DateTime.Now)
-            {
-                MessageBox.Show("The selected date cannot be in the past.");
-                return;
-            }
+            if (IsTimeSlotValid(out var timeSlot)) return;
             Doctor doctor = (Doctor)cmbDoctors.SelectedItem;
-            DoctorService doctorService = new DoctorService();
-            PatientService patientService = new PatientService();
-            if (!doctorService.IsAvailable(timeSlot, doctor.Id))
-            {
-                MessageBox.Show("Doctor is not available at choosen date and time.");
-                return;
-            }
-            if (!patientService.IsAvailable(timeSlot, patient.Id))
-            {
-                MessageBox.Show("Patient is not available at choosen date and time.");
-                return;
-            }
-
-            ScheduleRepository scheduleRepository = singleton.ScheduleRepository;
-            Appointment appointment = scheduleRepository.CreateAppointment(timeSlot, doctor, patient);
-
-            LogService logService = new LogService();
+            if (IsTimeSlotAvailable(timeSlot, doctor)) return;
+            Appointment appointment = scheduleService.CreateAppointment(timeSlot, doctor, patient);
             logService.AddElement(appointment, patient);
             MessageBox.Show("Appointment successfully created.");
             this.Close();
+        }
+
+        private bool IsTimeSlotAvailable(TimeSlot timeSlot, Doctor doctor)
+        {
+            if (!doctorService.IsAvailable(timeSlot, doctor.Id))
+            {
+                MessageBox.Show("Doctor is not available at choosen date and time.");
+                return true;
+            }
+
+            if (!patientService.IsAvailable(timeSlot, patient.Id))
+            {
+                MessageBox.Show("Patient is not available at choosen date and time.");
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsTimeSlotValid(out TimeSlot timeSlot)
+        {
+            timeSlot = MakeTimeSlot();
+            if (timeSlot.start <= DateTime.Now)
+            {
+                MessageBox.Show("The selected date cannot be in the past.");
+                return true;
+            }
+
+            return false;
         }
 
         public TimeSlot MakeTimeSlot()

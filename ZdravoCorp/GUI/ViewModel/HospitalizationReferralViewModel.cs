@@ -18,11 +18,12 @@ namespace ZdravoCorp.GUI.ViewModel
 {
     public class HospitalizationReferralViewModel:INotifyPropertyChanged
     {
-        private ICommand _submitCommand;
+        ExaminationService examinationService = new ExaminationService();
         private MedicamentService _medicamentService = new MedicamentService();
+        private ICommand _submitCommand;
         public ObservableCollection<Medicament> medicaments;
         public ObservableCollection<TimeForMedicament> timeForMedicaments;
-        public Medicament selectedMedicament;
+        private Medicament selectedMedicament = null;
         public TimeForMedicament? selectedTime = null;
         public Appointment Appointment { get; set; }
 
@@ -39,7 +40,6 @@ namespace ZdravoCorp.GUI.ViewModel
                 OnPropertyChanged(nameof(Medicaments));
             }
         }
-
         public ObservableCollection<TimeForMedicament> TimeForMedicaments
         {
             get { return timeForMedicaments; }
@@ -49,7 +49,6 @@ namespace ZdravoCorp.GUI.ViewModel
                 OnPropertyChanged(nameof(TimeForMedicaments));
             }
         }
-
         public int Duration
         {
             get { return duration; }
@@ -77,7 +76,6 @@ namespace ZdravoCorp.GUI.ViewModel
                 OnPropertyChanged(nameof(Testing));
             }
         }
-
         public Medicament SelectedMedicament
         {
             get { return selectedMedicament; }
@@ -87,7 +85,6 @@ namespace ZdravoCorp.GUI.ViewModel
                 OnPropertyChanged(nameof(SelectedMedicament));
             }
         }
-
         public TimeForMedicament? SelectedTime
         {
             get { return selectedTime; }
@@ -101,8 +98,24 @@ namespace ZdravoCorp.GUI.ViewModel
         public HospitalizationReferralViewModel(Appointment appointment)
         {
             Appointment = appointment;
+            FillFields();
             medicaments = new ObservableCollection<Medicament>(_medicamentService.GetMedicaments());
             timeForMedicaments = new ObservableCollection<TimeForMedicament>(Enum.GetValues(typeof(TimeForMedicament)).Cast<TimeForMedicament>().ToList());
+        }
+
+        public void FillFields()
+        {
+            if (Appointment.ExaminationId == 0) return;
+            Examination examination = examinationService.GetExaminationById(Appointment.ExaminationId);
+            if (examination.HospitalizationRefferal != null)
+            {
+                PerDay = examination.HospitalizationRefferal.InitialTherapy.Instruction.TimePerDay;
+                Duration = examination.HospitalizationRefferal.Duration;
+                Testing = examination.HospitalizationRefferal.AdditionalTesting;
+                SelectedTime = examination.HospitalizationRefferal.InitialTherapy.Instruction.TimeForMedicament;
+                SelectedMedicament = null;
+                SelectedMedicament = examination.HospitalizationRefferal.InitialTherapy.Medicament;
+            }
         }
 
         public bool IsValid()

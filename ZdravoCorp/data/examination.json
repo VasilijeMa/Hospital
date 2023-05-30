@@ -40,8 +40,28 @@
   },
   {
     "Id": 6,
-    "SpecializationRefferal": null,
-    "HospitalizationRefferal": null,
+    "SpecializationRefferal": {
+      "Specialization": null,
+      "DoctorId": 1
+    },
+    "HospitalizationRefferal": {
+      "Duration": 10,
+      "AdditionalTesting": "vanja",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ]
+        },
+        "Instruction": {
+          "TimePerDay": 10,
+          "TimeForMedicament": 1
+        }
+      }
+    },
     "Prescription": {
       "Medicament": {
         "Id": 1,
@@ -56,5 +76,67 @@
         "TimeForMedicament": 2
       }
     }
+  },
+  {
+    "Id": 7,
+    "SpecializationRefferal": {
+      "Specialization": null,
+      "DoctorId": 2
+    },
+    "HospitalizationRefferal": {
+      "Duration": 20,
+      "AdditionalTesting": "vanja",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ]
+        },
+        "Instruction": {
+          "TimePerDay": 2,
+          "TimeForMedicament": 0
+        }
+      }
+    },
+    "Prescription": {
+      "Medicament": {
+        "Id": 1,
+        "Name": "Amoksicilin",
+        "Allergens": [
+          "a",
+          "b"
+        ]
+      },
+      "Instruction": {
+        "TimePerDay": 10,
+        "TimeForMedicament": 0
+      }
+    }
+  },
+  {
+    "Id": 8,
+    "SpecializationRefferal": null,
+    "HospitalizationRefferal": {
+      "Duration": 10,
+      "AdditionalTesting": "vanja",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ]
+        },
+        "Instruction": {
+          "TimePerDay": 5,
+          "TimeForMedicament": 1
+        }
+      }
+    },
+    "Prescription": null
   }
 ]

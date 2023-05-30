@@ -1,0 +1,11 @@
+[
+  {
+    "SecondRoomName": "Examination Room 3",
+    "IsFinished": true,
+    "HasStarted": true,
+    "StartDate": "2023-05-21T00:00:00",
+    "EndDate": "2023-05-22T00:00:00",
+    "RoomName": "Examination Room 1",
+    "EndType": 1
+  }
+]

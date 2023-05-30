@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
@@ -17,24 +18,12 @@ namespace ZdravoCorp.InfrastructureGroup
     }
     public class Room : Infrastructure
     {
+        [JsonProperty("typeOfRoom")]
         private RoomType TypeOfRoom { get; set; }
+        [JsonConstructor]
         public Room(int typeOfRoom, string name) : base(name)
         {
             this.TypeOfRoom = (RoomType)typeOfRoom;
-        }
-
-        public static Dictionary<string, Room> LoadAllExaminationRoom()
-        {
-            Dictionary<string, Room> examinationRooms = new Dictionary<string, Room>();
-            Dictionary<string, Room> allRooms = RoomRepository.LoadAll();
-            foreach (var room in allRooms)
-            {
-                if (RoomType.ExaminationRoom.Equals(room.Value.TypeOfRoom))
-                {
-                    examinationRooms.Add(room.Key, room.Value);
-                }
-            }
-            return examinationRooms;
         }
 
         public RoomType GetTypeOfRoom() { return TypeOfRoom; }

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.ManagerView
@@ -20,10 +21,13 @@ namespace ZdravoCorp.ManagerView
     /// </summary>
     public partial class RenovationView : Window
     {
-        public RenovationView()
+        public RenovationView(RenovationType renovationType)
         {
-            DataContext = new RenovationViewModel();
+            RenovationViewModel viewModel = new RenovationViewModel(renovationType);
+            DataContext = viewModel;
             InitializeComponent();
+            viewModel.ShouldRunCommands = true;
+            DataContext = viewModel;
         }
 
     }

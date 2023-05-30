@@ -142,6 +142,20 @@ namespace ZdravoCorp.Core.Repositories
             return schedule.Appointments.Where(appointment => patientId == appointment.PatientId && doctorId == appointment.DoctorId).ToList();
         }
 
+        public bool IsRoomScheduledForAppointment(string roomName, DateTime endDate)
+        {
+            bool isScheduled;
+            foreach(var appointment in schedule.Appointments)
+            {
+                isScheduled = appointment.IdRoom == roomName && appointment.TimeSlot.start > endDate;
+                if (isScheduled)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
         public bool ContainsKey(DateTime date)
         {
             return schedule.DailyAppointments.ContainsKey(date);

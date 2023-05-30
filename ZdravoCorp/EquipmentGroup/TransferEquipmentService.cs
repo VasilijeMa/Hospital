@@ -122,11 +122,11 @@ namespace ZdravoCorp.EquipmentGroup
         public static void MoveAllStaticEquipment(object state)
         {
             bool anyRequestsChanged = false;
-
-            Warehouse warehouse = WarehouseRepository.Load();
+            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            Warehouse warehouse = warehouseRepository.Load();
             Dictionary<string, int> inventory = warehouse.GetInventory();
-
-            List<FunctionalItem> functionalItems = FunctionalItemRepository.LoadAll();
+            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            List<FunctionalItem> functionalItems = functionalItemRepository.LoadAll();
             List<StaticEquipmentTransferRequest> allRequests = StaticEquipmentTransferRequestRepository.LoadAll();
 
             foreach (StaticEquipmentTransferRequest request in allRequests)
@@ -170,8 +170,8 @@ namespace ZdravoCorp.EquipmentGroup
             if (anyRequestsChanged)
             {
                 StaticEquipmentTransferRequestRepository.SaveAll(allRequests);
-                FunctionalItemRepository.SaveAll(functionalItems);
-                WarehouseRepository.Save(warehouse);
+                functionalItemRepository.SaveAll(functionalItems);
+                warehouseRepository.Save(warehouse);
             }
         }
 
@@ -181,11 +181,13 @@ namespace ZdravoCorp.EquipmentGroup
 
             if (itemsForTransfer.Count > 0)
             {
-                List<FunctionalItem> functionalItems = FunctionalItemRepository.LoadAll();
+                FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+                List<FunctionalItem> functionalItems = functionalItemRepository.LoadAll();
 
                 if (fromWarehouse)
                 {
-                    Warehouse warehouse = WarehouseRepository.Load();
+                    WarehouseRepository warehouseRepository = new WarehouseRepository();
+                    Warehouse warehouse = warehouseRepository.Load();
                     Dictionary<string, int> inventory = warehouse.GetInventory();
 
                     foreach (AlteredEquipmentQuantity equipmentQuantity in itemsForTransfer)
@@ -197,7 +199,7 @@ namespace ZdravoCorp.EquipmentGroup
 
                     }
 
-                    WarehouseRepository.Save(warehouse);
+                    warehouseRepository.Save(warehouse);
                 }
 
                 else
@@ -211,10 +213,32 @@ namespace ZdravoCorp.EquipmentGroup
 
                     }
                 }
-                FunctionalItemRepository.SaveAll(functionalItems);
+                functionalItemRepository.SaveAll(functionalItems);
                 return true;
             }
             return false;
+
+        }
+
+        public static List<FunctionalItem> LoadDynamicFunctionalItems()
+        {
+            List<FunctionalItem> allPossibleCombinations = new List<FunctionalItem>();
+
+            FunctionalItemRepository allFunctionalItems = new FunctionalItemRepository();
+            RoomRepository roomRepository = new RoomRepository();
+            List<string> rooms = roomRepository.GetAllNames();
+            Dictionary<string, EquipmentQuantity> dynamicEquipment = EquipmentRepository.LoadOnlyStaticOrDynamic(true);
+            bool found = false;
+            foreach (string roomName in rooms)
+            {
+                foreach (string equipmentName in dynamicEquipment.Keys)
+                {
+                    FunctionalItem combination = allFunctionalItems.FindOrMakeCombination(roomName, equipmentName);
+                    allPossibleCombinations.Add(combination);
+                }
+            }
+            return allPossibleCombinations;
+
 
         }
     }

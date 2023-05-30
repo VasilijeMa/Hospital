@@ -14,9 +14,10 @@ namespace ZdravoCorp.ManagerView
         public TransferStaticEquipment()
         {
             DataContext = this;
-
-            Dictionary<string, Room> rooms = RoomRepository.LoadAll();
-            Warehouse warehouse = WarehouseRepository.Load();
+            RoomRepository roomRepository = new RoomRepository();
+            Dictionary<string, Room> rooms = roomRepository.LoadAll();
+            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            Warehouse warehouse = warehouseRepository.Load();
 
             FromOptions = new List<string>() { warehouse.GetName() };
             ToOptions = new List<string>();

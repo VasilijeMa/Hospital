@@ -12,12 +12,14 @@ namespace ZdravoCorp.Core.Domain
         public int TimePerDay { get; set; }
         public TimeForMedicament? TimeForMedicament { get; set; }
 
+        public int Duration { get; set; }
         public Instruction() { }
 
-        public Instruction(int timePerDay, TimeForMedicament? timeForMedicament)
+        public Instruction(int timePerDay, TimeForMedicament? timeForMedicament, int duration)
         {
             TimePerDay = timePerDay;
             TimeForMedicament = timeForMedicament;
+            Duration = duration;
         }
     }
 }

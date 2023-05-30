@@ -5,11 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
-        Title="Nurse" Height="590" Width="900" WindowStartupLocation="CenterScreen" Icon="/icon.png">
+        Title="Nurse" Height="800" Width="900" WindowStartupLocation="CenterScreen" Icon="/icon.png">
     <Grid Background="#FFFFA7A7">
         <Button x:Name="CRUDpatients" Content="CRUD patient" HorizontalAlignment="Left" Height="80" Margin="92,50,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="CRUDpatients_Click" />
         <Button x:Name="PatientAdmission" Content="Admission of patients" HorizontalAlignment="Left" Height="80" Margin="92,150,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="PatientAdmission_Click"  />
         <Button x:Name="Emergency" Content="Scheduling emergency examinations or surgeries" HorizontalAlignment="Left" Height="80" Margin="92,250,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="Emergency_Click"   />
-        <Button x:Name="SchedulingAppointment" Content="Scheduling examination based on doctor's referral" HorizontalAlignment="Left" Height="80" Margin="92,350,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="SchedulingAppointment_Click"/>
+        <Button x:Name="SchedulingAppointmentUsingReferral" Content="Scheduling examination based on doctor's referral" HorizontalAlignment="Left" Height="80" Margin="92,350,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="SchedulingAppointment_Click"/>
+        <Button x:Name="DepensingMedicaments" Content="Dispensing medicaments for patients" HorizontalAlignment="Left" Height="80" Margin="92,450,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="DepensingMedicaments_Click" />
+        <Button x:Name="SchedulingAppointmentForPatient" Content="Scheduling appointment" HorizontalAlignment="Left" Height="80" Margin="92,550,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="SchedulingAppointment_Click_1"/>
+        <Button x:Name="MedicamentsLessThanFive" Content="Show all medicaments less than 5 in stock" HorizontalAlignment="Left" Height="80" Margin="92,650,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="MedicamentsLessThanFive_Click"/>
     </Grid>
 </Window>

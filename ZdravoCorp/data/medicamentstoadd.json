@@ -1,0 +1,14 @@
+[
+  {
+    "MedicamentId": 1,
+    "NewQuantity": 10,
+    "DateOfOrder": "2023-05-25",
+    "IsDone": false
+  },
+  {
+    "MedicamentId": 1,
+    "NewQuantity": 10,
+    "DateOfOrder": "2023-05-29",
+    "IsDone": true
+  }
+]

@@ -149,6 +149,11 @@ namespace ZdravoCorp.Core.Servieces
             return doctorRepository.getDoctor(doctorId);
         }
 
+        public Doctor GetByUsername(String username) 
+        {
+            return doctorRepository.GetByUsername(username);
+        }
+
         public List<Doctor> SearchDoctors(string keyword)
         {
             return doctorRepository.SearchDoctors(keyword);

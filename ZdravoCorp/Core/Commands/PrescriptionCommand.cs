@@ -60,8 +60,8 @@ namespace ZdravoCorp.Core.Commands
         public Prescription CreatePrescription()
         {
             Medicament medicament = viewModel.SelectedMedicament;
-            Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime);
-            Prescription prescription = new Prescription(medicament, instruction);
+            Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime,5);
+            Prescription prescription = new Prescription(medicament, instruction, DateOnly.FromDateTime(DateTime.Now),false);
             notificationService = new NotificationService(viewModel.Appointment.PatientId);
             notificationService.CreateNotification(medicament.Name, viewModel.Appointment.PatientId, instruction.TimePerDay, 0, null);
             return prescription;

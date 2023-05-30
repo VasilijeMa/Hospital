@@ -155,7 +155,7 @@ namespace ZdravoCorp
         }
         private bool isSelectedRefferal() 
         {
-            if (patients.SelectedItem == null)
+            if (patientsExaminations.SelectedItem == null)
             {
                 MessageBox.Show("You must select examination id.", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
                 return false;
@@ -179,9 +179,7 @@ namespace ZdravoCorp
         {
             if (isSelectedPatient())
             {
-
-                MessageBox.Show(patients.SelectedItem.ToString(), "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
-                List<int> examinationsIds = examinationService.GetExaminationsIdsByPatient(patients.SelectedItem.ToString());
+                List<int> examinationsIds = examinationService.GetExaminationsIdsForReferral(patients.SelectedItem.ToString());
                 if (examinationsIds.Count()!=0)
                 {
                     fillComboBoxWithRefferals(examinationsIds);

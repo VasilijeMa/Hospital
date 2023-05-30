@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZdravoCorp.EquipmentGroup;
 
 namespace ZdravoCorp.InfrastructureGroup
 {
@@ -13,7 +8,7 @@ namespace ZdravoCorp.InfrastructureGroup
     {
         private List<Renovation> _renovations;
 
-        private List<Renovation> LoadAll() //different for Extended
+        private List<Renovation> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/simpleRenovations.json");
@@ -37,16 +32,6 @@ namespace ZdravoCorp.InfrastructureGroup
         public void Add(Renovation renovation)
         {
             _renovations.Add(renovation);
-            SaveAll();
-        }
-
-        public void AddAll(List<Renovation> renovations)
-        {
-            if (renovations.Count == 0) { return; }
-            foreach (var renovation in renovations)
-            {
-                _renovations.Add(renovation);
-            }
             SaveAll();
         }
 

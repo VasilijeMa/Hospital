@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZdravoCorp.EquipmentGroup;
 
 namespace ZdravoCorp.InfrastructureGroup
 {
@@ -37,16 +32,6 @@ namespace ZdravoCorp.InfrastructureGroup
         public void Add(MergeRenovation renovation)
         {
             _renovations.Add(renovation);
-            SaveAll();
-        }
-
-        public void AddAll(List<MergeRenovation> renovations)
-        {
-            if (renovations.Count == 0) { return; }
-            foreach (var renovation in renovations)
-            {
-                _renovations.Add(renovation);
-            }
             SaveAll();
         }
 

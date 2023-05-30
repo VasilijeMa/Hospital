@@ -9,8 +9,8 @@ namespace ZdravoCorp.InfrastructureGroup
 {
     public class Renovation
     {
-        public bool IsFinished;
-        public bool HasStarted;
+        public bool IsFinished = false;
+        public bool HasStarted = false;
         public DateTime StartDate;
         public DateTime EndDate;
         public string RoomName;
@@ -18,8 +18,6 @@ namespace ZdravoCorp.InfrastructureGroup
 
         public Renovation(DateTime startDate, DateTime endDate, string roomName, int endType)
         {
-            IsFinished = false;
-            HasStarted = false;
             StartDate = startDate;
             EndDate = endDate;
             RoomName = roomName;

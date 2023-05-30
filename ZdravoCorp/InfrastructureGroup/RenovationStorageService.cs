@@ -63,26 +63,20 @@ namespace ZdravoCorp.InfrastructureGroup
 
         public void AddAll(List<Renovation> newRenovations)
         {
-            List<Renovation> newSimpleRenovations = new List<Renovation>();
-            List<MergeRenovation> newMergeRenovations = new List<MergeRenovation>();
-            List<SplitRenovation> newSplitRenovations = new List<SplitRenovation>();
             foreach (var renovation in newRenovations)
             {
                 if (renovation.GetType() == typeof(MergeRenovation))
                 {
-                    newMergeRenovations.Add((MergeRenovation) renovation);
+                    _mergeRenovationRepository.Add((MergeRenovation) renovation);
                     continue;
                 }
                 if (renovation.GetType() == typeof(SplitRenovation))
                 {
-                    newSplitRenovations.Add((SplitRenovation) renovation);
+                    _splitRenovationRepository.Add((SplitRenovation) renovation);
                     continue;
                 }
-                newSimpleRenovations.Add(renovation);
+                _simpleRenovationRepository.Add(renovation);
             }
-            _simpleRenovationRepository.AddAll(newSimpleRenovations);
-            _mergeRenovationRepository.AddAll(newMergeRenovations);
-            _splitRenovationRepository.AddAll(newSplitRenovations);
         }
     }
 }

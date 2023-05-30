@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using ZdravoCorp.Commands;
+using ZdravoCorp.Core.Commands;
+using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.ManagerView
@@ -11,113 +12,85 @@ namespace ZdravoCorp.ManagerView
     {
         public List<string> RoomNames { get; set; }
         public List<string> RoomTypes { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public int RoomNamePosition { get; set; }
-        public int EndType { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Today;
+        public DateTime EndDate { get; set; } = DateTime.Today;
+        public int RoomNamePosition { get; set; } = 0;
+        public int EndType { get; set; } = 0;
         public ICommand RecordRenovationCommand { get; }
         public bool IsMerging { get; set; }
-        public int SecondRoomNamePosition { get; set; }
+        public int SecondRoomNamePosition { get; set; } = 0;
         public bool IsSplitting { get; set; }
-        public int SecondEndType { get; set; }
-        public bool ShouldRunCommands { get; set; }
+        public int SecondEndType { get; set; } = 0;
+        public bool ShouldRunCommands { get; set; } = false;
 
-        public RenovationViewModel(int type)
+        public RenovationViewModel(RenovationType renovationType)
         {
             RenovationRecordingService renovationService = new RenovationRecordingService();
             RoomNames = renovationService.LoadAllRooms();
             RoomTypes = Room.LoadAllRoomTypes();
-            StartDate = DateTime.Now;
-            EndDate = DateTime.Now;
-            RoomNamePosition = 0;
-            EndType = 0;
-            IsMerging = type == 1;
-            IsSplitting = type == 2;
-            SecondRoomNamePosition = 0;
-            SecondEndType = 0;
-            ShouldRunCommands = false;
-            RecordRenovationCommand = new RelayCommand(RecordRenovation, CanRecordRenovation);
+            IsMerging = renovationType == RenovationType.Merge;
+            IsSplitting = renovationType == RenovationType.Split;
+            RecordRenovationCommand = new RecordRenovationCommand(this);
         }
 
-        private string CheckDates(DateTime startDate, DateTime endDate)
+        private string CheckDates()
         {
-            if (startDate >= endDate)
+            if (StartDate >= EndDate)
             {
                 return "End date must be after start date.";
             }
-            if (startDate <= DateTime.Today)
+            if (StartDate <= DateTime.Today)
             {
                 return "Renovation must be scheduled in the future.";
             }
             return null;
         }
 
-        private string ValidateConditions()
+        private string CheckRoomAvailability()
+        {
+            RenovationRecordingService renovationService = new RenovationRecordingService();
+            string error = renovationService.CheckRoomAvailability(RoomNames[RoomNamePosition], EndDate);
+            if (error != null)
+            {
+                return error;
+            }
+            if (IsMerging)
+            {
+                return renovationService.CheckRoomAvailability(RoomNames[SecondRoomNamePosition], EndDate);
+            }
+            return null;
+        }
+
+        public string ValidateConditions()
         {
             bool isMergingTheSameRoom = IsMerging && RoomNamePosition == SecondRoomNamePosition;
             if (isMergingTheSameRoom)
             {
                 return "Cannot merge a room with itself.";
             }
-            string error = CheckDates(StartDate, EndDate);
+            string error = CheckDates();
             if (error != null)
             {
                 return error;
             }
-            RenovationRecordingService renovationService = new RenovationRecordingService();
-            error = renovationService.CheckRoomAvailability(RoomNames[RoomNamePosition]);
-            if(error != null)
-            {
-                return error;
-            }
-            if (IsMerging)
-            {
-                return renovationService.CheckRoomAvailability(RoomNames[SecondRoomNamePosition]);
-            }
-            return null;
+            return CheckRoomAvailability();
         }
 
-        private void SaveRenovation()
+        public void SaveRenovation()
         {
             RenovationRecordingService renovationService = new RenovationRecordingService();
+            Renovation renovation = new Renovation(StartDate, EndDate, RoomNames[RoomNamePosition], EndType + 1);
             if (IsMerging)
             {
-                MergeRenovation mergeRenovation = new MergeRenovation(StartDate, EndDate, RoomNames[RoomNamePosition], EndType + 1, RoomNames[SecondRoomNamePosition]);
-                renovationService.SaveRenovation(mergeRenovation);
+                renovationService.SaveRenovation(new MergeRenovation(renovation, RoomNames[SecondRoomNamePosition]));
                 return;
             }
             if (IsSplitting)
             {
-                SplitRenovation splitRenovation = new SplitRenovation(StartDate, EndDate, RoomNames[RoomNamePosition], EndType + 1, SecondEndType + 1);
-                renovationService.SaveRenovation(splitRenovation);
+                renovationService.SaveRenovation(new SplitRenovation(renovation, SecondEndType + 1));
                 return;
             }
-            Renovation renovation = new Renovation(StartDate, EndDate, RoomNames[RoomNamePosition], EndType + 1);
             renovationService.SaveRenovation(renovation);
-        }
-
-        private void RecordRenovation(object obj)
-        {
-            if (!ShouldRunCommands)
-            {
-                return;
-            }
-            SaveRenovation();
-            MessageBox.Show("Renovation successfully recorded.");
-        }
-
-        private bool CanRecordRenovation(object obj)
-        {
-            if(!ShouldRunCommands)
-            {
-                return true;
-            }
-            string error = ValidateConditions();
-            if (error != null)
-            {
-                MessageBox.Show(error);
-            }
-            return error == null;
         }
     }
 }

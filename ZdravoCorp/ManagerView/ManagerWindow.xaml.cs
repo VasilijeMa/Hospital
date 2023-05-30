@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ZdravoCorp.Core.Domain.Enums;
 
 namespace ZdravoCorp.ManagerView
 {
@@ -38,22 +39,22 @@ namespace ZdravoCorp.ManagerView
 
         private void SimpleRenovationClick(object sender, RoutedEventArgs e)
         {
-            RenovationView newWindow = new RenovationView(0);
+            RenovationView newWindow = new RenovationView(RenovationType.Simple);
             newWindow.ShowDialog();
         }
         private void MergeRenovationClick(object sender, RoutedEventArgs e)
         {
-            RenovationView newWindow = new RenovationView(1);
+            RenovationView newWindow = new RenovationView(RenovationType.Merge);
             newWindow.ShowDialog();
         }
         private void SplitRenovationClick(object sender, RoutedEventArgs e)
         {
-            RenovationView newWindow = new RenovationView(2);
+            RenovationView newWindow = new RenovationView(RenovationType.Split);
             newWindow.ShowDialog();
         }
         private void LogOutClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

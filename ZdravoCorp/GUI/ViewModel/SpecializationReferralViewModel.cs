@@ -18,8 +18,9 @@ namespace ZdravoCorp.GUI.ViewModel
 {
     public class SpecializationReferralViewModel : INotifyPropertyChanged
     {
-        private ICommand _refereCommand;
+        ExaminationService examinationService = new ExaminationService();
         private DoctorService doctorService = new DoctorService();
+        private ICommand _refereCommand;
         private ObservableCollection<Doctor> doctors;
         private Doctor selectedDoctor = null;
         private Specialization? selectedSpecialization = null;
@@ -27,6 +28,7 @@ namespace ZdravoCorp.GUI.ViewModel
         private bool isDoctor = false;
         public Appointment Appointment { get; private set; }
         private ObservableCollection<Specialization> specializations;
+
         public ObservableCollection<Specialization> Specializations
         {
             get { return specializations; }
@@ -88,6 +90,7 @@ namespace ZdravoCorp.GUI.ViewModel
         public SpecializationReferralViewModel(Appointment appointment)
         {
             Appointment = appointment;
+            FillFields();
             doctors = new ObservableCollection<Doctor>(doctorService.GetDoctors());
             specializations = new ObservableCollection<Specialization>(doctorService.GetSpecializationOfDoctors());
         }
@@ -95,6 +98,27 @@ namespace ZdravoCorp.GUI.ViewModel
         public bool IsValid()
         {
             return isDoctor == false && isSpecialization == false;
+        }
+
+        public void FillFields()
+        {
+            if (Appointment.ExaminationId == 0) return;
+            Examination examination = examinationService.GetExaminationById(Appointment.ExaminationId);
+            if (examination.SpecializationRefferal != null)
+            {
+                if (examination.SpecializationRefferal.Specialization != null)
+                {
+                    isSpecialization = true;
+                    SelectedSpecialization = examination.SpecializationRefferal.Specialization;
+                    return;
+                }
+                if (examination.SpecializationRefferal.DoctorId != -1)
+                {
+                    isDoctor = true;
+                    Doctor doctor = doctorService.GetDoctor(examination.SpecializationRefferal.DoctorId);
+                    SelectedDoctor = doctor;
+                }
+            }
         }
 
         public ICommand ReferCommand

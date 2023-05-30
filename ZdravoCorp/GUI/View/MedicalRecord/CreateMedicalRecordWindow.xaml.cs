@@ -17,6 +17,7 @@ namespace ZdravoCorp
     {
         bool doctor;
         bool create;
+        bool update;
         Patient patient;
         MedicalRecord selectedRecord;
         Appointment selectedAppointment;
@@ -35,13 +36,20 @@ namespace ZdravoCorp
             this.doctor = doctor;
             this.create = create;
             this.patient = patient;
+            this.update = update;
             this.selectedAppointment = selectedAppointment;
+            addPrescription.Visibility = Visibility.Hidden;
+            setWindow();
+        }
 
+        public void setWindow()
+        {
             if (doctor)
             {
                 addAnamnesis.Visibility = Visibility.Hidden;
                 confirm.Visibility = Visibility.Hidden;
                 cancel.Visibility = Visibility.Hidden;
+                addPrescription.Visibility = Visibility.Visible;
             }
             if (!create)
             {
@@ -249,8 +257,28 @@ namespace ZdravoCorp
 
         private void addPrescription_Click(object sender, RoutedEventArgs e)
         {
+            if (!CanAddPrescription())
+            {
+                return;
+            }
             PrescriptionView prescriptionView = new PrescriptionView(selectedAppointment);
             prescriptionView.ShowDialog();
+        }
+
+        private bool CanAddPrescription()
+        {
+            Anamnesis findAnamnesis = anamnesisService.findAnamnesisById(selectedAppointment);
+            if (findAnamnesis == null)
+            {
+                MessageBox.Show("The patient must first check in with the nurse.");
+                return false;
+            }
+            if (findAnamnesis.DoctorsObservation == "" && findAnamnesis.DoctorsConclusion == "")
+            {
+                MessageBox.Show("You must first fill anamnesis");
+                return false;
+            }
+            return true;
         }
     }
 }

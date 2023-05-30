@@ -14,7 +14,5 @@ namespace ZdravoCorp.View
             InitializeComponent();
             DataContext = new HospitalizationReferralViewModel(appointment);
         }
-
-
     }
 }

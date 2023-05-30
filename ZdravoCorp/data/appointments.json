@@ -86,8 +86,8 @@
   {
     "Id": 8,
     "TimeSlot": {
-      "start": "2023-05-29T19:00:00",
-      "duration": 151
+      "start": "2023-05-30T17:30:00",
+      "duration": 15
     },
     "DoctorId": 1,
     "PatientId": 3,
@@ -422,7 +422,7 @@
   {
     "Id": 38,
     "TimeSlot": {
-      "start": "2023-05-23T21:00:00",
+      "start": "2023-05-29T23:30:00",
       "duration": 20
     },
     "DoctorId": 1,
@@ -511,90 +511,6 @@
     },
     "DoctorId": 1,
     "PatientId": 1,
-    "IsCanceled": false,
-    "IdRoom": "Examination Room 1",
-    "ExaminationId": 0
-  },
-  {
-    "Id": 43,
-    "TimeSlot": {
-      "start": "2023-06-06T15:15:15",
-      "duration": 30
-    },
-    "DoctorId": 2,
-    "PatientId": 1,
-    "IsCanceled": false,
-    "IdRoom": "Examination Room 1",
-    "ExaminationId": 0
-  },
-  {
-    "Id": 44,
-    "TimeSlot": {
-      "start": "2023-07-07T11:11:11",
-      "duration": 15
-    },
-    "DoctorId": 2,
-    "PatientId": 1,
-    "IsCanceled": false,
-    "IdRoom": "Examination Room 1",
-    "ExaminationId": 0
-  },
-  {
-    "Id": 45,
-    "TimeSlot": {
-      "start": "2023-08-08T15:15:15",
-      "duration": 15
-    },
-    "DoctorId": 2,
-    "PatientId": 1,
-    "IsCanceled": false,
-    "IdRoom": "Examination Room 1",
-    "ExaminationId": 0
-  },
-  {
-    "Id": 46,
-    "TimeSlot": {
-      "start": "2023-06-06T10:15:15",
-      "duration": 15
-    },
-    "DoctorId": 1,
-    "PatientId": 4,
-    "IsCanceled": false,
-    "IdRoom": "Examination Room 1",
-    "ExaminationId": 0
-  },
-  {
-    "Id": 47,
-    "TimeSlot": {
-      "start": "2023-05-30T21:00:00",
-      "duration": 15
-    },
-    "DoctorId": 1,
-    "PatientId": 4,
-    "IsCanceled": false,
-    "IdRoom": "Examination Room 1",
-    "ExaminationId": 7
-  },
-  {
-    "Id": 48,
-    "TimeSlot": {
-      "start": "2023-06-06T15:15:00",
-      "duration": 20
-    },
-    "DoctorId": 1,
-    "PatientId": 4,
-    "IsCanceled": false,
-    "IdRoom": "Examination Room 2",
-    "ExaminationId": 0
-  },
-  {
-    "Id": 49,
-    "TimeSlot": {
-      "start": "2023-07-07T15:15:00",
-      "duration": 15
-    },
-    "DoctorId": 1,
-    "PatientId": 2,
     "IsCanceled": false,
     "IdRoom": "Examination Room 1",
     "ExaminationId": 0

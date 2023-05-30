@@ -16,7 +16,7 @@
         <ComboBox ItemsSource="{Binding RoomNames}" SelectedIndex="{Binding RoomNamePosition, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="80,169,0,0" VerticalAlignment="Top" Width="180" />
         <ComboBox ItemsSource="{Binding RoomNames}" SelectedIndex="{Binding SecondRoomNamePosition, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=IsMerging, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Margin="80,240,0,0" VerticalAlignment="Top" Width="180" />
         <ComboBox ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding EndType, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="539,169,0,0" VerticalAlignment="Top" Width="180" />
-        <ComboBox SelectedIndex="{Binding SecondEndType, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=IsSplitting, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Margin="539,240,0,0" VerticalAlignment="Top" Width="180" />
+        <ComboBox ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding SecondEndType, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=IsSplitting, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Margin="539,240,0,0" VerticalAlignment="Top" Width="180" />
 
         <Label Content="Start date" Padding="0" HorizontalAlignment="Left" Height="22" Margin="80,73,0,0" VerticalAlignment="Top" Width="153"/>
         <Label Content="End date" Padding="0" HorizontalAlignment="Left" Height="22" Margin="539,73,0,0" VerticalAlignment="Top" Width="153"/>

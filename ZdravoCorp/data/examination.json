@@ -51,7 +51,8 @@
     "Id": 6,
     "SpecializationRefferal": {
       "Specialization": null,
-      "DoctorId": 1
+      "DoctorId": 1,
+      "IsUsed": false
     },
     "HospitalizationRefferal": {
       "Duration": 10,
@@ -63,12 +64,16 @@
           "Allergens": [
             "a",
             "b"
-          ]
+          ],
+          "Quantity": 0
         },
         "Instruction": {
           "TimePerDay": 10,
-          "TimeForMedicament": 1
-        }
+          "TimeForMedicament": 1,
+          "Duration": 0
+        },
+        "DateOfGiving": "0001-01-01",
+        "IsUsed": false
       }
     },
     "Prescription": {
@@ -142,7 +147,8 @@
     "Id": 7,
     "SpecializationRefferal": {
       "Specialization": null,
-      "DoctorId": 2
+      "DoctorId": 2,
+      "IsUsed": false
     },
     "HospitalizationRefferal": {
       "Duration": 20,
@@ -154,12 +160,16 @@
           "Allergens": [
             "a",
             "b"
-          ]
+          ],
+          "Quantity": 0
         },
         "Instruction": {
           "TimePerDay": 2,
-          "TimeForMedicament": 0
-        }
+          "TimeForMedicament": 0,
+          "Duration": 0
+        },
+        "DateOfGiving": "0001-01-01",
+        "IsUsed": false
       }
     },
     "Prescription": {
@@ -169,12 +179,16 @@
         "Allergens": [
           "a",
           "b"
-        ]
+        ],
+        "Quantity": 0
       },
       "Instruction": {
         "TimePerDay": 10,
-        "TimeForMedicament": 0
-      }
+        "TimeForMedicament": 0,
+        "Duration": 0
+      },
+      "DateOfGiving": "0001-01-01",
+      "IsUsed": false
     }
   },
   {
@@ -190,14 +204,62 @@
           "Allergens": [
             "a",
             "b"
-          ]
+          ],
+          "Quantity": 0
         },
         "Instruction": {
           "TimePerDay": 5,
-          "TimeForMedicament": 1
-        }
+          "TimeForMedicament": 1,
+          "Duration": 0
+        },
+        "DateOfGiving": "0001-01-01",
+        "IsUsed": false
       }
     },
     "Prescription": null
+  },
+  {
+    "Id": 9,
+    "SpecializationRefferal": null,
+    "HospitalizationRefferal": {
+      "Duration": 15,
+      "AdditionalTesting": "ne",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ],
+          "Quantity": 10
+        },
+        "Instruction": {
+          "TimePerDay": 1,
+          "TimeForMedicament": 2,
+          "Duration": 5
+        },
+        "DateOfGiving": "2023-05-30",
+        "IsUsed": false
+      }
+    },
+    "Prescription": {
+      "Medicament": {
+        "Id": 1,
+        "Name": "Amoksicilin",
+        "Allergens": [
+          "a",
+          "b"
+        ],
+        "Quantity": 10
+      },
+      "Instruction": {
+        "TimePerDay": 1,
+        "TimeForMedicament": 3,
+        "Duration": 5
+      },
+      "DateOfGiving": "2023-05-30",
+      "IsUsed": false
+    }
   }
 ]

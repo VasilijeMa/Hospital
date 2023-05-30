@@ -113,8 +113,10 @@ namespace ZdravoCorp.GUI.ViewModel
                 Duration = examination.HospitalizationRefferal.Duration;
                 Testing = examination.HospitalizationRefferal.AdditionalTesting;
                 SelectedTime = examination.HospitalizationRefferal.InitialTherapy.Instruction.TimeForMedicament;
-                SelectedMedicament = null;
-                SelectedMedicament = examination.HospitalizationRefferal.InitialTherapy.Medicament;
+                Medicament medicament =
+                    _medicamentService.GetMedicamentById(examination.HospitalizationRefferal.InitialTherapy.Medicament
+                        .Id);
+                SelectedMedicament = medicament;
             }
         }
 

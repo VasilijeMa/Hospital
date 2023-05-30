@@ -3,7 +3,8 @@
     "Id": 5,
     "SpecializationRefferal": {
       "Specialization": 6,
-      "DoctorId": -1
+      "DoctorId": -1,
+      "IsUsed": true
     },
     "HospitalizationRefferal": {
       "Duration": 15,

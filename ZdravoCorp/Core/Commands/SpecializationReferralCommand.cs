@@ -78,7 +78,7 @@ namespace ZdravoCorp.Core.Commands
                 selectedSpecialization = viewModel.SelectedSpecialization;
                 selectedDoctorId = -1;
             }
-            return new SpecializationReferral(selectedSpecialization, selectedDoctorId);
+            return new SpecializationReferral(selectedSpecialization, selectedDoctorId,false);
         }
     }
 }

@@ -33,5 +33,10 @@ namespace ZdravoCorp
             emergencyOperationOrExamination.ShowDialog();
         }
 
+        private void SchedulingAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            SchedulingAppointmentUsingReferral schedulingAppointmentUsingReferral = new SchedulingAppointmentUsingReferral();
+            schedulingAppointmentUsingReferral.ShowDialog();
+        }
     }
 }

@@ -283,6 +283,17 @@ namespace ZdravoCorp.Core.Servieces
             return "";
         }
 
+        public Appointment GetAppointmentByExaminationId(int examinationId) 
+        {
+            foreach (Appointment appointment in scheduleRepository.GetAppointments()) 
+            {
+                if (appointment.ExaminationId == examinationId)
+                {
+                    return appointment;
+                }
+            }
+            return null;
+        }
 
         public Appointment CreateAppointment(Appointment appointment)
         {

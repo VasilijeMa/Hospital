@@ -6,10 +6,13 @@ namespace ZdravoCorp.Core.Domain
         public Specialization? Specialization { get; set; }
         public int DoctorId { get; set; }
 
-        public SpecializationReferral(Specialization? specialization, int doctorId)
+        public bool IsUsed { get; set; }
+
+        public SpecializationReferral(Specialization? specialization, int doctorId, bool isUsed)
         {
             DoctorId = doctorId;
             Specialization = specialization;
+            IsUsed = isUsed;
         }
     }
 }

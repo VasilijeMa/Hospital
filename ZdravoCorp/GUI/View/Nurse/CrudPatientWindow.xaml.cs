@@ -19,11 +19,13 @@ namespace ZdravoCorp
         private Nurse nurse;
         private MedicalRecordService medicalRecordService;
         private PatientService patientService;
+        private UserService userService;
         public CrudPatientWindow(Nurse nurse)
         {
             InitializeComponent();
             medicalRecordService = new MedicalRecordService();
             patientService = new PatientService();
+            userService = new UserService();
             this.nurse = nurse;
             LoadData();
         }
@@ -118,8 +120,8 @@ namespace ZdravoCorp
 
                     patients.Remove(selectedPatient);
                     records.Remove(selectedRecord);
-                    Singleton.Instance.UserRepository.RemoveUser(selectedPatient.Username);
-                    Singleton.Instance.UserRepository.WriteAll();
+                    userService.RemoveUser(selectedPatient.Username);
+                    userService.WriteAll();
                     patientService.WriteAll();
                     medicalRecordService.WriteAll();
                     LoadData();

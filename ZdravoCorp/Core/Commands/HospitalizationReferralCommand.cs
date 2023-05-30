@@ -10,6 +10,7 @@ namespace ZdravoCorp.Core.Commands
     {
         private HospitalizationReferralViewModel viewModel;
         private ScheduleService scheduleService = new ScheduleService();
+        private MedicalRecordService medicalRecordService = new MedicalRecordService();
         private ExaminationService examinationService = new ExaminationService();
         public HospitalizationReferralCommand(HospitalizationReferralViewModel viewModel)
         {
@@ -21,6 +22,11 @@ namespace ZdravoCorp.Core.Commands
             if (!viewModel.IsValid())
             {
                 MessageBox.Show("You must fill in all fields.");
+                return;
+            }
+            if (medicalRecordService.IsAllergic(viewModel.Appointment.PatientId, viewModel.SelectedMedicament))
+            {
+                MessageBox.Show("The patient has an allergy to the medicament");
                 return;
             }
             Prescription prescription = CreatePrescription();

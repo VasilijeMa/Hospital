@@ -15,7 +15,9 @@ namespace ZdravoCorp.Core.Domain
         public int MinutesBefore { get; set; }
         public DateTime? Date { get; set; }
         public bool IsActive { get; set; }
-        public Notification(){}
+
+        public Notification() { }
+
         public Notification(int id, int patientId, string message, int timesPerDay, int minutesBefore, DateTime? date)
         {
             Id = id;

@@ -38,5 +38,24 @@
         "TimeForMedicament": 0
       }
     }
+  },
+  {
+    "Id": 6,
+    "SpecializationRefferal": null,
+    "HospitalizationRefferal": null,
+    "Prescription": {
+      "Medicament": {
+        "Id": 1,
+        "Name": "Amoksicilin",
+        "Allergens": [
+          "a",
+          "b"
+        ]
+      },
+      "Instruction": {
+        "TimePerDay": 1,
+        "TimeForMedicament": 2
+      }
+    }
   }
 ]

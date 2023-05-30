@@ -21,6 +21,7 @@ namespace ZdravoCorp.Core.Commands
         {
             this.viewModel = viewModel;
         }
+
         public override void Execute(object? parameter)
         {
             List<Doctor> doctors = doctorService.SearchDoctors(viewModel.SearchBy.Trim().ToUpper());

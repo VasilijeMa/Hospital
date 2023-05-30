@@ -41,6 +41,14 @@ namespace ZdravoCorp.Core.Repositories
             return null;
         }
 
+        public Medicament GetByName(string name) 
+        {
+            foreach (var medicament in medicaments) 
+            {
+                if (medicament.Name == name) return medicament;
+            }
+            return null;
+        }
         public List<Medicament> GetMedicaments()
         {
             return Medicaments;

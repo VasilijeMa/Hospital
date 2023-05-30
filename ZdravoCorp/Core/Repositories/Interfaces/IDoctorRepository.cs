@@ -18,6 +18,8 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
 
         public Doctor getDoctor(int doctorId);
 
+        public Doctor GetByUsername(string username);
+
         public double GetAverageRating(Doctor doctor);
 
         public List<Doctor> SearchDoctors(string keyword);

@@ -54,5 +54,12 @@
     "Symptoms": "simptom",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 47,
+    "PatientId": 4,
+    "Symptoms": "hashb",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
   }
 ]

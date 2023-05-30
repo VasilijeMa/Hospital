@@ -30,6 +30,12 @@
     <Resource Include="user.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="data\medicamentstoadd.json">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
@@ -56,8 +57,8 @@ namespace ZdravoCorp.Core.Commands
 
         private Prescription CreatePrescription()
         {
-            Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime);
-            Prescription prescription = new Prescription(viewModel.SelectedMedicament, instruction);
+            Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime,5);
+            Prescription prescription = new Prescription(viewModel.SelectedMedicament, instruction,DateOnly.FromDateTime(DateTime.Now),false);
             return prescription;
         }
     }

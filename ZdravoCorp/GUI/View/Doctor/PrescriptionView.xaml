@@ -22,13 +22,13 @@
     </Window.Resources>
 
     <Grid>
-        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,89,0,0" TextWrapping="Wrap" Text="Medicament: " VerticalAlignment="Top" Height="18" Width="90"/>
-        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,142,0,0" TextWrapping="Wrap" Text="Time per day: " VerticalAlignment="Top" Width="90"/>
-        <ComboBox Padding="0" Name="cmbMedicament" ItemsSource="{Binding Medicaments}" ItemTemplate="{StaticResource medicamentTemplate}" SelectedItem="{Binding SelectedMedicament, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="285,84,0,0" VerticalAlignment="Top" Width="157" Height="28">
+        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,61,0,0" TextWrapping="Wrap" Text="Medicament: " VerticalAlignment="Top" Height="18" Width="90"/>
+        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,114,0,0" TextWrapping="Wrap" Text="Time per day: " VerticalAlignment="Top" Width="90"/>
+        <ComboBox Padding="0" Name="cmbMedicament" ItemsSource="{Binding Medicaments}" ItemTemplate="{StaticResource medicamentTemplate}" SelectedItem="{Binding SelectedMedicament, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="285,56,0,0" VerticalAlignment="Top" Width="157" Height="28">
         </ComboBox>
-        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,192,0,0" TextWrapping="Wrap" Text="When: " VerticalAlignment="Top" Height="18" Width="90"/>
-        <ComboBox ItemsSource="{Binding TimeForMedicaments}" SelectedItem="{Binding SelectedTime, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" Height="27" Margin="285,188,0,0"/>
-        <TextBox x:Name="timePerDay" Padding="2 1.5" HorizontalAlignment="Left" Margin="285,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="25" RenderTransformOrigin="0.13,0.355">
+        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="160,164,0,0" TextWrapping="Wrap" Text="When: " VerticalAlignment="Top" Height="18" Width="90"/>
+        <ComboBox ItemsSource="{Binding TimeForMedicaments}" SelectedItem="{Binding SelectedTime, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" Height="27" Margin="285,160,0,0"/>
+        <TextBox x:Name="timePerDay" Padding="2 1.5" HorizontalAlignment="Left" Margin="285,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="25" RenderTransformOrigin="0.13,0.355">
             <TextBox.Text>
                 <Binding Path="PerDay" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -37,7 +37,17 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button Command="{Binding PrescriptionCommand}" Content="Sumbit" HorizontalAlignment="Center" Margin="0,268,0,0" VerticalAlignment="Top" Width="65" Height="26">
+        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="162,213,0,0" TextWrapping="Wrap" Text="Duration: " VerticalAlignment="Top"/>
+        <TextBox Padding="2 1.5" x:Name="durationForMedicament"  HorizontalAlignment="Left" Margin="285,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  Width="79" Height="25">
+            <TextBox.Text>
+                <Binding Path="DurationForMedicament" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validationrule:TimePerDayValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Command="{Binding PrescriptionCommand}" Content="Sumbit" HorizontalAlignment="Center" Margin="0,269,0,0" VerticalAlignment="Top" Width="64" Height="26">
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>

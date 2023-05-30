@@ -28,7 +28,6 @@ namespace ZdravoCorp.Core.Commands
                 return;
             }
             Prescription prescription = CreatePrescription();
-            //prescriptionService.AddPrescription(prescription);
             if (medicalRecordService.IsAllergic(viewModel.Appointment.PatientId, viewModel.SelectedMedicament))
             {
                 MessageBox.Show("The patient has an allergy to the medicament");
@@ -60,7 +59,7 @@ namespace ZdravoCorp.Core.Commands
         public Prescription CreatePrescription()
         {
             Medicament medicament = viewModel.SelectedMedicament;
-            Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime,5);
+            Instruction instruction = new Instruction(viewModel.PerDay, viewModel.SelectedTime,viewModel.DurationForMedicament);
             Prescription prescription = new Prescription(medicament, instruction, DateOnly.FromDateTime(DateTime.Now),false);
             notificationService = new NotificationService(viewModel.Appointment.PatientId);
             notificationService.CreateNotification(medicament.Name, viewModel.Appointment.PatientId, instruction.TimePerDay, 0, null);

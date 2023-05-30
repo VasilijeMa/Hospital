@@ -1,16 +1,5 @@
 [
   {
-    "Id": 4,
-    "FirstName": "Pera",
-    "LastName": "Peric",
-    "BirthDate": "1990-10-10",
-    "MedicalRecordId": 7,
-    "IsBlocked": false,
-    "Username": "pera",
-    "Password": "pera",
-    "Type": "patient"
-  },
-  {
     "Id": 2,
     "FirstName": "Pera",
     "LastName": "Peric",
@@ -41,6 +30,17 @@
     "IsBlocked": false,
     "Username": "anica123",
     "Password": "Ana123",
+    "Type": "patient"
+  },
+  {
+    "Id": 4,
+    "FirstName": "Pera",
+    "LastName": "Peric",
+    "BirthDate": "1990-10-10",
+    "MedicalRecordId": 7,
+    "IsBlocked": false,
+    "Username": "pera",
+    "Password": "pera",
     "Type": "patient"
   }
 ]

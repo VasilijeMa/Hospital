@@ -13,7 +13,7 @@
     "PatientId": 1,
     "Message": "analgin",
     "TimesPerDay": 1,
-    "MinutesBefore": 2,
+    "MinutesBefore": 3,
     "Date": null,
     "IsActive": true
   },
@@ -42,6 +42,15 @@
     "TimesPerDay": 0,
     "MinutesBefore": 0,
     "Date": "2023-06-05T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": 8,
+    "PatientId": 1,
+    "Message": "Amoksicilin",
+    "TimesPerDay": 1,
+    "MinutesBefore": 0,
+    "Date": null,
     "IsActive": true
   }
 ]

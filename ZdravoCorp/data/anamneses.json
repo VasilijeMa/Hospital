@@ -54,26 +54,5 @@
     "Symptoms": "simptom",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
-  },
-  {
-    "AppointmentId": 46,
-    "PatientId": 2,
-    "Symptoms": "bol",
-    "DoctorsObservation": "",
-    "DoctorsConclusion": ""
-  },
-  {
-    "AppointmentId": 47,
-    "PatientId": 1,
-    "Symptoms": "vanja",
-    "DoctorsObservation": "vanja",
-    "DoctorsConclusion": "vanja"
-  },
-  {
-    "AppointmentId": 48,
-    "PatientId": 2,
-    "Symptoms": "bol",
-    "DoctorsObservation": "",
-    "DoctorsConclusion": ""
   }
 ]

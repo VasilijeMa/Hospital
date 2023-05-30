@@ -1,0 +1,24 @@
+﻿<Window x:Class="ZdravoCorp.SchedulingAppointmentUsingReferral"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp"
+        mc:Ignorable="d"
+       Title="Scheduling appointment using referral" Height="600" Width="850" WindowStartupLocation="CenterScreen" Icon="/icon.png">
+    <Grid Background="#FFFFA7A7" Margin="0,-4,0,4">
+        <Label Content="Select patient: " HorizontalAlignment="Left" Height="40" Margin="67,60,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <ComboBox Name ="patients" HorizontalAlignment="Left" Margin="467,60,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Button x:Name="showReferrals" Content="Show patient's referrals" HorizontalAlignment="Left" Height="40" Margin="467,140,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="showReferrals_Click"/>
+        <Label Content="Select examination id: " HorizontalAlignment="Left" Height="40" Margin="67,200,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <ComboBox Name ="patientsExaminations" HorizontalAlignment="Left" Margin="467,200,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Label Content="Select examination or operation: " HorizontalAlignment="Left" Height="40" Margin="67,280,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <ComboBox Name ="examinationOrOperation" HorizontalAlignment="Left" Margin="467,280,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Label Content="Operation duration: " HorizontalAlignment="Left" Height="40" Margin="67,360,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <TextBox x:Name="operationDuration" HorizontalAlignment="Left" Margin="467,360,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="296"/>
+        <Label Content="Date and time: " HorizontalAlignment="Left" Height="40" Margin="67,440,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <TextBox x:Name="dateAndTime" HorizontalAlignment="Left" Margin="467,440,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" Width="296"/>
+        <Button x:Name="confirm" Content="Submit" HorizontalAlignment="Left" Height="40" Margin="67,510,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="confirm_Click"/>
+        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Height="40" Margin="467,510,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="cancel_Click"/>
+    </Grid>
+</Window>

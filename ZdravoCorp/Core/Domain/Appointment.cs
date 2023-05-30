@@ -26,7 +26,7 @@ namespace ZdravoCorp.Core.Domain
         }
 
         public Appointment() { }
-
+      
         public bool IsAbleToStart()
         {
             DateTime earliestStart = TimeSlot.start.Add(new TimeSpan(0, -15, 0));

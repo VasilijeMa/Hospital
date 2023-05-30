@@ -6,11 +6,23 @@
         xmlns:local="clr-namespace:ZdravoCorp.ManagerView"
         mc:Ignorable="d"
         Title="RenovationView" Height="450" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </Window.Resources>
     <Grid>
         <Button Content="Make Request for Renovation" FontSize="20" HorizontalAlignment="Center" Height="62" Margin="0,297,0,0" VerticalAlignment="Top" Width="318" Command="{Binding RecordRenovationCommand}"/>
-        <DatePicker x:Name="StartBox" SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="80,100,0,0" VerticalAlignment="Top" Height="30" Width="180"/>
-        <DatePicker x:Name="EndBox" SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="539,100,0,0" VerticalAlignment="Top" Height="30" Width="180"/>
-        <ComboBox ItemsSource="{Binding RoomNames}" SelectedIndex="{Binding RoomNamePosition, UpdateSourceTrigger=PropertyChanged}" x:Name="RoomNameBox" HorizontalAlignment="Left" Margin="80,0,0,0" VerticalAlignment="Center" Width="180" />
-        <ComboBox ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding EndType, UpdateSourceTrigger=PropertyChanged}" x:Name="EndTypeBox" HorizontalAlignment="Left" Margin="539,0,0,0" VerticalAlignment="Center" Width="180" />
+        <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="80,100,0,0" VerticalAlignment="Top" Height="30" Width="180"/>
+        <DatePicker SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="539,100,0,0" VerticalAlignment="Top" Height="30" Width="180"/>
+        <ComboBox ItemsSource="{Binding RoomNames}" SelectedIndex="{Binding RoomNamePosition, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="80,169,0,0" VerticalAlignment="Top" Width="180" />
+        <ComboBox ItemsSource="{Binding RoomNames}" SelectedIndex="{Binding SecondRoomNamePosition, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=IsMerging, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Margin="80,240,0,0" VerticalAlignment="Top" Width="180" />
+        <ComboBox ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding EndType, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="539,169,0,0" VerticalAlignment="Top" Width="180" />
+        <ComboBox ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding SecondEndType, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=IsSplitting, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Margin="539,240,0,0" VerticalAlignment="Top" Width="180" />
+
+        <Label Content="Start date" Padding="0" HorizontalAlignment="Left" Height="22" Margin="80,73,0,0" VerticalAlignment="Top" Width="153"/>
+        <Label Content="End date" Padding="0" HorizontalAlignment="Left" Height="22" Margin="539,73,0,0" VerticalAlignment="Top" Width="153"/>
+        <Label Content="Room" Padding="0" HorizontalAlignment="Left" Height="22" Margin="80,147,0,0" VerticalAlignment="Top" Width="153"/>
+        <Label Content="End room type" Padding="0" HorizontalAlignment="Left" Height="22" Margin="539,147,0,0" VerticalAlignment="Top" Width="153"/>
+        <Label Content="Second room" Padding="0" Visibility="{Binding Path=IsMerging, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Height="22" Margin="80,213,0,0" VerticalAlignment="Top" Width="153"/>
+        <Label Content="Second end room type" Padding="0" Visibility="{Binding Path=IsSplitting, Converter={StaticResource VisibleIfTrueConverter}}" HorizontalAlignment="Left" Height="22" Margin="539,211,0,0" VerticalAlignment="Top" Width="153"/>
     </Grid>
 </Window>

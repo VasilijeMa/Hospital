@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -38,6 +39,18 @@ namespace ZdravoCorp.Core.Repositories
             foreach (Doctor doctor in doctors)
             {
                 if (doctor.Id == doctorId)
+                {
+                    return doctor;
+                }
+            }
+            return null;
+        }
+
+        public Doctor GetByUsername(string username)
+        {
+            foreach (Doctor doctor in doctors)
+            {
+                if (doctor.Username == username)
                 {
                     return doctor;
                 }

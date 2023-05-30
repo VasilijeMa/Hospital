@@ -14,6 +14,7 @@ namespace ZdravoCorp
     {
         List<User> users;
         private UserService userService;
+        private MedicamentsToAddService medicamentsToAddService = new MedicamentsToAddService();
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace ZdravoCorp
                 if (tbUsername.Text == user.Username && pbPassword.Password == user.Password)
                 {
                     this.Visibility = Visibility.Hidden;
+                    medicamentsToAddService.checkOrderedMedicaments();
                     userService.DisplayWindow(user);
                     this.Visibility = Visibility.Visible;
                     tbUsername.Text = "";

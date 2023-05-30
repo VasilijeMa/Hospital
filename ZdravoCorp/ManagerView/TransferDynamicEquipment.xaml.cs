@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using ZdravoCorp.EquipmentGroup;
 using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.ManagerView
@@ -17,9 +18,10 @@ namespace ZdravoCorp.ManagerView
         public TransferDynamicEquipment()
         {
             DataContext = this;
-
-            Dictionary<string, Room> rooms = RoomRepository.LoadAll();
-            Warehouse warehouse = WarehouseRepository.Load();
+            RoomRepository roomRepository = new RoomRepository();
+            Dictionary<string, Room> rooms = roomRepository.LoadAll();
+            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            Warehouse warehouse = warehouseRepository.Load();
 
             RoomsShortOfEquipment = new ObservableCollection<FunctionalItem>();
             RefreshDataGrid();
@@ -39,7 +41,7 @@ namespace ZdravoCorp.ManagerView
         public void RefreshDataGrid()
         {
             RoomsShortOfEquipment.Clear();
-            List<FunctionalItem> allCombinations = FunctionalItemRepository.LoadDynamicWithHidden();
+            List<FunctionalItem> allCombinations = TransferEquipmentService.LoadDynamicFunctionalItems();
 
             foreach (FunctionalItem item in allCombinations)
             {

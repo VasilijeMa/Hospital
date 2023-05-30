@@ -34,7 +34,8 @@ namespace ZdravoCorp.EquipmentGroup
 
         public static void LoadQuantitiesFromRoom(ref Dictionary<string, EquipmentQuantity> equipmentOrganization, string roomName)
         {
-            List<FunctionalItem> allFunctionalItems = FunctionalItemRepository.LoadAll();
+            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            List<FunctionalItem> allFunctionalItems = functionalItemRepository.LoadAll();
             foreach (FunctionalItem item in allFunctionalItems)
             {
                 if (equipmentOrganization.ContainsKey(item.GetWhat()) && item.GetWhere() == roomName)
@@ -46,7 +47,8 @@ namespace ZdravoCorp.EquipmentGroup
 
         public static void LoadQuantitiesFromWarehouse(ref Dictionary<string, EquipmentQuantity> equipmentOrganization)
         {
-            Warehouse warehouse = WarehouseRepository.Load();
+            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            Warehouse warehouse = warehouseRepository.Load();
             foreach (string itemName in warehouse.GetInventory().Keys)
             {
                 if (equipmentOrganization.ContainsKey(itemName))
@@ -60,8 +62,8 @@ namespace ZdravoCorp.EquipmentGroup
         {
 
             LoadQuantitiesFromWarehouse(ref equipmentOrganization);
-
-            List<FunctionalItem> allFunctionalItems = FunctionalItemRepository.LoadAll();
+            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            List<FunctionalItem> allFunctionalItems = functionalItemRepository.LoadAll();
             foreach (FunctionalItem item in allFunctionalItems)
             {
                 if (equipmentOrganization.ContainsKey(item.GetWhat()))

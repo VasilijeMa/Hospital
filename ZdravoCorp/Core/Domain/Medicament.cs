@@ -11,6 +11,7 @@ namespace ZdravoCorp.Core.Domain
         public int Id { get; set; }
         public string Name { get; set; }
         public List<string> Allergens { get; set; }
+        public int Quantity { get; set; }
 
         public Medicament() { }
 
@@ -20,11 +21,12 @@ namespace ZdravoCorp.Core.Domain
             Name = name;
         }
 
-        public Medicament(int id, string name, List<string> allergens)
+        public Medicament(int id, string name, List<string> allergens, int quantity)
         {
             Id = id;
             Name = name;
             Allergens = allergens;
+            Quantity = quantity;    
         }
     }
 }

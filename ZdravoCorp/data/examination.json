@@ -3,7 +3,8 @@
     "Id": 5,
     "SpecializationRefferal": {
       "Specialization": 6,
-      "DoctorId": -1
+      "DoctorId": -1,
+      "IsUsed": true
     },
     "HospitalizationRefferal": {
       "Duration": 15,
@@ -15,12 +16,16 @@
           "Allergens": [
             "a",
             "b"
-          ]
+          ],
+          "Quantity": 5
         },
         "Instruction": {
-          "TimePerDay": 15,
-          "TimeForMedicament": 2
-        }
+          "TimePerDay": 1,
+          "TimeForMedicament": 2,
+          "Duration": 5
+        },
+        "DateOfGiving": "0001-01-01",
+        "IsUsed": false
       }
     },
     "Prescription": {
@@ -30,12 +35,16 @@
         "Allergens": [
           "a",
           "b"
-        ]
+        ],
+        "Quantity": 10
       },
       "Instruction": {
-        "TimePerDay": 1440,
-        "TimeForMedicament": 0
-      }
+        "TimePerDay": 1,
+        "TimeForMedicament": 0,
+        "Duration": 5
+      },
+      "DateOfGiving": "2023-05-25",
+      "IsUsed": true
     }
   },
   {
@@ -69,12 +78,64 @@
         "Allergens": [
           "a",
           "b"
-        ]
+        ],
+        "Quantity": 10
       },
       "Instruction": {
         "TimePerDay": 1,
-        "TimeForMedicament": 2
+        "TimeForMedicament": 2,
+        "Duration": 5
+      },
+      "DateOfGiving": "2023-05-25",
+      "IsUsed": true
+    }
+  },
+  {
+    "Id": 7,
+    "SpecializationRefferal": {
+      "Specialization": null,
+      "DoctorId": 1,
+      "IsUsed": true
+    },
+    "HospitalizationRefferal": {
+      "Duration": 10,
+      "AdditionalTesting": "asgd",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ],
+          "Quantity": 10
+        },
+        "Instruction": {
+          "TimePerDay": 5,
+          "TimeForMedicament": 1,
+          "Duration": 5
+        },
+        "DateOfGiving": "2023-05-30",
+        "IsUsed": false
       }
+    },
+    "Prescription": {
+      "Medicament": {
+        "Id": 1,
+        "Name": "Amoksicilin",
+        "Allergens": [
+          "a",
+          "b"
+        ],
+        "Quantity": 10
+      },
+      "Instruction": {
+        "TimePerDay": 3,
+        "TimeForMedicament": 1,
+        "Duration": 5
+      },
+      "DateOfGiving": "2023-05-30",
+      "IsUsed": false
     }
   },
   {

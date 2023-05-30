@@ -15,10 +15,12 @@ namespace ZdravoCorp.Core.Servieces
     public class ScheduleService
     {
         private IScheduleRepository scheduleRepository;
+        private RoomRepository roomRepository;
 
         public ScheduleService()
         {
             scheduleRepository = Singleton.Instance.ScheduleRepository;
+            roomRepository = new RoomRepository();
         }
 
         public List<Appointment> GetAllAppointmentsForDoctor(DateTime startDate, DateTime endDate, int doctorId)
@@ -57,7 +59,7 @@ namespace ZdravoCorp.Core.Servieces
 
         public string TakeRoom(TimeSlot timeSlot)
         {
-            Dictionary<string, Room> examinationRooms = Room.LoadAllExaminationRoom();
+            Dictionary<string, Room> examinationRooms = roomRepository.LoadAllExaminationRooms();
             foreach (var room in examinationRooms)
             {
                 bool check = true;
@@ -76,6 +78,18 @@ namespace ZdravoCorp.Core.Servieces
                 }
             }
             return "";
+        }
+
+        public Appointment GetAppointmentByExaminationId(int examinationId) 
+        {
+            foreach (Appointment appointment in scheduleRepository.GetAppointments()) 
+            {
+                if (appointment.ExaminationId == examinationId)
+                {
+                    return appointment;
+                }
+            }
+            return null;
         }
 
         public Appointment CreateAppointment(Appointment appointment)

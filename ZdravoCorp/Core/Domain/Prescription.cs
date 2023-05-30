@@ -13,6 +13,9 @@ namespace ZdravoCorp.Core.Domain
         public Medicament Medicament { get; set; }
         public Instruction Instruction { get; set; }
 
+        public DateOnly DateOfGiving { get; set; }
+
+        public bool IsUsed { get; set; }
         public Prescription() { }
 
         //public Prescription(int medicament, Instruction instruction)
@@ -21,11 +24,13 @@ namespace ZdravoCorp.Core.Domain
         //    Instruction = instruction;
         //}
 
-        public Prescription(Medicament medicament, Instruction instruction)
+        public Prescription(Medicament medicament, Instruction instruction, DateOnly dateOfGiving, bool isUsed)
         {
             //AppointmentId = appointmentId;
             Medicament = medicament;
             Instruction = instruction;
+            DateOfGiving = dateOfGiving;
+            IsUsed = isUsed;
         }
     }
 }

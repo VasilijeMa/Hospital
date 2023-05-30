@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,6 +91,22 @@ namespace ZdravoCorp.Core.Servieces
             return allAppointments;
         }
 
+        public Doctor GetSpecializedDoctor(String specialization,DateTime firstDate,DateTime secondDate) 
+        {
+            List<Doctor> doctors = GetDoctorBySpecialization(specialization);
+            int minimalNumberOfAppointments = 100;
+            Doctor selectedDoctor = null;
+            foreach (Doctor doctor in doctors)
+            {
+                List<Appointment> appointments = scheduleService.GetAllAppointmentsForDoctor(firstDate,secondDate, doctor.Id);
+                if (minimalNumberOfAppointments > appointments.Count())
+                {
+                    minimalNumberOfAppointments = appointments.Count();
+                    selectedDoctor = doctor;
+                }
+            }
+            return selectedDoctor;
+        }
         public Doctor getFirstFreeDoctor(List<Doctor> qualifiedDoctors, int duration, string patientUsername)
         {
             DateTime currentTime = DateTime.Now;
@@ -130,6 +147,11 @@ namespace ZdravoCorp.Core.Servieces
         public Doctor GetDoctor(int doctorId)
         {
             return doctorRepository.getDoctor(doctorId);
+        }
+
+        public Doctor GetByUsername(String username) 
+        {
+            return doctorRepository.GetByUsername(username);
         }
 
         public List<Doctor> SearchDoctors(string keyword)

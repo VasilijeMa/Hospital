@@ -33,5 +33,28 @@ namespace ZdravoCorp
             emergencyOperationOrExamination.ShowDialog();
         }
 
+        private void SchedulingAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            SchedulingAppointmentUsingReferral schedulingAppointmentUsingReferral = new SchedulingAppointmentUsingReferral();
+            schedulingAppointmentUsingReferral.ShowDialog();
+        }
+
+        private void DepensingMedicaments_Click(object sender, RoutedEventArgs e)
+        {
+            DepensingMedicaments depensingMedicaments = new DepensingMedicaments();
+            depensingMedicaments.ShowDialog();
+        }
+
+        private void SchedulingAppointment_Click_1(object sender, RoutedEventArgs e)
+        {
+            SchedulingAppointment schedulingAppointment = new SchedulingAppointment();
+            schedulingAppointment.ShowDialog();
+        }
+
+        private void MedicamentsLessThanFive_Click(object sender, RoutedEventArgs e)
+        {
+            MedicamentsToOrder medicamentsToOrder = new MedicamentsToOrder();
+            medicamentsToOrder.ShowDialog();
+        }
     }
 }

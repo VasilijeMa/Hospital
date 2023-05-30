@@ -43,23 +43,5 @@
     "MinutesBefore": 0,
     "Date": null,
     "IsActive": true
-  },
-  {
-    "Id": 6,
-    "PatientId": 3,
-    "Message": "Amoksicilin",
-    "TimesPerDay": 1,
-    "MinutesBefore": 0,
-    "Date": null,
-    "IsActive": true
-  },
-  {
-    "Id": 7,
-    "PatientId": 1,
-    "Message": "Amoksicilin",
-    "TimesPerDay": 10,
-    "MinutesBefore": 0,
-    "Date": null,
-    "IsActive": true
   }
 ]

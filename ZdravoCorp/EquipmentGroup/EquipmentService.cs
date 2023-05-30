@@ -10,13 +10,14 @@ namespace ZdravoCorp.EquipmentGroup
         public static bool AddDynamicEquipment()
         {
             bool anyRequestsChanged = false;
-            Warehouse warehouse = WarehouseRepository.Load();
+            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            Warehouse warehouse = warehouseRepository.Load();
             DateTime now = DateTime.Now;
 
             List<DynamicEquipmentRequest> allRequests = DynamicEquipmentRequestRepository.LoadAll();
             foreach (DynamicEquipmentRequest request in allRequests)
             {
-                if (!request.IsFinished() && request.GetOrderDate().AddHours(24) <= now)                      // Time span of Equipment's arrival
+                if (!request.IsFinished() && request.GetOrderDate().AddHours(24) <= now)                  // Time span of Equipment's arrival
                 {
                     request.Finish();
                     warehouse.Add(request.GetItemName(), request.GetItemQuantity());
@@ -34,7 +35,7 @@ namespace ZdravoCorp.EquipmentGroup
 
             if (anyRequestsChanged)
             {
-                WarehouseRepository.Save(warehouse);
+                warehouseRepository.Save(warehouse);
                 DynamicEquipmentRequestRepository.SaveAll(allRequests);
 
             }

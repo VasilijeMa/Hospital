@@ -17,6 +17,8 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
 
         public Medicament GetMedicamentById(int id);
 
+        public Medicament GetByName(string name);
+
         public List<Medicament> GetMedicaments();
     }
 }

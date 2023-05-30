@@ -33,7 +33,8 @@ namespace ZdravoCorp
 
         private void update_Click(object sender, RoutedEventArgs e)
         {
-            List<FunctionalItem> functionalItems = FunctionalItemRepository.LoadAll();
+            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            List<FunctionalItem> functionalItems = functionalItemRepository.LoadAll();
             ItemCollection gridItems = TransferGrid.Items;
             foreach (AlteredEquipmentQuantity gridItem in gridItems)
             {
@@ -50,7 +51,7 @@ namespace ZdravoCorp
                     }
                 }
             }
-            FunctionalItemRepository.SaveAll(functionalItems);
+            functionalItemRepository.SaveAll(functionalItems);
             MessageBox.Show("Equipment successfully removed from room.");
             this.Close();
         }

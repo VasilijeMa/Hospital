@@ -1,0 +1,18 @@
+[
+  {
+    "Id": 1,
+    "Username": "milos",
+    "ServiceQuality": 1,
+    "Purity": 4,
+    "SuggestToFriends": 1,
+    "Comment": null
+  },
+  {
+    "Id": 2,
+    "Username": "milos",
+    "ServiceQuality": 5,
+    "Purity": 5,
+    "SuggestToFriends": 5,
+    "Comment": "Sve je divno"
+  }
+]

@@ -4,6 +4,7 @@ using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp
 {
@@ -89,6 +90,12 @@ namespace ZdravoCorp
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             scheduleService.WriteAllAppointmens();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ChatsView chatsView = new ChatsView(doctor);
+            chatsView.ShowDialog();
         }
     }
 }

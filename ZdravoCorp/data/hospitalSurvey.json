@@ -14,5 +14,13 @@
     "Purity": 5,
     "SuggestToFriends": 5,
     "Comment": "Sve je divno"
+  },
+  {
+    "Id": 3,
+    "Username": "milos",
+    "ServiceQuality": 3,
+    "Purity": 2,
+    "SuggestToFriends": 5,
+    "Comment": "Uzas"
   }
 ]

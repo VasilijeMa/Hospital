@@ -18,7 +18,7 @@ namespace ZdravoCorp.Core.Commands
         }
         public override void Execute(object? parameter)
         {
-            doctorSurveyService.AddSurvey(viewModel.User.Username, 1, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
+            doctorSurveyService.AddSurvey(viewModel.User.Username, viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
             viewModel.View.Close();
         }
     }

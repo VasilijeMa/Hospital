@@ -18,7 +18,7 @@ namespace ZdravoCorp.Core.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            if(viewModel.SelectedAppointment == null || viewModel.SelectedAppointment.IsCanceled) return false;
+            if (viewModel.SelectedAppointment == null || viewModel.SelectedAppointment.IsCanceled) return false;
             if (viewModel.SelectedAppointment.TimeSlot.start >= DateTime.Now) return false;
             return true;
         }

@@ -20,7 +20,9 @@
             </MenuItem>
             <MenuItem Margin="5,10,2,0" Header="_Free days" IsCheckable="false" Foreground="Black" FontSize="18">
             </MenuItem>
-            <MenuItem Click="LogOutClick" Margin="102,10,2,0" Header="_Log out" IsCheckable="false" Foreground="Black" FontSize="18"></MenuItem>
+            <MenuItem Margin="5,10,2,0" Header="_Chat" IsCheckable="false" Foreground="Black" FontSize="18" Click="MenuItem_Click">
+            </MenuItem>
+            <MenuItem Click="LogOutClick" Margin="50,10,2,0" Header="_Log out" IsCheckable="false" Foreground="Black" FontSize="18"></MenuItem>
         </Menu>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="54,111,0,0">
             <Image Source="/user.png" Margin="140,0,0,0" Name="ImageViewer1" Height="250" Width="200" OpacityMask="Black" />

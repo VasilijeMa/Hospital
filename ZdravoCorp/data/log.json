@@ -1,18 +1,18 @@
 [
   {
     "Appointment": {
-      "Id": 47,
+      "Id": 49,
       "TimeSlot": {
-        "start": "2023-07-20T21:10:00",
+        "start": "2023-07-20T00:01:00",
         "duration": 15
       },
-      "DoctorId": 1,
+      "DoctorId": 3,
       "PatientId": 1,
       "IsCanceled": false,
       "IdRoom": "Examination Room 1",
       "ExaminationId": 0
     },
-    "DateTime": "2023-05-30T22:16:57.6618488+02:00",
+    "DateTime": "2023-05-31T15:09:39.9532274+02:00",
     "Type": "make"
   }
 ]

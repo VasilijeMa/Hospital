@@ -14,5 +14,6 @@
         <Button x:Name="DepensingMedicaments" Content="Dispensing medicaments for patients" HorizontalAlignment="Left" Height="80" Margin="92,450,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="DepensingMedicaments_Click" />
         <Button x:Name="SchedulingAppointmentForPatient" Content="Scheduling appointment" HorizontalAlignment="Left" Height="80" Margin="92,550,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="SchedulingAppointment_Click_1"/>
         <Button x:Name="MedicamentsLessThanFive" Content="Show all medicaments less than 5 in stock" HorizontalAlignment="Left" Height="80" Margin="92,650,0,0" VerticalAlignment="Top" Width="750" Background="#FFF6D3D3" FontFamily="Trebuchet MS" Click="MedicamentsLessThanFive_Click"/>
+        <Button Content="Chat" HorizontalAlignment="Left" Margin="98,746,0,0" VerticalAlignment="Top" Click="Button_Click"/>
     </Grid>
 </Window>

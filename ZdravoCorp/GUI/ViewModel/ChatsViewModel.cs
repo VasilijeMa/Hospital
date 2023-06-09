@@ -80,11 +80,6 @@ namespace ZdravoCorp.GUI.ViewModel
             _chatService = new ChatService();
             Users = new ObservableCollection<User>(_userService.GetNursesAndDoctors(user.Username));
             Messages = new ObservableCollection<Message>();
-            //Messages = new ObservableCollection<Message> {
-            //    new Message{Username = "vanja",Content = "JAOOO", Created = new DateTime(2023, 6, 1)},
-            //    new Message{Username = "vanja", Content = "aaaa", Created = new DateTime(2023, 6, 2)},
-            //    new Message{Username = "vanja", Content = "uzas", Created = new DateTime(2023, 6, 3)},
-            //};
         }
 
         private void LoadChat()

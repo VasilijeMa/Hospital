@@ -10,9 +10,9 @@
         <Label Content="Quality of service: " HorizontalAlignment="Left" Margin="16,31,0,0" VerticalAlignment="Top"/>
         <Slider Value="{Binding ServiceQuality}" HorizontalAlignment="Left" Margin="219,35,0,0" VerticalAlignment="Top" Width="120" Minimum="1" Maximum="5"/>
         <Label Content="{Binding ServiceQuality}" HorizontalAlignment="Left" Margin="393,34,0,0" VerticalAlignment="Top"/>
-        <Label Content="Purity: " HorizontalAlignment="Left" Margin="16,90,0,0" VerticalAlignment="Top"/>
-        <Slider Value="{Binding Purity}" HorizontalAlignment="Left" Margin="219,94,0,0" VerticalAlignment="Top" Width="120"  Minimum="1" Maximum="5"/>
-        <Label Content="{Binding Purity}" HorizontalAlignment="Left" Margin="393,102,0,0" VerticalAlignment="Top"/>
+        <Label Content="Cleanness: " HorizontalAlignment="Left" Margin="16,90,0,0" VerticalAlignment="Top"/>
+        <Slider Value="{Binding Cleanness}" HorizontalAlignment="Left" Margin="219,94,0,0" VerticalAlignment="Top" Width="120"  Minimum="1" Maximum="5"/>
+        <Label Content="{Binding Cleanness}" HorizontalAlignment="Left" Margin="393,102,0,0" VerticalAlignment="Top"/>
         <Label Content="Would you suggest to friends: " HorizontalAlignment="Left" Margin="16,150,0,0" VerticalAlignment="Top"/>
         <Slider Value="{Binding SuggestToFriends}" HorizontalAlignment="Left" Margin="219,154,0,0" VerticalAlignment="Top" Width="120" Minimum="1" Maximum="5"/>
         <Label Content="{Binding SuggestToFriends}" HorizontalAlignment="Left" Margin="393,158,0,0" VerticalAlignment="Top"/>

@@ -44,10 +44,10 @@ namespace ZdravoCorp.Core.Repositories
                 return 0;
             }
         }
-
-        public void AddSurvey(string username, int serviceQuality, int purity, int suggestToFriends, string comment)
+        
+        public void AddSurvey(string username, int serviceQuality, int cleanness, int suggestToFriends, string comment)
         {
-            _hospitalSurveys.Add(new HospitalSurvey(getLastId() + 1, username, serviceQuality, purity, suggestToFriends, comment));
+            _hospitalSurveys.Add(new HospitalSurvey(getLastId() + 1, username, serviceQuality, cleanness, suggestToFriends, comment));
             WriteAll();
         }
     }

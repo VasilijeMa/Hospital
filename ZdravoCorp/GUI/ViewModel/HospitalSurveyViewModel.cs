@@ -17,7 +17,7 @@ namespace ZdravoCorp.GUI.ViewModel
         public event PropertyChangedEventHandler? PropertyChanged;
         private ICommand _submitCommand;
         private int _serviceQuality = 1;
-        private int _purity = 1;
+        private int _cleanness = 1;
         private int _suggestToFriends = 1;
         private string _comment;
 
@@ -39,13 +39,13 @@ namespace ZdravoCorp.GUI.ViewModel
             }
         }
 
-        public int Purity
+        public int Cleanness
         {
-            get { return _purity; }
+            get { return _cleanness; }
             set
             {
-                _purity = value;
-                OnPropertyChanged(nameof(Purity));
+                _cleanness = value;
+                OnPropertyChanged(nameof(Cleanness));
             }
         }
 

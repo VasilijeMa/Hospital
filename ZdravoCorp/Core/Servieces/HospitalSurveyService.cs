@@ -18,9 +18,9 @@ namespace ZdravoCorp.Core.Servieces
             _hospitalSurveyRepository = Singleton.Instance.HospitalSurveyRepository;
         }
 
-        public void AddSurvey(string username, int serviceQuality, int purity, int suggestToFriends, string comment)
+        public void AddSurvey(string username, int serviceQuality, int cleanness, int suggestToFriends, string comment)
         {
-            _hospitalSurveyRepository.AddSurvey(username, serviceQuality, purity, suggestToFriends, comment);
+            _hospitalSurveyRepository.AddSurvey(username, serviceQuality, cleanness, suggestToFriends, comment);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace ZdravoCorp.Core.Commands
 
         public override void Execute(object? parameter)
         {
-            hospitalSurveyService.AddSurvey(viewModel.User.Username, viewModel.ServiceQuality, viewModel.Purity, viewModel.SuggestToFriends, viewModel.Comment);
+            hospitalSurveyService.AddSurvey(viewModel.User.Username, viewModel.ServiceQuality, viewModel.Cleanness, viewModel.SuggestToFriends, viewModel.Comment);
             viewModel.View.Close();
         }
     }

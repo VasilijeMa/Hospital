@@ -11,18 +11,18 @@ namespace ZdravoCorp.Core.Domain
         public int Id { get; set; }
         public string Username { get; set; }
         public int ServiceQuality { get; set; }
-        public int Purity { get; set; }
+        public int Cleanness { get; set; }
         public int SuggestToFriends { get; set; }
         public string Comment { get; set; }
 
         public HospitalSurvey() { }
 
-        public HospitalSurvey(int id, string username, int serviceQuality, int purity, int suggestToFriends, string comment)
+        public HospitalSurvey(int id, string username, int serviceQuality, int cleanness, int suggestToFriends, string comment)
         {
             Id = id;
             Username = username;
             ServiceQuality = serviceQuality;
-            Purity = purity;
+            Cleanness = cleanness;
             SuggestToFriends = suggestToFriends;
             Comment = comment;
         }

@@ -15,6 +15,6 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
 
         public void WriteAll();
 
-        public void AddSurvey(string username, int serviceQuality, int purity, int suggestToFriends, string comment);
+        public void AddSurvey(string username, int serviceQuality, int cleanness, int suggestToFriends, string comment);
     }
 }

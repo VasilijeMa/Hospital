@@ -22,5 +22,13 @@
     "ServiceQuality": 5,
     "SuggestToFriends": 5,
     "Comment": "super"
+  },
+  {
+    "Id": 4,
+    "Username": "milos",
+    "DoctorId": 1,
+    "ServiceQuality": 3,
+    "SuggestToFriends": 3,
+    "Comment": "OK"
   }
 ]

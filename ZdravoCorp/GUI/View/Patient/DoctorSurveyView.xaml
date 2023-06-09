@@ -1,0 +1,21 @@
+﻿<Window x:Class="ZdravoCorp.GUI.View.Patient.DoctorSurveyView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.GUI.View.Patient"
+        mc:Ignorable="d"
+        Title="DoctorSurveyView" Height="328" Width="642" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Quality of service: " HorizontalAlignment="Left" Margin="16,31,0,0" VerticalAlignment="Top"/>
+        <Slider Value="{Binding ServiceQuality}" HorizontalAlignment="Left" Margin="219,35,0,0" VerticalAlignment="Top" Width="120" Minimum="1" Maximum="5"/>
+        <Label Content="{Binding ServiceQuality}" HorizontalAlignment="Left" Margin="393,34,0,0" VerticalAlignment="Top"/>
+        <Label Content="Would you suggest to friends: " HorizontalAlignment="Left" Margin="16,82,0,0" VerticalAlignment="Top"/>
+        <Slider Value="{Binding SuggestToFriends}" HorizontalAlignment="Left" Margin="219,86,0,0" VerticalAlignment="Top" Width="120" Minimum="1" Maximum="5"/>
+        <Label Content="{Binding SuggestToFriends}" HorizontalAlignment="Left" Margin="393,90,0,0" VerticalAlignment="Top"/>
+        <Label Content="Comment: " HorizontalAlignment="Left" Margin="16,150,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="219,153,0,0" TextWrapping="Wrap" Text="{Binding Comment}" VerticalAlignment="Top" Width="257" Height="80"/>
+        <Button Command="{Binding SubmitCommand}" Content="Submit" HorizontalAlignment="Left" Margin="16,219,0,0" VerticalAlignment="Top" Height="28" Width="86"/>
+
+    </Grid>
+</Window>

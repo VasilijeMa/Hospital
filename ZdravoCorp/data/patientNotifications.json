@@ -42,7 +42,7 @@
     "TimesPerDay": 0,
     "MinutesBefore": 0,
     "Date": "2023-06-05T00:00:00",
-    "IsActive": true
+    "IsActive": false
   },
   {
     "Id": 8,

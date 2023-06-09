@@ -20,6 +20,7 @@ namespace ZdravoCorp.Core.Domain
         private readonly IMedicamentToAddRepository _medicamentToAddRepository;
         private readonly IHospitalSurveyRepository _hospitalSurveyRepository;
         private readonly IDoctorSurveyRepository _doctorSurveyRepository;
+        private readonly IChatRepository _chatRepository;
 
         private static Singleton instance;
 
@@ -51,6 +52,7 @@ namespace ZdravoCorp.Core.Domain
             _medicamentToAddRepository = new MedicamentToAddRepository();
             _hospitalSurveyRepository = new HospitalSurveyRepository();
             _doctorSurveyRepository = new DoctorSurveyRepository();
+            _chatRepository = new ChatsRepository();
         }
 
         public IAnamnesisRepository AnamnesisRepository { get => _anamnesisRepository; }
@@ -82,5 +84,7 @@ namespace ZdravoCorp.Core.Domain
         public IHospitalSurveyRepository HospitalSurveyRepository { get => _hospitalSurveyRepository;}
 
         public IDoctorSurveyRepository DoctorSurveyRepository { get => _doctorSurveyRepository; }
+
+        public IChatRepository ChatRepository { get => _chatRepository; }
     }
 }

@@ -112,5 +112,10 @@ namespace ZdravoCorp.Core.Servieces
 
             MessageBox.Show("Your account is blocked.");
         }
+
+        public List<User> GetNursesAndDoctors(string username)
+        {
+            return _userRepository.GetNursesAndDoctors(username);
+        }
     }
 }

@@ -550,5 +550,17 @@
     "IsCanceled": false,
     "IdRoom": "Examination Room 1",
     "ExaminationId": 0
+  },
+  {
+    "Id": 49,
+    "TimeSlot": {
+      "start": "2023-07-20T00:01:00",
+      "duration": 15
+    },
+    "DoctorId": 3,
+    "PatientId": 1,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   }
 ]

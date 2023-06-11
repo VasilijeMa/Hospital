@@ -1,34 +1,42 @@
 [
   {
+    "DoctorId": 1,
     "Id": 1,
     "Username": "milos",
-    "DoctorId": 1,
     "ServiceQuality": 2,
     "SuggestToFriends": 1,
     "Comment": "a"
   },
   {
+    "DoctorId": 1,
     "Id": 2,
     "Username": "milos",
-    "DoctorId": 1,
     "ServiceQuality": 5,
     "SuggestToFriends": 5,
     "Comment": "BRAVOOOO"
   },
   {
+    "DoctorId": 2,
     "Id": 3,
     "Username": "milos",
-    "DoctorId": 2,
     "ServiceQuality": 5,
     "SuggestToFriends": 5,
     "Comment": "super"
   },
   {
+    "DoctorId": 1,
     "Id": 4,
     "Username": "milos",
-    "DoctorId": 1,
     "ServiceQuality": 3,
     "SuggestToFriends": 3,
     "Comment": "OK"
+  },
+  {
+    "DoctorId": 3,
+    "Id": 5,
+    "Username": "milos",
+    "ServiceQuality": 5,
+    "SuggestToFriends": 5,
+    "Comment": "NAJBOLJI"
   }
 ]

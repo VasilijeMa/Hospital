@@ -6,25 +6,15 @@ using System.Threading.Tasks;
 
 namespace ZdravoCorp.Core.Domain
 {
-    public class HospitalSurvey
+    public class HospitalSurvey : Survey
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public int ServiceQuality { get; set; }
         public int Cleanness { get; set; }
-        public int SuggestToFriends { get; set; }
-        public string Comment { get; set; }
 
         public HospitalSurvey() { }
 
-        public HospitalSurvey(int id, string username, int serviceQuality, int cleanness, int suggestToFriends, string comment)
+        public HospitalSurvey(int id, string username, int serviceQuality, int cleanness, int suggestToFriends, string comment) : base(id, username, serviceQuality, suggestToFriends, comment)
         {
-            Id = id;
-            Username = username;
-            ServiceQuality = serviceQuality;
             Cleanness = cleanness;
-            SuggestToFriends = suggestToFriends;
-            Comment = comment;
         }
     }
 }

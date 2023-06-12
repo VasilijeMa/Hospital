@@ -13,6 +13,10 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
 
         public void WriteAll();
 
-        public void AddSurvey(string username, int doctorId, int serviceQuality, int suggestToFriends, string comment);
+        public DoctorSurvey GetById(int id);
+
+        public void AddSurvey(int appointmentId, string username, int doctorId, int serviceQuality, int suggestToFriends, string comment);
+
+        public void UpdateSurvey(int appointmentId, int serviceQuality, int suggestToFriends, string comment);
     }
 }

@@ -26,7 +26,7 @@ namespace ZdravoCorp.Core.Commands
         public override void Execute(object? parameter)
         {
             DoctorSurveyView doctorSurveyView =
-                new DoctorSurveyView(viewModel.Patient, viewModel.SelectedAppointment.DoctorId);
+                new DoctorSurveyView(viewModel.Patient, viewModel.SelectedAppointment);
             doctorSurveyView.ShowDialog();
         }
     }

@@ -61,5 +61,26 @@
         "Created": "2023-06-05T21:04:10.2416771+02:00"
       }
     ]
+  },
+  {
+    "FirstId": "vanja",
+    "SecondId": "nikola",
+    "Messages": [
+      {
+        "Username": "vanja",
+        "Content": "eee",
+        "Created": "2023-06-12T18:16:55.3141737+02:00"
+      },
+      {
+        "Username": "nikola",
+        "Content": "eee",
+        "Created": "2023-06-12T18:17:11.2197891+02:00"
+      },
+      {
+        "Username": "nikola",
+        "Content": "zakazi pregled",
+        "Created": "2023-06-12T18:17:24.6641223+02:00"
+      }
+    ]
   }
 ]

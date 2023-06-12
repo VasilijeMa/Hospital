@@ -1,5 +1,17 @@
-﻿using ZdravoCorp.Core.Repositories;
+﻿using ZdravoCorp.Core.CommunicationSystem.Repositories;
+using ZdravoCorp.Core.CommunicationSystem.Repositories.Interfaces;
+using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Repositories;
+using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Repositories.Interfaces;
+using ZdravoCorp.Core.PatientNotification.Repositories;
+using ZdravoCorp.Core.PatientNotification.Repositories.Interfaces;
+using ZdravoCorp.Core.PatientSatisfaction.Repositories;
+using ZdravoCorp.Core.PatientSatisfaction.Repositories.Interfaces;
+using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.Core.Scheduling.Repositories;
+using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
+using ZdravoCorp.Core.VacationRequest.Repositories;
+using ZdravoCorp.Core.VacationRequest.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Domain
 {

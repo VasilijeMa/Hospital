@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.PhysicalAssets.Model;
-using ZdravoCorp.Core.PhysicalAssets.Repository;
-using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
-using ZdravoCorp.Core.Repositories;
-using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.Core.PhysicalAssets.Repositories;
+using ZdravoCorp.Core.PhysicalAssets.Repositories.Interfaces;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Servieces
 {

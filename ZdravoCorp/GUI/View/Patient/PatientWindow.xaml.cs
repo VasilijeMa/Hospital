@@ -1,6 +1,9 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientNotification.Services;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.Scheduling.Services;
 using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.View.Patient;
 using ZdravoCorp.View;

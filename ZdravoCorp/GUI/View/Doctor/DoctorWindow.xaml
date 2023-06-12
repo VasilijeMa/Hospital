@@ -21,6 +21,8 @@
             <MenuItem Margin="5,10,2,0" Name="FreeDays" Header="_Free days" IsCheckable="false" Foreground="Black" FontSize="18" Click="FreeDays_Click">
             </MenuItem>
             <MenuItem Margin="5, 10, 2, 0" Name="Visit" Header="_Visit" Click="Visit_Click"></MenuItem>
+            <MenuItem Margin="5,10,2,0" Header="_Chat" IsCheckable="false" Foreground="Black" FontSize="18" Click="MenuItem_Click">
+            </MenuItem>
             <MenuItem Click="LogOutClick" Margin="50,10,2,0" Header="_Log out" IsCheckable="false" Foreground="Black" FontSize="18"></MenuItem>
         </Menu>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="54,111,0,0">

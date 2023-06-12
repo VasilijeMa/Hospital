@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp
 {
@@ -55,6 +56,12 @@ namespace ZdravoCorp
         {
             MedicamentsToOrder medicamentsToOrder = new MedicamentsToOrder();
             medicamentsToOrder.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ChatsView chatsView = new ChatsView(nurse);
+            chatsView.ShowDialog();
         }
     }
 }

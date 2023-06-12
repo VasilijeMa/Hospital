@@ -29,5 +29,7 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
         public List<Specialization> GetSpecializationOfDoctors();
 
         public List<Doctor> GetDoctors();
+
+        public List<string> GetFullNames();
     }
 }

@@ -7,10 +7,18 @@
         mc:Ignorable="d"
         Title="MyAppointmentsWindow" Height="450" Width="603" WindowStartupLocation="CenterScreen" Icon="/icon.png" Closing="Window_Closing">
     <Grid>
-        <DataGrid x:Name="dgAppointments" IsReadOnly="True" MaxHeight="300" VerticalAlignment="Top" FontSize="25" SelectionChanged="dgAppointments_SelectionChanged" ItemsSource="{Binding Appointment}"></DataGrid>
-        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnUpdate_Click"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="120,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" RenderTransformOrigin="0.478,-1.299" Click="btnCancel_Click"/>
-        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="467,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" Click="btnExit_Click"/>
+        <DataGrid x:Name="dgAppointments" IsReadOnly="True" MaxHeight="300" VerticalAlignment="Top" FontSize="25" SelectedItem="{Binding SelectedAppointment}" ItemsSource="{Binding Appointments}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding TimeSlot.start.Date, StringFormat='yyyy-MM-dd'}" />
+                <DataGridTextColumn Header="Time" Binding="{Binding TimeSlot.start.TimeOfDay}" />
+                <DataGridTextColumn Header="DoctorID" Binding="{Binding DoctorId}" />
+                <DataGridCheckBoxColumn Header="IsCanceled" Binding="{Binding IsCanceled}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnUpdate" Command="{Binding UpdateCommand}" Content="Update" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105"/>
+        <Button x:Name="btnCancel" Command="{Binding CancelCommand}" Content="Cancel" HorizontalAlignment="Left" Margin="120,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105" RenderTransformOrigin="0.478,-1.299"/>
+        <Button x:Name="btnSurvey" Command="{Binding SurveyCommand}" Content="Survey" HorizontalAlignment="Left" Margin="467,346,0,0" VerticalAlignment="Top" FontSize="25" Height="52" Width="105"/>
 
     </Grid>
 </Window>

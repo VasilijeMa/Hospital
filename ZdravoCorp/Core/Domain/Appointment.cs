@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System;
-using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.Core.Domain
 {

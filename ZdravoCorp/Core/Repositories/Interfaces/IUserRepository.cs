@@ -18,5 +18,7 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
         public List<User> GetUsers();
 
         public void AddUser(User user);
+
+        public List<User> GetNursesAndDoctors(string username);
     }
 }

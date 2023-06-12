@@ -18,9 +18,9 @@
   {
     "IsFinished": false,
     "HasStarted": false,
-    "StartDate": "2023-06-14T00:00:00",
-    "EndDate": "2023-06-15T00:00:00",
-    "RoomName": "Infirmary 1",
+    "StartDate": "2023-06-15T00:00:00",
+    "EndDate": "2023-06-16T00:00:00",
+    "RoomName": "Examination Room 3",
     "EndType": 1
   }
 ]

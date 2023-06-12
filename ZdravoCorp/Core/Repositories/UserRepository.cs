@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories.Interfaces;
 
@@ -51,6 +52,11 @@ namespace ZdravoCorp.Core.Repositories
         public void AddUser(User user)
         {
             users.Add(user);
+        }
+
+        public List<User> GetNursesAndDoctors(string username)
+        {
+            return users.Where(user => user.Username != username && (user.Type == "nurse" || user.Type == "doctor")).ToList();
         }
     }
 }

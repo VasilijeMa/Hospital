@@ -1,0 +1,86 @@
+[
+  {
+    "FirstId": "isidora",
+    "SecondId": "vanja",
+    "Messages": [
+      {
+        "Username": "isidora",
+        "Content": "Hello",
+        "Created": "2023-06-04T10:30:00Z"
+      },
+      {
+        "Username": "vanja",
+        "Content": "Hi there!",
+        "Created": "2023-06-04T10:31:00Z"
+      },
+      {
+        "Username": "isidora",
+        "Content": "How are you?",
+        "Created": "2023-06-04T10:32:00Z"
+      },
+      {
+        "Username": "isidora",
+        "Content": "proba",
+        "Created": "2023-06-05T21:02:34.1629041+02:00"
+      },
+      {
+        "Username": "vanja",
+        "Content": "proba 2",
+        "Created": "2023-06-05T21:37:13.5097693+02:00"
+      },
+      {
+        "Username": "isidora",
+        "Content": "proba 3",
+        "Created": "2023-06-05T21:37:32.0645368+02:00"
+      }
+    ]
+  },
+  {
+    "FirstId": "isidora",
+    "SecondId": "nikola",
+    "Messages": [
+      {
+        "Username": "nikola",
+        "Content": "Hey",
+        "Created": "2023-06-03T15:45:00Z"
+      },
+      {
+        "Username": "isidora",
+        "Content": "Hi!",
+        "Created": "2023-06-03T15:46:00Z"
+      }
+    ]
+  },
+  {
+    "FirstId": "isidora",
+    "SecondId": "nina",
+    "Messages": [
+      {
+        "Username": "isidora",
+        "Content": "proba",
+        "Created": "2023-06-05T21:04:10.2416771+02:00"
+      }
+    ]
+  },
+  {
+    "FirstId": "vanja",
+    "SecondId": "nikola",
+    "Messages": [
+      {
+        "Username": "vanja",
+        "Content": "eee",
+        "Created": "2023-06-12T18:16:55.3141737+02:00"
+      },
+      {
+        "Username": "nikola",
+        "Content": "eee",
+        "Created": "2023-06-12T18:17:11.2197891+02:00"
+      },
+      {
+        "Username": "nikola",
+        "Content": "zakazi pregled",
+        "Created": "2023-06-12T18:17:24.6641223+02:00"
+      }
+    ]
+  }
+]

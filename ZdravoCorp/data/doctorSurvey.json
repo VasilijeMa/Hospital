@@ -1,0 +1,58 @@
+[
+  {
+    "DoctorId": 1,
+    "Id": 1,
+    "Username": "milos",
+    "ServiceQuality": 2,
+    "SuggestToFriends": 1,
+    "Comment": "Uzas"
+  },
+  {
+    "DoctorId": 1,
+    "Id": 43,
+    "Username": "milos",
+    "ServiceQuality": 5,
+    "SuggestToFriends": 5,
+    "Comment": "Super"
+  },
+  {
+    "DoctorId": 2,
+    "Id": 18,
+    "Username": "milos",
+    "ServiceQuality": 4,
+    "SuggestToFriends": 4,
+    "Comment": "Vrlo dobar"
+  },
+  {
+    "DoctorId": 1,
+    "Id": 40,
+    "Username": "milos",
+    "ServiceQuality": 3,
+    "SuggestToFriends": 3,
+    "Comment": "Dobar"
+  },
+  {
+    "DoctorId": 3,
+    "Id": 24,
+    "Username": "milos",
+    "ServiceQuality": 4,
+    "SuggestToFriends": 3,
+    "Comment": "Moze bolje"
+  },
+  {
+    "DoctorId": 1,
+    "Id": 46,
+    "Username": "pera",
+    "ServiceQuality": 5,
+    "SuggestToFriends": 5,
+    "Comment": "Najbolji"
+  },
+  {
+    "DoctorId": 1,
+    "Id": 41,
+    "Username": "pera",
+    "ServiceQuality": 1,
+    "SuggestToFriends": 1,
+    "Comment": "Katastrofa"
+  }
+]

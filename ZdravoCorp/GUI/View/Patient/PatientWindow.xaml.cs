@@ -87,5 +87,11 @@ namespace ZdravoCorp
             PatientNotificationsView patientNotificationsView = new PatientNotificationsView(patient);
             patientNotificationsView.ShowDialog();
         }
+
+        private void miHospitalSurvey_Click(object sender, RoutedEventArgs e)
+        {
+            HospitalSurveyView hospitalSurveyView = new HospitalSurveyView(patient);
+            hospitalSurveyView.ShowDialog();
+        }
     }
 }

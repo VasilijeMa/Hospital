@@ -47,5 +47,7 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
         public List<Appointment> GetAppointments();
 
         public Appointment GetAppointmentByExaminationId(int examinationId);
+
+        public bool IsRoomScheduledForAppointment(string roomName, DateTime endDate);
     }
 }

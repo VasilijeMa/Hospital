@@ -5,6 +5,7 @@ using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.View.Doctor;
+using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp
 {
@@ -101,6 +102,12 @@ namespace ZdravoCorp
         {
             HospitalizedPatientView hospitalizedPatientView = new HospitalizedPatientView(doctor);
             hospitalizedPatientView.ShowDialog();
+        }
+        
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ChatsView chatsView = new ChatsView(doctor);
+            chatsView.ShowDialog();
         }
     }
 }

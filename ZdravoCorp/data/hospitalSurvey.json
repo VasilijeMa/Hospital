@@ -1,0 +1,42 @@
+[
+  {
+    "Cleanness": 4,
+    "Id": 1,
+    "Username": "milos",
+    "ServiceQuality": 1,
+    "SuggestToFriends": 1,
+    "Comment": null
+  },
+  {
+    "Cleanness": 5,
+    "Id": 2,
+    "Username": "milos",
+    "ServiceQuality": 5,
+    "SuggestToFriends": 5,
+    "Comment": "Sve je divno"
+  },
+  {
+    "Cleanness": 2,
+    "Id": 3,
+    "Username": "milos",
+    "ServiceQuality": 3,
+    "SuggestToFriends": 5,
+    "Comment": "Uzas"
+  },
+  {
+    "Cleanness": 3,
+    "Id": 4,
+    "Username": "milos",
+    "ServiceQuality": 3,
+    "SuggestToFriends": 3,
+    "Comment": "OK"
+  },
+  {
+    "Cleanness": 3,
+    "Id": 5,
+    "Username": "milos",
+    "ServiceQuality": 3,
+    "SuggestToFriends": 2,
+    "Comment": null
+  }
+]

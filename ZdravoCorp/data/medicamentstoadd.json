@@ -10,5 +10,17 @@
     "NewQuantity": 10,
     "DateOfOrder": "2023-05-29",
     "IsDone": true
+  },
+  {
+    "MedicamentId": 2,
+    "NewQuantity": 55,
+    "DateOfOrder": "2023-06-01",
+    "IsDone": true
+  },
+  {
+    "MedicamentId": 3,
+    "NewQuantity": 55,
+    "DateOfOrder": "2023-06-01",
+    "IsDone": true
   }
 ]

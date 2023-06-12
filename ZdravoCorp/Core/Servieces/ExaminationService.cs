@@ -43,6 +43,25 @@ namespace ZdravoCorp.Core.Servieces
             return examinationRepository.GetExaminationById(examinationId);
         }
 
+        public List<Examination> ExaminationOfHospitalizedPatients(int doctorId)
+        {
+            List<Examination> exainations = new List<Examination>();
+            foreach (var examination in examinationRepository.GetExaminations())
+            {
+                if (examination.HospitalizationRefferal == null) continue;
+                HospitalizationReferral referral = examination.HospitalizationRefferal;
+                DateTime endHospitalizationReferral = referral.StartDate.AddDays(referral.Duration);
+                if (!(referral.StartDate <= DateTime.Now && DateTime.Now <= endHospitalizationReferral)) continue;
+                Appointment appointment = scheduleRepository.GetAppointmentByExaminationId(examination.Id);
+                Patient hospitalizedPatient = patientService.GetById(appointment.PatientId);
+                if (patientService.AlreadyExaminedPatients(doctorId).Contains(hospitalizedPatient))
+                {
+                    if (!exainations.Contains(examination)) exainations.Add(examination);
+                }
+            }
+            return exainations;
+        }
+
         public List<int> GetExaminationsIdsForPrescriptions(String patientUsername) 
         {
             List<int> examinationsIds = new List<int>();

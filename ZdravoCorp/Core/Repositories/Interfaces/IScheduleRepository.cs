@@ -45,5 +45,7 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
         public List<Appointment> GetTodaysAppointments();
 
         public List<Appointment> GetAppointments();
+
+        public Appointment GetAppointmentByExaminationId(int examinationId);
     }
 }

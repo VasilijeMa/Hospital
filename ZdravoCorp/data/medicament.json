@@ -6,7 +6,7 @@
       "a",
       "b"
     ],
-    "Quantity": 10
+    "Quantity": 100000
   },
   {
     "Id": 2,
@@ -14,7 +14,7 @@
     "Allergens": [
       "polen"
     ],
-    "Quantity": 5
+    "Quantity": 1000000
   },
   {
     "Id": 3,
@@ -23,6 +23,6 @@
       "polen",
       "c"
     ],
-    "Quantity": 5
+    "Quantity": 1000000
   }
 ]

@@ -18,5 +18,7 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
         public void Add(Examination examination);
 
         public Examination GetExaminationById(int examinationId);
+
+        public List<Examination> GetExaminations();
     }
 }

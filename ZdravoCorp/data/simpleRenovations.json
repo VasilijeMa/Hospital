@@ -14,5 +14,13 @@
     "EndDate": "2023-05-21T00:00:00",
     "RoomName": "Operating Theater 2",
     "EndType": 1
+  },
+  {
+    "IsFinished": false,
+    "HasStarted": false,
+    "StartDate": "2023-06-14T00:00:00",
+    "EndDate": "2023-06-15T00:00:00",
+    "RoomName": "Infirmary 1",
+    "EndType": 1
   }
 ]

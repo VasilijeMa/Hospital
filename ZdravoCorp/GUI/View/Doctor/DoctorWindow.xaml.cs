@@ -4,6 +4,7 @@ using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.GUI.View.Doctor;
 
 namespace ZdravoCorp
 {
@@ -14,7 +15,6 @@ namespace ZdravoCorp
     {
         private Doctor doctor { get; set; }
         
-        private DoctorService doctorService = new DoctorService();
         private ScheduleService scheduleService = new ScheduleService();
 
         private NotificationAboutCancelledAppointmentService notifications =
@@ -89,6 +89,18 @@ namespace ZdravoCorp
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             scheduleService.WriteAllAppointmens();
+        }
+
+        private void FreeDays_Click(object sender, RoutedEventArgs e)
+        {
+            FreeDaysView freeDaysView = new FreeDaysView(doctor);
+            freeDaysView.ShowDialog();
+        }
+
+        private void Visit_Click(object sender, RoutedEventArgs e)
+        {
+            HospitalizedPatientView hospitalizedPatientView = new HospitalizedPatientView(doctor);
+            hospitalizedPatientView.ShowDialog();
         }
     }
 }

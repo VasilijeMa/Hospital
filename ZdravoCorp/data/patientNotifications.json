@@ -70,5 +70,32 @@
     "MinutesBefore": 0,
     "Date": null,
     "IsActive": true
+  },
+  {
+    "Id": 9,
+    "PatientId": 1,
+    "Message": "Amoksicilin",
+    "TimesPerDay": 1440,
+    "MinutesBefore": 0,
+    "Date": null,
+    "IsActive": true
+  },
+  {
+    "Id": 10,
+    "PatientId": 1,
+    "Message": "Panklav",
+    "TimesPerDay": 1440,
+    "MinutesBefore": 0,
+    "Date": null,
+    "IsActive": true
+  },
+  {
+    "Id": 11,
+    "PatientId": 2,
+    "Message": "Amoksicilin",
+    "TimesPerDay": 2,
+    "MinutesBefore": 0,
+    "Date": null,
+    "IsActive": true
   }
 ]

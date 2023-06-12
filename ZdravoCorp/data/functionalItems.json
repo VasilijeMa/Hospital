@@ -55,16 +55,6 @@
     "Amount": 2
   },
   {
-    "Where": "Infirmary 3",
-    "What": "Shelf",
-    "Amount": 3
-  },
-  {
-    "Where": "Infirmary 3",
-    "What": "Bed",
-    "Amount": 4
-  },
-  {
     "Where": "Infirmary 4",
     "What": "Bandage",
     "Amount": 3

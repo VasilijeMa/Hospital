@@ -3,6 +3,7 @@
     "Id": 9,
     "SpecializationRefferal": null,
     "HospitalizationRefferal": {
+      "StartDate": "0001-01-01T00:00:00",
       "Duration": 15,
       "AdditionalTesting": "ne",
       "InitialTherapy": {
@@ -13,7 +14,7 @@
             "a",
             "b"
           ],
-          "Quantity": 10
+          "Quantity": 10000000
         },
         "Instruction": {
           "TimePerDay": 1,
@@ -51,6 +52,7 @@
       "IsUsed": true
     },
     "HospitalizationRefferal": {
+      "StartDate": "0001-01-01T00:00:00",
       "Duration": 10,
       "AdditionalTesting": "vanja",
       "InitialTherapy": {
@@ -61,7 +63,7 @@
             "a",
             "b"
           ],
-          "Quantity": 10
+          "Quantity": 100000
         },
         "Instruction": {
           "TimePerDay": 10,
@@ -80,7 +82,7 @@
           "a",
           "b"
         ],
-        "Quantity": 10
+        "Quantity": 10000000
       },
       "Instruction": {
         "TimePerDay": 1,
@@ -90,5 +92,161 @@
       "DateOfGiving": "2023-05-30",
       "IsUsed": false
     }
+  },
+  {
+    "Id": 11,
+    "SpecializationRefferal": {
+      "Specialization": 6,
+      "DoctorId": -1,
+      "IsUsed": true
+    },
+    "HospitalizationRefferal": {
+      "StartDate": "0001-01-01T00:00:00",
+      "Duration": 15,
+      "AdditionalTesting": "vanja",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ],
+          "Quantity": 1000000
+        },
+        "Instruction": {
+          "TimePerDay": 12,
+          "TimeForMedicament": 3,
+          "Duration": 15
+        },
+        "DateOfGiving": "2023-06-02",
+        "IsUsed": false
+      }
+    },
+    "Prescription": {
+      "Medicament": {
+        "Id": 1,
+        "Name": "Amoksicilin",
+        "Allergens": [
+          "a",
+          "b"
+        ],
+        "Quantity": 1000000
+      },
+      "Instruction": {
+        "TimePerDay": 1440,
+        "TimeForMedicament": 3,
+        "Duration": 15
+      },
+      "DateOfGiving": "2023-06-02",
+      "IsUsed": false
+    }
+  },
+  {
+    "Id": 12,
+    "SpecializationRefferal": null,
+    "HospitalizationRefferal": null,
+    "Prescription": {
+      "Medicament": {
+        "Id": 1,
+        "Name": "Amoksicilin",
+        "Allergens": [
+          "a",
+          "b"
+        ],
+        "Quantity": 100000
+      },
+      "Instruction": {
+        "TimePerDay": 2,
+        "TimeForMedicament": 0,
+        "Duration": 4
+      },
+      "DateOfGiving": "2023-05-30",
+      "IsUsed": false
+    }
+  },
+  {
+    "Id": 13,
+    "SpecializationRefferal": null,
+    "HospitalizationRefferal": {
+      "StartDate": "0001-01-01T00:00:00",
+      "Duration": 10,
+      "AdditionalTesting": "vanjaaa",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ],
+          "Quantity": 100000
+        },
+        "Instruction": {
+          "TimePerDay": 5,
+          "TimeForMedicament": 1,
+          "Duration": 10
+        },
+        "DateOfGiving": "2023-06-12",
+        "IsUsed": false
+      }
+    },
+    "Prescription": null
+  },
+  {
+    "Id": 14,
+    "SpecializationRefferal": null,
+    "HospitalizationRefferal": {
+      "StartDate": "2023-06-12T17:57:54.2234422+02:00",
+      "Duration": 15,
+      "AdditionalTesting": "vanjaaaaa",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ],
+          "Quantity": 100000
+        },
+        "Instruction": {
+          "TimePerDay": 15,
+          "TimeForMedicament": 0,
+          "Duration": 15
+        },
+        "DateOfGiving": "2023-06-12",
+        "IsUsed": false
+      }
+    },
+    "Prescription": null
+  },
+  {
+    "Id": 15,
+    "SpecializationRefferal": null,
+    "HospitalizationRefferal": {
+      "StartDate": "2023-06-12T18:31:57.4062429+02:00",
+      "Duration": 20,
+      "AdditionalTesting": "vanaj",
+      "InitialTherapy": {
+        "Medicament": {
+          "Id": 1,
+          "Name": "Amoksicilin",
+          "Allergens": [
+            "a",
+            "b"
+          ],
+          "Quantity": 100000
+        },
+        "Instruction": {
+          "TimePerDay": 15,
+          "TimeForMedicament": 0,
+          "Duration": 20
+        },
+        "DateOfGiving": "2023-06-12",
+        "IsUsed": false
+      }
+    },
+    "Prescription": null
   }
 ]

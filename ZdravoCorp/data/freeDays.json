@@ -1,0 +1,17 @@
+[
+  {
+    "StartDate": "2023-05-10T18:30:00",
+    "Duration": 5,
+    "Reason": "prehlada"
+  },
+  {
+    "StartDate": "2023-06-12T00:00:00",
+    "Duration": 10,
+    "Reason": "bolest"
+  },
+  {
+    "StartDate": "2023-06-24T00:00:00",
+    "Duration": 10,
+    "Reason": "bolest"
+  }
+]

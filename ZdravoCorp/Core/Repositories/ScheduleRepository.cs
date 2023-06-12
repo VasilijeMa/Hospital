@@ -174,5 +174,14 @@ namespace ZdravoCorp.Core.Repositories
         {
             return schedule.Appointments;
         }
+
+        public Appointment GetAppointmentByExaminationId(int examinationId)
+        {
+            foreach (var appointment in schedule.Appointments)
+            {
+                if (appointment.ExaminationId == examinationId) return appointment;
+            }
+            return null;
+        }
     }
 }

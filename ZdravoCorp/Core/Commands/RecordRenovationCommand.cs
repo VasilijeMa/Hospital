@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using ZdravoCorp.ManagerView;
+using ZdravoCorp.Core.PhysicalAssets.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
 {

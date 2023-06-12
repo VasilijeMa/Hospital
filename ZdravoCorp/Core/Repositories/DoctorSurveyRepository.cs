@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientSatisfaction.Model;
 using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Repositories
@@ -49,6 +50,53 @@ namespace ZdravoCorp.Core.Repositories
         {
             _doctorSurveys.Add(new DoctorSurvey(getLastId() + 1, username, doctorId, serviceQuality, suggestToFriends, comment));
             WriteAll();
+        }
+        public List<DoctorSurvey> GetByID(int id)
+        {
+            List<DoctorSurvey> surveys = new List<DoctorSurvey>();
+            foreach (DoctorSurvey survey in _doctorSurveys)
+            {
+                if(survey.DoctorId != id)
+                {
+                    continue;
+                }
+                surveys.Add(survey);
+            }
+            return surveys;
+        }
+
+        public List<string> GetComments(int id)
+        {
+            List<DoctorSurvey> surveysWithID = GetByID(id);
+            List<string> comments = new List<String>();
+            foreach (DoctorSurvey survey in surveysWithID)
+            {
+                if (string.IsNullOrEmpty(survey.Comment))
+                {
+                    continue;
+                }
+                comments.Add("Patient " + survey.Username + " says:\n" + survey.Comment);
+            }
+            if (comments.Count == 0)
+            {
+                comments.Add("No one has yet commented on the doctor's services!");
+            }
+            return comments;
+        }
+        public List<Rating> GetRatings(int id)
+        {
+            List<DoctorSurvey> surveysWithID = GetByID(id);
+            List<Rating> ratings = new List<Rating>();
+            List<int> serviceRatings = new List<int> { 0, 0, 0, 0, 0 };
+            List<int> recommendRatings = new List<int> { 0, 0, 0, 0, 0 };
+            foreach (DoctorSurvey survey in surveysWithID)
+            {
+                serviceRatings[survey.ServiceQuality - 1]++;
+                recommendRatings[survey.SuggestToFriends - 1]++;
+            }
+            ratings.Add(new Rating("Service Quality", serviceRatings));
+            ratings.Add(new Rating("Recommend to friends", recommendRatings));
+            return ratings;
         }
     }
 }

@@ -3,9 +3,10 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Service;
 //using System.Windows.Forms;
-using ZdravoCorp.EquipmentGroup;
-using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp
 {

@@ -6,14 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Service
 {
     public class RenovationRecordingService
     {
-        private ScheduleRepository _scheduleRepository;
-        private RoomRepository _roomRepository;
+        private IScheduleRepository _scheduleRepository;
+        private IRoomRepository _roomRepository;
         private RenovationStorageService _renovationStorageService;
         public RenovationRecordingService()
         {

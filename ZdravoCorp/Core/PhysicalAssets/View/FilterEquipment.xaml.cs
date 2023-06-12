@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 using ZdravoCorp.Core.PhysicalAssets.Service;
 
 namespace ZdravoCorp.ManagerView
@@ -54,11 +55,11 @@ namespace ZdravoCorp.ManagerView
             NotInWarehouseOptions = new List<string>() { "All", "NotInWarehouse" };
 
             AllEquipment = EquipmentRepository.LoadAll();
-            RoomRepository roomRepository = new RoomRepository();
+            IRoomRepository roomRepository = new RoomRepository();
             AllRooms = roomRepository.LoadAll();
-            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            IFunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
             AllFunctionalItems = functionalItemRepository.LoadAll();
-            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            IWarehouseRepository warehouseRepository = new WarehouseRepository();
             AllStoredItems = warehouseRepository.Load();
 
             EquipmentOrganization = new Dictionary<string, EquipmentQuantity>();

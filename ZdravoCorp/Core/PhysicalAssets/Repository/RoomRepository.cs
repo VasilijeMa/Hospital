@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Repository
 {
-    public class RoomRepository
+    public class RoomRepository : IRoomRepository
     {
         private Dictionary<string, Room> _rooms;
 
@@ -30,14 +31,14 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
         {
             return _rooms.Keys.ToList();
         }
-        private void SaveAll()
+        public void SaveAll()
         {
             SortedDictionary<string, Room> sortedRooms = new SortedDictionary<string, Room>(_rooms);
             string json = JsonConvert.SerializeObject(sortedRooms, Formatting.Indented);
             File.WriteAllText("./../../../data/rooms.json", json);
         }
 
-        private void Add(Room room)
+        public void Add(Room room)
         {
             _rooms.Add(room.GetName(), room);
             SaveAll();
@@ -48,7 +49,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
             return _rooms.ContainsKey(roomName);
         }
 
-        private string GenerateName(RoomType roomType)
+        public string GenerateName(RoomType roomType)
         {
             string prefix = Room.GetTypeDescription(roomType) + " ";
             string newName = "";

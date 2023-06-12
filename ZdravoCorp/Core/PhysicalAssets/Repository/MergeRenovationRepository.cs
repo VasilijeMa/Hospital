@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Repository
 {
-    public class MergeRenovationRepository
+    public class MergeRenovationRepository : IRenovationRepository<MergeRenovation>
     {
         private List<MergeRenovation> _renovations;
 
-        private List<MergeRenovation> LoadAll()
+        public List<MergeRenovation> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/mergeRenovations.json");
@@ -24,7 +25,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
             _renovations = LoadAll();
         }
 
-        private void SaveAll()
+        public void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_renovations, Formatting.Indented);
             File.WriteAllText("./../../../data/mergeRenovations.json", json);

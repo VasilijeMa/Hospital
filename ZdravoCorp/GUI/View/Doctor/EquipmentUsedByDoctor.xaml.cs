@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 using ZdravoCorp.Core.PhysicalAssets.Service;
 //using System.Windows.Forms;
 
@@ -34,7 +35,7 @@ namespace ZdravoCorp
 
         private void update_Click(object sender, RoutedEventArgs e)
         {
-            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            IFunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
             List<FunctionalItem> functionalItems = functionalItemRepository.LoadAll();
             ItemCollection gridItems = TransferGrid.Items;
             foreach (AlteredEquipmentQuantity gridItem in gridItems)

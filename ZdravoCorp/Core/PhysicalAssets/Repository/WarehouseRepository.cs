@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Repository
 {
-    public class WarehouseRepository
+    public class WarehouseRepository : IWarehouseRepository
     {
         private Warehouse _warehouse;
         public Warehouse Load()
@@ -21,7 +22,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
         {
             _warehouse = Load();
         }
-        private void Save()
+        public void Save()
         {
             string json = JsonConvert.SerializeObject(_warehouse, Formatting.Indented);
             File.WriteAllText("./../../../data/warehouse.json", json);
@@ -31,7 +32,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
             _warehouse = warehouse;
             Save();
         }
-        private void AddItem(string key, int amount)
+        public void AddItem(string key, int amount)
         {
             _warehouse.Add(key, amount);
         }

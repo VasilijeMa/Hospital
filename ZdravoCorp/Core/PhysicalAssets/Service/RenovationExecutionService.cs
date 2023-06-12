@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Service
 {
     public class RenovationExecutionService
     {
-        private FunctionalItemRepository _functionalItemRepository;
-        private WarehouseRepository _warehouseRepository;
+        private IFunctionalItemRepository _functionalItemRepository;
+        private IWarehouseRepository _warehouseRepository;
         private RenovationStorageService _renovationStorageService;
-        private RoomRepository _roomRepository;
+        private IRoomRepository _roomRepository;
 
         public RenovationExecutionService()
         {

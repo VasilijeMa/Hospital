@@ -2,6 +2,7 @@
 using System.Windows;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 
 namespace ZdravoCorp.ManagerView
 {
@@ -15,9 +16,9 @@ namespace ZdravoCorp.ManagerView
         public TransferStaticEquipment()
         {
             DataContext = this;
-            RoomRepository roomRepository = new RoomRepository();
+            IRoomRepository roomRepository = new RoomRepository();
             Dictionary<string, Room> rooms = roomRepository.LoadAll();
-            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            IWarehouseRepository warehouseRepository = new WarehouseRepository();
             Warehouse warehouse = warehouseRepository.Load();
 
             FromOptions = new List<string>() { warehouse.GetName() };

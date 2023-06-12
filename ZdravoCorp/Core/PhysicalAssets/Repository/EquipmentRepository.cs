@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 using ZdravoCorp.Core.PhysicalAssets.Service;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Repository
@@ -35,7 +36,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
 
         public static void LoadQuantitiesFromRoom(ref Dictionary<string, EquipmentQuantity> equipmentOrganization, string roomName)
         {
-            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            IFunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
             List<FunctionalItem> allFunctionalItems = functionalItemRepository.LoadAll();
             foreach (FunctionalItem item in allFunctionalItems)
             {
@@ -48,7 +49,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
 
         public static void LoadQuantitiesFromWarehouse(ref Dictionary<string, EquipmentQuantity> equipmentOrganization)
         {
-            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            IWarehouseRepository warehouseRepository = new WarehouseRepository();
             Warehouse warehouse = warehouseRepository.Load();
             foreach (string itemName in warehouse.GetInventory().Keys)
             {
@@ -63,7 +64,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
         {
 
             LoadQuantitiesFromWarehouse(ref equipmentOrganization);
-            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            IFunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
             List<FunctionalItem> allFunctionalItems = functionalItemRepository.LoadAll();
             foreach (FunctionalItem item in allFunctionalItems)
             {

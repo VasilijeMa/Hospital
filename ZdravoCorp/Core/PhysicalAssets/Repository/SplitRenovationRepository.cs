@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Repository
 {
-    public class SplitRenovationRepository
+    public class SplitRenovationRepository : IRenovationRepository<SplitRenovation>
     {
         private List<SplitRenovation> _renovations;
 
-        private List<SplitRenovation> LoadAll()
+        public List<SplitRenovation> LoadAll()
         {
             var serializer = new JsonSerializer();
             using StreamReader reader = new("./../../../data/splitRenovations.json");
@@ -24,7 +25,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
             _renovations = LoadAll();
         }
 
-        private void SaveAll()
+        public void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_renovations, Formatting.Indented);
             File.WriteAllText("./../../../data/splitRenovations.json", json);

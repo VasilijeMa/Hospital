@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Service
 {
@@ -11,7 +12,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Service
         public static bool AddDynamicEquipment()
         {
             bool anyRequestsChanged = false;
-            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            IWarehouseRepository warehouseRepository = new WarehouseRepository();
             Warehouse warehouse = warehouseRepository.Load();
             DateTime now = DateTime.Now;
 

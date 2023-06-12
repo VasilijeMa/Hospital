@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Service
 {
@@ -123,10 +124,10 @@ namespace ZdravoCorp.Core.PhysicalAssets.Service
         public static void MoveAllStaticEquipment(object state)
         {
             bool anyRequestsChanged = false;
-            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            IWarehouseRepository warehouseRepository = new WarehouseRepository();
             Warehouse warehouse = warehouseRepository.Load();
             Dictionary<string, int> inventory = warehouse.GetInventory();
-            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            IFunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
             List<FunctionalItem> functionalItems = functionalItemRepository.LoadAll();
             List<StaticEquipmentTransferRequest> allRequests = StaticEquipmentTransferRequestRepository.LoadAll();
 
@@ -182,12 +183,12 @@ namespace ZdravoCorp.Core.PhysicalAssets.Service
 
             if (itemsForTransfer.Count > 0)
             {
-                FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+                IFunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
                 List<FunctionalItem> functionalItems = functionalItemRepository.LoadAll();
 
                 if (fromWarehouse)
                 {
-                    WarehouseRepository warehouseRepository = new WarehouseRepository();
+                    IWarehouseRepository warehouseRepository = new WarehouseRepository();
                     Warehouse warehouse = warehouseRepository.Load();
                     Dictionary<string, int> inventory = warehouse.GetInventory();
 
@@ -225,8 +226,8 @@ namespace ZdravoCorp.Core.PhysicalAssets.Service
         {
             List<FunctionalItem> allPossibleCombinations = new List<FunctionalItem>();
 
-            FunctionalItemRepository allFunctionalItems = new FunctionalItemRepository();
-            RoomRepository roomRepository = new RoomRepository();
+            IFunctionalItemRepository allFunctionalItems = new FunctionalItemRepository();
+            IRoomRepository roomRepository = new RoomRepository();
             List<string> rooms = roomRepository.GetAllNames();
             Dictionary<string, EquipmentQuantity> dynamicEquipment = EquipmentRepository.LoadOnlyStaticOrDynamic(true);
             bool found = false;

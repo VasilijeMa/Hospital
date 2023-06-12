@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 using ZdravoCorp.Core.PhysicalAssets.Service;
 
 namespace ZdravoCorp.Core.PhysicalAssets.Repository
 {
-    public class FunctionalItemRepository
+    public class FunctionalItemRepository : IFunctionalItemRepository
     {
         private List<FunctionalItem> _functionalItems;
         public List<FunctionalItem> LoadAll()
@@ -35,7 +36,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repository
             return new FunctionalItem(roomName, equipmentName, 0);
         }
 
-        private void SaveAll()
+        public void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_functionalItems, Formatting.Indented);
             File.WriteAllText("./../../../data/functionalItems.json", json);

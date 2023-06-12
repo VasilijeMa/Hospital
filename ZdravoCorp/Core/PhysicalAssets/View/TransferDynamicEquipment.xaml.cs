@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 using ZdravoCorp.Core.PhysicalAssets.Service;
 
 namespace ZdravoCorp.ManagerView
@@ -19,9 +20,9 @@ namespace ZdravoCorp.ManagerView
         public TransferDynamicEquipment()
         {
             DataContext = this;
-            RoomRepository roomRepository = new RoomRepository();
+            IRoomRepository roomRepository = new RoomRepository();
             Dictionary<string, Room> rooms = roomRepository.LoadAll();
-            WarehouseRepository warehouseRepository = new WarehouseRepository();
+            IWarehouseRepository warehouseRepository = new WarehouseRepository();
             Warehouse warehouse = warehouseRepository.Load();
 
             RoomsShortOfEquipment = new ObservableCollection<FunctionalItem>();

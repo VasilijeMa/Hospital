@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repository;
+using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Repositories.Interfaces;
-using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class ScheduleService
     {
         private IScheduleRepository scheduleRepository;
-        private RoomRepository roomRepository;
+        private IRoomRepository roomRepository;
 
         public ScheduleService()
         {

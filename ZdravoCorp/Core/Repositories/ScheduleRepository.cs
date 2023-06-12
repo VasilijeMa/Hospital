@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories.Interfaces;
-using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp.Core.Repositories
 {

@@ -46,9 +46,23 @@ namespace ZdravoCorp.Core.Repositories
             }
         }
 
-        public void AddSurvey(string username, int doctorId, int serviceQuality, int suggestToFriends, string comment)
+        public DoctorSurvey GetById(int id)
         {
-            _doctorSurveys.Add(new DoctorSurvey(getLastId() + 1, username, doctorId, serviceQuality, suggestToFriends, comment));
+            return _doctorSurveys.FirstOrDefault(doctorSurvey => doctorSurvey.Id == id);
+        }
+
+        public void AddSurvey(int appointmentId, string username, int doctorId, int serviceQuality, int suggestToFriends, string comment)
+        {
+            _doctorSurveys.Add(new DoctorSurvey(appointmentId, username, doctorId, serviceQuality, suggestToFriends, comment));
+            WriteAll();
+        }
+
+        public void UpdateSurvey(int appointmentId, int serviceQuality, int suggestToFriends, string comment)
+        {
+            DoctorSurvey doctorSurveyTemp = GetById(appointmentId);
+            doctorSurveyTemp.Comment = comment;
+            doctorSurveyTemp.ServiceQuality = serviceQuality;
+            doctorSurveyTemp.SuggestToFriends = suggestToFriends;
             WriteAll();
         }
         public List<DoctorSurvey> GetByDoctorId(int id)

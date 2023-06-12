@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp.GUI.ViewModel
@@ -16,13 +17,16 @@ namespace ZdravoCorp.GUI.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private ICommand _submitCommand;
+        private DoctorSurveyService _doctorSurveyService = new DoctorSurveyService();
         private int _serviceQuality = 1;
         private int _suggestToFriends = 1;
         private string _comment;
 
         public User User { get; set; }
+        public int AppointmentId { get; set; }
         public int DoctorId { get; set; }
         public DoctorSurveyView View { get; set; }
+        public DoctorSurvey DoctorSurvey { get; set; }
 
         public ICommand SubmitCommand
         {
@@ -59,11 +63,19 @@ namespace ZdravoCorp.GUI.ViewModel
             }
         }
 
-        public DoctorSurveyViewModel(User user, int doctorId, DoctorSurveyView view)
+        public DoctorSurveyViewModel(User user, Appointment appointment, DoctorSurveyView view)
         {
             User = user;
-            DoctorId = doctorId;
+            AppointmentId = appointment.Id;
+            DoctorId = appointment.DoctorId;
             View = view;
+            DoctorSurvey = _doctorSurveyService.GetById(AppointmentId);
+            if (DoctorSurvey != null)
+            {
+                ServiceQuality = DoctorSurvey.ServiceQuality;
+                SuggestToFriends = DoctorSurvey.SuggestToFriends;
+                Comment = DoctorSurvey.Comment;
+            }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

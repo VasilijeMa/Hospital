@@ -17,9 +17,19 @@ namespace ZdravoCorp.Core.Servieces
             _doctorSurveyRepository = Singleton.Instance.DoctorSurveyRepository;
         }
 
-        public void AddSurvey(string username, int doctorId, int serviceQuality, int suggestToFriends, string comment)
+        public void AddSurvey(int appointmentId, string username, int doctorId, int serviceQuality, int suggestToFriends, string comment)
         {
-            _doctorSurveyRepository.AddSurvey(username, doctorId, serviceQuality, suggestToFriends, comment);
+            _doctorSurveyRepository.AddSurvey(appointmentId, username, doctorId, serviceQuality, suggestToFriends, comment);
+        }
+
+        public DoctorSurvey GetById(int id)
+        {
+            return _doctorSurveyRepository.GetById(id);
+        }
+
+        public void UpdateSurvey(int appointmentId, int serviceQuality, int suggestToFriends, string comment)
+        {
+            _doctorSurveyRepository.UpdateSurvey(appointmentId, serviceQuality, suggestToFriends, comment);
         }
     }
 }

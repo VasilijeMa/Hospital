@@ -21,7 +21,7 @@ namespace ZdravoCorp.Core.Repositories
         public List<Medicament> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/medicament.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/medicament.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Medicament>>(json);
         }
@@ -29,7 +29,7 @@ namespace ZdravoCorp.Core.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(medicaments, Formatting.Indented);
-            File.WriteAllText("./../../../data/medicament.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/medicament.json", json);
         }
 
         public Medicament GetMedicamentById(int id)

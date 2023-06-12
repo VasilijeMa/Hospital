@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZdravoCorp", "ZdravoCorp\ZdravoCorp.csproj", "{028F3B63-6CC9-4748-9EC4-CEEF5171BDBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZdravoCorpCLI", "ZdravoCorpCLI\ZdravoCorpCLI.csproj", "{B0F3779B-9C7A-41C3-8CF6-A17EA1C836CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{028F3B63-6CC9-4748-9EC4-CEEF5171BDBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{028F3B63-6CC9-4748-9EC4-CEEF5171BDBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{028F3B63-6CC9-4748-9EC4-CEEF5171BDBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0F3779B-9C7A-41C3-8CF6-A17EA1C836CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0F3779B-9C7A-41C3-8CF6-A17EA1C836CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0F3779B-9C7A-41C3-8CF6-A17EA1C836CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0F3779B-9C7A-41C3-8CF6-A17EA1C836CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

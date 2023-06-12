@@ -22,7 +22,7 @@ namespace ZdravoCorp.Core.Repositories
         public List<Examination> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/examination.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/examination.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Examination>>(json);
         }
@@ -30,7 +30,7 @@ namespace ZdravoCorp.Core.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(examinations, Formatting.Indented);
-            File.WriteAllText("./../../../data/examination.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/examination.json", json);
         }
 
         public int getLastId()

@@ -24,7 +24,7 @@ namespace ZdravoCorp.Core.Repositories
         public List<Chat> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/chats.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/chats.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Chat>>(json);
         }
@@ -32,7 +32,7 @@ namespace ZdravoCorp.Core.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(chats, Formatting.Indented);
-            File.WriteAllText("./../../../data/chats.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/chats.json", json);
         }
 
         public Chat GetChat(string firstId, string secondId)

@@ -27,7 +27,7 @@ namespace ZdravoCorp.Core.Repositories
         public List<LogElement> Load()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/log.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/log.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<LogElement>>(json);
         }
@@ -35,7 +35,7 @@ namespace ZdravoCorp.Core.Repositories
         public void Write()
         {
             string json = JsonConvert.SerializeObject(Log.Elements, Formatting.Indented);
-            File.WriteAllText("./../../../data/log.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/log.json", json);
         }
 
         public void AddElement(Appointment appointment, Patient patient)

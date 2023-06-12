@@ -11,7 +11,7 @@ namespace ZdravoCorp.InfrastructureGroup
         private List<Renovation> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/simpleRenovations.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/simpleRenovations.json");
             var json = reader.ReadToEnd();
             List<Renovation> allRenovations = JsonConvert.DeserializeObject<List<Renovation>>(json);
 
@@ -26,7 +26,7 @@ namespace ZdravoCorp.InfrastructureGroup
         private void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_renovations, Formatting.Indented);
-            File.WriteAllText("./../../../data/simpleRenovations.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/simpleRenovations.json", json);
         }
 
         public void Add(Renovation renovation)

@@ -19,6 +19,7 @@ namespace ZdravoCorp
         List<Appointment> recommendedAppointments;
         private DoctorService doctorService = new DoctorService();
         ScheduleService scheduleService = new ScheduleService();
+        LogService logService = new LogService();
         private RecommendingAppointmentsService recommendingAppointmentsService = new RecommendingAppointmentsService();
         public RecommendingAppointmentsForm(Patient patient)
         {
@@ -66,8 +67,6 @@ namespace ZdravoCorp
             if (recommendedAppointments.Count() == 1)
             {
                 scheduleService.CreateAppointment(recommendedAppointments[0]);
-
-                LogService logService = new LogService();
                 logService.AddElement(recommendedAppointments[0], patient);
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
@@ -119,8 +118,6 @@ namespace ZdravoCorp
             }
             Appointment appointment = GetAppointmentFromSelectedRow();
             scheduleService.CreateAppointment(appointment);
-
-            LogService logService = new LogService();
             logService.AddElement(appointment, patient);
             MessageBox.Show("Appointment successfully created.");
             this.Close();

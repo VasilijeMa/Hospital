@@ -20,7 +20,7 @@ namespace ZdravoCorp.Core.Repositories
         public List<NotificationAboutCancelledAppointment> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/notifications.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/notifications.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<NotificationAboutCancelledAppointment>>(json);
         }
@@ -28,7 +28,7 @@ namespace ZdravoCorp.Core.Repositories
         public void WriteAll(List<NotificationAboutCancelledAppointment> notifications)
         {
             string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
-            File.WriteAllText("./../../../data/notifications.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/notifications.json", json);
         }
 
         public void Add(NotificationAboutCancelledAppointment notificationAboutCancelledAppointment)

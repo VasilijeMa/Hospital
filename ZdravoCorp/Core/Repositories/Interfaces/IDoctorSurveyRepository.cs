@@ -16,7 +16,7 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
 
         public void AddSurvey(string username, int doctorId, int serviceQuality, int suggestToFriends, string comment);
         
-        public List<DoctorSurvey> GetByID(int id);
+        public List<DoctorSurvey> GetByDoctorId(int id);
         public List<string> GetComments(int id);
 
         public List<Rating> GetRatings(int id);

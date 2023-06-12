@@ -51,7 +51,7 @@ namespace ZdravoCorp.Core.Repositories
             _doctorSurveys.Add(new DoctorSurvey(getLastId() + 1, username, doctorId, serviceQuality, suggestToFriends, comment));
             WriteAll();
         }
-        public List<DoctorSurvey> GetByID(int id)
+        public List<DoctorSurvey> GetByDoctorId(int id)
         {
             List<DoctorSurvey> surveys = new List<DoctorSurvey>();
             foreach (DoctorSurvey survey in _doctorSurveys)
@@ -67,7 +67,7 @@ namespace ZdravoCorp.Core.Repositories
 
         public List<string> GetComments(int id)
         {
-            List<DoctorSurvey> surveysWithID = GetByID(id);
+            List<DoctorSurvey> surveysWithID = GetByDoctorId(id);
             List<string> comments = new List<String>();
             foreach (DoctorSurvey survey in surveysWithID)
             {
@@ -85,7 +85,7 @@ namespace ZdravoCorp.Core.Repositories
         }
         public List<Rating> GetRatings(int id)
         {
-            List<DoctorSurvey> surveysWithID = GetByID(id);
+            List<DoctorSurvey> surveysWithID = GetByDoctorId(id);
             List<Rating> ratings = new List<Rating>();
             List<int> serviceRatings = new List<int> { 0, 0, 0, 0, 0 };
             List<int> recommendRatings = new List<int> { 0, 0, 0, 0, 0 };

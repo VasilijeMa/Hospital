@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorp
@@ -18,12 +19,13 @@ namespace ZdravoCorp
         List<Anamnesis> anamneses;
         //Singleton singleton;
         Patient patient;
-        AnamnesisService anamnesisService = new AnamnesisService();
+        AnamnesisService anamnesisService;
         private ScheduleService scheduleService = new ScheduleService();
 
-        public PatientAppointmentsView(Patient patient)
+        public PatientAppointmentsView(Patient patient, AnamnesisService anamnesisService)
         {
             InitializeComponent();
+            this.anamnesisService = anamnesisService;
             this.patient = patient;
             anamneses = anamnesisService.GetAnamneses();
             LoadAppointmentsInDataGrid();
@@ -86,7 +88,7 @@ namespace ZdravoCorp
                 return;
             }
             Appointment appointment = scheduleService.GetAppointmentById((int)item.Row["Id"]);
-            AnamnesisView anamnesisView = new AnamnesisView(appointment, ConfigRoles.Patient);
+            AnamnesisView anamnesisView = new AnamnesisView(appointment, anamnesisService, ConfigRoles.Patient);
             anamnesisView.ShowDialog();
         }
         private void btnExit_Click(object sender, RoutedEventArgs e)

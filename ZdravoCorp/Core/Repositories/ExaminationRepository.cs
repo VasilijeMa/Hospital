@@ -60,5 +60,10 @@ namespace ZdravoCorp.Core.Repositories
             }
             return null;
         }
+
+        public List<Examination> GetExaminations()
+        {
+            return examinations;
+        }
     }
 }

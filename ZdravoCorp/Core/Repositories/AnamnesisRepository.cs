@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.Core.Scheduling.Model;
 
 namespace ZdravoCorp.Core.Repositories
 {

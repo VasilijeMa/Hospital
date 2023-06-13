@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Model;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
-using ZdravoCorp.GUI.ViewModel;
+using ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
 {
@@ -32,7 +33,7 @@ namespace ZdravoCorp.Core.Commands
             }
             Prescription prescription = CreatePrescription();
             HospitalizationReferral hospitalizationReferral = new HospitalizationReferral(viewModel.Duration,
-                prescription, viewModel.Testing);
+                prescription, viewModel.Testing,false,-1, DateOnly.FromDateTime(DateTime.Now));
             CreateExamination(hospitalizationReferral);
             MessageBox.Show("You have successfully create referral!");
         }

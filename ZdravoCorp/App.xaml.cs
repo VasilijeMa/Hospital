@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using ZdravoCorp.EquipmentGroup;
-using ZdravoCorp.InfrastructureGroup;
+using ZdravoCorp.Core.PhysicalAssets.Services;
 using ZdravoCorp.ManagerView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 

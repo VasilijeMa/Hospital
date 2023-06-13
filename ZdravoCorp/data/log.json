@@ -1,34 +1,130 @@
 [
   {
     "Appointment": {
-      "Id": 44,
+      "Id": 60,
       "TimeSlot": {
-        "start": "2023-08-30T11:01:00",
+        "start": "2023-06-13T19:11:29.2478203+02:00",
         "duration": 15
       },
-      "DoctorId": 2,
+      "DoctorId": 1,
       "PatientId": 1,
-      "IsCanceled": true,
-      "IdRoom": "Examination Room 1",
+      "IsCanceled": false,
+      "IdRoom": "",
       "ExaminationId": 0
     },
-    "DateTime": "2023-06-06T01:49:07.6562663+02:00",
-    "Type": "updateCancel"
+    "DateTime": "2023-06-13T18:24:52.6968912+02:00",
+    "Type": "make"
   },
   {
     "Appointment": {
-      "Id": 45,
+      "Id": 60,
       "TimeSlot": {
-        "start": "2023-09-07T11:11:00",
+        "start": "2023-06-13T18:47:50.7373774+02:00",
         "duration": 15
       },
-      "DoctorId": 3,
+      "DoctorId": 1,
+      "PatientId": 1,
+      "IsCanceled": false,
+      "IdRoom": "",
+      "ExaminationId": 0
+    },
+    "DateTime": "2023-06-13T18:32:52.8443858+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 60,
+      "TimeSlot": {
+        "start": "2023-06-13T20:00:00+02:00",
+        "duration": 15
+      },
+      "DoctorId": 1,
+      "PatientId": 7,
+      "IsCanceled": false,
+      "IdRoom": "",
+      "ExaminationId": 0
+    },
+    "DateTime": "2023-06-13T18:38:35.7745875+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 60,
+      "TimeSlot": {
+        "start": "2023-06-13T19:00:00+02:00",
+        "duration": 15
+      },
+      "DoctorId": 1,
+      "PatientId": 1,
+      "IsCanceled": false,
+      "IdRoom": "",
+      "ExaminationId": 0
+    },
+    "DateTime": "2023-06-13T18:43:03.3669975+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 61,
+      "TimeSlot": {
+        "start": "2023-06-13T19:47:24.1521578+02:00",
+        "duration": 15
+      },
+      "DoctorId": 1,
+      "PatientId": 1,
+      "IsCanceled": false,
+      "IdRoom": "",
+      "ExaminationId": 0
+    },
+    "DateTime": "2023-06-13T18:43:29.8336007+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 60,
+      "TimeSlot": {
+        "start": "2023-06-13T19:00:00+02:00",
+        "duration": 15
+      },
+      "DoctorId": 1,
       "PatientId": 1,
       "IsCanceled": false,
       "IdRoom": "Examination Room 1",
       "ExaminationId": 0
     },
-    "DateTime": "2023-06-06T01:49:18.2127605+02:00",
-    "Type": "updateCancel"
+    "DateTime": "2023-06-13T18:58:10.395393+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 61,
+      "TimeSlot": {
+        "start": "2023-06-13T19:15:36.3029976+02:00",
+        "duration": 15
+      },
+      "DoctorId": 1,
+      "PatientId": 1,
+      "IsCanceled": false,
+      "IdRoom": "Examination Room 1",
+      "ExaminationId": 0
+    },
+    "DateTime": "2023-06-13T18:58:38.8738406+02:00",
+    "Type": "make"
+  },
+  {
+    "Appointment": {
+      "Id": 60,
+      "TimeSlot": {
+        "start": "2023-06-13T20:00:00+02:00",
+        "duration": 15
+      },
+      "DoctorId": 1,
+      "PatientId": 1,
+      "IsCanceled": false,
+      "IdRoom": "Examination Room 1",
+      "ExaminationId": 0
+    },
+    "DateTime": "2023-06-13T18:59:57.0166426+02:00",
+    "Type": "make"
   }
 ]

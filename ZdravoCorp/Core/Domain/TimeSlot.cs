@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZdravoCorp.Core.Scheduling.Model;
 
 namespace ZdravoCorp.Core.Domain
 {
@@ -56,5 +57,9 @@ namespace ZdravoCorp.Core.Domain
             return timeSlots;
         }
 
+        public override string ToString()
+        {
+            return "date: " + start.Date.ToString("d.M.yyyy.") + " time: " + start.TimeOfDay.ToString(@"hh\:mm");
+        }
     }
 }

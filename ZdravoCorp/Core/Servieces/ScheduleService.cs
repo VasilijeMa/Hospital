@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Domain.Enums;
-using ZdravoCorp.Core.Repositories;
-using ZdravoCorp.Core.Repositories.Interfaces;
-using ZdravoCorp.InfrastructureGroup;
+using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repositories;
+using ZdravoCorp.Core.PhysicalAssets.Repositories.Interfaces;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class ScheduleService
     {
         private IScheduleRepository scheduleRepository;
-        private RoomRepository roomRepository;
+        private IRoomRepository roomRepository;
 
         public ScheduleService()
         {
@@ -94,6 +92,8 @@ namespace ZdravoCorp.Core.Servieces
 
         public Appointment CreateAppointment(Appointment appointment)
         {
+            string roomId = TakeRoom(appointment.TimeSlot);
+            appointment.IdRoom = roomId;
             return scheduleRepository.CreateAppointment(appointment);
         }
 

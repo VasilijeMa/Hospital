@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Repositories.Interfaces;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.IO;
+using ZdravoCorp.Core.Scheduling.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
 
 namespace ZdravoCorp.Core.Servieces
 {
@@ -43,6 +44,25 @@ namespace ZdravoCorp.Core.Servieces
             return examinationRepository.GetExaminationById(examinationId);
         }
 
+        public List<Examination> ExaminationOfHospitalizedPatients(int doctorId)
+        {
+            List<Examination> exainations = new List<Examination>();
+            foreach (var examination in examinationRepository.GetExaminations())
+            {
+                if (examination.HospitalizationRefferal == null) continue;
+                HospitalizationReferral referral = examination.HospitalizationRefferal;
+                DateOnly endHospitalizationReferral = referral.StartDate.AddDays(referral.Duration);
+                if (!(referral.StartDate <= DateOnly.FromDateTime(DateTime.Now) && DateOnly.FromDateTime(DateTime.Now) <= endHospitalizationReferral)) continue;
+                Appointment appointment = scheduleRepository.GetAppointmentByExaminationId(examination.Id);
+                Patient hospitalizedPatient = patientService.GetById(appointment.PatientId);
+                if (patientService.AlreadyExaminedPatients(doctorId).Contains(hospitalizedPatient))
+                {
+                    if (!exainations.Contains(examination)) exainations.Add(examination);
+                }
+            }
+            return exainations;
+        }
+
         public List<int> GetExaminationsIdsForPrescriptions(String patientUsername) 
         {
             List<int> examinationsIds = new List<int>();
@@ -67,12 +87,12 @@ namespace ZdravoCorp.Core.Servieces
             return examinationsIds;
         }
 
-        public List<Examination> GetExaminationsByMedicamentId(int medicamentId) 
+        public List<Examination> GetExaminationsByMedicamentId(int medicamentId)
         {
             List<Examination> examinations = new List<Examination>();
-            foreach (Appointment appointment in scheduleRepository.GetAppointments()) 
+            foreach (Appointment appointment in scheduleRepository.GetAppointments())
             {
-                if (appointment.ExaminationId != 0) 
+                if (appointment.ExaminationId != 0)
                 {
                     Examination examination = GetExaminationById(appointment.ExaminationId);
                     if (examination != null)
@@ -89,6 +109,30 @@ namespace ZdravoCorp.Core.Servieces
             }
             return examinations;
         }
+
+        public List<int> GetExaminationsIdsForHospitalizationReferral(String patientUsername) 
+        {
+            List<int> examinationsIds = new List<int>();
+            Patient patient = patientService.GetByUsername(patientUsername);
+            foreach (Appointment appointment in scheduleService.GetAppointmentsForPatient(patient.Id))
+            {
+                if (appointment.ExaminationId != 0)
+                {
+                    Examination patientsExamination = GetExaminationById(appointment.ExaminationId);
+                    if (patientsExamination != null)
+                    {
+                        if (patientsExamination.HospitalizationRefferal != null)
+                        {
+                            if (patientsExamination.HospitalizationRefferal.IsUsed == false)
+                            {
+                                examinationsIds.Add(patientsExamination.Id);
+                            }
+                        }
+                    }
+                }
+            }
+            return examinationsIds;
+        }
         public List<int> GetExaminationsIdsForReferral(String patientUsername) 
         {
             List<int> examinationsIds = new List<int>();
@@ -101,16 +145,17 @@ namespace ZdravoCorp.Core.Servieces
                     if (patientsExamination != null)
                     {
                         if (patientsExamination.SpecializationRefferal != null)
-                            {
+                        {
                             if (patientsExamination.SpecializationRefferal.IsUsed == false)
                             {
                                 examinationsIds.Add(patientsExamination.Id);
-                            } 
+                            }
                         }
                     }
                 }
             }
             return examinationsIds;
         }
+
     }
 }

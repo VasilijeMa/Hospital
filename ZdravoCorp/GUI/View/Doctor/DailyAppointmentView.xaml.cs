@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorp
@@ -14,13 +16,15 @@ namespace ZdravoCorp
         private Doctor doctor;
         private PatientService patientService = new PatientService();
         private ScheduleService scheduleService = new ScheduleService();
+        private AnamnesisService anamnesisService;
 
-        public DailyAppointmentView(List<Appointment> appointments, Doctor doctor)
+        public DailyAppointmentView(List<Appointment> appointments, Doctor doctor, AnamnesisService anamnesisService)
         {
             InitializeComponent();
             this.doctor = doctor;
             this.appointments = appointments;
             LoadDataGrid();
+            this.anamnesisService = anamnesisService;
         }
 
         private void LoadDataGrid()
@@ -72,7 +76,7 @@ namespace ZdravoCorp
                 return;
             }
 
-            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true, selectedAppointment);
+            CreateMedicalRecordWindow medicalRecord = new CreateMedicalRecordWindow(false, patient, true, anamnesisService,selectedAppointment);
             medicalRecord.ShowDialog();
         }
     }

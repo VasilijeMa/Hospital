@@ -5,44 +5,44 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.Scheduling.Services;
 using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorpCLI
 {
     public class RecommendingAppointmentsCLIView
     {
-        //ispis svih doktora
-        //izbor doktora
-        //unos najranijeg vremena
-        //unos najkasnijeg vremena
-        //unos najkasnijeg datuma
-        //prioritet TimeSlot ili Doctor
-        //Find, Submit, Cancel
-
-
         Patient patient;
         List<Appointment> recommendedAppointments;
         private DoctorService doctorService = new DoctorService();
-        ScheduleService scheduleService = new ScheduleService();
-        LogService logService = new LogService();
+        private PatientService patientService = new PatientService();
+        private ScheduleService scheduleService = new ScheduleService();
+        private LogService logService = new LogService();
         private RecommendingAppointmentsService recommendingAppointmentsService = new RecommendingAppointmentsService();
-
+        private RecommendingAppointmentsCLIViewModel viewModel = new RecommendingAppointmentsCLIViewModel();
         public RecommendingAppointmentsCLIView()
         {
+            int patientId;
             while (true)
             {
-
-                Console.WriteLine("Choose doctor's Id.");
-                PrintDoctors();
-                Console.WriteLine("x Exit");
-                Console.Write("Id:");
-                int doctorId;
+                PrintPatients();
                 string input = Console.ReadLine();
-                if (Int32.TryParse(input, out doctorId) && doctorService.GetDoctor(doctorId) != null)
+                if (viewModel.ValidatePatient(input, out patientId))
                 {
-                    Console.WriteLine("DoctorId: " + doctorId);
+                    patient = patientService.GetById(patientId);
                     break;
                 }
+                if (input.ToLower().Equals("x")) return;
+                Console.WriteLine("Wrong input, try again.");
+            }
+
+            int doctorId;
+            while (true)
+            {
+                PrintDoctors();
+                string input = Console.ReadLine();
+                if (viewModel.ValidateDoctor(input, out doctorId)) break;
                 if (input.ToLower().Equals("x")) return;
                 Console.WriteLine("Wrong input, try again.");
             }
@@ -50,45 +50,48 @@ namespace ZdravoCorpCLI
             TimeOnly earliestTime;
             while (true)
             {
-                Console.Write("Earliest time(HH:mm): ");
+                Console.Write("Earliest time(HH:mm) or x for Exit: ");
                 string input = Console.ReadLine();
-                string pattern = @"^([01][0-9]|2[0-3]):[0-5][0-9]$";
-                if (System.Text.RegularExpressions.Regex.IsMatch(input, pattern))
+                if (viewModel.ValidateTime(input))
                 {
                     earliestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
                     break;
                 }
+                if (input.ToLower().Equals("x")) return;
                 Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
             }
 
+            TimeOnly latestTime;
             while (true)
             {
-                Console.Write("Latest time(HH:mm): ");
+                Console.Write("Latest time(HH:mm) or x for Exit: ");
                 string input = Console.ReadLine();
-                string pattern = @"^([01][0-9]|2[0-3]):[0-5][0-9]$";
-                if (System.Text.RegularExpressions.Regex.IsMatch(input, pattern))
+                if (viewModel.ValidateTime(input))
                 {
-                    TimeOnly latestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
+                    latestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
                     if (latestTime > earliestTime) break;
                     Console.WriteLine("Latest time is before earliest time!");
+                    continue;
                 }
+                if (input.ToLower().Equals("x")) return;
                 Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
             }
 
+            DateTime date;
             while (true)
             {
-                Console.Write("Latest date(dd.MM.yyyy.): ");
+                Console.Write("Latest date(dd.MM.yyyy.) or x for Exit: ");
                 string input = Console.ReadLine();
-                string[] formats = { "dd.MM.yyyy." };
-
-                DateTime date;
-                bool isValid = DateTime.TryParseExact(input, formats, null, System.Globalization.DateTimeStyles.None, out date);
-                if (date.Date < DateTime.Now.Date)
+                if (viewModel.ValidateDate(input, out date))
                 {
-                    Console.WriteLine("The selected date cannot be in the past.");
+                    if (date.Date < DateTime.Now.Date)
+                    {
+                        Console.WriteLine("The selected date cannot be in the past.");
+                        continue;
+                    }
+                    break;
                 }
-
-                if (isValid) break;
+                if (input.ToLower().Equals("x")) return;
                 Console.WriteLine("Invalid date format!");
             }
 
@@ -98,9 +101,9 @@ namespace ZdravoCorpCLI
                 Console.WriteLine("Choose priority");
                 Console.WriteLine("1. Doctor");
                 Console.WriteLine("2. Time slot");
-                Console.WriteLine("Input number only");
+                Console.WriteLine("Input number only or x for Exit");
                 string input = Console.ReadLine();
-                switch (input)
+                switch (input.ToLower())
                 {
                     case "1":
                         priority = Priority.Doctor;
@@ -108,21 +111,87 @@ namespace ZdravoCorpCLI
                     case "2":
                         priority = Priority.TimeSlot;
                         break;
+                    case "x":
+                        return;
                     default:
                         Console.WriteLine("Wrong input, try again.");
                         break;
                 }
                 if (priority != null) break;
             }
+
+
+            AppointmentRequest appointmentRequest = new AppointmentRequest(doctorService.GetDoctor(doctorId),
+                earliestTime, latestTime, date, (Priority)priority);
+            List<Appointment> recommendedAppointments =
+                recommendingAppointmentsService.GetAppointmentsByRequest(appointmentRequest, patientId);
+            int appointmentId;
+            if (recommendedAppointments.Count() == 1)
+            {
+                scheduleService.CreateAppointment(recommendedAppointments[0]);
+                logService.AddElement(recommendedAppointments[0], patient);
+                Console.WriteLine("Appointment " + recommendedAppointments[0]);
+                Console.WriteLine("Appointment successfully created.");
+            }
+            else
+            {
+                PrintAppointments(recommendedAppointments);
+                while (true)
+                {
+                    Console.Write("Choose appointment id or x for Exit: ");
+                    string input = Console.ReadLine();
+                    if (Int32.TryParse(input, out appointmentId))
+                    {
+                        try
+                        {
+                            Appointment a = recommendedAppointments[appointmentId - 1];
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Wrong id, try again.");
+                            continue;
+                        }
+                    }
+                    if (input.ToLower().Equals("x")) return;
+                    Console.WriteLine("Wrong input, try again.");
+                }
+                scheduleService.CreateAppointment(recommendedAppointments[appointmentId - 1]);
+                logService.AddElement(recommendedAppointments[appointmentId - 1], patient);
+                Console.WriteLine("Appointment successfully created.");
+            }
+            scheduleService.WriteAllAppointmens();
+        }
+
+        private void PrintPatients()
+        {
+            Console.WriteLine("Choose patient's Id.");
+            foreach (var patient in patientService.GetPatients())
+            {
+                Console.WriteLine(patient);
+            }
+            Console.WriteLine("x Exit");
+            Console.Write("Id:");
+        }
+
+        public void PrintAppointments(List<Appointment> appointments)
+        {
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                Console.WriteLine("Id: " + (i + 1) + ". " + appointments[i]);
+            }
         }
 
         public void PrintDoctors()
         {
+            Console.WriteLine("Choose doctor's Id.");
             List<Doctor> doctors = doctorService.GetDoctors();
-            for (int i = 0; i < doctors.Count; i++)
+            foreach (var doctor in doctors)
             {
-                Console.WriteLine("Id: " + doctors[i].Id + ", " + doctors[i].FirstName + " " + doctors[i].LastName + ", " + doctors[i].Specialization);
+                Console.WriteLine(doctor);
             }
+            Console.WriteLine("x Exit");
+            Console.Write("Id:");
         }
     }
 }

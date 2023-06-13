@@ -21,5 +21,10 @@ namespace ZdravoCorp.Core.Domain
             LastName = lastname;
             Specialization = specialization;
         }
+
+        public override string ToString()
+        {
+            return "Id: " + Id + ", " + FirstName + " " + LastName + ", " + Specialization;
+        }
     }
 }

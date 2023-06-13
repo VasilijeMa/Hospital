@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using ZdravoCorp.Core.CommunicationSystem.Services;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.VacationRequest.Services;
+using ZdravoCorp.GUI.View.Doctor;
 using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp
@@ -14,18 +17,23 @@ namespace ZdravoCorp
     public partial class DoctorWindow : Window
     {
         private Doctor doctor { get; set; }
-        
-        private DoctorService doctorService = new DoctorService();
         private ScheduleService scheduleService = new ScheduleService();
-
+        private ChatService chatService;
+        private FreeDaysService freeDaysService;
         private NotificationAboutCancelledAppointmentService notifications =
             new NotificationAboutCancelledAppointmentService();
-        public DoctorWindow(Doctor doctor)
+        private AnamnesisService anamnesisService;
+
+
+        public DoctorWindow(Doctor doctor, ChatService chatService, FreeDaysService freeDaysService, AnamnesisService anamnesisService)
         {
             InitializeComponent();
             this.doctor = doctor;
+            this.chatService = chatService;
+            this.freeDaysService = freeDaysService;
             SetFields(doctor);
             showNotification(doctor.Id);
+            this.anamnesisService = anamnesisService;
         }
         public void showNotification(int doctorId)
         {
@@ -72,13 +80,13 @@ namespace ZdravoCorp
         private void DailyScheduleClick(object sender, RoutedEventArgs e)
         {
             var appointments = scheduleService.GetAllAppointmentsForDoctor(DateTime.Now.Date, DateTime.Now.Date, doctor.Id);
-            DailyAppointmentView dailySchedule = new DailyAppointmentView(appointments, doctor);
+            DailyAppointmentView dailySchedule = new DailyAppointmentView(appointments, doctor, anamnesisService);
             dailySchedule.ShowDialog();
         }
 
         private void SearchPatientClick(object sender, RoutedEventArgs e)
         {
-            SearchPatientWindow searchPatient = new SearchPatientWindow(doctor);
+            SearchPatientWindow searchPatient = new SearchPatientWindow(doctor, anamnesisService);
             searchPatient.Show();
         }
 
@@ -92,9 +100,21 @@ namespace ZdravoCorp
             scheduleService.WriteAllAppointmens();
         }
 
+        private void FreeDays_Click(object sender, RoutedEventArgs e)
+        {
+            FreeDaysView freeDaysView = new FreeDaysView(doctor, freeDaysService);
+            freeDaysView.ShowDialog();
+        }
+
+        private void Visit_Click(object sender, RoutedEventArgs e)
+        {
+            HospitalizedPatientView hospitalizedPatientView = new HospitalizedPatientView(doctor);
+            hospitalizedPatientView.ShowDialog();
+        }
+        
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            ChatsView chatsView = new ChatsView(doctor);
+            ChatsView chatsView = new ChatsView(doctor, chatService);
             chatsView.ShowDialog();
         }
     }

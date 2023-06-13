@@ -1,0 +1,23 @@
+﻿<Window x:Class="ZdravoCorp.Core.PatientSatisfaction.View.DoctorRankingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.Core.PatientSatisfaction.View"
+        mc:Ignorable="d"
+        Title="DoctorRankingsView" Height="450" Width="800">
+    <Grid>
+        <Button Content="View surveys" Command="{Binding ShowSurveys}" FontSize="20" HorizontalAlignment="Left" Margin="558,301,0,0" VerticalAlignment="Top" Height="65" Width="143"/>
+        <Label Content="Choose Doctor:" FontSize="16" Padding="0" HorizontalAlignment="Left" Margin="558,74,0,0" VerticalAlignment="Top" Width="168"/>
+        <ComboBox HorizontalAlignment="Left" FontSize="16" ItemsSource="{Binding DoctorNames}" SelectedIndex="{Binding SelectedDoctor, UpdateSourceTrigger=PropertyChanged}" Margin="558,113,0,0" VerticalAlignment="Top" Width="179" Height="34"/>
+        <Label Content="Top three highest rated doctors:" Padding="0" FontSize="16" HorizontalAlignment="Left" Margin="51,57,0,0" VerticalAlignment="Top" Width="310"/>
+        <Label Content="{Binding HighestRatedDoctors[0]}" Padding="0" FontSize="16" HorizontalAlignment="Left" Margin="51,98,0,0" VerticalAlignment="Top" Width="310"/>
+        <Label Content="{Binding HighestRatedDoctors[1]}" Padding="0" FontSize="16" HorizontalAlignment="Left" Margin="51,124,0,0" VerticalAlignment="Top" Width="310"/>
+        <Label Content="{Binding HighestRatedDoctors[2]}" Padding="0" FontSize="16" HorizontalAlignment="Left" Margin="51,150,0,0" VerticalAlignment="Top" Width="310"/>
+        <Label Content="Top three lowest rated doctors:" Padding="0" FontSize="16" HorizontalAlignment="Left" Margin="51,0,0,0" VerticalAlignment="Center" Width="310"/>
+        <Label Content="{Binding LowestRatedDoctors[0]}" Padding="0" FontSize="16" HorizontalAlignment="Left" Margin="51,233,0,0" VerticalAlignment="Top" Width="310"/>
+        <Label Content="{Binding LowestRatedDoctors[1]}" Padding="0" FontSize="16" HorizontalAlignment="Left" Margin="51,259,0,0" VerticalAlignment="Top" Width="310"/>
+        <Label Content="{Binding LowestRatedDoctors[2]}" Padding="0" FontSize="16" HorizontalAlignment="Left" Margin="51,285,0,0" VerticalAlignment="Top" Width="310"/>
+
+    </Grid>
+</Window>

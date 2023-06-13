@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.GUI.Scheduling.ViewModel;
 using ZdravoCorp.GUI.View.Patient;
 

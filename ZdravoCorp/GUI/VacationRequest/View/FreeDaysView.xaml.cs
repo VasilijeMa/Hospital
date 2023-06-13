@@ -9,7 +9,7 @@ namespace ZdravoCorp.GUI.View.Doctor
     /// </summary>
     public partial class FreeDaysView : Window
     {
-        public FreeDaysView(Core.Domain.Doctor doctor, FreeDaysService freeDaysService)
+        public FreeDaysView(Core.UserManager.Model.Doctor doctor, FreeDaysService freeDaysService)
         {
             InitializeComponent();
             DataContext = new FreeDaysViewModel(doctor, freeDaysService);

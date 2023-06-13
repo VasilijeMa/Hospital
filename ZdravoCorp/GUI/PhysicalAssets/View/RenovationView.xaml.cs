@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Enums;
 using ZdravoCorp.GUI.PhysicalAssets.ViewModel;
 
 namespace ZdravoCorp.ManagerView

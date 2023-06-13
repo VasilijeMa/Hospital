@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Repositories;
 using ZdravoCorp.Core.PhysicalAssets.Repositories.Interfaces;
-using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Scheduling.Repositories;
 using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
 

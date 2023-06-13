@@ -2,9 +2,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 using ZdravoCorp.Core.VacationRequest.Commands;
 using ZdravoCorp.Core.VacationRequest.Repositories.Interfaces;
 using ZdravoCorp.Core.VacationRequest.Services;

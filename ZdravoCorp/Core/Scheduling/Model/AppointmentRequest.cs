@@ -1,6 +1,6 @@
 ﻿using System;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Enums;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.Core.Scheduling.Model
 {

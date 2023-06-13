@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.CommunicationSystem.Model;
 using ZdravoCorp.Core.CommunicationSystem.Services;
 using ZdravoCorp.GUI.CommunicationSystem.ViewModel;

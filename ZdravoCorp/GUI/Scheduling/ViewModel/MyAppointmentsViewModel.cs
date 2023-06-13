@@ -6,13 +6,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientSatisfaction.Commands;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
 using ZdravoCorp.Core.Scheduling.Commands;
 using ZdravoCorp.Core.Scheduling.Model;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Services;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.GUI.Scheduling.ViewModel
 {

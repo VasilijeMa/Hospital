@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientSatisfaction.Repositories.Interfaces;
-using ZdravoCorp.Core.Repositories;
 
 namespace ZdravoCorp.Core.PatientSatisfaction.Services
 {

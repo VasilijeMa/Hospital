@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.PatientNotification.Model;
 using ZdravoCorp.Core.PatientNotification.Services;
 using ZdravoCorp.GUI.PatientNotification.ViewModel;

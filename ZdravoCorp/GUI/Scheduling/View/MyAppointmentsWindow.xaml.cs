@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Services;
+using ZdravoCorp.Core.UserManager.Model;
 using ZdravoCorp.GUI.Scheduling.ViewModel;
 
 namespace ZdravoCorp

@@ -1,11 +1,11 @@
 {
   "inventory": {
-    "Bed": 8,
+    "Bed": 12,
     "Wardrobe": 5,
     "Chair": 2,
     "Stethoscope": 1,
     "IV": 2,
-    "Shelf": 7,
+    "Shelf": 10,
     "Bandage": 1,
     "Scalpel": 1
   },

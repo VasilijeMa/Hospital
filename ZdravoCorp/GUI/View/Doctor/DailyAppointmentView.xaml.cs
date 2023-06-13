@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Servieces;
 
 namespace ZdravoCorp

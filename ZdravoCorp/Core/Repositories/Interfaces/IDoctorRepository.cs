@@ -31,5 +31,7 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
         public List<Doctor> GetDoctors();
 
         public void AddRating(int doctorId, int serviceQuality, int suggestToFriends);
+
+        public List<string> GetFullNames();
     }
 }

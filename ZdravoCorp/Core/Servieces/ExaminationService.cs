@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Repositories.Interfaces;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.IO;
+using ZdravoCorp.Core.Scheduling.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
 
 namespace ZdravoCorp.Core.Servieces
 {
@@ -43,7 +44,26 @@ namespace ZdravoCorp.Core.Servieces
             return examinationRepository.GetExaminationById(examinationId);
         }
 
-        public List<int> GetExaminationsIdsForPrescriptions(String patientUsername)
+        public List<Examination> ExaminationOfHospitalizedPatients(int doctorId)
+        {
+            List<Examination> exainations = new List<Examination>();
+            foreach (var examination in examinationRepository.GetExaminations())
+            {
+                if (examination.HospitalizationRefferal == null) continue;
+                HospitalizationReferral referral = examination.HospitalizationRefferal;
+                DateTime endHospitalizationReferral = referral.StartDate.AddDays(referral.Duration);
+                if (!(referral.StartDate <= DateTime.Now && DateTime.Now <= endHospitalizationReferral)) continue;
+                Appointment appointment = scheduleRepository.GetAppointmentByExaminationId(examination.Id);
+                Patient hospitalizedPatient = patientService.GetById(appointment.PatientId);
+                if (patientService.AlreadyExaminedPatients(doctorId).Contains(hospitalizedPatient))
+                {
+                    if (!exainations.Contains(examination)) exainations.Add(examination);
+                }
+            }
+            return exainations;
+        }
+
+        public List<int> GetExaminationsIdsForPrescriptions(String patientUsername) 
         {
             List<int> examinationsIds = new List<int>();
             Patient patient = patientService.GetByUsername(patientUsername);

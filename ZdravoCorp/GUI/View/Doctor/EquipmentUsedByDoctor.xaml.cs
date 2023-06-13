@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PhysicalAssets.Model;
+using ZdravoCorp.Core.PhysicalAssets.Repositories;
+using ZdravoCorp.Core.PhysicalAssets.Repositories.Interfaces;
+using ZdravoCorp.Core.PhysicalAssets.Services;
+using ZdravoCorp.Core.Scheduling.Model;
 //using System.Windows.Forms;
-using ZdravoCorp.EquipmentGroup;
-using ZdravoCorp.InfrastructureGroup;
 
 namespace ZdravoCorp
 {
@@ -33,7 +35,7 @@ namespace ZdravoCorp
 
         private void update_Click(object sender, RoutedEventArgs e)
         {
-            FunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
+            IFunctionalItemRepository functionalItemRepository = new FunctionalItemRepository();
             List<FunctionalItem> functionalItems = functionalItemRepository.LoadAll();
             ItemCollection gridItems = TransferGrid.Items;
             foreach (AlteredEquipmentQuantity gridItem in gridItems)

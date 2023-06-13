@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;
 

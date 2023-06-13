@@ -1,6 +1,10 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientNotification.Services;
+using ZdravoCorp.Core.PatientSatisfaction.Services;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.Scheduling.Services;
 using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.View.Patient;
 using ZdravoCorp.View;
@@ -12,10 +16,12 @@ namespace ZdravoCorp
         private Patient patient;
         private NotificationService notificationService;
         private DoctorSurveyService doctorSurveyService;
-        public PatientWindow(Patient patient, DoctorSurveyService doctorSurveyService)
+        private HospitalSurveyService hospitalSurveyService;
+            public PatientWindow(Patient patient, DoctorSurveyService doctorSurveyService, HospitalSurveyService hospitalSurveyService)
         {
             InitializeComponent();
             this.doctorSurveyService = doctorSurveyService;
+            this.hospitalSurveyService = hospitalSurveyService;
             this.patient = patient;
             lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
             LogService logService = new LogService();
@@ -90,7 +96,7 @@ namespace ZdravoCorp
 
         private void miHospitalSurvey_Click(object sender, RoutedEventArgs e)
         {
-            HospitalSurveyView hospitalSurveyView = new HospitalSurveyView(patient);
+            HospitalSurveyView hospitalSurveyView = new HospitalSurveyView(patient, hospitalSurveyService);
             hospitalSurveyView.ShowDialog();
         }
     }

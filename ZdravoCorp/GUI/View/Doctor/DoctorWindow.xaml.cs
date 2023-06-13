@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using ZdravoCorp.Core.CommunicationSystem.Services;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.GUI.View.Doctor;
 using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp
@@ -14,16 +16,18 @@ namespace ZdravoCorp
     public partial class DoctorWindow : Window
     {
         private Doctor doctor { get; set; }
-        
-        private DoctorService doctorService = new DoctorService();
+
         private ScheduleService scheduleService = new ScheduleService();
+
+        private ChatService chatService;
 
         private NotificationAboutCancelledAppointmentService notifications =
             new NotificationAboutCancelledAppointmentService();
-        public DoctorWindow(Doctor doctor)
+        public DoctorWindow(Doctor doctor, ChatService chatService)
         {
             InitializeComponent();
             this.doctor = doctor;
+            this.chatService = chatService;
             SetFields(doctor);
             showNotification(doctor.Id);
         }
@@ -92,9 +96,21 @@ namespace ZdravoCorp
             scheduleService.WriteAllAppointmens();
         }
 
+        private void FreeDays_Click(object sender, RoutedEventArgs e)
+        {
+            FreeDaysView freeDaysView = new FreeDaysView(doctor);
+            freeDaysView.ShowDialog();
+        }
+
+        private void Visit_Click(object sender, RoutedEventArgs e)
+        {
+            HospitalizedPatientView hospitalizedPatientView = new HospitalizedPatientView(doctor);
+            hospitalizedPatientView.ShowDialog();
+        }
+        
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            ChatsView chatsView = new ChatsView(doctor);
+            ChatsView chatsView = new ChatsView(doctor, chatService);
             chatsView.ShowDialog();
         }
     }

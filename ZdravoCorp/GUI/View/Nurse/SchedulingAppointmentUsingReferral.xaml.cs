@@ -19,6 +19,7 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using System.Globalization;
 using static Xceed.Wpf.Toolkit.Calculator;
 using Newtonsoft.Json.Linq;
+using ZdravoCorp.Core.Scheduling.Model;
 
 namespace ZdravoCorp
 {

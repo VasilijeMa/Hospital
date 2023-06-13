@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;
 

@@ -100,5 +100,15 @@ namespace ZdravoCorp.Core.Repositories
             getDoctor(doctorId).Ratings.Add((new List<int>{serviceQuality, suggestToFriends}).Average());
             WriteAll();
         }
+
+        public List<string> GetFullNames()
+        {
+            List<string> doctorNames = new List<string>();
+            foreach (Doctor doctor in doctors)
+            {
+                doctorNames.Add(doctor.FirstName + " " + doctor.LastName + " ID:" + doctor.Id.ToString()); 
+            }
+            return doctorNames;
+        }
     }
 }

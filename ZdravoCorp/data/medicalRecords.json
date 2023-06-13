@@ -59,5 +59,18 @@
     ],
     "Height": 170.0,
     "Weight": 70.0
+  },
+  {
+    "Id": 10,
+    "EarlierIllnesses": [
+      "svakodnevna migrena",
+      "novo"
+    ],
+    "Allergens": [
+      "polen",
+      "ambrozija"
+    ],
+    "Height": 179.0,
+    "Weight": 70.0
   }
 ]

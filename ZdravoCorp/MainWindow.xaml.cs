@@ -5,6 +5,7 @@ using ZdravoCorp.Core.CommunicationSystem.Services;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
 using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.VacationRequest.Services;
 using ZdravoCorp.ManagerView;
 
 //using System.Collections;
@@ -20,10 +21,13 @@ namespace ZdravoCorp
         private UserService userService;
         private DoctorService doctorService;
         private PatientService patientService;
+        private MedicamentsToAddService medicamentsToAddService;
         private ChatService chatService;
-        private MedicamentsToAddService medicamentsToAddService = new MedicamentsToAddService();
+        private FreeDaysService freeDaysService;
         private DoctorSurveyService doctorSurveyService;
         private HospitalSurveyService hospitalSurveyService;
+        private AnamnesisService anamnesisService;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,11 +38,14 @@ namespace ZdravoCorp
 
         private void SetServices()
         {
+            anamnesisService = new AnamnesisService(Singleton.Instance.AnamnesisRepository);
+            freeDaysService = new FreeDaysService(Singleton.Instance.FreeDaysRepository);
             doctorSurveyService = new DoctorSurveyService(Singleton.Instance.DoctorSurveyRepository);
             hospitalSurveyService = new HospitalSurveyService(Singleton.Instance.HospitalSurveyRepository);
             chatService = new ChatService(Singleton.Instance.ChatRepository);
             doctorService = new DoctorService();
             patientService = new PatientService();
+            medicamentsToAddService = new MedicamentsToAddService();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -88,7 +95,7 @@ namespace ZdravoCorp
             {
                 if (user.Username == doctor.Username)
                 {
-                    DoctorWindow doctorWindow = new DoctorWindow(doctor, chatService);
+                    DoctorWindow doctorWindow = new DoctorWindow(doctor, chatService, freeDaysService, anamnesisService);
                     doctorWindow.ShowDialog();
                     break;
                 }
@@ -101,7 +108,7 @@ namespace ZdravoCorp
             {
                 if (user.Username == nurse.Username)
                 {
-                    NurseWindow nurseWindow = new NurseWindow(nurse, chatService);
+                    NurseWindow nurseWindow = new NurseWindow(nurse, chatService, anamnesisService);
                     nurseWindow.ShowDialog();
                     break;
                 }
@@ -113,20 +120,16 @@ namespace ZdravoCorp
             Patient patient = patientService.GetByUsername(user.Username);
             if (!patient.IsBlocked)
             {
-                PatientWindow patientWindow = new PatientWindow(patient, doctorSurveyService, hospitalSurveyService);
+                PatientWindow patientWindow = new PatientWindow(patient, doctorSurveyService, hospitalSurveyService, anamnesisService);
                 patientWindow.ShowDialog();
                 if (patient.IsBlocked)
                 {
                     userService.WriteAll();
                 }
-
                 return;
             }
-
             MessageBox.Show("Your account is blocked.");
         }
-
-
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {

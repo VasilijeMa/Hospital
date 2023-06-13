@@ -13,9 +13,9 @@ namespace ZdravoCorp.Core.Servieces
     {
         private IAnamnesisRepository _anamnesisRepository;
 
-        public AnamnesisService()
+        public AnamnesisService(IAnamnesisRepository anamnesisRepository)
         {
-            _anamnesisRepository = Singleton.Instance.AnamnesisRepository;
+            _anamnesisRepository = anamnesisRepository;
         }
 
         public List<Anamnesis> GetAnamneses()

@@ -92,5 +92,21 @@
         "Created": "2023-06-12T18:17:24.6641223+02:00"
       }
     ]
+  },
+  {
+    "FirstId": "vanja",
+    "SecondId": "nina",
+    "Messages": [
+      {
+        "Username": "vanja",
+        "Content": "caoooo",
+        "Created": "2023-06-13T14:01:21.6478047+02:00"
+      },
+      {
+        "Username": "vanja",
+        "Content": "ne mogu vise",
+        "Created": "2023-06-13T14:01:27.3291399+02:00"
+      }
+    ]
   }
 ]

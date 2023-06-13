@@ -17,7 +17,8 @@ namespace ZdravoCorp
         private NotificationService notificationService;
         private DoctorSurveyService doctorSurveyService;
         private HospitalSurveyService hospitalSurveyService;
-            public PatientWindow(Patient patient, DoctorSurveyService doctorSurveyService, HospitalSurveyService hospitalSurveyService)
+        private AnamnesisService anamnesisService;
+            public PatientWindow(Patient patient, DoctorSurveyService doctorSurveyService, HospitalSurveyService hospitalSurveyService, AnamnesisService anamnesisService)
         {
             InitializeComponent();
             this.doctorSurveyService = doctorSurveyService;
@@ -29,6 +30,7 @@ namespace ZdravoCorp
             logService.Count(patient.Id);
             notificationService = new NotificationService(patient.Id);
             notificationService.Start();
+            this.anamnesisService = anamnesisService;
         }
 
         private void miMake_Click(object sender, RoutedEventArgs e)
@@ -78,7 +80,7 @@ namespace ZdravoCorp
 
         private void MedicalRecord_Click(object sender, RoutedEventArgs e)
         {
-            PatientAppointmentsView patientAppointmentsView = new PatientAppointmentsView(patient);
+            PatientAppointmentsView patientAppointmentsView = new PatientAppointmentsView(patient, anamnesisService);
             patientAppointmentsView.ShowDialog();
         }
 

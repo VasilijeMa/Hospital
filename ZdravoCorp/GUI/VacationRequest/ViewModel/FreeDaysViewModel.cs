@@ -6,6 +6,8 @@ using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.Core.VacationRequest.Commands;
+using ZdravoCorp.Core.VacationRequest.Repositories.Interfaces;
+using ZdravoCorp.Core.VacationRequest.Services;
 
 namespace ZdravoCorp.GUI.VacationRequest.ViewModel
 {
@@ -17,6 +19,7 @@ namespace ZdravoCorp.GUI.VacationRequest.ViewModel
         private DateTime startDate;
         public Doctor Doctor { get; set; }
         public DoctorService doctorService = new DoctorService();
+        public FreeDaysService freeDaysService;
 
 
         public int Duration
@@ -49,8 +52,9 @@ namespace ZdravoCorp.GUI.VacationRequest.ViewModel
             }
         }
 
-        public FreeDaysViewModel(Doctor doctor)
+        public FreeDaysViewModel(Doctor doctor, FreeDaysService freeDaysService)
         {
+            this.freeDaysService = freeDaysService;
             startDate = DateTime.Now;
             Doctor = doctor;
         }

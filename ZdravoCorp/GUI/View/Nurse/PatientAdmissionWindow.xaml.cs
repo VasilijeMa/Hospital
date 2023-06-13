@@ -18,12 +18,14 @@ namespace ZdravoCorp
         private ScheduleService scheduleService = new ScheduleService();
         private PatientService patientService = new PatientService();
         private DoctorService doctorService = new DoctorService();
+        private AnamnesisService anamnesisService;
         private List<Appointment> todaysAppointments;
-        public PatientAdmissionWindow()
+        public PatientAdmissionWindow(AnamnesisService anamnesisService)
         {
             InitializeComponent();
             todaysAppointments = scheduleService.GetTodaysAppointments();
             LoadData();
+            this.anamnesisService = anamnesisService;
         }
 
         public DataTable CreateDataTable()
@@ -76,7 +78,7 @@ namespace ZdravoCorp
                 return;
             }
             Patient patient = patientService.GetById(selectedAppointment.PatientId);
-            CreateMedicalRecordWindow medicalRecordWindow = new CreateMedicalRecordWindow(false, patient, false, selectedAppointment);
+            CreateMedicalRecordWindow medicalRecordWindow = new CreateMedicalRecordWindow(false, patient, false, anamnesisService, selectedAppointment);
             medicalRecordWindow.ShowDialog();
         }
     }

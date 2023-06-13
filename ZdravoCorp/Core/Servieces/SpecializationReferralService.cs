@@ -8,7 +8,6 @@ using ZdravoCorp.Core.Scheduling.Model;
 
 namespace ZdravoCorp.Core.Servieces
 {
-
     public class SpecializationReferralService
     {
         private ExaminationService examinationService;

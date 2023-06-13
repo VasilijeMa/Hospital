@@ -17,5 +17,6 @@ namespace ZdravoCorp.Core.Repositories.Interfaces
 
         public List<HospitalStay> LoadAll();
 
+        public int GetNumberOfPatientsInTheRoom(string roomId, DateOnly startDate, DateOnly endDate);
     }
 }

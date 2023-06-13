@@ -33,7 +33,7 @@ namespace ZdravoCorp.Core.Commands
             }
             Prescription prescription = CreatePrescription();
             HospitalizationReferral hospitalizationReferral = new HospitalizationReferral(viewModel.Duration,
-                prescription, viewModel.Testing,false,-1, DateOnly.FromDateTime(DateTime.Now));
+                prescription, viewModel.Testing,"", DateOnly.FromDateTime(DateTime.Now));
             CreateExamination(hospitalizationReferral);
             MessageBox.Show("You have successfully create referral!");
         }

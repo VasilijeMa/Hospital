@@ -50,5 +50,21 @@ namespace ZdravoCorp.Core.Repositories
             string json = JsonConvert.SerializeObject(HospitalStays, Formatting.Indented);
             File.WriteAllText("./../../../data/hospitalstay.json", json);
         }
+
+        public int GetNumberOfPatientsInTheRoom(string roomId,DateOnly startDate, DateOnly endDate)
+        {
+            int numberOfPatients = 0;
+            foreach (HospitalStay hospitalStay in LoadAll())
+            {
+                if (hospitalStay.RoomId == roomId)
+                {
+                    if ((startDate >= hospitalStay.StartDate && startDate <= hospitalStay.EndDate) || (endDate >= hospitalStay.StartDate && endDate <=hospitalStay.EndDate))
+                    {
+                        numberOfPatients += 1;
+                    }
+                }
+            }
+            return numberOfPatients;
+        }
     }
 }

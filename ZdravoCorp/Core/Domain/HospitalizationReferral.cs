@@ -9,10 +9,8 @@ namespace ZdravoCorp.Core.Domain
 {
     public class HospitalizationReferral
     {
-        public int RoomId { get; set; }
-
+        public string RoomId { get; set; }
         public DateOnly StartDate{ get; set; }
-        public bool IsUsed { get; set; }
         public int Duration { get; set; }
 
         public string AdditionalTesting { get; set; }
@@ -21,12 +19,11 @@ namespace ZdravoCorp.Core.Domain
 
         public HospitalizationReferral() { }
 
-        public HospitalizationReferral(int duration, Prescription initialTherapy, string additionalTesting, bool isUsed, int roomId,DateOnly startDate)
+        public HospitalizationReferral(int duration, Prescription initialTherapy, string additionalTesting, string roomId,DateOnly startDate)
         {
             Duration = duration;
             InitialTherapy = initialTherapy;
             AdditionalTesting = additionalTesting;
-            IsUsed = isUsed;
             RoomId = roomId;
             StartDate = startDate;
         }

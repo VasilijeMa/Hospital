@@ -10,6 +10,7 @@ using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Repositories.Interfaces;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
+using ZdravoCorp.Core.Scheduling.Services;
 
 namespace ZdravoCorp.Core.Servieces
 {
@@ -19,26 +20,43 @@ namespace ZdravoCorp.Core.Servieces
         private IScheduleRepository scheduleRepository;
         private IPatientRepository patientRepository;
         private ScheduleService scheduleService = new ScheduleService();
+        List<DoctorAvailability> doctorAvailabilities;
+
         public DoctorService()
         {
             doctorRepository = Singleton.Instance.DoctorRepository;
             scheduleRepository = Singleton.Instance.ScheduleRepository;
             patientRepository = Singleton.Instance.PatientRepository;
+            doctorAvailabilities = new List<DoctorAvailability>();
+            doctorAvailabilities.Add(new DoctorAvailabilityByAppointment());
+            doctorAvailabilities.Add(new DoctorAvailabilityByVacation());
         }
+
+        //public bool IsAvailable(TimeSlot timeSlot, int doctorId, int appointmentId = -1)
+        //{
+        //    foreach (Appointment appointment in scheduleRepository.GetAppointmentsForDoctor(doctorId))
+        //    {
+        //        if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
+        //        if (appointment.TimeSlot.OverlapWith(timeSlot))
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
         public bool IsAvailable(TimeSlot timeSlot, int doctorId, int appointmentId = -1)
         {
-            foreach (Appointment appointment in scheduleRepository.GetAppointmentsForDoctor(doctorId))
+            foreach (var doctorAvailability in doctorAvailabilities)
             {
-                if (appointment.Id == appointmentId || appointment.IsCanceled) continue;
-                if (appointment.TimeSlot.OverlapWith(timeSlot))
+                if (!doctorAvailability.IsAvailable(timeSlot, doctorId, appointmentId))
                 {
                     return false;
                 }
             }
             return true;
         }
-
+        
         public bool IsAlreadyExamined(int patientId, int doctorId)
         {
             foreach (Appointment appointment in scheduleRepository.GetAppointmentsForPatientAndDoctor(patientId, doctorId))

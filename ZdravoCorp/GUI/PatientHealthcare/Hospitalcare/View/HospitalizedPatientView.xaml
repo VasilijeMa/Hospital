@@ -9,7 +9,7 @@
     <Grid>
         <DataGrid ColumnWidth="155" RowHeight="20" ItemsSource="{Binding ExaminationItems}" SelectedItem="{Binding SelectedExamination, Mode=TwoWay}" IsReadOnly="True" x:Name="dataGrid" Margin="0,62,0,91">
         </DataGrid>
-        <Button  Command="{Binding ShowReferralCommand}" Content="Update" Height="26" Width="110" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="271,362,0,0"/>
-        <Button  Command="{Binding ShowReferralCommand}" Content="Finish" Height="26" Width="110" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="431,362,0,0"/>
+        <Button  Command="{Binding ShowReferralCommand}" Content="Update" Height="28" Width="120" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="271,362,0,0"/>
+        <Button  Command="{Binding EndHospitalizationCommand}" Content="End hospitalization" Height="28" Width="120" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="431,362,0,0"/>
     </Grid>
 </Window>

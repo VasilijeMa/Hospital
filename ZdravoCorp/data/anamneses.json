@@ -138,5 +138,12 @@
     "Symptoms": "glupost",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 62,
+    "PatientId": 2,
+    "Symptoms": "bol",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
   }
 ]

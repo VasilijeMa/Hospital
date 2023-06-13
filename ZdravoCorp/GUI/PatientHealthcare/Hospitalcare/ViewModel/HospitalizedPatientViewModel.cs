@@ -22,9 +22,9 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
         private List<Examination> patients;
         private ExaminationService examinationService = new ExaminationService();
         private ICommand showReferralCommand;
+        private ICommand endHospitalizationCommand;
         private ExaminationListItem selectedExamination;
-        private Appointment appointment;
-        private ScheduleService scheduleService = new ScheduleService();
+        public Doctor doctor;
 
 
         public ExaminationListItem SelectedExamination
@@ -49,6 +49,7 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
 
         public HospitalizedPatientViewModel(Doctor doctor)
         {
+            this.doctor = doctor;
             patients = examinationService.ExaminationOfHospitalizedPatients(doctor.Id);
             ExaminationItems = new ObservableCollection<ExaminationListItem>();
             FillData(patients);
@@ -61,6 +62,11 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
             {
                 ExaminationItems.Add(new ExaminationListItem(patient));
             }
+        }
+
+        public ICommand EndHospitalizationCommand
+        {
+            get { return endHospitalizationCommand ??= new EndHospitalizationCommand(this); }
         }
 
         public ICommand ShowReferralCommand

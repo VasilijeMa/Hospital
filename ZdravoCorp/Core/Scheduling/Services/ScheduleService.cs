@@ -119,5 +119,10 @@ namespace ZdravoCorp.Core.Scheduling.Services
         {
             return scheduleRepository.GetTodaysAppointments();
         }
+
+        public List<Appointment> GetAppointmentsForDoctor(int doctorId)
+        {
+            return scheduleRepository.GetAppointmentsForDoctor(doctorId);
+        }
     }
 }

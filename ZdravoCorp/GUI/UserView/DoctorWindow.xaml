@@ -8,22 +8,22 @@
         Title="DoctorWindow" WindowStartupLocation="CenterScreen" Height="515" Width="917" Closing="Window_Closing">
     <Grid>
         <Menu Name="menu1"  FontSize="18" Background="MintCream" Height="50" VerticalAlignment="Top">
-            <MenuItem FontSize="18"  Margin="7,10,2,0" Foreground="Black" Header="_View appointments">
+            <MenuItem FontSize="18"  Margin="5,10,2,0" Foreground="Black" Header="_View appointments">
                 <MenuItem Click="ViewOneDayAppointmentClick" Foreground="Black" Header="_For one day" />
                 <MenuItem Click="ViewThreeDayAppointmentClick" Foreground="Black" Header="_For three days"/>
             </MenuItem>
-            <MenuItem Margin="5,10,2,0" Header="_Make appointment" Click="MakeAppointmentClick" IsCheckable="false" Foreground="Black" FontSize="18">
+            <MenuItem Margin="2,10,2,0" Header="_Make appointment" Click="MakeAppointmentClick" IsCheckable="false" Foreground="Black" FontSize="18">
             </MenuItem>
-            <MenuItem Margin="5,10,2,0" Click="DailyScheduleClick" Header="_Daily schedule" IsCheckable="false" Foreground="Black" FontSize="18">
+            <MenuItem Margin="2,10,2,0" Click="DailyScheduleClick" Header="_Daily schedule" IsCheckable="false" Foreground="Black" FontSize="18">
             </MenuItem>
-            <MenuItem Margin="5,10,2,0" Click="SearchPatientClick" Header="_Search patient" IsCheckable="false" Foreground="Black" FontSize="18">
+            <MenuItem Margin="2,10,2,0" Click="SearchPatientClick" Header="_Search patient" IsCheckable="false" Foreground="Black" FontSize="18">
             </MenuItem>
-            <MenuItem Margin="5,10,2,0" Name="FreeDays" Header="_Free days" IsCheckable="false" Foreground="Black" FontSize="18" Click="FreeDays_Click">
+            <MenuItem Margin="2,10,2,0" Name="FreeDays" Header="_Free days" IsCheckable="false" Foreground="Black" FontSize="18" Click="FreeDays_Click">
             </MenuItem>
-            <MenuItem Margin="5, 10, 2, 0" Name="Visit" Header="_Visit" Click="Visit_Click"></MenuItem>
-            <MenuItem Margin="5,10,2,0" Header="_Chat" IsCheckable="false" Foreground="Black" FontSize="18" Click="MenuItem_Click">
+            <MenuItem Margin="2, 10, 2, 0" Name="Visit" Header="_Visit" Click="Visit_Click"></MenuItem>
+            <MenuItem Margin="2,10,2,0" Header="_Chat" IsCheckable="false" Foreground="Black" FontSize="18" Click="MenuItem_Click">
             </MenuItem>
-            <MenuItem Click="LogOutClick" Margin="50,10,2,0" Header="_Log out" IsCheckable="false" Foreground="Black" FontSize="18"></MenuItem>
+            <MenuItem Click="LogOutClick" Margin="28,10,2,0" Header="_Log out" IsCheckable="false" Foreground="Black" FontSize="18"></MenuItem>
         </Menu>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="54,111,0,0">
             <Image Source="/user.png" Margin="140,0,0,0" Name="ImageViewer1" Height="250" Width="200" OpacityMask="Black" />

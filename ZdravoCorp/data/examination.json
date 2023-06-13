@@ -240,35 +240,6 @@
     }
   },
   {
-    "Id": 16,
-    "SpecializationRefferal": null,
-    "HospitalizationRefferal": {
-      "RoomId": "Infirmary 4",
-      "StartDate": "2023-06-13",
-      "Duration": 10,
-      "AdditionalTesting": "lol",
-      "InitialTherapy": {
-        "Medicament": {
-          "Id": 1,
-          "Name": "Amoksicilin",
-          "Allergens": [
-            "a",
-            "b"
-          ],
-          "Quantity": 100000
-        },
-        "Instruction": {
-          "TimePerDay": 5,
-          "TimeForMedicament": 0,
-          "Duration": 100
-        },
-        "DateOfGiving": "2023-06-13",
-        "IsUsed": false
-      }
-    },
-    "Prescription": null
-  },
-  {
     "Id": 17,
     "SpecializationRefferal": {
       "Specialization": 0,

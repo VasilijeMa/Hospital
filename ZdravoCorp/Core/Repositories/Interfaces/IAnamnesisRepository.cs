@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Scheduling.Model;
 
 namespace ZdravoCorp.Core.Repositories.Interfaces
 {

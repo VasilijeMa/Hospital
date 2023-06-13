@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Repositories.Interfaces;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.IO;
+using ZdravoCorp.Core.Scheduling.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
 
 namespace ZdravoCorp.Core.Servieces
 {

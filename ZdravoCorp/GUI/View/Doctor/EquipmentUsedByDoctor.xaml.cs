@@ -2,11 +2,11 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PhysicalAssets.Model;
-using ZdravoCorp.Core.PhysicalAssets.Repository;
-using ZdravoCorp.Core.PhysicalAssets.Repository.Interfaces;
-using ZdravoCorp.Core.PhysicalAssets.Service;
+using ZdravoCorp.Core.PhysicalAssets.Repositories;
+using ZdravoCorp.Core.PhysicalAssets.Repositories.Interfaces;
+using ZdravoCorp.Core.PhysicalAssets.Services;
+using ZdravoCorp.Core.Scheduling.Model;
 //using System.Windows.Forms;
 
 namespace ZdravoCorp

@@ -3,7 +3,7 @@ using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
-using ZdravoCorp.GUI.ViewModel;
+using ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel;
 
 namespace ZdravoCorp.Core.Commands
 {

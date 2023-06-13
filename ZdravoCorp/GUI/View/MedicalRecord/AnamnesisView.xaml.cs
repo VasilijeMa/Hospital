@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.View;
 using MessageBox = System.Windows.Forms.MessageBox;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Servieces;
-using ZdravoCorp.GUI.ViewModel;
+using ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel;
 using ZdravoCorp.View;
 
 namespace ZdravoCorp.Core.Commands

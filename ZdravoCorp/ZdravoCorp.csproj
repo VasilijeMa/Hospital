@@ -37,7 +37,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\PatientSatisfaction\Repository\" />
+    <Folder Include="Core\DoctorPatientSearch\Repositories\Interfaces\" />
+    <Folder Include="Core\DoctorPatientSearch\Services\" />
+    <Folder Include="Core\PatientHealthcare\Healthcare\" />
+    <Folder Include="GUI\PatientHealthcare\Healthcare\" />
+    <Folder Include="GUI\ViewModel\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

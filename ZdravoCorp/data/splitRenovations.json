@@ -16,5 +16,14 @@
     "RoomName": "Operating Theater 3",
     "EndType": 1,
     "SecondEndType": 2
+  },
+  {
+    "IsFinished": false,
+    "HasStarted": true,
+    "StartDate": "2023-05-14T00:00:00",
+    "EndDate": "2023-06-20T00:00:00",
+    "RoomName": "Infirmary 3",
+    "EndType": 3,
+    "SecondEndType": 1
   }
 ]

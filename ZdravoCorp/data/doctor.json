@@ -3,39 +3,44 @@
     "Id": 1,
     "FirstName": "Lazar",
     "LastName": "Lazarevic",
-    "Specialization": "Surgeon",
+    "Specialization": 1,
+    "Ratings": [
+      4.7,
+      1.2,
+      2.5
+    ],
     "Username": "vanja",
     "Password": "vanja",
     "Type": "doctor",
-    "Ratings": [
-      4.7,
-      1.2
-    ]
+    "IsBlocked": false
   },
   {
     "Id": 2,
     "FirstName": "Nikola",
     "LastName": "Nikolic",
-    "Specialization": "Dentist",
+    "Specialization": 6,
+    "Ratings": [
+      5.0,
+      3.7,
+      5.0
+    ],
     "Username": "nikola",
     "Password": "nikola",
     "Type": "doctor",
-    "Ratings": [
-      5.0,
-      3.7
-    ]
+    "IsBlocked": false
   },
   {
     "Id": 3,
     "FirstName": "Nikolina",
     "LastName": "Nikolic",
-    "Specialization": "GeneralPractice",
-    "Username": "nina",
-    "Password": "nina",
-    "Type": "doctor",
+    "Specialization": 0,
     "Ratings": [
       4.0,
       4.2
-    ]
+    ],
+    "Username": "nina",
+    "Password": "nina",
+    "Type": "doctor",
+    "IsBlocked": false
   }
 ]

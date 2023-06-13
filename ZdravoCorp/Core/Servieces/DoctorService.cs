@@ -8,6 +8,8 @@ using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.Servieces
 {
@@ -157,6 +159,11 @@ namespace ZdravoCorp.Core.Servieces
         public List<Doctor> SearchDoctors(string keyword)
         {
             return doctorRepository.SearchDoctors(keyword);
+        }
+
+        public void AddRating(int doctorId, int serviceQuality, int suggestToFriends)
+        {
+            doctorRepository.AddRating(doctorId, serviceQuality, suggestToFriends);
         }
     }
 }

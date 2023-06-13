@@ -1,0 +1,27 @@
+﻿<Window x:Class="ZdravoCorp.Core.PatientSatisfaction.View.SurveyAnalyticsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.Core.PatientSatisfaction.View"
+        mc:Ignorable="d"
+        Title="SurveyAnalyticsView" Height="450" Width="800">
+    <Grid>
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" ItemsSource="{Binding Comments}" Margin="581,118,53,133" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Comments" Binding="{Binding}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" ItemsSource="{Binding Ratings}" Margin="47,118,219,133" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="160"/>
+                <DataGridTextColumn Header="1" Binding="{Binding NumberOf1s}" Width="50"/>
+                <DataGridTextColumn Header="2" Binding="{Binding NumberOf2s}" Width="50"/>
+                <DataGridTextColumn Header="3" Binding="{Binding NumberOf3s}" Width="50"/>
+                <DataGridTextColumn Header="4" Binding="{Binding NumberOf4s}" Width="50"/>
+                <DataGridTextColumn Header="5" Binding="{Binding NumberOf5s}" Width="50"/>
+                <DataGridTextColumn Header="Average score" Binding="{Binding AverageScore}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

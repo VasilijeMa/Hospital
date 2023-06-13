@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Model;
+using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Services;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Servieces;
 using MessageBox = System.Windows.Forms.MessageBox;

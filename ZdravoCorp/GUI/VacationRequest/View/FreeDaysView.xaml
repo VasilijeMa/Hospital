@@ -1,0 +1,38 @@
+﻿<Window x:Class="ZdravoCorp.GUI.View.Doctor.FreeDaysView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.GUI.View.Doctor"
+        xmlns:validationrule="clr-namespace:ZdravoCorp.GUI.ValidationRule"
+        mc:Ignorable="d"
+        Title="FreeDaysView" Height="350" Width="600" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button Command="{Binding SubmitCommand}" Content="Sumbit" HorizontalAlignment="Center" Margin="0,266,0,0" VerticalAlignment="Top" Height="25" Width="90">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=txtDuration, Path=(Validation.HasError)}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <DatePicker Name="dpDate" SelectedDate="{Binding StartDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="302,76,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.002"/>
+        <TextBox  x:Name="txtDuration" Padding="1.3" HorizontalAlignment="Left" Margin="302,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="23">
+            <TextBox.Text>
+                <Binding Path="Duration" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validationrule:TimePerDayValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Name="txtReason" Text="{Binding Reason, Mode=TwoWay}" Padding="6.5" HorizontalAlignment="Left" Margin="302,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Height="45"/>
+        <TextBlock HorizontalAlignment="Left" Margin="160,81,0,0" TextWrapping="Wrap" Text="Start date" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="160,128,0,0" TextWrapping="Wrap" Text="Duration" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="160,177,0,0" TextWrapping="Wrap" Text="Reason for free days" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

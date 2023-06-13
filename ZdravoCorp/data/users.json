@@ -6,6 +6,12 @@
     "IsBlocked": false
   },
   {
+    "Username": "milos",
+    "Password": "milos",
+    "Type": "patient",
+    "IsBlocked": false
+  },
+  {
     "Username": "vanja",
     "Password": "vanja",
     "Type": "doctor",
@@ -36,8 +42,8 @@
     "IsBlocked": false
   },
   {
-    "Username": "milos",
-    "Password": "milos",
+    "Username": "sasa",
+    "Password": "sasa",
     "Type": "patient",
     "IsBlocked": false
   },

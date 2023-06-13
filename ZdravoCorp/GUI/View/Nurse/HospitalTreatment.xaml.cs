@@ -26,11 +26,10 @@ namespace ZdravoCorp
     public partial class HospitalTreatment : Window
     {
 
-        public HospitalTreatment()
+        public HospitalTreatment(HospitalStayService hospitalStayService)
         {
-
             InitializeComponent();
-            DataContext = new HospitalTreatmentViewModel();
+            DataContext = new HospitalTreatmentViewModel(hospitalStayService);
         }
 
     }

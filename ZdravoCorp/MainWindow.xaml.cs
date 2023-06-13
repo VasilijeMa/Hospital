@@ -27,6 +27,7 @@ namespace ZdravoCorp
         private DoctorSurveyService doctorSurveyService;
         private HospitalSurveyService hospitalSurveyService;
         private AnamnesisService anamnesisService;
+        private HospitalStayService hospitalStayService;
 
         public MainWindow()
         {
@@ -46,6 +47,8 @@ namespace ZdravoCorp
             doctorService = new DoctorService();
             patientService = new PatientService();
             medicamentsToAddService = new MedicamentsToAddService();
+            hospitalStayService = new HospitalStayService(Singleton.Instance.HospitalStayRepository,
+                Singleton.Instance.RoomRepository);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -108,7 +111,7 @@ namespace ZdravoCorp
             {
                 if (user.Username == nurse.Username)
                 {
-                    NurseWindow nurseWindow = new NurseWindow(nurse, chatService, anamnesisService);
+                    NurseWindow nurseWindow = new NurseWindow(nurse, chatService, anamnesisService, hospitalStayService);
                     nurseWindow.ShowDialog();
                     break;
                 }

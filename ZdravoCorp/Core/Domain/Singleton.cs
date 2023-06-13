@@ -6,6 +6,8 @@ using ZdravoCorp.Core.PatientNotification.Repositories;
 using ZdravoCorp.Core.PatientNotification.Repositories.Interfaces;
 using ZdravoCorp.Core.PatientSatisfaction.Repositories;
 using ZdravoCorp.Core.PatientSatisfaction.Repositories.Interfaces;
+using ZdravoCorp.Core.PhysicalAssets.Repositories;
+using ZdravoCorp.Core.PhysicalAssets.Repositories.Interfaces;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Repositories.Interfaces;
 using ZdravoCorp.Core.Scheduling.Repositories;
@@ -34,6 +36,8 @@ namespace ZdravoCorp.Core.Domain
         private readonly IHospitalSurveyRepository _hospitalSurveyRepository;
         private readonly IDoctorSurveyRepository _doctorSurveyRepository;
         private readonly IChatRepository _chatRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IHospitalStayRepository _hospitalStayRepository;
 
         private static Singleton instance;
 
@@ -67,6 +71,8 @@ namespace ZdravoCorp.Core.Domain
             _hospitalSurveyRepository = new HospitalSurveyRepository();
             _doctorSurveyRepository = new DoctorSurveyRepository();
             _chatRepository = new ChatsRepository();
+            _roomRepository = new RoomRepository();
+            _hospitalStayRepository = new HospitalStayRepository();
         }
 
         public IAnamnesisRepository AnamnesisRepository { get => _anamnesisRepository; }
@@ -102,5 +108,9 @@ namespace ZdravoCorp.Core.Domain
         public IDoctorSurveyRepository DoctorSurveyRepository { get => _doctorSurveyRepository; }
 
         public IChatRepository ChatRepository { get => _chatRepository; }
+
+        public IHospitalStayRepository HospitalStayRepository { get => _hospitalStayRepository; }
+
+        public IRoomRepository RoomRepository { get => _roomRepository; }
     }
 }

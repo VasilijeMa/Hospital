@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.Core.Scheduling.Repositories
 {

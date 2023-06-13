@@ -7,11 +7,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands;
 using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Model;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services;
 using ZdravoCorp.Core.Scheduling.Model;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Services;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
 {
@@ -21,9 +22,9 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
         private List<Examination> patients;
         private ExaminationService examinationService = new ExaminationService();
         private ICommand showReferralCommand;
+        private ICommand endHospitalizationCommand;
         private ExaminationListItem selectedExamination;
-        private Appointment appointment;
-        private ScheduleService scheduleService = new ScheduleService();
+        public Doctor doctor;
 
 
         public ExaminationListItem SelectedExamination
@@ -48,6 +49,7 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
 
         public HospitalizedPatientViewModel(Doctor doctor)
         {
+            this.doctor = doctor;
             patients = examinationService.ExaminationOfHospitalizedPatients(doctor.Id);
             ExaminationItems = new ObservableCollection<ExaminationListItem>();
             FillData(patients);
@@ -60,6 +62,11 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
             {
                 ExaminationItems.Add(new ExaminationListItem(patient));
             }
+        }
+
+        public ICommand EndHospitalizationCommand
+        {
+            get { return endHospitalizationCommand ??= new EndHospitalizationCommand(this); }
         }
 
         public ICommand ShowReferralCommand

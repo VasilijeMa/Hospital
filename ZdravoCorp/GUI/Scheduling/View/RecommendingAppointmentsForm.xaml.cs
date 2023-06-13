@@ -4,11 +4,11 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Enums;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Services;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorp
 {

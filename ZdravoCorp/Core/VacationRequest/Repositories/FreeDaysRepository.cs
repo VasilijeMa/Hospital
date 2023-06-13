@@ -38,5 +38,18 @@ namespace ZdravoCorp.Core.VacationRequest.Repositories
             freeDays.Add(free);
             WriteAll();
         }
+
+        public List<FreeDays> GetFreeDaysForDoctor(int doctorId)
+        {
+            List<FreeDays> freeDaysList = new List<FreeDays>();
+            foreach (FreeDays freeDays in freeDays)
+            {
+                if (!(freeDays.DoctorId == doctorId)) continue;
+                DateTime endFreeDays = freeDays.StartDate.AddDays(freeDays.Duration);
+                if (endFreeDays < DateTime.Now) continue;
+                freeDaysList.Add(freeDays);
+            }
+            return freeDaysList;
+        }
     }
 }

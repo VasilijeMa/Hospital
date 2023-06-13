@@ -9,13 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.DoctorPatientSearch.Commands;
 using ZdravoCorp.Core.DoctorPatientSearch.Model;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Scheduling.Commands;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace ZdravoCorp.GUI.DoctorPatientSearch.ViewModel

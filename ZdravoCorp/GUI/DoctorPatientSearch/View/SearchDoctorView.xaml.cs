@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.UserManager.Model;
 using ZdravoCorp.GUI.DoctorPatientSearch.ViewModel;
 
 namespace ZdravoCorp.View

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.CommunicationSystem.Model;
 using ZdravoCorp.Core.CommunicationSystem.Repositories.Interfaces;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.Core.CommunicationSystem.Services
 {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain.Enums;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Enums;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Services;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorpCLI
 {
@@ -17,85 +17,62 @@ namespace ZdravoCorpCLI
         List<Appointment> recommendedAppointments;
         private DoctorService doctorService = new DoctorService();
         private PatientService patientService = new PatientService();
-        private ScheduleService scheduleService = new ScheduleService();
-        private LogService logService = new LogService();
-        private RecommendingAppointmentsService recommendingAppointmentsService = new RecommendingAppointmentsService();
         private RecommendingAppointmentsCLIViewModel viewModel = new RecommendingAppointmentsCLIViewModel();
         public RecommendingAppointmentsCLIView()
         {
             int patientId;
-            while (true)
-            {
-                PrintPatients();
-                string input = Console.ReadLine();
-                if (viewModel.ValidatePatient(input, out patientId))
-                {
-                    patient = patientService.GetById(patientId);
-                    break;
-                }
-                if (input.ToLower().Equals("x")) return;
-                Console.WriteLine("Wrong input, try again.");
-            }
+            if (GetPatient(out patientId)) return;
 
             int doctorId;
+            if (GetDoctor(out doctorId)) return;
+
+            TimeOnly earliestTime;
+            if (GetEarliestTime(out earliestTime)) return;
+
+            TimeOnly latestTime;
+            if (GetLatestTime(earliestTime, out latestTime)) return;
+
+            DateTime date;
+            if (GetDate(out date)) return;
+
+            Priority? priority = null;
+            if (GetPriority(ref priority)) return;
+
+            AppointmentRequest appointmentRequest = new AppointmentRequest(doctorService.GetDoctor(doctorId),
+                earliestTime, latestTime, date, (Priority)priority);
+            List<Appointment> recommendedAppointments =
+                viewModel.FoundAppointments(appointmentRequest, patientId);
+            int appointmentId;
+            if (recommendedAppointments.Count() == 1)
+            {
+                viewModel.AddAppointment(recommendedAppointments[0], patient);
+                Console.WriteLine("Appointment " + recommendedAppointments[0]);
+            }
+            else
+            {
+                PrintAppointments(recommendedAppointments);
+                if (GetAppointment(recommendedAppointments, out appointmentId)) return;
+                viewModel.AddAppointment(recommendedAppointments[appointmentId - 1], patient);
+            }
+            Console.WriteLine("Appointment successfully created.");
+        }
+
+        private bool GetAppointment(List<Appointment> recommendedAppointments, out int appointmentId)
+        {
             while (true)
             {
-                PrintDoctors();
+                Console.Write("Choose appointment id or x for Exit: ");
                 string input = Console.ReadLine();
-                if (viewModel.ValidateDoctor(input, out doctorId)) break;
-                if (input.ToLower().Equals("x")) return;
+                if (viewModel.ValidateAppointment(input, recommendedAppointments, out appointmentId)) break;
+                if (input.ToLower().Equals("x")) return true;
                 Console.WriteLine("Wrong input, try again.");
             }
 
-            TimeOnly earliestTime;
-            while (true)
-            {
-                Console.Write("Earliest time(HH:mm) or x for Exit: ");
-                string input = Console.ReadLine();
-                if (viewModel.ValidateTime(input))
-                {
-                    earliestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
-                    break;
-                }
-                if (input.ToLower().Equals("x")) return;
-                Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
-            }
+            return false;
+        }
 
-            TimeOnly latestTime;
-            while (true)
-            {
-                Console.Write("Latest time(HH:mm) or x for Exit: ");
-                string input = Console.ReadLine();
-                if (viewModel.ValidateTime(input))
-                {
-                    latestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
-                    if (latestTime > earliestTime) break;
-                    Console.WriteLine("Latest time is before earliest time!");
-                    continue;
-                }
-                if (input.ToLower().Equals("x")) return;
-                Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
-            }
-
-            DateTime date;
-            while (true)
-            {
-                Console.Write("Latest date(dd.MM.yyyy.) or x for Exit: ");
-                string input = Console.ReadLine();
-                if (viewModel.ValidateDate(input, out date))
-                {
-                    if (date.Date < DateTime.Now.Date)
-                    {
-                        Console.WriteLine("The selected date cannot be in the past.");
-                        continue;
-                    }
-                    break;
-                }
-                if (input.ToLower().Equals("x")) return;
-                Console.WriteLine("Invalid date format!");
-            }
-
-            Priority? priority = null;
+        private static bool GetPriority(ref Priority? priority)
+        {
             while (true)
             {
                 Console.WriteLine("Choose priority");
@@ -112,55 +89,107 @@ namespace ZdravoCorpCLI
                         priority = Priority.TimeSlot;
                         break;
                     case "x":
-                        return;
+                        return true;
                     default:
                         Console.WriteLine("Wrong input, try again.");
                         break;
                 }
                 if (priority != null) break;
             }
+            return false;
+        }
 
-
-            AppointmentRequest appointmentRequest = new AppointmentRequest(doctorService.GetDoctor(doctorId),
-                earliestTime, latestTime, date, (Priority)priority);
-            List<Appointment> recommendedAppointments =
-                recommendingAppointmentsService.GetAppointmentsByRequest(appointmentRequest, patientId);
-            int appointmentId;
-            if (recommendedAppointments.Count() == 1)
+        private bool GetDate(out DateTime date)
+        {
+            while (true)
             {
-                scheduleService.CreateAppointment(recommendedAppointments[0]);
-                logService.AddElement(recommendedAppointments[0], patient);
-                Console.WriteLine("Appointment " + recommendedAppointments[0]);
-                Console.WriteLine("Appointment successfully created.");
-            }
-            else
-            {
-                PrintAppointments(recommendedAppointments);
-                while (true)
+                Console.Write("Latest date(dd.MM.yyyy.) or x for Exit: ");
+                string input = Console.ReadLine();
+                if (viewModel.ValidateDate(input, out date))
                 {
-                    Console.Write("Choose appointment id or x for Exit: ");
-                    string input = Console.ReadLine();
-                    if (Int32.TryParse(input, out appointmentId))
+                    if (date.Date < DateTime.Now.Date)
                     {
-                        try
-                        {
-                            Appointment a = recommendedAppointments[appointmentId - 1];
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Wrong id, try again.");
-                            continue;
-                        }
+                        Console.WriteLine("The selected date cannot be in the past.");
+                        continue;
                     }
-                    if (input.ToLower().Equals("x")) return;
-                    Console.WriteLine("Wrong input, try again.");
+                    break;
                 }
-                scheduleService.CreateAppointment(recommendedAppointments[appointmentId - 1]);
-                logService.AddElement(recommendedAppointments[appointmentId - 1], patient);
-                Console.WriteLine("Appointment successfully created.");
+                if (input.ToLower().Equals("x")) return true;
+                Console.WriteLine("Invalid date format!");
             }
-            scheduleService.WriteAllAppointmens();
+            return false;
+        }
+
+        private bool GetLatestTime(TimeOnly earliestTime, out TimeOnly latestTime)
+        {
+            while (true)
+            {
+                Console.Write("Latest time(HH:mm) or x for Exit: ");
+                string input = Console.ReadLine();
+                if (viewModel.ValidateTime(input))
+                {
+                    latestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
+                    if (latestTime > earliestTime) break;
+                    Console.WriteLine("Latest time is before earliest time!");
+                    continue;
+                }
+                latestTime = new TimeOnly();
+                if (input.ToLower().Equals("x")) return true;
+                Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
+            }
+
+            return false;
+        }
+
+        private bool GetEarliestTime(out TimeOnly earliestTime)
+        {
+            while (true)
+            {
+                Console.Write("Earliest time(HH:mm) or x for Exit: ");
+                string input = Console.ReadLine();
+                if (viewModel.ValidateTime(input))
+                {
+                    earliestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
+                    break;
+                }
+                earliestTime = new TimeOnly();
+                if (input.ToLower().Equals("x")) return true;
+                Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
+            }
+
+            return false;
+        }
+
+        private bool GetDoctor(out int doctorId)
+        {
+            while (true)
+            {
+                PrintDoctors();
+                string input = Console.ReadLine();
+                if (viewModel.ValidateDoctor(input, out doctorId)) break;
+                if (input.ToLower().Equals("x")) return true;
+                Console.WriteLine("Wrong input, try again.");
+            }
+            return false;
+        }
+
+        private bool GetPatient(out int patientId)
+        {
+            while (true)
+            {
+                PrintPatients();
+                string input = Console.ReadLine();
+                if (viewModel.ValidatePatient(input, out patientId))
+                {
+                    patient = patientService.GetById(patientId);
+                    break;
+                }
+
+                if (input.ToLower().Equals("x")) return true;
+                Console.WriteLine("Wrong input, try again.");
+            }
+
+            return false;
         }
 
         private void PrintPatients()

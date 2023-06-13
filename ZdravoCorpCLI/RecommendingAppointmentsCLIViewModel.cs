@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.Scheduling.Services;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorpCLI
 {
@@ -12,6 +14,10 @@ namespace ZdravoCorpCLI
     {
         private PatientService patientService = new PatientService();
         private DoctorService doctorService = new DoctorService();
+        private ScheduleService scheduleService = new ScheduleService();
+        private LogService logService = new LogService();
+        private RecommendingAppointmentsService recommendingAppointmentsService = new RecommendingAppointmentsService();
+
 
         public bool ValidatePatient(string? input, out int patientId)
         {
@@ -46,6 +52,35 @@ namespace ZdravoCorpCLI
             string[] formats = { "dd.MM.yyyy." };
             bool isValid = DateTime.TryParseExact(input, formats, null, System.Globalization.DateTimeStyles.None, out date);
             return isValid;
+        }
+
+        public void AddAppointment(Appointment appointment, Patient patient)
+        {
+            scheduleService.CreateAppointment(appointment);
+            logService.AddElement(appointment, patient);
+            scheduleService.WriteAllAppointmens();
+        }
+
+        public List<Appointment> FoundAppointments(AppointmentRequest appointmentRequest, int patientId)
+        {
+            return recommendingAppointmentsService.GetAppointmentsByRequest(appointmentRequest, patientId);
+        }
+
+        public bool ValidateAppointment(string? input, List<Appointment> recommendedAppointments, out int appointmentId)
+        {
+            if (Int32.TryParse(input, out appointmentId))
+            {
+                try
+                {
+                    Appointment a = recommendedAppointments[appointmentId - 1];
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

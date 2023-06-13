@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using ZdravoCorp.Core.Commands;
 using System.Windows.Input;
-using ZdravoCorp.Core.Domain;
 using System.Collections.ObjectModel;
-using ZdravoCorp.Core.Domain.Enums;
-using ZdravoCorp.Core.Servieces;
 using System.Windows;
 using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Commands;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Model;
 using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Services;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Model;
+using ZdravoCorp.Core.Enums;
 
 namespace ZdravoCorp.GUI.PatientHealthcare.Pharmacy.ViewModel
 {

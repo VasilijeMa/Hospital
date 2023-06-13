@@ -10,7 +10,7 @@ namespace ZdravoCorp.GUI.View.Patient
     /// </summary>
     public partial class NotificationFormView : Window
     {
-        public NotificationFormView(Core.Domain.Patient patient, Notification notification = null)
+        public NotificationFormView(Core.UserManager.Model.Patient patient, Notification notification = null)
         {
             InitializeComponent();
             dpDate.DisplayDateStart = DateTime.Now;

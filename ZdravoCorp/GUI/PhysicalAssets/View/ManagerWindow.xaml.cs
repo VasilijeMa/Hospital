@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Enums;
 using ZdravoCorp.Core.PatientSatisfaction.View;
 using ZdravoCorp.GUI.View.Patient;
 

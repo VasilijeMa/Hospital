@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System;
-using ZdravoCorp.Core.Domain;
 
 namespace ZdravoCorp.Core.Scheduling.Model
 {

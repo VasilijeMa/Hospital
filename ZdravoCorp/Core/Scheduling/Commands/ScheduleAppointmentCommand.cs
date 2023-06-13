@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.UserManager.Model;
 using ZdravoCorp.GUI.DoctorPatientSearch.ViewModel;
 
 namespace ZdravoCorp.Core.Scheduling.Commands

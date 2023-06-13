@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Model;
 using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Repositories.Interfaces;
 
@@ -15,7 +14,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Pharmacy.Services
 
         public MedicamentService()
         {
-            _medicamentRepository = Singleton.Instance.MedicamentRepository;
+            _medicamentRepository = Institution.Instance.MedicamentRepository;
         }
         public void WriteAll()
         {

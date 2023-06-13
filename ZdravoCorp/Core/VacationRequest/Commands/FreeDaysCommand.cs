@@ -18,7 +18,7 @@ namespace ZdravoCorp.Core.VacationRequest.Commands
     {
         private FreeDaysViewModel viewModel;
         private DoctorService DoctorService = new DoctorService();
-        private IFreeDaysRepository freeDaysRepository = Singleton.Instance.FreeDaysRepository;
+        //private IFreeDaysRepository freeDaysRepository = Singleton.Instance.FreeDaysRepository;
         public FreeDaysCommand(FreeDaysViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -32,7 +32,7 @@ namespace ZdravoCorp.Core.VacationRequest.Commands
             }
             MessageBox.Show("Successfully get free days");
             FreeDays freeDays = new FreeDays(viewModel.Doctor.Id, viewModel.StartDate, viewModel.Duration, viewModel.Reason);
-            freeDaysRepository.AddFreeDays(freeDays);
+            viewModel.freeDaysService.AddFreeDays(freeDays);
         }
 
         private bool IsDoctorFree()

@@ -117,5 +117,19 @@
     "Symptoms": "vanja",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 50,
+    "PatientId": 4,
+    "Symptoms": "vanja",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 55,
+    "PatientId": 2,
+    "Symptoms": "vanja",
+    "DoctorsObservation": "bol",
+    "DoctorsConclusion": "bol"
   }
 ]

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.CommunicationSystem.Services;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp
@@ -12,12 +13,14 @@ namespace ZdravoCorp
     {
         Nurse nurse;
         private ChatService chatService;
+        private AnamnesisService anamnesisService;
 
-        public NurseWindow(Nurse nurse, ChatService chatService)
+        public NurseWindow(Nurse nurse, ChatService chatService, AnamnesisService anamnesisService)
         {
             InitializeComponent();
             this.nurse = nurse;
             this.chatService = chatService;
+            this.anamnesisService = anamnesisService;
         }
 
         private void CRUDpatients_Click(object sender, RoutedEventArgs e)
@@ -28,7 +31,7 @@ namespace ZdravoCorp
 
         private void PatientAdmission_Click(object sender, RoutedEventArgs e)
         {
-            PatientAdmissionWindow patientAdmissionWindow = new PatientAdmissionWindow();
+            PatientAdmissionWindow patientAdmissionWindow = new PatientAdmissionWindow(anamnesisService);
             patientAdmissionWindow.ShowDialog();
         }
 

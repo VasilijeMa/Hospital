@@ -6,6 +6,12 @@
     "IsBlocked": false
   },
   {
+    "Username": "milos",
+    "Password": "milos",
+    "Type": "patient",
+    "IsBlocked": false
+  },
+  {
     "Username": "vanja",
     "Password": "vanja",
     "Type": "doctor",
@@ -36,18 +42,6 @@
     "IsBlocked": false
   },
   {
-    "Username": "pera",
-    "Password": "pera",
-    "Type": "patient",
-    "IsBlocked": false
-  },
-  {
-    "Username": "milos",
-    "Password": "milos",
-    "Type": "patient",
-    "IsBlocked": false
-  },
-  {
     "Username": "sasa",
     "Password": "sasa",
     "Type": "patient",
@@ -56,6 +50,12 @@
   {
     "Username": "anica123",
     "Password": "Ana123",
+    "Type": "patient",
+    "IsBlocked": false
+  },
+  {
+    "Username": "pera",
+    "Password": "pera",
     "Type": "patient",
     "IsBlocked": false
   }

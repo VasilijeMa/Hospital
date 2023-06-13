@@ -15,12 +15,12 @@ namespace ZdravoCorp
         private Appointment selectedAppointment;
         private ConfigRoles role;
         private Anamnesis anamnesis;
-        private AnamnesisService anamnesisService = new AnamnesisService();
+        private AnamnesisService anamnesisService;
 
-        public AnamnesisView(Appointment selectedAppointment, ConfigRoles role)
+        public AnamnesisView(Appointment selectedAppointment, AnamnesisService anamnesisService , ConfigRoles role)
         {
-
             InitializeComponent();
+            this.anamnesisService = anamnesisService;
             this.selectedAppointment = selectedAppointment;
             this.role = role;
             setWindow();

@@ -27,13 +27,13 @@ namespace ZdravoCorp
         private UserService userService;
         private AnamnesisService anamnesisService;
 
-        public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, Appointment selectedAppointment = null, bool update = false)
+        public CreateMedicalRecordWindow(bool create, Patient patient, bool doctor, AnamnesisService anamnesisService, Appointment selectedAppointment = null, bool update = false)
         {
             InitializeComponent();
             medicalRecordService = new MedicalRecordService();
             patientService = new PatientService();
             userService = new UserService();
-            anamnesisService = new AnamnesisService();
+            this.anamnesisService = anamnesisService;
             this.doctor = doctor;
             this.create = create;
             this.patient = patient;
@@ -237,11 +237,11 @@ namespace ZdravoCorp
                     MessageBox.Show("The patient must first check in with the nurse.");
                     return;
                 }
-                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Doctor);
+                anamnesis = new AnamnesisView(selectedAppointment, anamnesisService, ConfigRoles.Doctor);
             }
             else
             {
-                anamnesis = new AnamnesisView(selectedAppointment, ConfigRoles.Nurse);
+                anamnesis = new AnamnesisView(selectedAppointment, anamnesisService, ConfigRoles.Nurse);
             }
             anamnesis.ShowDialog();
         }

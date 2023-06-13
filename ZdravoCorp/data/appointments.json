@@ -626,14 +626,14 @@
   {
     "Id": 55,
     "TimeSlot": {
-      "start": "2023-06-14T10:00:00",
-      "duration": 15
+      "start": "2023-06-13T14:00:00",
+      "duration": 150
     },
     "DoctorId": 1,
     "PatientId": 2,
     "IsCanceled": false,
     "IdRoom": "Examination Room 1",
-    "ExaminationId": 0
+    "ExaminationId": 15
   },
   {
     "Id": 56,

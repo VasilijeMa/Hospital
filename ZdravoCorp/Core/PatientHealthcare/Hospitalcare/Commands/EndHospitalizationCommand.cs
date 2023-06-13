@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Scheduling.Model;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Services;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 using ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel;
 
 namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands

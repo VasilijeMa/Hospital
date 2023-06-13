@@ -8,7 +8,7 @@ namespace ZdravoCorp.GUI.View.Patient
     /// </summary>
     public partial class PatientNotificationsView : Window
     {
-        public PatientNotificationsView(Core.Domain.Patient patient)
+        public PatientNotificationsView(Core.UserManager.Model.Patient patient)
         {
             InitializeComponent();
             DataContext = new PatientNotificationsViewModel(patient);

@@ -4,8 +4,8 @@ using System.Linq;
 using ZdravoCorp.Core.PatientSatisfaction.Model;
 using ZdravoCorp.Core.PatientSatisfaction.Repositories;
 using ZdravoCorp.Core.PatientSatisfaction.Repositories.Interfaces;
-using ZdravoCorp.Core.Repositories;
-using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.Core.UserManager.Repositories;
+using ZdravoCorp.Core.UserManager.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.PatientSatisfaction.Services
 {

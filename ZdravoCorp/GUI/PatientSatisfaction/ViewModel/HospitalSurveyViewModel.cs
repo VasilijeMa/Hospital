@@ -6,10 +6,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientSatisfaction.Commands;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
+using ZdravoCorp.Core.UserManager.Model;
 using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel

@@ -1,0 +1,26 @@
+[
+  {
+    "ExaminationId": 11,
+    "StartDate": "2023-06-06",
+    "EndDate": "2023-06-21",
+    "RoomId": "Infirmary 4"
+  },
+  {
+    "ExaminationId": 16,
+    "StartDate": "2023-06-13",
+    "EndDate": "2023-06-23",
+    "RoomId": "Infirmary 4"
+  },
+  {
+    "ExaminationId": 13,
+    "StartDate": "2023-06-06",
+    "EndDate": "2023-06-16",
+    "RoomId": "Infirmary 4"
+  },
+  {
+    "ExaminationId": 9,
+    "StartDate": "2023-05-30",
+    "EndDate": "2023-06-14",
+    "RoomId": "Infirmary 2"
+  }
+]

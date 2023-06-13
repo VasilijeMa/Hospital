@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Model;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services;
+using ZdravoCorp.Core.PatientHealthcare.PatientMedicalRecord.Services;
 using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Model;
 using ZdravoCorp.Core.PatientNotification.Services;
-using ZdravoCorp.Core.Repositories;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Services;
 using ZdravoCorp.GUI.PatientHealthcare.Pharmacy.ViewModel;
 
 namespace ZdravoCorp.Core.PatientHealthcare.Pharmacy.Commands

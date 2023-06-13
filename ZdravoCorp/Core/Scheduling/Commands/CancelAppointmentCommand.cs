@@ -5,10 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Scheduling.Services;
-using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.Scheduling.ViewModel;
 
 namespace ZdravoCorp.Core.Scheduling.Commands

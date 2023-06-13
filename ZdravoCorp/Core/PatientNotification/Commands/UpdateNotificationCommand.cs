@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.PatientNotification.Model;
 using ZdravoCorp.Core.PatientNotification.Services;
 using ZdravoCorp.GUI.PatientNotification.ViewModel;

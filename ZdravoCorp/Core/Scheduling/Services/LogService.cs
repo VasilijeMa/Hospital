@@ -1,8 +1,7 @@
 ﻿using System;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.Core.Scheduling.Services
 {
@@ -11,7 +10,7 @@ namespace ZdravoCorp.Core.Scheduling.Services
         private ILogRepository logRepository;
         public LogService()
         {
-            logRepository = Singleton.Instance.LogRepository;
+            logRepository = Institution.Instance.LogRepository;
         }
         public void Count(int patientId)
         {

@@ -27,6 +27,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         {
             _rooms = LoadAll();
         }
+
         public List<string> GetAllNames()
         {
             return _rooms.Keys.ToList();
@@ -64,7 +65,18 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
                 i++;
             }
         }
-
+        public List<string> LoadAllInfirmaryRooms() 
+        {
+            List<string> infirmaryRooms = new List<string>();
+            foreach (var room in _rooms.Values)
+            {
+                if (RoomType.Infirmary.Equals(room.GetTypeOfRoom()))
+                {
+                    infirmaryRooms.Add(room.GetName());
+                }
+            }
+            return infirmaryRooms;
+        }
         public Dictionary<string, Room> LoadAllExaminationRooms()
         {
             Dictionary<string, Room> examinationRooms = new Dictionary<string, Room>();

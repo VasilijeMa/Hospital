@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain.Enums;
+using ZdravoCorp.Core.Enums;
 using ZdravoCorp.Core.PhysicalAssets.Commands;
 using ZdravoCorp.Core.PhysicalAssets.Model;
 using ZdravoCorp.Core.PhysicalAssets.Services;

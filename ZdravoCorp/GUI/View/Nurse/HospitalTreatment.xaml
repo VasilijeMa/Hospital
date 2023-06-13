@@ -6,16 +6,32 @@
         xmlns:local="clr-namespace:ZdravoCorp"
         mc:Ignorable="d"
         Title="Hospital treatment for patient" Height="500" Width="800">
+        <Window.Resources>
+            <DataTemplate x:Key="patientTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Username}" Margin="5"/>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="examinationTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Id}" Margin="5"/>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="roomTemplate" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Id}" Margin="5"/>
+                </StackPanel>
+            </DataTemplate>
+        </Window.Resources>
     <Grid Background="#FFFFA7A7">
         <Label Content="Select patient: " HorizontalAlignment="Left" Height="40" Margin="67,60,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <ComboBox Name ="patients" HorizontalAlignment="Left" Margin="467,60,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
-        <Button x:Name="showReferrals" Content="Show patient's referrals" HorizontalAlignment="Left" Height="40" Margin="467,140,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="showReferrals_Click" />
+        <ComboBox ItemTemplate="{StaticResource patientTemplate}" ItemsSource="{Binding Patients}" SelectedItem="{Binding PatientUsername, Mode=TwoWay}" Name="patients" HorizontalAlignment="Left" Margin="467,60,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Button Command="{Binding ShowReferralsCommand}" x:Name="showReferrals" Content="Show patient's referrals" HorizontalAlignment="Left" Height="40" Margin="467,140,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS"  />
         <Label Content="Select examination id: " HorizontalAlignment="Left" Height="40" Margin="67,200,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <ComboBox Name ="patientsExaminations" HorizontalAlignment="Left" Margin="467,200,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
-        <Button x:Name="showRooms" Content="Show free rooms" HorizontalAlignment="Left" Height="40" Margin="467,280,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="showRooms_Click" />
+        <ComboBox   ItemsSource="{Binding Examinations}" SelectedItem="{Binding ExaminationId, Mode=TwoWay}" Name="patientsExaminations" HorizontalAlignment="Left" Margin="467,200,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Button Command="{Binding ShowRoomsCommand}" x:Name="showRooms" Content="Show free rooms" HorizontalAlignment="Left" Height="40" Margin="467,280,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS"  />
         <Label Content="Select room for patient's hospital treatment: " HorizontalAlignment="Left" Height="40" Margin="67,360,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
-        <ComboBox Name ="rooms" HorizontalAlignment="Left" Margin="467,360,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
-        <Button x:Name="confirm" Content="Submit" HorizontalAlignment="Left" Height="40" Margin="67,420,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="confirm_Click" />
-        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Height="40" Margin="467,420,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="cancel_Click" />
+        <ComboBox   ItemsSource="{Binding Rooms}" SelectedItem="{Binding RoomId, Mode=TwoWay}" Name ="rooms" HorizontalAlignment="Left" Margin="467,360,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Button Command="{Binding ConfirmCommand}" x:Name="confirm" Content="Submit" HorizontalAlignment="Left" Height="40" Margin="270,420,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS"/>
     </Grid>
 </Window>

@@ -12,15 +12,15 @@
     "RoomId": "Infirmary 4"
   },
   {
-    "ExaminationId": 14,
-    "StartDate": "2023-06-12",
-    "EndDate": "2023-06-27",
-    "RoomId": "Infirmary 4"
-  },
-  {
     "ExaminationId": 13,
     "StartDate": "2023-06-06",
     "EndDate": "2023-06-16",
-    "RoomId": "Infirmary 1"
+    "RoomId": "Infirmary 4"
+  },
+  {
+    "ExaminationId": 9,
+    "StartDate": "2023-05-30",
+    "EndDate": "2023-06-14",
+    "RoomId": "Infirmary 2"
   }
 ]

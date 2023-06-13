@@ -3,7 +3,7 @@
     "Id": 9,
     "SpecializationRefferal": null,
     "HospitalizationRefferal": {
-      "RoomId": "",
+      "RoomId": "Infirmary 2",
       "StartDate": "2023-05-30",
       "Duration": 15,
       "AdditionalTesting": "ne",
@@ -122,7 +122,7 @@
     "Id": 13,
     "SpecializationRefferal": null,
     "HospitalizationRefferal": {
-      "RoomId": "Infirmary 1",
+      "RoomId": "Infirmary 4",
       "StartDate": "2023-06-06",
       "Duration": 10,
       "AdditionalTesting": "vanjaaa",
@@ -151,7 +151,7 @@
     "Id": 14,
     "SpecializationRefferal": null,
     "HospitalizationRefferal": {
-      "RoomId": "Infirmary 4",
+      "RoomId": "",
       "StartDate": "2023-06-12",
       "Duration": 15,
       "AdditionalTesting": "vanjaaaaa",
@@ -197,7 +197,7 @@
     "Id": 15,
     "SpecializationRefferal": null,
     "HospitalizationRefferal": {
-      "RoomId": "Infirmary 4",
+      "RoomId": "",
       "StartDate": "2023-06-13",
       "Duration": 10,
       "AdditionalTesting": "vanaj",

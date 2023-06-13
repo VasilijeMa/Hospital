@@ -89,6 +89,30 @@ namespace ZdravoCorp.Core.Servieces
             }
             return examinations;
         }
+
+        public List<int> GetExaminationsIdsForHospitalizationReferral(String patientUsername) 
+        {
+            List<int> examinationsIds = new List<int>();
+            Patient patient = patientService.GetByUsername(patientUsername);
+            foreach (Appointment appointment in scheduleService.GetAppointmentsForPatient(patient.Id))
+            {
+                if (appointment.ExaminationId != 0)
+                {
+                    Examination patientsExamination = GetExaminationById(appointment.ExaminationId);
+                    if (patientsExamination != null)
+                    {
+                        if (patientsExamination.HospitalizationRefferal != null)
+                        {
+                            if (patientsExamination.HospitalizationRefferal.IsUsed == false)
+                            {
+                                examinationsIds.Add(patientsExamination.Id);
+                            }
+                        }
+                    }
+                }
+            }
+            return examinationsIds;
+        }
         public List<int> GetExaminationsIdsForReferral(String patientUsername) 
         {
             List<int> examinationsIds = new List<int>();
@@ -112,5 +136,6 @@ namespace ZdravoCorp.Core.Servieces
             }
             return examinationsIds;
         }
+
     }
 }

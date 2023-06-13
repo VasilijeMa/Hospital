@@ -1,0 +1,20 @@
+﻿<Window x:Class="ZdravoCorp.HospitalTreatment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp"
+        mc:Ignorable="d"
+        Title="Hospital treatment for patient" Height="450" Width="800">
+    <Grid Background="#FFFFA7A7">
+        <Label Content="Select patient: " HorizontalAlignment="Left" Height="40" Margin="67,60,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <ComboBox Name ="patients" HorizontalAlignment="Left" Margin="467,60,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Button x:Name="showReferrals" Content="Show patient's referrals" HorizontalAlignment="Left" Height="40" Margin="467,140,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="showReferrals_Click" />
+        <Label Content="Select examination id: " HorizontalAlignment="Left" Height="40" Margin="67,200,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <ComboBox Name ="patientsExaminations" HorizontalAlignment="Left" Margin="467,200,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Label Content="Select room for patient's hospital treatment:: " HorizontalAlignment="Left" Height="40" Margin="67,280,0,0" VerticalAlignment="Top" Width="296" Background="#FFFFD8D8" FontFamily="Trebuchet MS"/>
+        <ComboBox Name ="rooms" HorizontalAlignment="Left" Margin="467,280,0,0" VerticalAlignment="Top" Width="296" Height="50"/>
+        <Button x:Name="confirm" Content="Submit" HorizontalAlignment="Left" Height="40" Margin="67,360,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="confirm_Click" />
+        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Height="40" Margin="467,360,0,0" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" Click="cancel_Click" />
+    </Grid>
+</Window>

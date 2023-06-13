@@ -3,6 +3,9 @@
     "Id": 9,
     "SpecializationRefferal": null,
     "HospitalizationRefferal": {
+      "RoomId": -1,
+      "StartDate": "2023-05-30",
+      "IsUsed": false,
       "Duration": 15,
       "AdditionalTesting": "ne",
       "InitialTherapy": {
@@ -51,6 +54,9 @@
       "IsUsed": true
     },
     "HospitalizationRefferal": {
+      "RoomId": -1,
+      "StartDate": "2023-05-30",
+      "IsUsed": false,
       "Duration": 10,
       "AdditionalTesting": "vanja",
       "InitialTherapy": {

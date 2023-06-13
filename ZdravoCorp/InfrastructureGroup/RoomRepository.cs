@@ -25,6 +25,7 @@ namespace ZdravoCorp.InfrastructureGroup
         {
             _rooms = LoadAll();
         }
+
         public List<string> GetAllNames()
         {
             return _rooms.Keys.ToList();

@@ -24,13 +24,16 @@ namespace ZdravoCorp
     /// </summary>
     public partial class HospitalTreatment : Window
     {
-        private SpecializationReferralService specializationReferralService = new SpecializationReferralService();
+        private Examination examination;
+        private DateOnly startDate;
+        private DateOnly endDate;
+        private string roomId;
         private PatientService patientService = new PatientService();
         private ExaminationService examinationService = new ExaminationService();
-        private ScheduleService scheduleService = new ScheduleService();
-        private DoctorService doctorService = new DoctorService();
+        private HospitalStayService hospitalStayService = new HospitalStayService();
         public HospitalTreatment()
         {
+
             InitializeComponent();
             fillPatientData();
         }
@@ -44,7 +47,15 @@ namespace ZdravoCorp
 
         private void confirm_Click(object sender, RoutedEventArgs e)
         {
-
+            if (rooms.SelectedItem != null) 
+            {
+                HospitalStay hospitalStay = new HospitalStay(examination.Id,startDate,endDate,rooms.SelectedItem.ToString());
+                hospitalStayService.Add(hospitalStay);
+                examination.HospitalizationRefferal.RoomId = rooms.SelectedItem.ToString();
+                examinationService.WriteAll();
+                MessageBox.Show("You have successfully allocated a room for hospital treatment.", "Information", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
+                this.Close();
+            }
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
@@ -64,20 +75,20 @@ namespace ZdravoCorp
             }
         }
 
-        private void fillRoomsData() 
+        private void fillRoomsData()
         {
-            if (patientsExaminations.SelectedItem != null)
-            {
                 Examination examination = examinationService.GetExaminationById(int.Parse(patientsExaminations.SelectedItem.ToString()));
+                this.examination = examination;
                 DateOnly startDate = examination.HospitalizationRefferal.StartDate;
+                this.startDate = startDate;
                 int duration = examination.HospitalizationRefferal.Duration;
                 DateOnly endDate = startDate.AddDays(duration);
-                
-            }
-            else
-            {
-                MessageBox.Show("You must select the examination id which hospitalization referral you want to use.", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
-            }
+                this.endDate = endDate;
+                List<string> freeRooms = hospitalStayService.FindFreeRooms(startDate, endDate);
+                foreach (var roomName in freeRooms) 
+                {
+                    rooms.Items.Add(roomName);
+                }
         }
         private void showReferrals_Click(object sender, RoutedEventArgs e)
         {
@@ -86,8 +97,8 @@ namespace ZdravoCorp
                 List<int> examinationsIds = examinationService.GetExaminationsIdsForHospitalizationReferral(patients.SelectedItem.ToString());
                 if (examinationsIds.Count() != 0)
                 {
+                    patientsExaminations.Items.Clear();
                     fillReferralsData(examinationsIds);
-                    fillRoomsData();
                 }
                 else
                 {
@@ -97,6 +108,18 @@ namespace ZdravoCorp
             else 
             {
                 MessageBox.Show("You must select the patient.", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
+            }
+        }
+
+        private void showRooms_Click(object sender, RoutedEventArgs e)
+        {
+            if (patientsExaminations.SelectedItem != null)
+            {
+                fillRoomsData();
+            }
+            else 
+            {
+                MessageBox.Show("You must select examination id which hospitalization referral you want to use.", "Warning", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Warning);
             }
         }
     }

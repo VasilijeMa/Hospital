@@ -123,7 +123,7 @@ namespace ZdravoCorp.Core.Servieces
                     {
                         if (patientsExamination.HospitalizationRefferal != null)
                         {
-                            if (patientsExamination.HospitalizationRefferal.IsUsed == false)
+                            if (patientsExamination.HospitalizationRefferal.RoomId.Equals(""))
                             {
                                 examinationsIds.Add(patientsExamination.Id);
                             }

@@ -5,17 +5,23 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PhysicalAssets.Repositories;
 using ZdravoCorp.Core.Repositories;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class HospitalStayService
     {
         private HospitalStayRepository hospitalStayRepository;
+        private RoomRepository roomRepository;
 
         public HospitalStayService() 
         {
+            roomRepository = new RoomRepository();
             hospitalStayRepository = new HospitalStayRepository();
         }
 
@@ -39,14 +45,46 @@ namespace ZdravoCorp.Core.Servieces
             hospitalStayRepository.WriteAll();
         }
 
+        public int GetNumberOfPatientsInTheRoom(string roomId, DateOnly startDate,DateOnly endDate)
+        {
+            return hospitalStayRepository.GetNumberOfPatientsInTheRoom(roomId,startDate,endDate);
+        }
+
         public List<string> FindFreeRooms(DateOnly startDate, DateOnly endDate) 
         {
-            return null;
-            //idi kroz sobe 
-            //gledaj infirmary rooms
-            //istovremeno prolazi kroz hospital stay i gledaj id sobe
-            //ukoliko je soba slobodna u tom periodu dodaj u listu
-            //vrati tu listu i napuni kombobox
+            List<string> freeRooms = new List<string>();
+            List<string> unavailableRooms = new List<string>();
+            if (LoadAll().Count == 0)
+            {
+                return roomRepository.LoadAllInfirmaryRooms();
+            }
+            foreach (string roomName in roomRepository.LoadAllInfirmaryRooms())
+            {
+                foreach (HospitalStay hospitalStay in LoadAll())
+                {
+                    if (hospitalStay.RoomId.Equals(roomName))
+                    {
+                        if (((startDate < hospitalStay.StartDate && endDate < hospitalStay.StartDate) 
+                            || (startDate > hospitalStay.EndDate && endDate > hospitalStay.EndDate))
+                            || GetNumberOfPatientsInTheRoom(roomName,startDate,endDate)<3)
+                            {
+                                if (!freeRooms.Contains(roomName))
+                                {
+                                    freeRooms.Add(roomName);
+                                }
+                            }
+                            else
+                            {
+                                unavailableRooms.Add(roomName);
+                            }
+                        }
+                        if ((!freeRooms.Contains(roomName)) && !(unavailableRooms.Contains(roomName)))
+                        {
+                            freeRooms.Add(roomName);
+                        }
+                    }
+            }
+            return freeRooms;
         }
     }
 }

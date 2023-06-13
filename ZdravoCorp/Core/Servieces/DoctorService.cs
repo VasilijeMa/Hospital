@@ -160,5 +160,10 @@ namespace ZdravoCorp.Core.Servieces
         {
             return doctorRepository.SearchDoctors(keyword);
         }
+
+        public void AddRating(int doctorId, int serviceQuality, int suggestToFriends)
+        {
+            doctorRepository.AddRating(doctorId, serviceQuality, suggestToFriends);
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientSatisfaction.Commands;
+using ZdravoCorp.Core.PatientSatisfaction.Services;
 using ZdravoCorp.Core.Scheduling.Commands;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Servieces;
@@ -19,6 +20,7 @@ namespace ZdravoCorp.GUI.Scheduling.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private ScheduleService scheduleService = new ScheduleService();
+        public DoctorSurveyService doctorSurveyService;
 
         private ICommand _updateCommand;
         private ICommand _cancelCommand;
@@ -67,8 +69,9 @@ namespace ZdravoCorp.GUI.Scheduling.ViewModel
             }
         }
 
-        public MyAppointmentsViewModel(Patient patient, MyAppointmentsWindow view)
+        public MyAppointmentsViewModel(Patient patient, MyAppointmentsWindow view, DoctorSurveyService doctorSurveyService)
         {
+            this.doctorSurveyService = doctorSurveyService;
             Patient = patient;
             View = view;
             Appointments = scheduleService.GetAppointmentsForPatient(patient.Id);

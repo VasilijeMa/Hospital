@@ -38,5 +38,13 @@
     "ServiceQuality": 3,
     "SuggestToFriends": 2,
     "Comment": null
+  },
+  {
+    "Cleanness": 3,
+    "Id": 6,
+    "Username": "milos",
+    "ServiceQuality": 4,
+    "SuggestToFriends": 2,
+    "Comment": "moze bolje"
   }
 ]

@@ -14,7 +14,6 @@ namespace ZdravoCorp.Core.CommunicationSystem.Commands
     public class SendMessageCommand : BaseCommand
     {
         private ChatsViewModel viewModel;
-        private ChatService chatService = new ChatService();
         public SendMessageCommand(ChatsViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -28,10 +27,10 @@ namespace ZdravoCorp.Core.CommunicationSystem.Commands
 
         public override void Execute(object? parameter)
         {
-            viewModel.Messages = new ObservableCollection<Message>(chatService.AddMessage(new Message(viewModel.User.Username, viewModel.Message, DateTime.Now),
+            viewModel.Messages = new ObservableCollection<Message>(viewModel.chatService.AddMessage(new Message(viewModel.User.Username, viewModel.Message, DateTime.Now),
                 viewModel.User, viewModel.SelectedUser));
             viewModel.Message = "";
-            chatService.WriteAll();
+            viewModel.chatService.WriteAll();
         }
     }
 }

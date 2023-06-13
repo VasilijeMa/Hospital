@@ -13,9 +13,9 @@ namespace ZdravoCorp.Core.CommunicationSystem.Services
     {
         private IChatRepository _chatRepository;
 
-        public ChatService()
+        public ChatService(IChatRepository chatRepository)
         {
-            _chatRepository = Singleton.Instance.ChatRepository;
+            _chatRepository = chatRepository;
         }
 
         public Chat GetChat(string firstId, string secondId)

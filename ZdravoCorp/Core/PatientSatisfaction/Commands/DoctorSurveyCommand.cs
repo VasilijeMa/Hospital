@@ -27,7 +27,7 @@ namespace ZdravoCorp.Core.PatientSatisfaction.Commands
         public override void Execute(object? parameter)
         {
             DoctorSurveyView doctorSurveyView =
-                new DoctorSurveyView(viewModel.Patient, viewModel.SelectedAppointment);
+                new DoctorSurveyView(viewModel.Patient, viewModel.SelectedAppointment, viewModel.doctorSurveyService);
             doctorSurveyView.ShowDialog();
         }
     }

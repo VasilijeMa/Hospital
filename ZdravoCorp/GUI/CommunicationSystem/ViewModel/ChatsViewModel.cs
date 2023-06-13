@@ -19,7 +19,7 @@ namespace ZdravoCorp.GUI.CommunicationSystem.ViewModel
     public class ChatsViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        private ChatService _chatService;
+        public ChatService chatService;
         private UserService _userService;
         private ICommand _sendCommand;
         private string _message = "";
@@ -76,18 +76,18 @@ namespace ZdravoCorp.GUI.CommunicationSystem.ViewModel
             }
         }
 
-        public ChatsViewModel(User user)
+        public ChatsViewModel(User user, ChatService chatService)
         {
             User = user;
             _userService = new UserService();
-            _chatService = new ChatService();
+            this.chatService = chatService;
             Users = new ObservableCollection<User>(_userService.GetNursesAndDoctors(user.Username));
             Messages = new ObservableCollection<Message>();
         }
 
         private void LoadChat()
         {
-            Chat chat = _chatService.GetChat(User.Username, SelectedUser.Username);
+            Chat chat = chatService.GetChat(User.Username, SelectedUser.Username);
             Messages.Clear();
             if (chat != null)
             {

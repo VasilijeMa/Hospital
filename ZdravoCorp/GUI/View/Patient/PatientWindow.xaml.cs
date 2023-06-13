@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientNotification.Services;
+using ZdravoCorp.Core.PatientSatisfaction.Services;
 using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Services;
@@ -10,16 +11,17 @@ using ZdravoCorp.View;
 
 namespace ZdravoCorp
 {
-    /// <summary>
-    /// Interaction logic for PatientWindow.xaml
-    /// </summary>
     public partial class PatientWindow : Window
     {
         private Patient patient;
         private NotificationService notificationService;
-        public PatientWindow(Patient patient)
+        private DoctorSurveyService doctorSurveyService;
+        private HospitalSurveyService hospitalSurveyService;
+            public PatientWindow(Patient patient, DoctorSurveyService doctorSurveyService, HospitalSurveyService hospitalSurveyService)
         {
             InitializeComponent();
+            this.doctorSurveyService = doctorSurveyService;
+            this.hospitalSurveyService = hospitalSurveyService;
             this.patient = patient;
             lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
             LogService logService = new LogService();
@@ -42,7 +44,7 @@ namespace ZdravoCorp
 
         private void MyAppointments_Click(object sender, RoutedEventArgs e)
         {
-            MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient);
+            MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient, doctorSurveyService);
             myAppointmentsWindow.ShowDialog();
             if (patient.IsBlocked)
             {
@@ -50,6 +52,7 @@ namespace ZdravoCorp
                 this.Close();
             }
         }
+
         private void miLogOut_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -93,7 +96,7 @@ namespace ZdravoCorp
 
         private void miHospitalSurvey_Click(object sender, RoutedEventArgs e)
         {
-            HospitalSurveyView hospitalSurveyView = new HospitalSurveyView(patient);
+            HospitalSurveyView hospitalSurveyView = new HospitalSurveyView(patient, hospitalSurveyService);
             hospitalSurveyView.ShowDialog();
         }
     }

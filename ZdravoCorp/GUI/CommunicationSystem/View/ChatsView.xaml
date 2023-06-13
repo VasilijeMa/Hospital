@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ZdravoCorp.GUI.View.Patient"
         xmlns:validationRule="clr-namespace:ZdravoCorp.GUI.ValidationRule"
         mc:Ignorable="d"
-        Title="ChatsView" Height="450" Width="800">
+        Title="ChatsView" Height="450" Width="800" Icon="/icon.png">
     <Grid>
         <ListBox Width="130" Height="370" ItemsSource="{Binding Users}" SelectionMode="Single" SelectedItem="{Binding SelectedUser}" Margin="10,10,628,26">
             <ListBox.ItemContainerStyle>

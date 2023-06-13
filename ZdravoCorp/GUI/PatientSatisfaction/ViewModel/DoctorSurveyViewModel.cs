@@ -20,7 +20,7 @@ namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private ICommand _submitCommand;
-        private DoctorSurveyService _doctorSurveyService = new DoctorSurveyService();
+        public DoctorSurveyService doctorSurveyService;
         private int _serviceQuality = 1;
         private int _suggestToFriends = 1;
         private string _comment;
@@ -66,13 +66,14 @@ namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel
             }
         }
 
-        public DoctorSurveyViewModel(User user, Appointment appointment, DoctorSurveyView view)
+        public DoctorSurveyViewModel(User user, Appointment appointment, DoctorSurveyView view, DoctorSurveyService doctorSurveyService)
         {
             User = user;
             AppointmentId = appointment.Id;
             DoctorId = appointment.DoctorId;
             View = view;
-            DoctorSurvey = _doctorSurveyService.GetById(AppointmentId);
+            this.doctorSurveyService = doctorSurveyService;
+            DoctorSurvey = doctorSurveyService.GetById(AppointmentId);
             if (DoctorSurvey != null)
             {
                 ServiceQuality = DoctorSurvey.ServiceQuality;

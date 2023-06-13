@@ -30,14 +30,15 @@ namespace ZdravoCorp.GUI.ViewModel
         private int examinationId;
         private PatientService patientService = new PatientService();
         private ExaminationService examinationService = new ExaminationService();
-        private HospitalStayService hospitalStayService = new HospitalStayService();
+        public HospitalStayService hospitalStayService;
         
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
         public Examination Examination { get; set; }
 
-        public HospitalTreatmentViewModel() 
+        public HospitalTreatmentViewModel(HospitalStayService hospitalStayService)
         {
+            this.hospitalStayService = hospitalStayService;
             Patients = new ObservableCollection<Patient> (patientService.GetPatients());
         }
         public ICommand ShowReferralsCommand

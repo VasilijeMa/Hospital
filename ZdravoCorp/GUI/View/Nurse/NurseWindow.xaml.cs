@@ -14,13 +14,15 @@ namespace ZdravoCorp
         Nurse nurse;
         private ChatService chatService;
         private AnamnesisService anamnesisService;
+        private HospitalStayService hospitalStayService;
 
-        public NurseWindow(Nurse nurse, ChatService chatService, AnamnesisService anamnesisService)
+        public NurseWindow(Nurse nurse, ChatService chatService, AnamnesisService anamnesisService, HospitalStayService hospitalStayService)
         {
             InitializeComponent();
             this.nurse = nurse;
             this.chatService = chatService;
             this.anamnesisService = anamnesisService;
+            this.hospitalStayService = hospitalStayService;
         }
 
         private void CRUDpatients_Click(object sender, RoutedEventArgs e)
@@ -73,7 +75,7 @@ namespace ZdravoCorp
 
         private void HospitalTreatmentForPatient_Click(object sender, RoutedEventArgs e)
         {
-            HospitalTreatment hospitalTreatment = new HospitalTreatment();
+            HospitalTreatment hospitalTreatment = new HospitalTreatment(hospitalStayService);
             hospitalTreatment.ShowDialog();
         }
     }

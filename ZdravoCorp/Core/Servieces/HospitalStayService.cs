@@ -9,20 +9,22 @@ using System.Windows.Forms;
 using System.Windows;
 using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PhysicalAssets.Repositories;
+using ZdravoCorp.Core.PhysicalAssets.Repositories.Interfaces;
 using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Repositories.Interfaces;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ZdravoCorp.Core.Servieces
 {
     public class HospitalStayService
     {
-        private HospitalStayRepository hospitalStayRepository;
-        private RoomRepository roomRepository;
+        private IHospitalStayRepository hospitalStayRepository;
+        private IRoomRepository roomRepository;
 
-        public HospitalStayService() 
+        public HospitalStayService(IHospitalStayRepository hospitalStayRepository, IRoomRepository roomRepository) 
         {
-            roomRepository = new RoomRepository();
-            hospitalStayRepository = new HospitalStayRepository();
+            this.roomRepository = roomRepository;
+            this.hospitalStayRepository = hospitalStayRepository;
         }
 
         public void Add(HospitalStay hospitalStay)

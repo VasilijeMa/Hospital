@@ -16,7 +16,6 @@ namespace ZdravoCorp.Core.Commands
 
         private HospitalTreatmentViewModel hospitalTreatmentViewModel;
         private ExaminationService examinationService = new ExaminationService();
-        private HospitalStayService hospitalStayService = new HospitalStayService();
         public override void Execute(object? parameter)
         {
             Examination examination = examinationService.GetExaminationById(hospitalTreatmentViewModel.ExaminationId);
@@ -26,7 +25,7 @@ namespace ZdravoCorp.Core.Commands
             int duration = examination.HospitalizationRefferal.Duration;
             DateOnly endDate = startDate.AddDays(duration);
             hospitalTreatmentViewModel.EndDate = endDate;
-            hospitalTreatmentViewModel.Rooms = new ObservableCollection<String> (hospitalStayService.FindFreeRooms(startDate, endDate));
+            hospitalTreatmentViewModel.Rooms = new ObservableCollection<String> (hospitalTreatmentViewModel.hospitalStayService.FindFreeRooms(startDate, endDate));
         }
         public override bool CanExecute(object? parameter)
         {

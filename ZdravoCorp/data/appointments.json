@@ -627,7 +627,7 @@
     "Id": 55,
     "TimeSlot": {
       "start": "2023-06-13T14:00:00",
-      "duration": 150
+      "duration": 15
     },
     "DoctorId": 1,
     "PatientId": 2,
@@ -670,5 +670,17 @@
     "IsCanceled": false,
     "IdRoom": "Examination Room 1",
     "ExaminationId": 15
+  },
+  {
+    "Id": 59,
+    "TimeSlot": {
+      "start": "2023-06-13T15:30:00",
+      "duration": 30
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 16
   }
 ]

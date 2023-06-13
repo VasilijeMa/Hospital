@@ -131,5 +131,12 @@
     "Symptoms": "vanja",
     "DoctorsObservation": "bol",
     "DoctorsConclusion": "bol"
+  },
+  {
+    "AppointmentId": 59,
+    "PatientId": 1,
+    "Symptoms": "glupost",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
   }
 ]

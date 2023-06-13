@@ -27,6 +27,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         {
             _rooms = LoadAll();
         }
+
         public List<string> GetAllNames()
         {
             return _rooms.Keys.ToList();

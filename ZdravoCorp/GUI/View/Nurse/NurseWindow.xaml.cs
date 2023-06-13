@@ -70,5 +70,11 @@ namespace ZdravoCorp
             ChatsView chatsView = new ChatsView(nurse, chatService);
             chatsView.ShowDialog();
         }
+
+        private void HospitalTreatmentForPatient_Click(object sender, RoutedEventArgs e)
+        {
+            HospitalTreatment hospitalTreatment = new HospitalTreatment();
+            hospitalTreatment.ShowDialog();
+        }
     }
 }

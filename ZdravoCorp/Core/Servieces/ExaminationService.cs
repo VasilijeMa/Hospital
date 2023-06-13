@@ -51,8 +51,8 @@ namespace ZdravoCorp.Core.Servieces
             {
                 if (examination.HospitalizationRefferal == null) continue;
                 HospitalizationReferral referral = examination.HospitalizationRefferal;
-                DateTime endHospitalizationReferral = referral.StartDate.AddDays(referral.Duration);
-                if (!(referral.StartDate <= DateTime.Now && DateTime.Now <= endHospitalizationReferral)) continue;
+                DateOnly endHospitalizationReferral = referral.StartDate.AddDays(referral.Duration);
+                if (!(referral.StartDate <= DateOnly.FromDateTime(DateTime.Now) && DateOnly.FromDateTime(DateTime.Now) <= endHospitalizationReferral)) continue;
                 Appointment appointment = scheduleRepository.GetAppointmentByExaminationId(examination.Id);
                 Patient hospitalizedPatient = patientService.GetById(appointment.PatientId);
                 if (patientService.AlreadyExaminedPatients(doctorId).Contains(hospitalizedPatient))
@@ -109,7 +109,31 @@ namespace ZdravoCorp.Core.Servieces
             }
             return examinations;
         }
-        public List<int> GetExaminationsIdsForReferral(String patientUsername)
+
+        public List<int> GetExaminationsIdsForHospitalizationReferral(String patientUsername) 
+        {
+            List<int> examinationsIds = new List<int>();
+            Patient patient = patientService.GetByUsername(patientUsername);
+            foreach (Appointment appointment in scheduleService.GetAppointmentsForPatient(patient.Id))
+            {
+                if (appointment.ExaminationId != 0)
+                {
+                    Examination patientsExamination = GetExaminationById(appointment.ExaminationId);
+                    if (patientsExamination != null)
+                    {
+                        if (patientsExamination.HospitalizationRefferal != null)
+                        {
+                            if (patientsExamination.HospitalizationRefferal.IsUsed == false)
+                            {
+                                examinationsIds.Add(patientsExamination.Id);
+                            }
+                        }
+                    }
+                }
+            }
+            return examinationsIds;
+        }
+        public List<int> GetExaminationsIdsForReferral(String patientUsername) 
         {
             List<int> examinationsIds = new List<int>();
             Patient patient = patientService.GetByUsername(patientUsername);
@@ -132,5 +156,6 @@ namespace ZdravoCorp.Core.Servieces
             }
             return examinationsIds;
         }
+
     }
 }

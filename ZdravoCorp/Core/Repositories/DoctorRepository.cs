@@ -29,6 +29,12 @@ namespace ZdravoCorp.Core.Repositories
             return JsonConvert.DeserializeObject<List<Doctor>>(json);
         }
 
+        public void WriteAll()
+        {
+            string json = JsonConvert.SerializeObject(doctors, Formatting.Indented);
+            File.WriteAllText("./../../../../ZdravoCorp/data/doctor.json", json);
+        }
+
         public List<Doctor> GetDoctorBySpecialization(string specialization)
         {
             return doctors.Where(doctor => doctor.Specialization.ToString() == specialization).ToList();
@@ -87,6 +93,12 @@ namespace ZdravoCorp.Core.Repositories
         public List<Doctor> GetDoctors()
         {
             return Doctors;
+        }
+
+        public void AddRating(int doctorId, int serviceQuality, int suggestToFriends)
+        {
+            getDoctor(doctorId).Ratings.Add((new List<int>{serviceQuality, suggestToFriends}).Average());
+            WriteAll();
         }
     }
 }

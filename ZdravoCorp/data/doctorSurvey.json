@@ -3,7 +3,7 @@
     "DoctorId": 1,
     "Id": 1,
     "Username": "milos",
-    "ServiceQuality": 2,
+    "ServiceQuality": 4,
     "SuggestToFriends": 1,
     "Comment": "Uzas"
   },
@@ -54,5 +54,37 @@
     "ServiceQuality": 1,
     "SuggestToFriends": 1,
     "Comment": "Katastrofa"
+  },
+  {
+    "DoctorId": 1,
+    "Id": 3,
+    "Username": "milos",
+    "ServiceQuality": 4,
+    "SuggestToFriends": 1,
+    "Comment": null
+  },
+  {
+    "DoctorId": 2,
+    "Id": 4,
+    "Username": "milos",
+    "ServiceQuality": 3,
+    "SuggestToFriends": 2,
+    "Comment": null
+  },
+  {
+    "DoctorId": 1,
+    "Id": 10,
+    "Username": "milos",
+    "ServiceQuality": 3,
+    "SuggestToFriends": 2,
+    "Comment": null
+  },
+  {
+    "DoctorId": 2,
+    "Id": 14,
+    "Username": "milos",
+    "ServiceQuality": 5,
+    "SuggestToFriends": 5,
+    "Comment": null
   }
 ]

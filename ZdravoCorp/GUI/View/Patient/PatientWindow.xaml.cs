@@ -7,16 +7,15 @@ using ZdravoCorp.View;
 
 namespace ZdravoCorp
 {
-    /// <summary>
-    /// Interaction logic for PatientWindow.xaml
-    /// </summary>
     public partial class PatientWindow : Window
     {
         private Patient patient;
         private NotificationService notificationService;
-        public PatientWindow(Patient patient)
+        private DoctorSurveyService doctorSurveyService;
+        public PatientWindow(Patient patient, DoctorSurveyService doctorSurveyService)
         {
             InitializeComponent();
+            this.doctorSurveyService = doctorSurveyService;
             this.patient = patient;
             lblWelcome.Content = "Welcome, " + patient.FirstName + " " + patient.LastName;
             LogService logService = new LogService();
@@ -39,7 +38,7 @@ namespace ZdravoCorp
 
         private void MyAppointments_Click(object sender, RoutedEventArgs e)
         {
-            MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient);
+            MyAppointmentsWindow myAppointmentsWindow = new MyAppointmentsWindow(patient, doctorSurveyService);
             myAppointmentsWindow.ShowDialog();
             if (patient.IsBlocked)
             {
@@ -47,6 +46,7 @@ namespace ZdravoCorp
                 this.Close();
             }
         }
+
         private void miLogOut_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

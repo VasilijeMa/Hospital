@@ -12,9 +12,9 @@ namespace ZdravoCorp.Core.Servieces
     {
         IDoctorSurveyRepository _doctorSurveyRepository;
 
-        public DoctorSurveyService()
+        public DoctorSurveyService(IDoctorSurveyRepository doctorSurveyRepository)
         {
-            _doctorSurveyRepository = Singleton.Instance.DoctorSurveyRepository;
+            _doctorSurveyRepository = doctorSurveyRepository;
         }
 
         public void AddSurvey(int appointmentId, string username, int doctorId, int serviceQuality, int suggestToFriends, string comment)

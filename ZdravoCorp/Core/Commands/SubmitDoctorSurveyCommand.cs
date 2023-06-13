@@ -10,7 +10,7 @@ namespace ZdravoCorp.Core.Commands
 {
     public class SubmitDoctorSurveyCommand : BaseCommand
     {
-        private DoctorSurveyService doctorSurveyService = new DoctorSurveyService();
+        private DoctorService doctorService = new DoctorService();
         private DoctorSurveyViewModel viewModel;
         public SubmitDoctorSurveyCommand(DoctorSurveyViewModel viewModel)
         {
@@ -20,11 +20,12 @@ namespace ZdravoCorp.Core.Commands
         {
             if (viewModel.DoctorSurvey != null)
             {
-                doctorSurveyService.UpdateSurvey(viewModel.AppointmentId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
+                viewModel.doctorSurveyService.UpdateSurvey(viewModel.AppointmentId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
             }
             else
             {
-                doctorSurveyService.AddSurvey(viewModel.AppointmentId, viewModel.User.Username, viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
+                doctorService.AddRating(viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends);
+                viewModel.doctorSurveyService.AddSurvey(viewModel.AppointmentId, viewModel.User.Username, viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
             }
             viewModel.View.Close();
         }

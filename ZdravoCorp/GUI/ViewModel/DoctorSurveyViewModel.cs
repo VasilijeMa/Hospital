@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
 using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.View.Patient;
 
@@ -17,7 +18,7 @@ namespace ZdravoCorp.GUI.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private ICommand _submitCommand;
-        private DoctorSurveyService _doctorSurveyService = new DoctorSurveyService();
+        public DoctorSurveyService doctorSurveyService;
         private int _serviceQuality = 1;
         private int _suggestToFriends = 1;
         private string _comment;
@@ -63,13 +64,14 @@ namespace ZdravoCorp.GUI.ViewModel
             }
         }
 
-        public DoctorSurveyViewModel(User user, Appointment appointment, DoctorSurveyView view)
+        public DoctorSurveyViewModel(User user, Appointment appointment, DoctorSurveyView view, DoctorSurveyService doctorSurveyService)
         {
             User = user;
             AppointmentId = appointment.Id;
             DoctorId = appointment.DoctorId;
             View = view;
-            DoctorSurvey = _doctorSurveyService.GetById(AppointmentId);
+            this.doctorSurveyService = doctorSurveyService;
+            DoctorSurvey = doctorSurveyService.GetById(AppointmentId);
             if (DoctorSurvey != null)
             {
                 ServiceQuality = DoctorSurvey.ServiceQuality;

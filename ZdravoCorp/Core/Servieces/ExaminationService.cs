@@ -43,7 +43,7 @@ namespace ZdravoCorp.Core.Servieces
             return examinationRepository.GetExaminationById(examinationId);
         }
 
-        public List<int> GetExaminationsIdsForPrescriptions(String patientUsername) 
+        public List<int> GetExaminationsIdsForPrescriptions(String patientUsername)
         {
             List<int> examinationsIds = new List<int>();
             Patient patient = patientService.GetByUsername(patientUsername);
@@ -67,12 +67,12 @@ namespace ZdravoCorp.Core.Servieces
             return examinationsIds;
         }
 
-        public List<Examination> GetExaminationsByMedicamentId(int medicamentId) 
+        public List<Examination> GetExaminationsByMedicamentId(int medicamentId)
         {
             List<Examination> examinations = new List<Examination>();
-            foreach (Appointment appointment in scheduleRepository.GetAppointments()) 
+            foreach (Appointment appointment in scheduleRepository.GetAppointments())
             {
-                if (appointment.ExaminationId != 0) 
+                if (appointment.ExaminationId != 0)
                 {
                     Examination examination = GetExaminationById(appointment.ExaminationId);
                     if (examination != null)
@@ -89,7 +89,7 @@ namespace ZdravoCorp.Core.Servieces
             }
             return examinations;
         }
-        public List<int> GetExaminationsIdsForReferral(String patientUsername) 
+        public List<int> GetExaminationsIdsForReferral(String patientUsername)
         {
             List<int> examinationsIds = new List<int>();
             Patient patient = patientService.GetByUsername(patientUsername);
@@ -101,11 +101,11 @@ namespace ZdravoCorp.Core.Servieces
                     if (patientsExamination != null)
                     {
                         if (patientsExamination.SpecializationRefferal != null)
-                            {
+                        {
                             if (patientsExamination.SpecializationRefferal.IsUsed == false)
                             {
                                 examinationsIds.Add(patientsExamination.Id);
-                            } 
+                            }
                         }
                     }
                 }

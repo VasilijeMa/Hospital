@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.Core.Servieces;
 using ZdravoCorp.GUI.ViewModel;
 
 namespace ZdravoCorp.GUI.View.Patient
@@ -21,10 +23,10 @@ namespace ZdravoCorp.GUI.View.Patient
     /// </summary>
     public partial class DoctorSurveyView : Window
     {
-        public DoctorSurveyView(Core.Domain.Patient patient, Appointment appointment)
+        public DoctorSurveyView(Core.Domain.Patient patient, Appointment appointment, DoctorSurveyService doctorSurveyService)
         {
             InitializeComponent();
-            DataContext = new DoctorSurveyViewModel(patient, appointment, this);
+            DataContext = new DoctorSurveyViewModel(patient, appointment, this, doctorSurveyService);
         }
     }
 }

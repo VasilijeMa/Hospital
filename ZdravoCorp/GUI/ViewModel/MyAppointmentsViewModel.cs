@@ -16,6 +16,7 @@ namespace ZdravoCorp.GUI.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private ScheduleService scheduleService = new ScheduleService();
+        public DoctorSurveyService doctorSurveyService;
 
         private ICommand _updateCommand;
         private ICommand _cancelCommand;
@@ -64,8 +65,9 @@ namespace ZdravoCorp.GUI.ViewModel
             }
         }
 
-        public MyAppointmentsViewModel(Patient patient, MyAppointmentsWindow view)
+        public MyAppointmentsViewModel(Patient patient, MyAppointmentsWindow view, DoctorSurveyService doctorSurveyService)
         {
+            this.doctorSurveyService = doctorSurveyService;
             Patient = patient;
             View = view;
             Appointments = scheduleService.GetAppointmentsForPatient(patient.Id);

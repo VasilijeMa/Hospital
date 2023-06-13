@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Repositories;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.Scheduling.Services;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorp
 {

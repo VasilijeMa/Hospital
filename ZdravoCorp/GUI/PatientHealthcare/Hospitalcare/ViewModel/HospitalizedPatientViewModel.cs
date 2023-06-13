@@ -7,11 +7,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands;
 using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Model;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services;
 using ZdravoCorp.Core.Scheduling.Model;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Services;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
 {

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Services;
 using ZdravoCorp.GUI.PatientSatisfaction.ViewModel;
 
 namespace ZdravoCorp.Core.PatientSatisfaction.Commands

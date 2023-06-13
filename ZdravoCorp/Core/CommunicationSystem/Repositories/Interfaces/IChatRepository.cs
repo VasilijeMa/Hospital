@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.CommunicationSystem.Model;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.Core.CommunicationSystem.Repositories.Interfaces
 {

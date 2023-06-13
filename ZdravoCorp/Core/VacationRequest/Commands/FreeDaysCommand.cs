@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Repositories;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.UserManager.Services;
 using ZdravoCorp.Core.VacationRequest.Model;
 using ZdravoCorp.Core.VacationRequest.Repositories.Interfaces;
 using ZdravoCorp.GUI.VacationRequest.ViewModel;
@@ -18,7 +16,7 @@ namespace ZdravoCorp.Core.VacationRequest.Commands
     {
         private FreeDaysViewModel viewModel;
         private DoctorService DoctorService = new DoctorService();
-        //private IFreeDaysRepository freeDaysRepository = Singleton.Instance.FreeDaysRepository;
+        //private IFreeDaysRepository freeDaysRepository = Institution.Instance.FreeDaysRepository;
         public FreeDaysCommand(FreeDaysViewModel viewModel)
         {
             this.viewModel = viewModel;

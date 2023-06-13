@@ -2,8 +2,9 @@
 using System.Data;
 using System.Threading;
 using System.Windows;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.PatientHealthcare.PatientMedicalRecord.Services;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorp
 {

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Windows;
 using ZdravoCorp.Core.CommunicationSystem.Services;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services;
+using ZdravoCorp.Core.PatientHealthcare.PatientMedicalRecord.Services;
+using ZdravoCorp.Core.PatientHealthcare.Pharmacy.Services;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 using ZdravoCorp.Core.VacationRequest.Services;
 using ZdravoCorp.ManagerView;
 
@@ -39,16 +42,16 @@ namespace ZdravoCorp
 
         private void SetServices()
         {
-            anamnesisService = new AnamnesisService(Singleton.Instance.AnamnesisRepository);
-            freeDaysService = new FreeDaysService(Singleton.Instance.FreeDaysRepository);
-            doctorSurveyService = new DoctorSurveyService(Singleton.Instance.DoctorSurveyRepository);
-            hospitalSurveyService = new HospitalSurveyService(Singleton.Instance.HospitalSurveyRepository);
-            chatService = new ChatService(Singleton.Instance.ChatRepository);
+            anamnesisService = new AnamnesisService(Institution.Instance.AnamnesisRepository);
+            freeDaysService = new FreeDaysService(Institution.Instance.FreeDaysRepository);
+            doctorSurveyService = new DoctorSurveyService(Institution.Instance.DoctorSurveyRepository);
+            hospitalSurveyService = new HospitalSurveyService(Institution.Instance.HospitalSurveyRepository);
+            chatService = new ChatService(Institution.Instance.ChatRepository);
             doctorService = new DoctorService();
             patientService = new PatientService();
             medicamentsToAddService = new MedicamentsToAddService();
-            hospitalStayService = new HospitalStayService(Singleton.Instance.HospitalStayRepository,
-                Singleton.Instance.RoomRepository);
+            hospitalStayService = new HospitalStayService(Institution.Instance.HospitalStayRepository,
+                Institution.Instance.RoomRepository);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -107,7 +110,7 @@ namespace ZdravoCorp
 
         private void OpenNurseWindow(User user)
         {
-            foreach (Nurse nurse in Singleton.Instance.NurseRepository.GetNurses())
+            foreach (Nurse nurse in Institution.Instance.NurseRepository.GetNurses())
             {
                 if (user.Username == nurse.Username)
                 {

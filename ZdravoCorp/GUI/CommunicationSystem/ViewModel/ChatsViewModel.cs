@@ -7,12 +7,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.CommunicationSystem.Commands;
 using ZdravoCorp.Core.CommunicationSystem.Model;
 using ZdravoCorp.Core.CommunicationSystem.Services;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorp.GUI.CommunicationSystem.ViewModel
 {

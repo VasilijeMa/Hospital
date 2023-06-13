@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.CommunicationSystem.Services;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.UserManager.Model;
 using ZdravoCorp.GUI.CommunicationSystem.ViewModel;
 
 namespace ZdravoCorp.GUI.View.Patient

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.Scheduling.Services;
 using ZdravoCorp.GUI.Scheduling.ViewModel;
 
 namespace ZdravoCorp.Core.Scheduling.Commands

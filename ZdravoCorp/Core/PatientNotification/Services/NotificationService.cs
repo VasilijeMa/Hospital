@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientNotification.Model;
 using ZdravoCorp.Core.PatientNotification.Repositories.Interfaces;
-using ZdravoCorp.Core.Repositories;
 
 namespace ZdravoCorp.Core.PatientNotification.Services
 {
@@ -22,7 +20,7 @@ namespace ZdravoCorp.Core.PatientNotification.Services
         public NotificationService(int patientId)
         {
             this.patientId = patientId;
-            _notificationRepository = Singleton.Instance.NotificationRepository;
+            _notificationRepository = Institution.Instance.NotificationRepository;
         }
 
         public void Start()

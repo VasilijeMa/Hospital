@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Repositories;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Services;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorp
 {

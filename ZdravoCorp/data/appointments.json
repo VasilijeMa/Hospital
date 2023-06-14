@@ -718,5 +718,41 @@
     "IsCanceled": false,
     "IdRoom": "Examination Room 1",
     "ExaminationId": 0
+  },
+  {
+    "Id": 63,
+    "TimeSlot": {
+      "start": "2023-06-14T11:00:00+02:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
+  },
+  {
+    "Id": 64,
+    "TimeSlot": {
+      "start": "2023-06-14T11:15:31.4030848+02:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
+  },
+  {
+    "Id": 65,
+    "TimeSlot": {
+      "start": "2023-06-15T11:00:00+02:00",
+      "duration": 15
+    },
+    "DoctorId": 1,
+    "PatientId": 1,
+    "IsCanceled": false,
+    "IdRoom": "Examination Room 1",
+    "ExaminationId": 0
   }
 ]

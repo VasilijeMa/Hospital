@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,28 +21,33 @@ namespace ZdravoCorpCLI
         private RecommendingAppointmentsCLIViewModel viewModel = new RecommendingAppointmentsCLIViewModel();
         public RecommendingAppointmentsCLIView()
         {
+            RecommendAppointment();
+        }
+
+        private void RecommendAppointment()
+        {
             int patientId;
-            if (GetPatient(out patientId)) return;
-
             int doctorId;
-            if (GetDoctor(out doctorId)) return;
-
             TimeOnly earliestTime;
-            if (GetEarliestTime(out earliestTime)) return;
-
             TimeOnly latestTime;
-            if (GetLatestTime(earliestTime, out latestTime)) return;
-
             DateTime date;
-            if (GetDate(out date)) return;
-
             Priority? priority = null;
-            if (GetPriority(ref priority)) return;
+            if (GetPatient(out patientId) || GetDoctor(out doctorId) || GetEarliestTime(out earliestTime) ||
+                GetLatestTime(earliestTime, out latestTime) || GetDate(out date) || GetPriority(ref priority)) return;
 
             AppointmentRequest appointmentRequest = new AppointmentRequest(doctorService.GetDoctor(doctorId),
                 earliestTime, latestTime, date, (Priority)priority);
-            List<Appointment> recommendedAppointments =
-                viewModel.FoundAppointments(appointmentRequest, patientId);
+            FoundAndMakeAppointment(appointmentRequest, patientId);
+        }
+
+        private void FoundAndMakeAppointment(AppointmentRequest appointmentRequest, int patientId)
+        {
+            recommendedAppointments = viewModel.FoundAppointments(appointmentRequest, patientId);
+            MakeAppointment();
+        }
+
+        private void MakeAppointment()
+        {
             int appointmentId;
             if (recommendedAppointments.Count() == 1)
             {
@@ -50,35 +56,30 @@ namespace ZdravoCorpCLI
             }
             else
             {
-                PrintAppointments(recommendedAppointments);
-                if (GetAppointment(recommendedAppointments, out appointmentId)) return;
+                PrintAppointments();
+                if (GetAppointment(out appointmentId)) return;
                 viewModel.AddAppointment(recommendedAppointments[appointmentId - 1], patient);
             }
             Console.WriteLine("Appointment successfully created.");
         }
 
-        private bool GetAppointment(List<Appointment> recommendedAppointments, out int appointmentId)
+        private bool GetAppointment(out int appointmentId)
         {
             while (true)
             {
                 Console.Write("Choose appointment id or x for Exit: ");
                 string input = Console.ReadLine();
-                if (viewModel.ValidateAppointment(input, recommendedAppointments, out appointmentId)) break;
+                if (viewModel.ValidateAppointment(input, recommendedAppointments, out appointmentId)) return false;
                 if (input.ToLower().Equals("x")) return true;
                 Console.WriteLine("Wrong input, try again.");
             }
-
-            return false;
         }
 
-        private static bool GetPriority(ref Priority? priority)
+        private bool GetPriority(ref Priority? priority)
         {
             while (true)
             {
-                Console.WriteLine("Choose priority");
-                Console.WriteLine("1. Doctor");
-                Console.WriteLine("2. Time slot");
-                Console.WriteLine("Input number only or x for Exit");
+                Console.Write("Choose priority\n1. Doctor\n2. Time slot\nInput number only or x for Exit: ");
                 string input = Console.ReadLine();
                 switch (input.ToLower())
                 {
@@ -94,9 +95,8 @@ namespace ZdravoCorpCLI
                         Console.WriteLine("Wrong input, try again.");
                         break;
                 }
-                if (priority != null) break;
+                if (priority != null) return false;
             }
-            return false;
         }
 
         private bool GetDate(out DateTime date)
@@ -107,57 +107,72 @@ namespace ZdravoCorpCLI
                 string input = Console.ReadLine();
                 if (viewModel.ValidateDate(input, out date))
                 {
-                    if (date.Date < DateTime.Now.Date)
-                    {
-                        Console.WriteLine("The selected date cannot be in the past.");
-                        continue;
-                    }
-                    break;
+                    if (!IsDateInPast(date))
+                        return false;
+                    continue;
                 }
                 if (input.ToLower().Equals("x")) return true;
                 Console.WriteLine("Invalid date format!");
+            }
+        }
+
+        private bool IsDateInPast(DateTime date)
+        {
+            if (date.Date < DateTime.Now.Date)
+            {
+                Console.WriteLine("The selected date cannot be in the past.");
+                return true;
             }
             return false;
         }
 
         private bool GetLatestTime(TimeOnly earliestTime, out TimeOnly latestTime)
         {
+            latestTime = new TimeOnly();
             while (true)
             {
                 Console.Write("Latest time(HH:mm) or x for Exit: ");
                 string input = Console.ReadLine();
-                if (viewModel.ValidateTime(input))
-                {
-                    latestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
-                    if (latestTime > earliestTime) break;
-                    Console.WriteLine("Latest time is before earliest time!");
-                    continue;
-                }
-                latestTime = new TimeOnly();
                 if (input.ToLower().Equals("x")) return true;
-                Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
+                if (ValidateLatestTime(earliestTime, ref latestTime, input)) return false;
             }
+        }
 
+        private bool ValidateLatestTime(TimeOnly earliestTime, ref TimeOnly latestTime, string input)
+        {
+            if (viewModel.ValidateTime(input))
+            {
+                latestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
+                if (latestTime > earliestTime) return true;
+                Console.WriteLine("Latest time is before earliest time!");
+                return false;
+            }
+            Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
             return false;
         }
 
         private bool GetEarliestTime(out TimeOnly earliestTime)
         {
+            earliestTime = new TimeOnly();
             while (true)
             {
                 Console.Write("Earliest time(HH:mm) or x for Exit: ");
                 string input = Console.ReadLine();
-                if (viewModel.ValidateTime(input))
-                {
-                    earliestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
-                    break;
-                }
-                earliestTime = new TimeOnly();
                 if (input.ToLower().Equals("x")) return true;
-                Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
+                if (!ValidateEarliestTime(ref earliestTime, input)) return false;
+            }
+        }
+
+        private bool ValidateEarliestTime(ref TimeOnly earliestTime, string input)
+        {
+            if (viewModel.ValidateTime(input))
+            {
+                earliestTime = new TimeOnly(int.Parse(input.Split(":")[0]), int.Parse(input.Split(":")[1]));
+                return false;
             }
 
-            return false;
+            Console.WriteLine("Please enter a valid time value in \"HH:mm\" format.");
+            return true;
         }
 
         private bool GetDoctor(out int doctorId)
@@ -166,11 +181,10 @@ namespace ZdravoCorpCLI
             {
                 PrintDoctors();
                 string input = Console.ReadLine();
-                if (viewModel.ValidateDoctor(input, out doctorId)) break;
+                if (viewModel.ValidateDoctor(input, out doctorId)) return false;
                 if (input.ToLower().Equals("x")) return true;
                 Console.WriteLine("Wrong input, try again.");
             }
-            return false;
         }
 
         private bool GetPatient(out int patientId)
@@ -182,14 +196,12 @@ namespace ZdravoCorpCLI
                 if (viewModel.ValidatePatient(input, out patientId))
                 {
                     patient = patientService.GetById(patientId);
-                    break;
+                    return false;
                 }
 
                 if (input.ToLower().Equals("x")) return true;
                 Console.WriteLine("Wrong input, try again.");
             }
-
-            return false;
         }
 
         private void PrintPatients()
@@ -199,28 +211,25 @@ namespace ZdravoCorpCLI
             {
                 Console.WriteLine(patient);
             }
-            Console.WriteLine("x Exit");
-            Console.Write("Id:");
+            Console.Write("x Exit\nId:");
         }
 
-        public void PrintAppointments(List<Appointment> appointments)
+        private void PrintAppointments()
         {
-            for (int i = 0; i < appointments.Count; i++)
+            for (int i = 0; i < recommendedAppointments.Count; i++)
             {
-                Console.WriteLine("Id: " + (i + 1) + ". " + appointments[i]);
+                Console.WriteLine("Id: " + (i + 1) + ". " + recommendedAppointments[i]);
             }
         }
 
-        public void PrintDoctors()
+        private void PrintDoctors()
         {
             Console.WriteLine("Choose doctor's Id.");
-            List<Doctor> doctors = doctorService.GetDoctors();
-            foreach (var doctor in doctors)
+            foreach (var doctor in doctorService.GetDoctors())
             {
                 Console.WriteLine(doctor);
             }
-            Console.WriteLine("x Exit");
-            Console.Write("Id:");
+            Console.Write("x Exit\nId: ");
         }
     }
 }

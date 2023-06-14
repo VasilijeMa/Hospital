@@ -18,6 +18,7 @@ namespace ZdravoCorpCLI
         private LogService logService = new LogService();
         private RecommendingAppointmentsService recommendingAppointmentsService = new RecommendingAppointmentsService();
 
+        public RecommendingAppointmentsCLIViewModel() {}
 
         public bool ValidatePatient(string? input, out int patientId)
         {
@@ -54,18 +55,6 @@ namespace ZdravoCorpCLI
             return isValid;
         }
 
-        public void AddAppointment(Appointment appointment, Patient patient)
-        {
-            scheduleService.CreateAppointment(appointment);
-            logService.AddElement(appointment, patient);
-            scheduleService.WriteAllAppointmens();
-        }
-
-        public List<Appointment> FoundAppointments(AppointmentRequest appointmentRequest, int patientId)
-        {
-            return recommendingAppointmentsService.GetAppointmentsByRequest(appointmentRequest, patientId);
-        }
-
         public bool ValidateAppointment(string? input, List<Appointment> recommendedAppointments, out int appointmentId)
         {
             if (Int32.TryParse(input, out appointmentId))
@@ -81,6 +70,18 @@ namespace ZdravoCorpCLI
                 }
             }
             return false;
+        }
+
+        public void AddAppointment(Appointment appointment, Patient patient)
+        {
+            scheduleService.CreateAppointment(appointment);
+            logService.AddElement(appointment, patient);
+            scheduleService.WriteAllAppointmens();
+        }
+
+        public List<Appointment> FoundAppointments(AppointmentRequest appointmentRequest, int patientId)
+        {
+            return recommendingAppointmentsService.GetAppointmentsByRequest(appointmentRequest, patientId);
         }
     }
 }

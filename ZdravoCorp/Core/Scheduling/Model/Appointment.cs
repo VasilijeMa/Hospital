@@ -40,7 +40,7 @@ namespace ZdravoCorp.Core.Scheduling.Model
 
         public override string ToString()
         {
-            return TimeSlot.ToString();
+            return TimeSlot.ToString() + ", doctor id: " + DoctorId;
         }
     }
 }

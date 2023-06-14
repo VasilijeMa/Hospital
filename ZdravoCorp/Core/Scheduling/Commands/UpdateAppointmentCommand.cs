@@ -31,7 +31,7 @@ namespace ZdravoCorp.Core.Scheduling.Commands
             viewModel.Appointments = scheduleService.GetAppointmentsForPatient(viewModel.Patient.Id); ;
             if (viewModel.Patient.IsBlocked)
             {
-                viewModel.View.Close();
+                
             }
         }
     }

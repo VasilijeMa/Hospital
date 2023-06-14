@@ -30,7 +30,6 @@ namespace ZdravoCorp.Core.PatientNotification.Commands
             {
                 UpdateNotification();
             }
-            viewModel.View.Close();
         }
 
         private void UpdateNotification()

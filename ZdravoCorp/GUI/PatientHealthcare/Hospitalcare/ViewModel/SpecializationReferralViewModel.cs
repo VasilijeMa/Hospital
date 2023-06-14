@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Domain.Enums;
-using ZdravoCorp.Core.Repositories;
+using ZdravoCorp.Core.Enums;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Model;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services;
 using ZdravoCorp.Core.Scheduling.Model;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
 {

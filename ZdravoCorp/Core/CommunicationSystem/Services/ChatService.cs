@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.CommunicationSystem.Model;
 using ZdravoCorp.Core.CommunicationSystem.Repositories.Interfaces;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.Core.CommunicationSystem.Services
 {
@@ -13,9 +13,9 @@ namespace ZdravoCorp.Core.CommunicationSystem.Services
     {
         private IChatRepository _chatRepository;
 
-        public ChatService()
+        public ChatService(IChatRepository chatRepository)
         {
-            _chatRepository = Singleton.Instance.ChatRepository;
+            _chatRepository = chatRepository;
         }
 
         public Chat GetChat(string firstId, string secondId)

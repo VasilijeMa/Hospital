@@ -2,8 +2,9 @@
 using System.Data;
 using System.Threading;
 using System.Windows;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.PatientHealthcare.PatientMedicalRecord.Services;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorp
 {
@@ -12,12 +13,14 @@ namespace ZdravoCorp
     {
         Doctor doctor;
         private PatientService patientService = new PatientService();
+        private AnamnesisService anamnesisService;
 
-        public SearchPatientWindow(Doctor doctor)
+        public SearchPatientWindow(Doctor doctor, AnamnesisService anamnesisService)
         {
             InitializeComponent();
             this.doctor = doctor;
             LoadDataGrid();
+            this.anamnesisService = anamnesisService;
         }
 
         public void LoadDataGrid()
@@ -87,7 +90,7 @@ namespace ZdravoCorp
                 MessageBox.Show("You cannot access the medical record.");
                 return;
             }
-            CreateMedicalRecordWindow medicalRecordView = new CreateMedicalRecordWindow(false, patient, true, null, true);
+            CreateMedicalRecordWindow medicalRecordView = new CreateMedicalRecordWindow(false, patient, true, anamnesisService, null, true);
             medicalRecordView.ShowDialog();
         }
     }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.VacationRequest.Model;
 using ZdravoCorp.Core.VacationRequest.Services;
 using ZdravoCorp.GUI.VacationRequest.ViewModel;

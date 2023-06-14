@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
+using ZdravoCorp.Core.UserManager.Services;
 using ZdravoCorp.GUI.PatientSatisfaction.ViewModel;
 
 namespace ZdravoCorp.Core.PatientSatisfaction.Commands
 {
     public class SubmitDoctorSurveyCommand : BaseCommand
     {
-        private DoctorSurveyService doctorSurveyService = new DoctorSurveyService();
+        private DoctorService doctorService = new DoctorService();
         private DoctorSurveyViewModel viewModel;
         public SubmitDoctorSurveyCommand(DoctorSurveyViewModel viewModel)
         {
@@ -21,11 +21,12 @@ namespace ZdravoCorp.Core.PatientSatisfaction.Commands
         {
             if (viewModel.DoctorSurvey != null)
             {
-                doctorSurveyService.UpdateSurvey(viewModel.AppointmentId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
+                viewModel.doctorSurveyService.UpdateSurvey(viewModel.AppointmentId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
             }
             else
             {
-                doctorSurveyService.AddSurvey(viewModel.AppointmentId, viewModel.User.Username, viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
+                doctorService.AddRating(viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends);
+                viewModel.doctorSurveyService.AddSurvey(viewModel.AppointmentId, viewModel.User.Username, viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
             }
             viewModel.View.Close();
         }

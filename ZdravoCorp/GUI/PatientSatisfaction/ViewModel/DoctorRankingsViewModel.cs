@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.Core.PatientSatisfaction.Commands;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
 

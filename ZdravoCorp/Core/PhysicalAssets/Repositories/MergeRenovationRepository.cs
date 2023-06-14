@@ -13,7 +13,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         public List<MergeRenovation> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/mergeRenovations.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/mergeRenovations.json");
             var json = reader.ReadToEnd();
             List<MergeRenovation> allRenovations = JsonConvert.DeserializeObject<List<MergeRenovation>>(json);
 
@@ -28,7 +28,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         public void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_renovations, Formatting.Indented);
-            File.WriteAllText("./../../../data/mergeRenovations.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/mergeRenovations.json", json);
         }
 
         public void Add(MergeRenovation renovation)

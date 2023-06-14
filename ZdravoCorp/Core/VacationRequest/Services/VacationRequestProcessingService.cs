@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
 using ZdravoCorp.Core.VacationRequest.Model;
 using ZdravoCorp.Core.VacationRequest.Repositories;
@@ -20,8 +20,8 @@ namespace ZdravoCorp.Core.VacationRequest.Services
         private ICancellationNotificationRepository _cancellationNotificationRepository;
         public VacationRequestProcessingService()
         {
-            _freeDaysRepository = Singleton.Instance.FreeDaysRepository;
-            _scheduleRepository = Singleton.Instance.ScheduleRepository;
+            _freeDaysRepository = Institution.Instance.FreeDaysRepository;
+            _scheduleRepository = Institution.Instance.ScheduleRepository;
             _processedVacationRequestRepository = new ProcessedVacationRequestRepository();
             _cancellationNotificationRepository = new CancellationNotificationRepository();
         }

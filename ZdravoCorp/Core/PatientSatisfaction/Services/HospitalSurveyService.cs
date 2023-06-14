@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientSatisfaction.Repositories.Interfaces;
-using ZdravoCorp.Core.Repositories;
 
 namespace ZdravoCorp.Core.PatientSatisfaction.Services
 {
@@ -13,9 +11,9 @@ namespace ZdravoCorp.Core.PatientSatisfaction.Services
     {
         IHospitalSurveyRepository _hospitalSurveyRepository;
 
-        public HospitalSurveyService()
+        public HospitalSurveyService(IHospitalSurveyRepository hospitalSurveyRepository)
         {
-            _hospitalSurveyRepository = Singleton.Instance.HospitalSurveyRepository;
+            _hospitalSurveyRepository = hospitalSurveyRepository;
         }
 
         public void AddSurvey(string username, int serviceQuality, int cleanness, int suggestToFriends, string comment)

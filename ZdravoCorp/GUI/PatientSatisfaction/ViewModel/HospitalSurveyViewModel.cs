@@ -6,9 +6,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ZdravoCorp.Core.Commands;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.PatientSatisfaction.Commands;
+using ZdravoCorp.Core.PatientSatisfaction.Services;
+using ZdravoCorp.Core.UserManager.Model;
 using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel
@@ -16,6 +16,7 @@ namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel
     public class HospitalSurveyViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public HospitalSurveyService hospitalSurveyService;
         private ICommand _submitCommand;
         private int _serviceQuality = 1;
         private int _cleanness = 1;
@@ -70,8 +71,9 @@ namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel
             }
         }
 
-        public HospitalSurveyViewModel(User user, HospitalSurveyView view)
+        public HospitalSurveyViewModel(User user, HospitalSurveyView view, HospitalSurveyService hospitalSurveyService)
         {
+            this.hospitalSurveyService = hospitalSurveyService;
             User = user;
             View = view;
         }

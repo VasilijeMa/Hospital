@@ -27,5 +27,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories.Interfaces
         public void MakeNewRoom(RoomType roomType);
 
         public void Delete(string roomName);
+
+        public List<string> LoadAllInfirmaryRooms();
     }
 }

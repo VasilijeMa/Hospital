@@ -1,5 +1,6 @@
 ﻿using System.Windows;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.CommunicationSystem.Services;
+using ZdravoCorp.Core.UserManager.Model;
 using ZdravoCorp.GUI.CommunicationSystem.ViewModel;
 
 namespace ZdravoCorp.GUI.View.Patient
@@ -9,10 +10,10 @@ namespace ZdravoCorp.GUI.View.Patient
     /// </summary>
     public partial class ChatsView : Window
     {
-        public ChatsView(User user)
+        public ChatsView(User user, ChatService chatService)
         {
             InitializeComponent();
-            DataContext = new ChatsViewModel(user);
+            DataContext = new ChatsViewModel(user, chatService);
         }
     }
 }

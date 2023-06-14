@@ -17,7 +17,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         public Dictionary<string, Room> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/rooms.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/rooms.json");
             var json = reader.ReadToEnd();
             Dictionary<string, Room> allRooms = JsonConvert.DeserializeObject<Dictionary<string, Room>>(json);
             return allRooms;
@@ -27,6 +27,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         {
             _rooms = LoadAll();
         }
+
         public List<string> GetAllNames()
         {
             return _rooms.Keys.ToList();
@@ -35,7 +36,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         {
             SortedDictionary<string, Room> sortedRooms = new SortedDictionary<string, Room>(_rooms);
             string json = JsonConvert.SerializeObject(sortedRooms, Formatting.Indented);
-            File.WriteAllText("./../../../data/rooms.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/rooms.json", json);
         }
 
         public void Add(Room room)
@@ -64,7 +65,18 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
                 i++;
             }
         }
-
+        public List<string> LoadAllInfirmaryRooms() 
+        {
+            List<string> infirmaryRooms = new List<string>();
+            foreach (var room in _rooms.Values)
+            {
+                if (RoomType.Infirmary.Equals(room.GetTypeOfRoom()))
+                {
+                    infirmaryRooms.Add(room.GetName());
+                }
+            }
+            return infirmaryRooms;
+        }
         public Dictionary<string, Room> LoadAllExaminationRooms()
         {
             Dictionary<string, Room> examinationRooms = new Dictionary<string, Room>();

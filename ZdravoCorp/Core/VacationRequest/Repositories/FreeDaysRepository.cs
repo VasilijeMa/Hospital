@@ -23,7 +23,7 @@ namespace ZdravoCorp.Core.VacationRequest.Repositories
         public List<FreeDays> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/freeDays.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/freeDays.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<FreeDays>>(json);
         }
@@ -31,13 +31,26 @@ namespace ZdravoCorp.Core.VacationRequest.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(freeDays, Formatting.Indented);
-            File.WriteAllText("./../../../data/freeDays.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/freeDays.json", json);
         }
 
         public void AddFreeDays(FreeDays free)
         {
             freeDays.Add(free);
             WriteAll();
+        }
+
+        public List<FreeDays> GetFreeDaysForDoctor(int doctorId)
+        {
+            List<FreeDays> freeDaysList = new List<FreeDays>();
+            foreach (FreeDays freeDays in freeDays)
+            {
+                if (!(freeDays.DoctorId == doctorId)) continue;
+                DateTime endFreeDays = freeDays.StartDate.AddDays(freeDays.Duration);
+                if (endFreeDays < DateTime.Now) continue;
+                freeDaysList.Add(freeDays);
+            }
+            return freeDaysList;
         }
 
         public List<FreeDays> GetAll()

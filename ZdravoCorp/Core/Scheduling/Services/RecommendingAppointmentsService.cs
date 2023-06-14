@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain;
-using ZdravoCorp.Core.Domain.Enums;
-using ZdravoCorp.Core.Repositories.Interfaces;
+using ZdravoCorp.Core.Enums;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
-using ZdravoCorp.Core.Servieces;
+using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.UserManager.Repositories.Interfaces;
+using ZdravoCorp.Core.UserManager.Services;
 
 namespace ZdravoCorp.Core.Scheduling.Services
 {
@@ -25,9 +25,9 @@ namespace ZdravoCorp.Core.Scheduling.Services
 
         public RecommendingAppointmentsService()
         {
-            scheduleRepository = Singleton.Instance.ScheduleRepository;
-            doctorRepository = Singleton.Instance.DoctorRepository;
-            patientRepository = Singleton.Instance.PatientRepository;
+            scheduleRepository = Institution.Instance.ScheduleRepository;
+            doctorRepository = Institution.Instance.DoctorRepository;
+            patientRepository = Institution.Instance.PatientRepository;
         }
 
         public List<Appointment> GetAppointmentsByRequest(AppointmentRequest appointmentRequest, int patientId)

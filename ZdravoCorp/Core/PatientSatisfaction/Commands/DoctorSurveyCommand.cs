@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Commands;
 using ZdravoCorp.GUI.Scheduling.ViewModel;
 using ZdravoCorp.GUI.View.Patient;
 
@@ -27,7 +26,7 @@ namespace ZdravoCorp.Core.PatientSatisfaction.Commands
         public override void Execute(object? parameter)
         {
             DoctorSurveyView doctorSurveyView =
-                new DoctorSurveyView(viewModel.Patient, viewModel.SelectedAppointment);
+                new DoctorSurveyView(viewModel.Patient, viewModel.SelectedAppointment, viewModel.doctorSurveyService);
             doctorSurveyView.ShowDialog();
         }
     }

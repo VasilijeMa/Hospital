@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZdravoCorp.Core.Domain;
 using ZdravoCorp.Core.Scheduling.Model;
+using ZdravoCorp.Core.UserManager.Model;
 using ZdravoCorp.Core.VacationRequest.Model;
 
 namespace ZdravoCorp.Core.Scheduling.Repositories.Interfaces

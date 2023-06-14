@@ -8,7 +8,7 @@ namespace ZdravoCorp.GUI.View.Doctor
     /// </summary>
     public partial class HospitalizedPatientView : Window
     {
-        public HospitalizedPatientView(Core.Domain.Doctor doctor)
+        public HospitalizedPatientView(Core.UserManager.Model.Doctor doctor)
         {
             InitializeComponent();
             DataContext = new HospitalizedPatientViewModel(doctor);

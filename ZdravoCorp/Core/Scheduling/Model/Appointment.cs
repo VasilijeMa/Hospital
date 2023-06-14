@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System;
-using ZdravoCorp.Core.Domain;
 
 namespace ZdravoCorp.Core.Scheduling.Model
 {
@@ -39,6 +38,10 @@ namespace ZdravoCorp.Core.Scheduling.Model
             return true;
         }
 
+        public override string ToString()
+        {
+            return TimeSlot.ToString() + ", doctor id: " + DoctorId;
+        }
         public bool IsCancellable(int doctorId, TimeSlot timeSlot)
         {
             return ((DoctorId == doctorId) && (!IsCanceled) && (TimeSlot.OverlapWith(timeSlot)));

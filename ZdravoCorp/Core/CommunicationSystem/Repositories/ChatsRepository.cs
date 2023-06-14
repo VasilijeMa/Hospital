@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.CommunicationSystem.Model;
 using ZdravoCorp.Core.CommunicationSystem.Repositories.Interfaces;
-using ZdravoCorp.Core.Domain;
+using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.Core.CommunicationSystem.Repositories
 {
@@ -25,7 +25,7 @@ namespace ZdravoCorp.Core.CommunicationSystem.Repositories
         public List<Chat> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/chats.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/chats.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Chat>>(json);
         }
@@ -33,7 +33,7 @@ namespace ZdravoCorp.Core.CommunicationSystem.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(chats, Formatting.Indented);
-            File.WriteAllText("./../../../data/chats.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/chats.json", json);
         }
 
         public Chat GetChat(string firstId, string secondId)

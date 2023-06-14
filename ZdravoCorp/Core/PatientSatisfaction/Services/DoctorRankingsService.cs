@@ -1,50 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ZdravoCorp.Core.PatientSatisfaction.Model;
-using ZdravoCorp.Core.PatientSatisfaction.Repositories;
-using ZdravoCorp.Core.PatientSatisfaction.Repositories.Interfaces;
-using ZdravoCorp.Core.UserManager.Repositories;
 using ZdravoCorp.Core.UserManager.Repositories.Interfaces;
 
 namespace ZdravoCorp.Core.PatientSatisfaction.Services
 {
-    public class SurveyAnalyticsService
+    public class DoctorRankingsService
     {
-        private IHospitalSurveyRepository _hospitalSurveyRepository;
-        private IDoctorSurveyRepository _doctorSurveyRepository;
         private IDoctorRepository _doctorRepository;
-        public SurveyAnalyticsService()
-        {
-            _hospitalSurveyRepository = new HospitalSurveyRepository();
-            _doctorSurveyRepository = new DoctorSurveyRepository();
-            _doctorRepository = new DoctorRepository();
-        }
         private int ExtractID(string doctor)
         {
             return int.Parse(doctor.Split(':')[1]);
         }
-        public List<string> GetComments(string doctor)
+        public DoctorRankingsService()
         {
-            if (string.IsNullOrWhiteSpace(doctor))
-            {
-                return _hospitalSurveyRepository.GetComments();
-            }
-
-            int id = ExtractID(doctor);
-            return _doctorSurveyRepository.GetComments(id);
+            _doctorRepository = Institution.Instance.DoctorRepository;
         }
-
-        public List<Rating> GetRatings(string doctor)
-        {
-            if (string.IsNullOrWhiteSpace(doctor))
-            {
-                return _hospitalSurveyRepository.GetRatings();
-            }
-            int id = ExtractID(doctor);
-            return _doctorSurveyRepository.GetRatings(id);
-        }
-
         public List<string> GetDoctorNames()
         {
             return _doctorRepository.GetFullNames();
@@ -68,18 +42,19 @@ namespace ZdravoCorp.Core.PatientSatisfaction.Services
             }
             return worstRatedDoctors;
         }
-        private Dictionary<string, double> CalculateRatingScores(List<string> doctors)
+        private Dictionary<string, double> CalculateRatingScores()
         {
             Dictionary<string, double> scores = new Dictionary<string, double>();
-            foreach (string doctor in doctors)
+            foreach (string doctor in _doctorRepository.GetFullNames())
             {
-                scores[doctor] = CalculateAverage(GetRatings(doctor));
+                DoctorSurveyAnalyticsService service = new DoctorSurveyAnalyticsService(ExtractID(doctor));
+                scores[doctor] = CalculateAverage(service.GetRatings());
             }
             return scores;
         }
-        public List<string> GetRankedDoctors(List<string> doctors, bool best)
+        public List<string> GetRankedDoctors(bool best)
         {
-            Dictionary<string, double> scores = CalculateRatingScores(doctors);
+            Dictionary<string, double> scores = CalculateRatingScores();
             List<KeyValuePair<string, double>> topThree;
             if (best)
             {

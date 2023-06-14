@@ -17,18 +17,22 @@ namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel
         public List<string> LowestRatedDoctors { get; set; }
 
         public List<string> HighestRatedDoctors { get; set; }
+        private int ExtractID(string doctor)
+        {
+            return int.Parse(doctor.Split(':')[1]);
+        }
         public DoctorRankingsViewModel()
         {
             ShowSurveys = new DoctorSurveyAnalyticsCommand(this);
-            SurveyAnalyticsService surveyAnalyticsService = new SurveyAnalyticsService();
+            DoctorRankingsService surveyAnalyticsService = new DoctorRankingsService();
             DoctorNames = surveyAnalyticsService.GetDoctorNames();
-            LowestRatedDoctors = surveyAnalyticsService.GetRankedDoctors(DoctorNames, false);
-            HighestRatedDoctors = surveyAnalyticsService.GetRankedDoctors(DoctorNames, true);
+            LowestRatedDoctors = surveyAnalyticsService.GetRankedDoctors(false);
+            HighestRatedDoctors = surveyAnalyticsService.GetRankedDoctors(true);
         }
 
-        public string GetSelectedDoctor()
+        public int GetSelectedDoctor()
         {
-            return DoctorNames[SelectedDoctor];
+            return ExtractID(DoctorNames[SelectedDoctor]);
         }
     }
 }

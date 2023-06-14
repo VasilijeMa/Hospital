@@ -62,6 +62,7 @@ namespace ZdravoCorp
                 {
                     this.Visibility = Visibility.Hidden;
                     medicamentsToAddService.checkOrderedMedicaments();
+                    hospitalStayService.releasePatient();
                     DisplayWindow(user);
                     this.Visibility = Visibility.Visible;
                     tbUsername.Text = "";

@@ -11,7 +11,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Repositories.Interfaces
     {
         HospitalStay GetHospitalStay(int examinationId);
 
-        public void WriteAll();
+        public void WriteAll(List<HospitalStay> hospitalStays);
 
         public void Add(HospitalStay hospitalStay);
 

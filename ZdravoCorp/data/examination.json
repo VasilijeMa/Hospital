@@ -197,7 +197,7 @@
     "Id": 15,
     "SpecializationRefferal": null,
     "HospitalizationRefferal": {
-      "RoomId": "",
+      "RoomId": "Infirmary 5",
       "StartDate": "2023-06-13",
       "Duration": 10,
       "AdditionalTesting": "vanaj",

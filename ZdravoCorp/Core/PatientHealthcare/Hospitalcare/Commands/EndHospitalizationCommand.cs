@@ -25,21 +25,26 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands
 
         public override void Execute(object? parameter)
         {
-            DialogResult dialogResult = MessageBox.Show("Check-up", "Do you want to schedule a check-up for the patient?", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Do you want to end hospitalization?", "End hospitalization", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 MakeAppointmentDoctor makeAppointmentDoctor = new MakeAppointmentDoctor(viewModel.doctor);
-                DateTime dateForCheckUp = DateTime.Now.AddDays(10);
-                makeAppointmentDoctor.dpDate.SelectedDate = dateForCheckUp;
-                Appointment appointment = scheduleService.GetAppointmentByExaminationId(viewModel.SelectedExamination.ExaminationId);
-                Patient patient = patientService.GetById(appointment.PatientId);
-                makeAppointmentDoctor.cmbPatients.SelectedItem = patient;
+                FillInFields(makeAppointmentDoctor);
                 makeAppointmentDoctor.ShowDialog();
             }
             else if (dialogResult == DialogResult.No)
             {
                 MessageBox.Show("Hospitalization is done.");
             }
+        }
+
+        private void FillInFields(MakeAppointmentDoctor makeAppointmentDoctor)
+        {
+            DateTime dateForCheckUp = DateTime.Now.AddDays(10);
+            makeAppointmentDoctor.dpDate.SelectedDate = dateForCheckUp;
+            Appointment appointment = scheduleService.GetAppointmentByExaminationId(viewModel.SelectedExamination.ExaminationId);
+            Patient patient = patientService.GetById(appointment.PatientId);
+            makeAppointmentDoctor.cmbPatients.SelectedItem = patient;
         }
     }
 }

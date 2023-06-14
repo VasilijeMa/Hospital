@@ -145,5 +145,26 @@
     "Symptoms": "bol",
     "DoctorsObservation": "",
     "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 67,
+    "PatientId": 4,
+    "Symptoms": "booool",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 68,
+    "PatientId": 4,
+    "Symptoms": "ok",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
+  },
+  {
+    "AppointmentId": 69,
+    "PatientId": 1,
+    "Symptoms": "oki",
+    "DoctorsObservation": "",
+    "DoctorsConclusion": ""
   }
 ]

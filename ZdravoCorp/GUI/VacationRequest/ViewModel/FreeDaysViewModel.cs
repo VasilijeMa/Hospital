@@ -20,7 +20,6 @@ namespace ZdravoCorp.GUI.VacationRequest.ViewModel
         public DoctorService doctorService = new DoctorService();
         public FreeDaysService freeDaysService;
 
-
         public int Duration
         {
             get { return duration; }
@@ -60,7 +59,7 @@ namespace ZdravoCorp.GUI.VacationRequest.ViewModel
 
         public bool isValid()
         {
-            if (Reason == "" || StartDate == null)
+            if (Reason == "" && duration == 0)
             {
                 return false;
             }

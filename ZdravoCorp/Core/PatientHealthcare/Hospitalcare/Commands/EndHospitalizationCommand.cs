@@ -27,15 +27,25 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands
 
         public override void Execute(object? parameter)
         {
-            DialogResult dialogResult = MessageBox.Show("Do you want to end hospitalization?", "End hospitalization", MessageBoxButtons.YesNo);
+            if (!viewModel.IsValid())
+            {
+                MessageBox.Show("Hositalization s already over");
+                return;
+            }
+            DialogResult dialogResult = MessageBox.Show("Do you want to schedule an examination?", "End hospitalization", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                MakeAppointmentDoctor makeAppointmentDoctor = new MakeAppointmentDoctor(viewModel.doctor);
-                FillInFields(makeAppointmentDoctor);
-                makeAppointmentDoctor.ShowDialog();
+                MakeAppointment();
             }
             examinationService.EndHospitaliztionRefferal(viewModel.SelectedExamination.ExaminationId);
             MessageBox.Show("Hospitalization is done.");
+        }
+
+        public void MakeAppointment()
+        {
+            MakeAppointmentDoctor makeAppointmentDoctor = new MakeAppointmentDoctor(viewModel.doctor);
+            FillInFields(makeAppointmentDoctor);
+            makeAppointmentDoctor.ShowDialog();
         }
 
         private void FillInFields(MakeAppointmentDoctor makeAppointmentDoctor)
@@ -46,5 +56,6 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands
             Patient patient = patientService.GetById(appointment.PatientId);
             makeAppointmentDoctor.cmbPatients.SelectedItem = patient;
         }
+
     }
 }

@@ -64,6 +64,16 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
             }
         }
 
+        public bool IsValid()
+        {
+            Examination examination = examinationService.GetExaminationById(SelectedExamination.ExaminationId);
+            if (examination.HospitalizationRefferal.IsOver)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public ICommand EndHospitalizationCommand
         {
             get { return endHospitalizationCommand ??= new EndHospitalizationCommand(this); }

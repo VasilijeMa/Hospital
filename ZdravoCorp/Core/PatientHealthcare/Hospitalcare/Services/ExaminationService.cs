@@ -160,5 +160,11 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services
             return examinationsIds;
         }
 
+        public void EndHospitaliztionRefferal(int id)
+        {
+            Examination examination = GetExaminationById(id);
+            examination.HospitalizationRefferal.IsOver = true;
+            WriteAll();
+        }
     }
 }

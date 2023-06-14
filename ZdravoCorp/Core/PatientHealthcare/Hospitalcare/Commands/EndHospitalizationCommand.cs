@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Services;
 using ZdravoCorp.Core.UserManager.Model;
@@ -17,6 +18,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands
         private HospitalizedPatientViewModel viewModel;
         private ScheduleService scheduleService = new ScheduleService();
         private PatientService patientService = new PatientService();
+        private ExaminationService examinationService = new ExaminationService();
 
         public EndHospitalizationCommand(HospitalizedPatientViewModel viewModel)
         {
@@ -36,10 +38,8 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Commands
                 makeAppointmentDoctor.cmbPatients.SelectedItem = patient;
                 makeAppointmentDoctor.ShowDialog();
             }
-            else if (dialogResult == DialogResult.No)
-            {
-                MessageBox.Show("Hospitalization is done.");
-            }
+            examinationService.EndHospitaliztionRefferal(viewModel.SelectedExamination.ExaminationId);
+            MessageBox.Show("Hospitalization is done.");
         }
     }
 }

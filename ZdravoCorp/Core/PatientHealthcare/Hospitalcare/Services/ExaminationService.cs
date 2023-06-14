@@ -53,6 +53,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services
             foreach (var examination in examinationRepository.GetExaminations())
             {
                 if (examination.HospitalizationRefferal == null) continue;
+                if (examination.HospitalizationRefferal.IsOver==true) continue;
                 HospitalizationReferral referral = examination.HospitalizationRefferal;
                 DateOnly endHospitalizationReferral = referral.StartDate.AddDays(referral.Duration);
                 if (!(referral.StartDate <= DateOnly.FromDateTime(DateTime.Now) && DateOnly.FromDateTime(DateTime.Now) <= endHospitalizationReferral)) continue;

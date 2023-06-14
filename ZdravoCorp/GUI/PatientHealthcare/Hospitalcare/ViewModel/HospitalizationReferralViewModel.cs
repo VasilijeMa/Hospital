@@ -27,6 +27,7 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
         public ObservableCollection<TimeForMedicament> timeForMedicaments;
         private Medicament selectedMedicament = null;
         public TimeForMedicament? selectedTime = null;
+        public DateTime selectedStartDate;
         public Appointment Appointment { get; set; }
 
         private int duration;
@@ -107,11 +108,22 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
                 OnPropertyChanged(nameof(SelectedTime));
             }
         }
+        
+        public DateTime SelectedStartDate
+        {
+            get { return selectedStartDate; }
+            set
+            {
+                selectedStartDate = value;
+                OnPropertyChanged(nameof(SelectedStartDate));
+            }
+        }
 
         public HospitalizationReferralViewModel(Appointment appointment)
         {
             Appointment = appointment;
             FillFields();
+            selectedStartDate = DateTime.Now;
             medicaments = new ObservableCollection<Medicament>(_medicamentService.GetMedicaments());
             timeForMedicaments = new ObservableCollection<TimeForMedicament>(Enum.GetValues(typeof(TimeForMedicament)).Cast<TimeForMedicament>().ToList());
         }
@@ -122,6 +134,8 @@ namespace ZdravoCorp.GUI.PatientHealthcare.Hospitalcare.ViewModel
             Examination examination = examinationService.GetExaminationById(Appointment.ExaminationId);
             if (examination.HospitalizationRefferal != null)
             {
+
+                SelectedStartDate = examination.HospitalizationRefferal.StartDate.ToDateTime(TimeOnly.Parse("10:00 PM")); ;
                 PerDay = examination.HospitalizationRefferal.InitialTherapy.Instruction.TimePerDay;
                 Duration = examination.HospitalizationRefferal.Duration;
                 Testing = examination.HospitalizationRefferal.AdditionalTesting;

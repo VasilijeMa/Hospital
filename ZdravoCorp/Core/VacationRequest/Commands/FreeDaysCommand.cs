@@ -16,7 +16,7 @@ namespace ZdravoCorp.Core.VacationRequest.Commands
     {
         private FreeDaysViewModel viewModel;
         private DoctorService DoctorService = new DoctorService();
-        //private IFreeDaysRepository freeDaysRepository = Institution.Instance.FreeDaysRepository;
+
         public FreeDaysCommand(FreeDaysViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -24,6 +24,11 @@ namespace ZdravoCorp.Core.VacationRequest.Commands
 
         public override void Execute(object? parameter)
         {
+            if (!viewModel.isValid())
+            {
+                MessageBox.Show("You must fill in all fields.");
+                return;
+            }
             if (!IsDoctorFree())
             {
                 return;

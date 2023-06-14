@@ -21,6 +21,7 @@ namespace ZdravoCorp
         List<Appointment> recommendedAppointments;
         private DoctorService doctorService = new DoctorService();
         ScheduleService scheduleService = new ScheduleService();
+        LogService logService = new LogService();
         private RecommendingAppointmentsService recommendingAppointmentsService = new RecommendingAppointmentsService();
         public RecommendingAppointmentsForm(Patient patient)
         {
@@ -68,8 +69,6 @@ namespace ZdravoCorp
             if (recommendedAppointments.Count() == 1)
             {
                 scheduleService.CreateAppointment(recommendedAppointments[0]);
-
-                LogService logService = new LogService();
                 logService.AddElement(recommendedAppointments[0], patient);
                 MessageBox.Show("Appointment successfully created.");
                 this.Close();
@@ -87,7 +86,7 @@ namespace ZdravoCorp
             Priority priority = GetPriority();
             TimeOnly earliestTime = new TimeOnly(int.Parse(tbETime.Text.Split(":")[0]), int.Parse(tbETime.Text.Split(":")[1]));
             TimeOnly latestTime = new TimeOnly(int.Parse(tbLTime.Text.Split(":")[0]), int.Parse(tbLTime.Text.Split(":")[1]));
-            return new AppointmentRequest((Doctor)cmbDoctors.SelectedItem, earliestTime, latestTime, date, priority); ;
+            return new AppointmentRequest((Doctor)cmbDoctors.SelectedItem, earliestTime, latestTime, date, priority);
         }
 
         private Priority GetPriority()
@@ -121,12 +120,9 @@ namespace ZdravoCorp
             }
             Appointment appointment = GetAppointmentFromSelectedRow();
             scheduleService.CreateAppointment(appointment);
-
-            LogService logService = new LogService();
             logService.AddElement(appointment, patient);
             MessageBox.Show("Appointment successfully created.");
             this.Close();
-            return;
         }
 
         private Appointment GetAppointmentFromSelectedRow()

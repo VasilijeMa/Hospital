@@ -92,6 +92,8 @@ namespace ZdravoCorp.Core.Scheduling.Services
 
         public Appointment CreateAppointment(Appointment appointment)
         {
+            string roomId = TakeRoom(appointment.TimeSlot);
+            appointment.IdRoom = roomId;
             return scheduleRepository.CreateAppointment(appointment);
         }
 

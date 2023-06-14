@@ -37,7 +37,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Pharmacy.Repositories
         public List<MedicamentToAdd> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/medicamentstoadd.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/medicamentstoadd.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<MedicamentToAdd>>(json);
         }
@@ -45,7 +45,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Pharmacy.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(medicamentsToAdd, Formatting.Indented);
-            File.WriteAllText("./../../../data/medicamentstoadd.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/medicamentstoadd.json", json);
         }
 
     }

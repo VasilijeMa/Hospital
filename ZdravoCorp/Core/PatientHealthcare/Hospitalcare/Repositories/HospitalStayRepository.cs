@@ -41,7 +41,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Repositories
         public List<HospitalStay> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/hospitalstay.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/hospitalstay.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<HospitalStay>>(json);
         }
@@ -49,7 +49,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(HospitalStays, Formatting.Indented);
-            File.WriteAllText("./../../../data/hospitalstay.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/hospitalstay.json", json);
         }
 
         public int GetNumberOfPatientsInTheRoom(string roomId, DateOnly startDate, DateOnly endDate)

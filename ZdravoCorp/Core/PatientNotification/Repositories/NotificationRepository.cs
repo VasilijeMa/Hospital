@@ -26,7 +26,7 @@ namespace ZdravoCorp.Core.PatientNotification.Repositories
         public List<Notification> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/patientNotifications.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/patientNotifications.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Notification>>(json);
         }
@@ -34,7 +34,7 @@ namespace ZdravoCorp.Core.PatientNotification.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
-            File.WriteAllText("./../../../data/patientNotifications.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/patientNotifications.json", json);
         }
 
         public int getNextId()

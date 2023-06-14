@@ -13,7 +13,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         public List<FunctionalItem> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/functionalItems.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/functionalItems.json");
             var json = reader.ReadToEnd();
             List<FunctionalItem> allFunctionalItems = JsonConvert.DeserializeObject<List<FunctionalItem>>(json);
 
@@ -39,7 +39,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         public void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_functionalItems, Formatting.Indented);
-            File.WriteAllText("./../../../data/functionalItems.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/functionalItems.json", json);
         }
         public void SaveAll(List<FunctionalItem> allRequests)
         {

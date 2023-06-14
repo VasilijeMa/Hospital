@@ -20,5 +20,10 @@ namespace ZdravoCorp.Core.UserManager.Model
             LastName = lastname;
             Specialization = specialization;
         }
+
+        public override string ToString()
+        {
+            return "Id: " + Id + ", " + FirstName + " " + LastName + ", " + Specialization;
+        }
     }
 }

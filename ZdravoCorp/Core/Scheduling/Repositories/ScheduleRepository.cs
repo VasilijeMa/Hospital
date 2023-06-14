@@ -77,7 +77,7 @@ namespace ZdravoCorp.Core.Scheduling.Repositories
         public List<Appointment> LoadAllAppointments()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/appointments.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/appointments.json");
             var json = reader.ReadToEnd();
             schedule.Appointments = JsonConvert.DeserializeObject<List<Appointment>>(json);
             return schedule.Appointments;
@@ -86,7 +86,7 @@ namespace ZdravoCorp.Core.Scheduling.Repositories
         public void WriteAllAppointmens()
         {
             string json = JsonConvert.SerializeObject(schedule.Appointments, Formatting.Indented);
-            File.WriteAllText("./../../../data/appointments.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/appointments.json", json);
         }
 
         public void CreateAppointmentsMap()

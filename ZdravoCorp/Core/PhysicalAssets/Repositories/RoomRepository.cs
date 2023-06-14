@@ -17,7 +17,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         public Dictionary<string, Room> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/rooms.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/rooms.json");
             var json = reader.ReadToEnd();
             Dictionary<string, Room> allRooms = JsonConvert.DeserializeObject<Dictionary<string, Room>>(json);
             return allRooms;
@@ -36,7 +36,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         {
             SortedDictionary<string, Room> sortedRooms = new SortedDictionary<string, Room>(_rooms);
             string json = JsonConvert.SerializeObject(sortedRooms, Formatting.Indented);
-            File.WriteAllText("./../../../data/rooms.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/rooms.json", json);
         }
 
         public void Add(Room room)

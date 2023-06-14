@@ -24,7 +24,7 @@ namespace ZdravoCorp.Core.UserManager.Repositories
         public List<Doctor> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/doctor.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/doctor.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Doctor>>(json);
         }

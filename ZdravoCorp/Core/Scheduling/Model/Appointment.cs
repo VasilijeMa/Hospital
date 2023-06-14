@@ -38,5 +38,9 @@ namespace ZdravoCorp.Core.Scheduling.Model
             return true;
         }
 
+        public override string ToString()
+        {
+            return TimeSlot.ToString() + ", doctor id: " + DoctorId;
+        }
     }
 }

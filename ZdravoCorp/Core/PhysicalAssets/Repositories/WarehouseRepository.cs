@@ -13,7 +13,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         public Warehouse Load()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/warehouse.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/warehouse.json");
             var json = reader.ReadToEnd();
             Warehouse warehouse = JsonConvert.DeserializeObject<Warehouse>(json);
             return warehouse;
@@ -25,7 +25,7 @@ namespace ZdravoCorp.Core.PhysicalAssets.Repositories
         public void Save()
         {
             string json = JsonConvert.SerializeObject(_warehouse, Formatting.Indented);
-            File.WriteAllText("./../../../data/warehouse.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/warehouse.json", json);
         }
         public void Save(Warehouse warehouse)
         {

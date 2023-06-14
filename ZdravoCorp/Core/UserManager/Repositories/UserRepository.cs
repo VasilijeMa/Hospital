@@ -21,7 +21,7 @@ namespace ZdravoCorp.Core.UserManager.Repositories
         public List<User> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/users.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/users.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<User>>(json);
         }
@@ -29,7 +29,7 @@ namespace ZdravoCorp.Core.UserManager.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(users, Formatting.Indented);
-            File.WriteAllText("./../../../data/users.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/users.json", json);
         }
 
         public void RemoveUser(string username)

@@ -25,7 +25,7 @@ namespace ZdravoCorp.Core.UserManager.Model
 
         public override string ToString()
         {
-            return "Id: " + Id + ", FirstName: " + FirstName + ", LastName: " + LastName + "BirthDate: " + BirthDate.ToString();
+            return "Id: " + Id + ". " + FirstName + " " + LastName;
         }
 
     }

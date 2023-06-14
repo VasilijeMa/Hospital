@@ -20,13 +20,13 @@ namespace ZdravoCorp.Core.PatientHealthcare.PatientMedicalRecord.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(records, Formatting.Indented);
-            File.WriteAllText("./../../../data/medicalRecords.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/medicalRecords.json", json);
         }
 
         public List<MedicalRecord> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/medicalRecords.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/medicalRecords.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<MedicalRecord>>(json);
         }

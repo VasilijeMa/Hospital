@@ -21,7 +21,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.PatientMedicalRecord.Repositories
         public List<Anamnesis> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/anamneses.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/anamneses.json");
             var json = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Anamnesis>>(json);
         }
@@ -29,7 +29,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.PatientMedicalRecord.Repositories
         public void WriteAll()
         {
             string json = JsonConvert.SerializeObject(anamnesis, Formatting.Indented);
-            File.WriteAllText("./../../../data/anamneses.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/anamneses.json", json);
         }
 
         public List<Anamnesis> GetAnamnesesContainingSubstring(string keyword)

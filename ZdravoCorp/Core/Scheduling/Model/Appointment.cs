@@ -39,5 +39,15 @@ namespace ZdravoCorp.Core.Scheduling.Model
             return true;
         }
 
+        public bool IsCancellable(int doctorId, TimeSlot timeSlot)
+        {
+            return ((DoctorId == doctorId) && (!IsCanceled) && (TimeSlot.OverlapWith(timeSlot)));
+        }
+
+        public string InfoForPatient()
+        {
+            return "ID: " + Id.ToString() + " Start Time: " + TimeSlot.start.ToString() + " Duration: " + TimeSlot.duration.ToString() + "mins\n" +
+                "Doctor ID: " + DoctorId + " Room: " + IdRoom;
+        }
     }
 }

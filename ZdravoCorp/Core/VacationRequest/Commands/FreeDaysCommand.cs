@@ -30,7 +30,7 @@ namespace ZdravoCorp.Core.VacationRequest.Commands
             {
                 return;
             }
-            MessageBox.Show("Successfully get free days");
+            MessageBox.Show("Successfully requested free days");
             FreeDays freeDays = new FreeDays(viewModel.Doctor.Id, viewModel.StartDate, viewModel.Duration, viewModel.Reason);
             freeDaysRepository.AddFreeDays(freeDays);
         }

@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using ZdravoCorp.Core.Domain.Enums;
 using ZdravoCorp.Core.PatientSatisfaction.View;
+using ZdravoCorp.Core.VacationRequest.Model;
+using ZdravoCorp.GUI.VacationRequest.View;
 using ZdravoCorp.GUI.View.Patient;
 
 namespace ZdravoCorp.ManagerView
@@ -64,6 +66,13 @@ namespace ZdravoCorp.ManagerView
             DoctorRankingsView newWindow = new DoctorRankingsView();
             newWindow.ShowDialog();
         }
+
+        private void VacationRequestsClick(object sender, RoutedEventArgs e)
+        {
+            VacationRequestProcessingView newWindow = new VacationRequestProcessingView();
+            newWindow.ShowDialog();
+        }
+
         private void LogOutClick(object sender, RoutedEventArgs e)
         {
             Close();

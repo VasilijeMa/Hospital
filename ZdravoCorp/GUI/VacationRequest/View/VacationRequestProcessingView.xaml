@@ -1,0 +1,21 @@
+﻿<Window x:Class="ZdravoCorp.GUI.VacationRequest.View.VacationRequestProcessingView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZdravoCorp.GUI.VacationRequest.View"
+        mc:Ignorable="d"
+        Title="VacationRequestProcessingView" Height="450" Width="800">
+    <Grid>
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly ="True" ItemsSource="{Binding VacationRequests, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedRequest}" Margin="104,126,236,125" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Doctor ID" Binding="{Binding DoctorId}" Width="80"/>
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" Width="150"/>
+                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="80"/>
+                <DataGridTextColumn Header="Reason" Binding="{Binding Reason}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Approve" FontSize="16" HorizontalAlignment="Left" Margin="604,160,0,0" VerticalAlignment="Top" Width="130" Command="{Binding ApproveCommand}"/>
+        <Button Content="Deny" FontSize="16" HorizontalAlignment="Left" Margin="604,232,0,0" VerticalAlignment="Top" Width="130" Command="{Binding DenyCommand}"/>
+    </Grid>
+</Window>

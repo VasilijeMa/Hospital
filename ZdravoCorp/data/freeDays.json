@@ -1,17 +1,32 @@
 [
   {
-    "StartDate": "2023-05-10T18:30:00",
-    "Duration": 5,
-    "Reason": "prehlada"
-  },
-  {
+    "DoctorId": 2,
     "StartDate": "2023-06-12T00:00:00",
     "Duration": 10,
     "Reason": "bolest"
   },
   {
+    "DoctorId": 1,
     "StartDate": "2023-06-24T00:00:00",
     "Duration": 10,
     "Reason": "bolest"
+  },
+  {
+    "DoctorId": 1,
+    "StartDate": "2023-05-15T00:00:00",
+    "Duration": 3,
+    "Reason": "Korona virus"
+  },
+  {
+    "DoctorId": 1,
+    "StartDate": "2023-05-30T00:00:00",
+    "Duration": 6,
+    "Reason": "Lenjost"
+  },
+  {
+    "DoctorId": 2,
+    "StartDate": "2023-05-15T00:00:00",
+    "Duration": 4,
+    "Reason": "Štrajk"
   }
 ]

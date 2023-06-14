@@ -24,7 +24,8 @@
         },
         "DateOfGiving": "2023-05-30",
         "IsUsed": false
-      }
+      },
+      "IsOver": false
     },
     "Prescription": {
       "Medicament": {
@@ -74,7 +75,8 @@
         },
         "DateOfGiving": "2023-06-02",
         "IsUsed": false
-      }
+      },
+      "IsOver": false
     },
     "Prescription": {
       "Medicament": {
@@ -143,7 +145,8 @@
         },
         "DateOfGiving": "2023-06-12",
         "IsUsed": false
-      }
+      },
+      "IsOver": false
     },
     "Prescription": null
   },
@@ -172,7 +175,8 @@
         },
         "DateOfGiving": "2023-06-12",
         "IsUsed": false
-      }
+      },
+      "IsOver": false
     },
     "Prescription": {
       "Medicament": {
@@ -218,7 +222,8 @@
         },
         "DateOfGiving": "2023-06-13",
         "IsUsed": false
-      }
+      },
+      "IsOver": true
     },
     "Prescription": {
       "Medicament": {
@@ -268,7 +273,8 @@
         },
         "DateOfGiving": "2023-05-30",
         "IsUsed": false
-      }
+      },
+      "IsOver": false
     },
     "Prescription": {
       "Medicament": {

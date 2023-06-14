@@ -29,7 +29,7 @@ namespace ZdravoCorp.Core.PatientSatisfaction.Commands
                 doctorService.AddRating(viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends);
                 viewModel.doctorSurveyService.AddSurvey(viewModel.AppointmentId, viewModel.User.Username, viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
             }
-            MessageBox.Show("Thank you for review.");
+            MessageBox.Show("Thank you for participating in the survey.");
         }
     }
 }

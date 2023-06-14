@@ -21,7 +21,7 @@ namespace ZdravoCorp.Core.PatientSatisfaction.Commands
         public override void Execute(object? parameter)
         {
             viewModel.hospitalSurveyService.AddSurvey(viewModel.User.Username, viewModel.ServiceQuality, viewModel.Cleanness, viewModel.SuggestToFriends, viewModel.Comment);
-            MessageBox.Show("Thank you for review.");
+            MessageBox.Show("Thank you for participating in the survey.");
         }
     }
 }

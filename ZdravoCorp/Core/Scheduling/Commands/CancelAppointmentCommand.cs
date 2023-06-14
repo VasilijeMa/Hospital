@@ -37,7 +37,6 @@ namespace ZdravoCorp.Core.Scheduling.Commands
                 logService.UpdateCancelElement(viewModel.SelectedAppointment, viewModel.Patient);
                 if (viewModel.Patient.IsBlocked)
                 {
-                    viewModel.View.Close();
                 }
             }
 

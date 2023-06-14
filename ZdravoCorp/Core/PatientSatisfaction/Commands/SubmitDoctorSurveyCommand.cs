@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
 using ZdravoCorp.Core.UserManager.Services;
 using ZdravoCorp.GUI.PatientSatisfaction.ViewModel;
@@ -28,7 +29,7 @@ namespace ZdravoCorp.Core.PatientSatisfaction.Commands
                 doctorService.AddRating(viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends);
                 viewModel.doctorSurveyService.AddSurvey(viewModel.AppointmentId, viewModel.User.Username, viewModel.DoctorId, viewModel.ServiceQuality, viewModel.SuggestToFriends, viewModel.Comment);
             }
-            viewModel.View.Close();
+            MessageBox.Show("Thank you for review.");
         }
     }
 }

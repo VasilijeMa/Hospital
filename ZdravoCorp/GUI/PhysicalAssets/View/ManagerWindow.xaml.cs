@@ -58,7 +58,7 @@ namespace ZdravoCorp.ManagerView
         }
         private void HospitalReviewsClick(object sender, RoutedEventArgs e)
         {
-            SurveyAnalyticsView newWindow = new SurveyAnalyticsView(null);
+            SurveyAnalyticsView newWindow = new SurveyAnalyticsView(0);
             newWindow.ShowDialog();
         }
         private void DoctorReviewsClick(object sender, RoutedEventArgs e)

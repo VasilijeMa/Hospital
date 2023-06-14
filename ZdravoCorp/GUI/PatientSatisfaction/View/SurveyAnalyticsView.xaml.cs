@@ -8,7 +8,7 @@ namespace ZdravoCorp.Core.PatientSatisfaction.View
     /// </summary>
     public partial class SurveyAnalyticsView : Window
     {
-        public SurveyAnalyticsView(string doctor)
+        public SurveyAnalyticsView(int doctor)
         {
             SurveyAnalyticsViewModel viewModel = new SurveyAnalyticsViewModel(doctor);
             DataContext = viewModel;

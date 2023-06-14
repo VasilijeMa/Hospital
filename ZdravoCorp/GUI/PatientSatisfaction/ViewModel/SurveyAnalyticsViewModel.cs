@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.PatientSatisfaction.Model;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
+using ZdravoCorp.Core.PatientSatisfaction.Services.Interfaces;
 
 namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel
 {
@@ -12,11 +13,20 @@ namespace ZdravoCorp.GUI.PatientSatisfaction.ViewModel
     {
         public List<Rating> Ratings { get; set; }
         public List<string> Comments { get; set; }
-        public SurveyAnalyticsViewModel(string doctor)
+        private ISurveyAnalyticsService _service;
+
+        public SurveyAnalyticsViewModel(int doctorId)
         {
-            SurveyAnalyticsService surveyAnalyticsService = new SurveyAnalyticsService();
-            Ratings = surveyAnalyticsService.GetRatings(doctor);
-            Comments = surveyAnalyticsService.GetComments(doctor);
+            if (doctorId <= 0)
+            {
+                _service = new HospitalSurveyAnalyticsService();
+            }
+            else
+            {
+                _service = new DoctorSurveyAnalyticsService(doctorId);
+            }
+            Ratings = _service.GetRatings();
+            Comments = _service.GetComments();
         }
     }
 }

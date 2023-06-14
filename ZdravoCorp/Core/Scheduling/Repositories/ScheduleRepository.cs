@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Repositories.Interfaces;
+using ZdravoCorp.Core.VacationRequest.Model;
 using ZdravoCorp.Core.UserManager.Model;
 
 namespace ZdravoCorp.Core.Scheduling.Repositories
@@ -183,6 +184,18 @@ namespace ZdravoCorp.Core.Scheduling.Repositories
                 if (appointment.ExaminationId == examinationId) return appointment;
             }
             return null;
+        }
+        public List<CancellationNotification> CancelAppointments(int doctorId, TimeSlot timeSlot)
+        {
+            List<CancellationNotification> cancelled = new List<CancellationNotification>();
+            foreach (Appointment appointment in schedule.Appointments)
+            {
+                if (!appointment.IsCancellable(doctorId, timeSlot)) continue;
+                appointment.IsCanceled = true;
+                cancelled.Add(new CancellationNotification(appointment));
+            }
+            WriteAllAppointmens();
+            return cancelled;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using ZdravoCorp.Core.PatientHealthcare.PatientMedicalRecord.Services;
 using ZdravoCorp.Core.PatientNotification.Services;
 using ZdravoCorp.Core.PatientSatisfaction.Services;
@@ -99,6 +100,19 @@ namespace ZdravoCorp
         {
             HospitalSurveyView hospitalSurveyView = new HospitalSurveyView(patient, hospitalSurveyService);
             hospitalSurveyView.ShowDialog();
+        }
+        public void ShowNotifications(List<Appointment> cancelledAppointments)
+        {
+
+            foreach (Appointment appointment in cancelledAppointments)
+            {
+                MessageBox.Show("Appointment with" + appointment.InfoForPatient() + " has been cancelled due to the " +
+                    "corresponding physician being unavailable at this time.");
+            }
+        }
+        public int GetPatientId()
+        {
+            return patient.Id;
         }
     }
 }

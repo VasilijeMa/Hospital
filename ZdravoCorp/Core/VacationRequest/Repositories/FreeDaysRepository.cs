@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,22 @@ namespace ZdravoCorp.Core.VacationRequest.Repositories
                 freeDaysList.Add(freeDays);
             }
             return freeDaysList;
+        }
+
+        public List<FreeDays> GetAll()
+        {
+            List<FreeDays> requests = new List<FreeDays>();
+            foreach(FreeDays request in freeDays)
+            {
+                requests.Add(request);
+            }
+            return requests;
+        }
+
+        public void SaveAll(List<FreeDays> remainingRequests)
+        {
+            freeDays = remainingRequests;
+            WriteAll();
         }
     }
 }

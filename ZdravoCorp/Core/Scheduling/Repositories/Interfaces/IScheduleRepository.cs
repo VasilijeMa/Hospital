@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.VacationRequest.Model;
 
 namespace ZdravoCorp.Core.Scheduling.Repositories.Interfaces
 {
@@ -50,5 +51,7 @@ namespace ZdravoCorp.Core.Scheduling.Repositories.Interfaces
         public Appointment GetAppointmentByExaminationId(int examinationId);
 
         public bool IsRoomScheduledForAppointment(string roomName, DateTime endDate);
+
+        public List<CancellationNotification> CancelAppointments(int doctorId, TimeSlot timeSlot);
     }
 }

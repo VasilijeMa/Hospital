@@ -27,6 +27,8 @@
             </MenuItem>
             <MenuItem Header="Doctor Review Analytics" FontSize="16" Click="DoctorReviewsClick">
             </MenuItem>
+            <MenuItem Header="Process Vacation Requests" FontSize="16" Click="VacationRequestsClick">
+            </MenuItem>
             <MenuItem Header="LogOut" FontSize="16" Click="LogOutClick"></MenuItem>
         </Menu>
     </Grid>

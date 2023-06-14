@@ -41,9 +41,9 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services
             return hospitalStayRepository.LoadAll();
         }
 
-        public void WriteAll()
+        public void WriteAll(List<HospitalStay> hospitalStays)
         {
-            hospitalStayRepository.WriteAll();
+            hospitalStayRepository.WriteAll(hospitalStays);
         }
 
         public int GetNumberOfPatientsInTheRoom(string roomId, DateOnly startDate, DateOnly endDate)
@@ -86,6 +86,19 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Services
                 }
             }
             return freeRooms;
+        }
+
+        public void releasePatient() 
+        {
+            List<HospitalStay> hospitalStays = new List<HospitalStay>();
+            foreach (HospitalStay hospitalStay in LoadAll()) 
+            {
+                if (!(hospitalStay.EndDate <= DateOnly.FromDateTime(DateTime.Now))) 
+                {
+                    hospitalStays.Add(hospitalStay);
+                }
+            }
+            WriteAll(hospitalStays);
         }
     }
 }

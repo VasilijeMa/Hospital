@@ -23,7 +23,7 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Repositories
         public void Add(HospitalStay hospitalStay)
         {
             HospitalStays.Add(hospitalStay);
-            WriteAll();
+            WriteAll(HospitalStays);
         }
 
         public HospitalStay GetHospitalStay(int examinationId)
@@ -46,9 +46,9 @@ namespace ZdravoCorp.Core.PatientHealthcare.Hospitalcare.Repositories
             return JsonConvert.DeserializeObject<List<HospitalStay>>(json);
         }
 
-        public void WriteAll()
+        public void WriteAll(List<HospitalStay> hospitalStays)
         {
-            string json = JsonConvert.SerializeObject(HospitalStays, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(hospitalStays, Formatting.Indented);
             File.WriteAllText("./../../../../ZdravoCorp/data/hospitalstay.json", json);
         }
 

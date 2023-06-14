@@ -42,6 +42,8 @@ namespace ZdravoCorp
         private readonly IChatRepository _chatRepository;
         private readonly IRoomRepository _roomRepository;
         private readonly IHospitalStayRepository _hospitalStayRepository;
+        private readonly ICancellationNotificationRepository _cancellationNotificationRepository;
+        private readonly IProcessedVacationRequestRepository _processedVacationRequestRepository;
 
         private static Institution instance;
 
@@ -77,6 +79,8 @@ namespace ZdravoCorp
             _chatRepository = new ChatsRepository();
             _roomRepository = new RoomRepository();
             _hospitalStayRepository = new HospitalStayRepository();
+            _cancellationNotificationRepository = new CancellationNotificationRepository();
+            _processedVacationRequestRepository = new ProcessedVacationRequestRepository();
         }
 
         public IAnamnesisRepository AnamnesisRepository { get => _anamnesisRepository; }
@@ -116,5 +120,7 @@ namespace ZdravoCorp
         public IHospitalStayRepository HospitalStayRepository { get => _hospitalStayRepository; }
 
         public IRoomRepository RoomRepository { get => _roomRepository; }
+        public ICancellationNotificationRepository CancellationNotificationRepository { get => _cancellationNotificationRepository; }
+        public IProcessedVacationRequestRepository ProcessedVacationRequestRepository { get => _processedVacationRequestRepository; }
     }
 }

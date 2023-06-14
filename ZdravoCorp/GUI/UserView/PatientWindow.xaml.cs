@@ -6,6 +6,7 @@ using ZdravoCorp.Core.PatientSatisfaction.Services;
 using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.Scheduling.Services;
 using ZdravoCorp.Core.UserManager.Model;
+using ZdravoCorp.Core.VacationRequest.Services;
 using ZdravoCorp.GUI.View.Patient;
 using ZdravoCorp.View;
 
@@ -18,9 +19,13 @@ namespace ZdravoCorp
         private DoctorSurveyService doctorSurveyService;
         private HospitalSurveyService hospitalSurveyService;
         private AnamnesisService anamnesisService;
-            public PatientWindow(Patient patient, DoctorSurveyService doctorSurveyService, HospitalSurveyService hospitalSurveyService, AnamnesisService anamnesisService)
+        private CancellationNotificationService cancellationNotificationService;
+            public PatientWindow(Patient patient, DoctorSurveyService doctorSurveyService, HospitalSurveyService hospitalSurveyService,
+                AnamnesisService anamnesisService, CancellationNotificationService cancellationNotificationService)
         {
             InitializeComponent();
+            this.cancellationNotificationService = cancellationNotificationService;
+            ShowNotifications(cancellationNotificationService.ExecuteNotifications(patient.Id));
             this.doctorSurveyService = doctorSurveyService;
             this.hospitalSurveyService = hospitalSurveyService;
             this.patient = patient;
@@ -101,7 +106,7 @@ namespace ZdravoCorp
             HospitalSurveyView hospitalSurveyView = new HospitalSurveyView(patient, hospitalSurveyService);
             hospitalSurveyView.ShowDialog();
         }
-        public void ShowNotifications(List<Appointment> cancelledAppointments)
+        private void ShowNotifications(List<Appointment> cancelledAppointments)
         {
 
             foreach (Appointment appointment in cancelledAppointments)
@@ -109,10 +114,6 @@ namespace ZdravoCorp
                 MessageBox.Show("Appointment with" + appointment.InfoForPatient() + " has been cancelled due to the " +
                     "corresponding physician being unavailable at this time.");
             }
-        }
-        public int GetPatientId()
-        {
-            return patient.Id;
         }
     }
 }

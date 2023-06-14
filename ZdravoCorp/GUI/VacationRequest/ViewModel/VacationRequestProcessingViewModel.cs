@@ -18,17 +18,16 @@ namespace ZdravoCorp.GUI.VacationRequest.ViewModel
         public ICommand ApproveCommand { get; set; }
         public ICommand DenyCommand { get; set;}
 
-        public VacationRequestProcessingViewModel()
+        public VacationRequestProcessingViewModel(VacationRequestProcessingService vacationRequestProcessingService)
         {
             VacationRequests = new ObservableCollection<FreeDays>();
-            VacationRequestProcessingService service = new VacationRequestProcessingService();
-            List<FreeDays> requests = service.GetRequests();
+            List<FreeDays> requests = vacationRequestProcessingService.GetRequests();
             foreach (FreeDays request in requests)
             {
                 VacationRequests.Add(request);
             }
-            ApproveCommand = new ProcessVacationRequestCommand(this, true);
-            DenyCommand = new ProcessVacationRequestCommand(this, false);
+            ApproveCommand = new ProcessVacationRequestCommand(this, true, vacationRequestProcessingService);
+            DenyCommand = new ProcessVacationRequestCommand(this, false, vacationRequestProcessingService);
         }
 
         public (FreeDays, List<FreeDays>) RemoveRequest()

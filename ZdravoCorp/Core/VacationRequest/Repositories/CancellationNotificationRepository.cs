@@ -17,7 +17,7 @@ namespace ZdravoCorp.Core.VacationRequest.Repositories
         public List<CancellationNotification> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/cancellationNotifications.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/cancellationNotifications.json");
             var json = reader.ReadToEnd();
             List<CancellationNotification> allNotifications = JsonConvert.DeserializeObject<List<CancellationNotification>>(json);
 
@@ -31,7 +31,7 @@ namespace ZdravoCorp.Core.VacationRequest.Repositories
         public void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_cancellationNotifications, Formatting.Indented);
-            File.WriteAllText("./../../../data/cancellationNotifications.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/cancellationNotifications.json", json);
         }
         public void AddAll(List<CancellationNotification> notifications)
         {

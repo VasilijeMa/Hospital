@@ -2,6 +2,7 @@
 using ZdravoCorp.Core.Enums;
 using ZdravoCorp.Core.PatientSatisfaction.View;
 using ZdravoCorp.Core.VacationRequest.Model;
+using ZdravoCorp.Core.VacationRequest.Services;
 using ZdravoCorp.GUI.VacationRequest.View;
 using ZdravoCorp.GUI.View.Patient;
 
@@ -12,8 +13,10 @@ namespace ZdravoCorp.ManagerView
     /// </summary>
     public partial class ManagerWindow : Window
     {
-        public ManagerWindow()
+        private VacationRequestProcessingService _vacationRequestProcessingService;
+        public ManagerWindow(VacationRequestProcessingService vacationRequestProcessingService)
         {
+            _vacationRequestProcessingService = vacationRequestProcessingService;
             InitializeComponent();
         }
 
@@ -69,7 +72,7 @@ namespace ZdravoCorp.ManagerView
 
         private void VacationRequestsClick(object sender, RoutedEventArgs e)
         {
-            VacationRequestProcessingView newWindow = new VacationRequestProcessingView();
+            VacationRequestProcessingView newWindow = new VacationRequestProcessingView(_vacationRequestProcessingService);
             newWindow.ShowDialog();
         }
 

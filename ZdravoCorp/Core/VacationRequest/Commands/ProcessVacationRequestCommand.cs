@@ -14,11 +14,11 @@ namespace ZdravoCorp.Core.VacationRequest.Commands
     {
         private VacationRequestProcessingViewModel viewModel;
         private bool approve;
+        private VacationRequestProcessingService service;
         public override void Execute(object? parameter)
         {
             if (viewModel.SelectedRequest < 0) return;
             (FreeDays request, List<FreeDays> remainingRequests) = viewModel.RemoveRequest();
-            VacationRequestProcessingService service = new VacationRequestProcessingService();
             service.AddProcessedRequest(request, approve);
             service.SaveRemainingRequests(remainingRequests);
             if (!approve)
@@ -27,10 +27,11 @@ namespace ZdravoCorp.Core.VacationRequest.Commands
             }
             service.CancelAppointments(request.DoctorId, request.StartDate, request.Duration);
         }
-        public ProcessVacationRequestCommand(VacationRequestProcessingViewModel viewModel, bool approve)
+        public ProcessVacationRequestCommand(VacationRequestProcessingViewModel viewModel, bool approve, VacationRequestProcessingService service)
         {
             this.viewModel = viewModel;
             this.approve = approve;
+            this.service = service;
         }
     }
 }

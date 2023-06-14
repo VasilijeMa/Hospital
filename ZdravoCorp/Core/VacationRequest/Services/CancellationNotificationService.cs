@@ -8,6 +8,7 @@ using ZdravoCorp.Core.Scheduling.Model;
 using ZdravoCorp.Core.VacationRequest.Model;
 using ZdravoCorp.Core.VacationRequest.Repositories;
 using ZdravoCorp.Core.VacationRequest.Repositories.Interfaces;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ZdravoCorp.Core.VacationRequest.Services
 {
@@ -15,31 +16,15 @@ namespace ZdravoCorp.Core.VacationRequest.Services
     {
         private ICancellationNotificationRepository _cancellationNotificationRepository;
 
-        public CancellationNotificationService()
+        public CancellationNotificationService(ICancellationNotificationRepository cancellationNotificationRepository)
         {
-            _cancellationNotificationRepository = new CancellationNotificationRepository();
+            _cancellationNotificationRepository = cancellationNotificationRepository;
         }
 
         
-        public void CheckWindows()
+        public List<Appointment> ExecuteNotifications(int patientId)
         {
-            IEnumerable<PatientWindow> patientWindows = null;
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                patientWindows = Application.Current.Windows.OfType<PatientWindow>();
-            });
-
-            if (patientWindows == null || !patientWindows.Any()) return;
-            foreach (PatientWindow window in patientWindows)
-            {
-                int patientId = 0;
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    patientId = window.GetPatientId();
-                    List<Appointment> cancelledAppointments = _cancellationNotificationRepository.ExecuteNotifications(patientId);
-                    window.ShowNotifications(cancelledAppointments);
-                });
-            }
+            return _cancellationNotificationRepository.ExecuteNotifications(patientId);
         }
     }
 }

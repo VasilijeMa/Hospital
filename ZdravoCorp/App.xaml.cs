@@ -21,7 +21,6 @@ namespace ZdravoCorp
         private Timer DynamicEquipmentAdder;
         private Timer StaticEquipmentMover;
         private Timer _renovator;
-        private Timer _notifier;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -29,7 +28,6 @@ namespace ZdravoCorp
             DynamicEquipmentAdder = new Timer(AddAndUpdateDynamicEquipment, null, TimeSpan.Zero, TimeSpan.FromMinutes(5)); // Thread timers
             StaticEquipmentMover = new Timer(TransferEquipmentService.MoveAllStaticEquipment, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
             _renovator = new Timer(Renovate, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
-            _notifier = new Timer(NotifyUsers, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -38,13 +36,6 @@ namespace ZdravoCorp
             DynamicEquipmentAdder.Dispose();
             StaticEquipmentMover.Dispose();
             _renovator.Dispose();
-        }
-        private void NotifyUsers(object state)
-        {
-
-            CancellationNotificationService service = new CancellationNotificationService();
-            service.CheckWindows();
-            
         }
         private void Renovate(object state)
         {

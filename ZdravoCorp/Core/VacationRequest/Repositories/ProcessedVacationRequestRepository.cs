@@ -17,7 +17,7 @@ namespace ZdravoCorp.Core.VacationRequest.Repositories
         public List<ProcessedVacationRequest> LoadAll()
         {
             var serializer = new JsonSerializer();
-            using StreamReader reader = new("./../../../data/processedVacationRequests.json");
+            using StreamReader reader = new("./../../../../ZdravoCorp/data/processedVacationRequests.json");
             var json = reader.ReadToEnd();
             List<ProcessedVacationRequest> allRequests = JsonConvert.DeserializeObject<List<ProcessedVacationRequest>>(json);
 
@@ -30,7 +30,7 @@ namespace ZdravoCorp.Core.VacationRequest.Repositories
         public void SaveAll()
         {
             string json = JsonConvert.SerializeObject(_processedVacationRequests, Formatting.Indented);
-            File.WriteAllText("./../../../data/processedVacationRequests.json", json);
+            File.WriteAllText("./../../../../ZdravoCorp/data/processedVacationRequests.json", json);
         }
 
         public void Add(ProcessedVacationRequest request)

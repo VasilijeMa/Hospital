@@ -31,7 +31,8 @@ namespace ZdravoCorp
         private HospitalSurveyService hospitalSurveyService;
         private AnamnesisService anamnesisService;
         private HospitalStayService hospitalStayService;
-
+        private CancellationNotificationService cancellationNotificationService;
+        private VacationRequestProcessingService vacationRequestProcessingService;
         public MainWindow()
         {
             InitializeComponent();
@@ -52,6 +53,9 @@ namespace ZdravoCorp
             medicamentsToAddService = new MedicamentsToAddService();
             hospitalStayService = new HospitalStayService(Institution.Instance.HospitalStayRepository,
                 Institution.Instance.RoomRepository);
+            cancellationNotificationService = new CancellationNotificationService(Institution.Instance.CancellationNotificationRepository);
+            vacationRequestProcessingService = new VacationRequestProcessingService(Institution.Instance.FreeDaysRepository,
+                Institution.Instance.ProcessedVacationRequestRepository, Institution.Instance.ScheduleRepository, Institution.Instance.CancellationNotificationRepository);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -85,7 +89,7 @@ namespace ZdravoCorp
                     OpenNurseWindow(user);
                     break;
                 case "manager":
-                    ManagerWindow managerWindow = new ManagerWindow();
+                    ManagerWindow managerWindow = new ManagerWindow(vacationRequestProcessingService);
                     managerWindow.ShowDialog();
                     break;
                 case "patient":
@@ -127,7 +131,7 @@ namespace ZdravoCorp
             Patient patient = patientService.GetByUsername(user.Username);
             if (!patient.IsBlocked)
             {
-                PatientWindow patientWindow = new PatientWindow(patient, doctorSurveyService, hospitalSurveyService, anamnesisService);
+                PatientWindow patientWindow = new PatientWindow(patient, doctorSurveyService, hospitalSurveyService, anamnesisService, cancellationNotificationService);
                 patientWindow.ShowDialog();
                 if (patient.IsBlocked)
                 {

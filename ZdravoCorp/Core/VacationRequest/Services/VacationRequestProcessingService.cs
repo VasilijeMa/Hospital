@@ -18,12 +18,15 @@ namespace ZdravoCorp.Core.VacationRequest.Services
         private IProcessedVacationRequestRepository _processedVacationRequestRepository;
         private IScheduleRepository _scheduleRepository;
         private ICancellationNotificationRepository _cancellationNotificationRepository;
-        public VacationRequestProcessingService()
+        public VacationRequestProcessingService(IFreeDaysRepository freeDaysRepository,
+            IProcessedVacationRequestRepository processedVacationRequestRepository,
+            IScheduleRepository scheduleRepository,
+            ICancellationNotificationRepository cancellationNotificationRepository)
         {
-            _freeDaysRepository = Institution.Instance.FreeDaysRepository;
-            _scheduleRepository = Institution.Instance.ScheduleRepository;
-            _processedVacationRequestRepository = new ProcessedVacationRequestRepository();
-            _cancellationNotificationRepository = new CancellationNotificationRepository();
+            _freeDaysRepository = freeDaysRepository;
+            _scheduleRepository = scheduleRepository;
+            _processedVacationRequestRepository = processedVacationRequestRepository;
+            _cancellationNotificationRepository = cancellationNotificationRepository;
         }
 
         public List<FreeDays> GetRequests()

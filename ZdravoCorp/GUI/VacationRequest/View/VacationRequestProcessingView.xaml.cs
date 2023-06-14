@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZdravoCorp.Core.VacationRequest.Services;
 using ZdravoCorp.GUI.VacationRequest.ViewModel;
 
 namespace ZdravoCorp.GUI.VacationRequest.View
@@ -20,9 +21,9 @@ namespace ZdravoCorp.GUI.VacationRequest.View
     /// </summary>
     public partial class VacationRequestProcessingView : Window
     {
-        public VacationRequestProcessingView()
+        public VacationRequestProcessingView(VacationRequestProcessingService vacationRequestProcessingService)
         {
-            VacationRequestProcessingViewModel viewModel = new VacationRequestProcessingViewModel();
+            VacationRequestProcessingViewModel viewModel = new VacationRequestProcessingViewModel(vacationRequestProcessingService);
             DataContext = viewModel;
             InitializeComponent();
         }

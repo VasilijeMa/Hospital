@@ -16,9 +16,7 @@ using ZdravoCorp.GUI.PhysicalAssets.ViewModel;
 
 namespace ZdravoCorp.ManagerView
 {
-    /// <summary>
-    /// Interaction logic for SimpleRoomRenovation.xaml
-    /// </summary>
+
     public partial class RenovationView : Window
     {
         public RenovationView(RenovationType renovationType)
